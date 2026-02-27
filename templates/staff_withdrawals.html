@@ -1,0 +1,282 @@
+{% extends "staff_base.html" %}
+{% block content %}
+<style>
+/* ===============================
+   WITHDRAWALS TABLE (CLEAN + FIX NAME)
+   =============================== */
+
+#withdrawalsTable{
+  width:100%;
+  table-layout:auto;              /* ✅ responsive */
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+/* vertical lines + center */
+#withdrawalsTable th,
+#withdrawalsTable td{
+  border-right: 3px solid rgba(184,184,184,.87);
+  text-align:center;
+  vertical-align:middle;
+  padding:10px;
+}
+
+#withdrawalsTable th:last-child,
+#withdrawalsTable td:last-child{
+  border-right:0;
+}
+
+/* ID column small */
+#withdrawalsTable th:nth-child(1),
+#withdrawalsTable td:nth-child(1){
+  width:60px;
+  min-width:60px;
+  font-size:12px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+/* ✅ FIX NAME COLUMN (no more Y a n g k o r) */
+#withdrawalsTable th:nth-child(2),
+#withdrawalsTable td:nth-child(2){
+  min-width: 140px;              /* ✅ adjust 120/140/160 */
+  white-space: nowrap;           /* ✅ keep in 1 line */
+  overflow: hidden;              /* ✅ if too long */
+  text-overflow: ellipsis;       /* ✅ show ... */
+}
+
+/* keep phone clean (1 line) */
+#withdrawalsTable th:nth-child(3),
+#withdrawalsTable td:nth-child(3){
+  min-width: 140px;
+  white-space: nowrap;
+}
+
+/* amount column (1 line) */
+#withdrawalsTable td.money{
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  font-weight:800;
+  min-width: 170px;
+}
+
+/* status column */
+#withdrawalsTable th:nth-child(5),
+#withdrawalsTable td:nth-child(5){
+  min-width: 170px;
+}
+
+/* save column */
+#withdrawalsTable td.save-cell{
+  text-align:center;
+  white-space: nowrap;
+}
+
+/* row shading */
+#withdrawalsTable tbody tr:nth-child(even){
+  background: rgba(0,65,130,.03);
+}
+#withdrawalsTable tbody tr:hover{
+  background: rgba(0,65,130,.06);
+}
+
+/* ✅ STATUS badge style (restore old look like image 1) */
+#withdrawalsTable select.status-select{
+  width: 100%;
+  padding: 10px 34px 10px 12px;
+  border: 0 !important;
+  border-bottom: 0 !important;
+  border-radius: 14px !important;
+  font-weight: 900 !important;
+
+  text-align: center !important;
+  text-align-last: center !important;
+
+  appearance: none !important;
+  -webkit-appearance: none !important;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.25),
+    0 10px 22px rgba(0,0,0,.18) !important;
+}
+#withdrawalsTable select.st-processing{ background:#0b5ea8 !important; color:#fff !important; }
+#withdrawalsTable select.st-paid{ background:#22c55e !important; color:#fff !important; }
+#withdrawalsTable select.st-rejected{ background:#ef4444 !important; color:#fff !important; }
+
+/* Processing */
+#withdrawalsTable select.st-processing{ background:#0b5ea8; color:#fff; }
+/* Paid */
+#withdrawalsTable select.st-paid{ background:#22c55e; color:#fff; }
+/* Rejected */
+#withdrawalsTable select.st-rejected{ background:#ef4444; color:#fff; }
+
+/* ✅ Withdrawals: PHONE = same as balance/users (blue) */
+#withdrawalsTable td:nth-child(3){
+  color: #004182 !important;
+  font-weight: 900 !important;
+}
+#withdrawalsTable td:nth-child(3) a{
+  color:#004182 !important;
+}
+/* ✅ Delete button (same row with Save) */
+.wd-del{
+  height: 38px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 0;
+  background: #dc2626;
+  color: #fff;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(0,0,0,.35);
+  margin-right: 8px;
+}
+.wd-del:hover{ opacity:.92; }
+</style>
+  <div class="card-h">
+    <div>
+      <div class="h1">Withdrawals</div>
+      <div class="muted">Review & set status</div>
+    </div>
+    <form method="get" style="display:flex;gap:10px;align-items:center;">
+      <input name="q" value="{{ q }}" placeholder="Search phone..." style="width:240px;">
+      <input name="status" value="{{ status }}" placeholder="status (processing/reviewed/paid/rejected)" style="width:320px;">
+      <button class="savebtn" type="submit">Filter</button>
+    </form>
+  </div>
+
+  <div class="content">
+  <div class="table-wrap">
+    <table id="withdrawalsTable">
+      <thead>
+        <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Save & Delete</th>
+      </tr>
+    </thead>
+    
+      <tbody>
+{% for w in page.object_list %}
+
+<form id="wdForm{{ w.id }}" method="post" action="{% url 'staff_withdrawal_update' w.id %}">
+  {% csrf_token %}
+</form>
+
+<tr>
+  <td>#{{ w.id }}</td>
+  <td class="user-font">{{ w.display_name|default:"—" }}</td>
+  <td class="user-font">{{ w.user.phone }}</td>
+
+  <td class="money money-cell" data-money="{{ w.amount }}" data-cur="{{ w.currency }}">
+    {{ w.amount }} {{ w.currency }}
+  </td>
+
+  <td class="status-cell">
+    <select name="status" form="wdForm{{ w.id }}" class="status-select">
+      <option value="processing" {% if w.status == "processing" %}selected{% endif %}>Processing</option>
+
+      <option value="paid" {% if w.status == "paid" or w.status == "payment_sent" %}selected{% endif %}>
+        Withdrawal Successfully
+      </option>
+
+      <option value="rejected" {% if w.status == "rejected" %}selected{% endif %}>Rejected</option>
+    </select>
+  </td>
+
+  <td class="save-cell">
+    <button type="button" class="wd-del" onclick="wdDelete({{ w.id }})">Delete</button>
+    <button class="savebtn" type="submit" form="wdForm{{ w.id }}">Save</button>
+  </td>
+</tr>
+
+{% empty %}
+<tr><td colspan="6" class="muted">No withdrawals</td></tr>
+{% endfor %}
+      </tbody>
+    </table>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const sels = document.querySelectorAll("#withdrawalsTable select.status-select");
+    
+        function paint(el) {
+  el.classList.remove("st-processing","st-paid","st-rejected");
+
+const v = (el.value || "").toLowerCase().trim();
+
+if (v === "processing") el.classList.add("st-processing");
+else if (v === "paid") el.classList.add("st-paid");
+else if (v === "rejected") el.classList.add("st-rejected");
+}
+    
+        sels.forEach(s => {
+          paint(s);
+          s.addEventListener("change", function(){ paint(this); });
+        });
+      });
+    </script>
+    <script>
+  // ===== Withdrawals: format amount like 1,000,000.00 =====
+  function formatMoneyWithComma(n){
+    const num = Number(n);
+    if(!Number.isFinite(num)) return n; // fallback if not number
+    return num.toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", function(){
+    document.querySelectorAll("#withdrawalsTable td.money").forEach(td => {
+      const raw = td.getAttribute("data-money");
+      const cur = td.getAttribute("data-cur") || "";
+      td.textContent = `${formatMoneyWithComma(raw)} ${cur}`.trim();
+    });
+  });
+</script>
+<script>
+function getCookie(name){
+  const parts = document.cookie.split(";").map(s=>s.trim());
+  for(const p of parts){
+    if(p.startsWith(name + "=")) return decodeURIComponent(p.slice(name.length + 1));
+  }
+  return "";
+}
+
+async function wdDelete(id){
+  if(!confirm("Delete this withdrawal?")) return;
+
+  const csrf = getCookie("csrftoken");
+  const res = await fetch(`/staff/withdrawals/${id}/delete/`, {
+    method: "POST",
+    credentials: "same-origin",
+    headers: {
+      "X-CSRFToken": csrf,
+      "X-Requested-With": "XMLHttpRequest"
+    }
+  });
+
+  const data = await res.json().catch(()=>null);
+  if(data && data.ok){
+    location.reload();
+    return;
+  }
+  alert("Delete failed: " + (data && data.error ? data.error : "unknown"));
+}
+</script>
+    <div class="pager">
+      {% if page.has_previous %}
+        <a href="?q={{ q }}&status={{ status }}&page={{ page.previous_page_number }}">← Prev</a>
+      {% endif %}
+      <span class="muted">Page {{ page.number }} / {{ page.paginator.num_pages }}</span>
+      {% if page.has_next %}
+        <a href="?q={{ q }}&status={{ status }}&page={{ page.next_page_number }}">Next →</a>
+      {% endif %}
+    </div>
+  </div>
+</div>  <!-- ✅ end table-wrap -->
+{% endblock %}

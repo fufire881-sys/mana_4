@@ -1,0 +1,219 @@
+{% extends "staff_base.html" %}
+{% load static %}
+{% block content %}
+<div class="card-h">
+  <div>
+    <div class="h1">Overview</div>
+    <div class="muted">Quick totals</div>
+  </div>
+
+<!-- ✅ Search (stay on dashboard) -->
+<form class="dash-search" method="get" action="{% url 'staff_dashboard' %}">
+  <div class="period-buttons">
+    <button type="submit" name="period" value=""
+        class="period-btn {% if period == '' %}active{% endif %}">
+        All
+    </button>
+  
+    <button type="submit" name="period" value="today"
+        class="period-btn {% if period == 'today' %}active{% endif %}">
+        Today
+    </button>
+  
+    <button type="submit" name="period" value="yesterday"
+        class="period-btn {% if period == 'yesterday' %}active{% endif %}">
+        Yesterday
+    </button>
+  
+    <button type="submit" name="period" value="this_week"
+        class="period-btn {% if period == 'this_week' %}active{% endif %}">
+        This Week
+    </button>
+  
+    <button type="submit" name="period" value="last_week"
+        class="period-btn {% if period == 'last_week' %}active{% endif %}">
+        Last Week
+    </button>
+  
+    <button type="submit" name="period" value="this_month"
+        class="period-btn {% if period == 'this_month' %}active{% endif %}">
+        This Month
+    </button>
+  
+    <button type="submit" name="period" value="last_month"
+        class="period-btn {% if period == 'last_month' %}active{% endif %}">
+        Last Month
+    </button>
+  </div>
+</form>
+</div>
+
+<div class="content staffdash staff-font">
+    <div class="stats-grid">
+
+      <!-- Total Users -->
+      <div class="stat-card stat-teal">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
+          <div>
+            <div class="muted">Total Users</div>
+            <div style="font-size:28px;font-weight:950;margin-top:6px;">{{ total_users }}</div>
+          </div>
+          <div class="stat-ico">
+            <img src="{% static 'icons/users.webp' %}" alt="Users">
+          </div>
+        </div>
+        <div style="margin-top:10px;">
+          <a class="btn btn-green" href="{% url 'staff_users' %}">Open →</a>
+        </div>
+      </div>
+
+      <!-- Loan Applications -->
+      <div class="stat-card stat-orange">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
+          <div>
+            <div class="muted">Loan Applications</div>
+            <div style="font-size:28px;font-weight:950;margin-top:6px;">{{ total_loans }}</div>
+          </div>
+          <div class="stat-ico">
+            <img src="{% static 'icons/loans.webp' %}" alt="Loans">
+          </div>
+        </div>
+        <div style="margin-top:10px;">
+          <a class="btn btn-green" href="{% url 'staff_loans' %}">Open →</a>
+        </div>
+      </div>
+
+      <!-- Withdrawals -->
+      <div class="stat-card stat-purple">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
+          <div>
+            <div class="muted">Withdrawals</div>
+            <div style="font-size:28px;font-weight:950;margin-top:6px;">{{ total_withdrawals }}</div>
+          </div>
+          <div class="stat-ico">
+            <img src="{% static 'icons/withdraw.webp' %}" alt="Withdrawals">
+          </div>
+        </div>
+        <div style="margin-top:10px;">
+          <a class="btn btn-green" href="{% url 'staff_withdrawals' %}">Open →</a>
+        </div>
+      </div>
+
+      <!-- Payment Methods -->
+      <div class="stat-card stat-dark">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
+          <div>
+            <div class="muted">Payment Methods</div>
+            <div style="font-size:28px;font-weight:950;margin-top:6px;">{{ total_payment_methods }}</div>
+          </div>
+          <div class="stat-ico">
+            <img src="{% static 'icons/payment.webp' %}" alt="Payments">
+          </div>
+        </div>
+        <div style="margin-top:10px;">
+          <a class="btn btn-green" href="{% url 'staff_payment_methods' %}">Open →</a>
+        </div>
+      </div>
+
+    </div>
+
+<!-- ===== Performance Overview ===== -->
+<div class="perf-wrap">
+
+  <div class="perf-card">
+    <div class="perf-head">
+      <div>
+        <div class="perf-title">Performance Overview</div>
+        <div class="perf-sub">User register activity</div>
+      </div>
+    </div>
+
+    <div class="perf-bars">
+      <div class="bar teal" style="height:{{ h_today|default:120 }}px;">
+        <i class="count" data-value="{{ reg_today }}">{{ reg_today }}</i>
+        <span>Today</span>
+      </div>
+
+      <div class="bar teal" style="height:{{ h_yesterday|default:100 }}px;">
+        <i class="count" data-value="{{ reg_yesterday }}">{{ reg_yesterday }}</i>
+        <span>Yesterday</span>
+      </div>
+
+      <div class="bar orange" style="height:{{ h_this_week|default:160 }}px;">
+        <i class="count" data-value="{{ reg_this_week }}">{{ reg_this_week }}</i>
+        <span>This Week</span>
+      </div>
+
+      <div class="bar orange" style="height:{{ h_last_week|default:140 }}px;">
+        <i class="count" data-value="{{ reg_last_week }}">{{ reg_last_week }}</i>
+        <span>Last Week</span>
+      </div>
+
+      <div class="bar purple" style="height:{{ h_this_month|default:170 }}px;">
+        <i class="count" data-value="{{ reg_this_month }}">{{ reg_this_month }}</i>
+        <span>This Month</span>
+      </div>
+
+      <div class="bar purple" style="height:{{ h_last_month|default:150 }}px;">
+        <i class="count" data-value="{{ reg_last_month }}">{{ reg_last_month }}</i>
+        <span>Last Month</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  <!-- RIGHT: User detail (show only when searched_user exists) -->
+  {% if searched_user %}
+  <div class="user-mini-card">
+    <div class="user-mini-head">
+      <div class="user-mini-icon">
+        <img src="{% static 'icons/users.webp' %}" alt="User">
+      </div>
+      <div class="user-mini-phone">{{ searched_user.phone }}</div>
+    </div>
+
+
+  {% endif %}
+
+</div>
+    
+    </div>
+
+    <style>
+      /* ===== Dashboard period buttons (All / Today / ...) ===== */
+      .period-buttons{
+        display:flex;
+        gap:10px;
+        align-items:center;
+        flex-wrap:wrap;
+      }
+    
+      /* default (not active) */
+      .period-btn{
+        appearance:none;
+        border:1px solid rgba(0,65,130,.25);
+        background:rgba(255,255,255,.70);
+        color:#004182 !important;          /* ✅ blue text */
+        font-weight:900;
+        padding:10px 16px;
+        border-radius:12px;
+        cursor:pointer;
+        box-shadow: 0 10px 22px rgba(0,0,0,.10);
+        transition: .15s ease;
+      }
+    
+      .period-btn:hover{
+        background:rgba(0,65,130,.08);
+        border-color:rgba(0,65,130,.45);
+      }
+    
+      /* active button */
+      .period-btn.active{
+        background:#004182 !important;     /* ✅ blue background */
+        color:#fff !important;             /* ✅ white text */
+        border-color:rgba(0,65,130,.85);
+        box-shadow: 0 12px 26px rgba(0,0,0,.18);
+      }
+    </style>    
+{% endblock %}
