@@ -35,8 +35,6 @@ CSRF_TRUSTED_ORIGINS = env_list(
 # APPS
 # ======================
 INSTALLED_APPS = [
-    "admin_interface",
-    "colorfield",
     "staffdash",
     "cloudinary",
     "jazzmin",
