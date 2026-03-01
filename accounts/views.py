@@ -1572,16 +1572,25 @@ def view_loan_status_update(request, loan_id):
     )
 
     new_status = (request.POST.get("status") or "").strip().upper()
-
-    # ✅ allow only these 3 (simple + safe)
-    allowed = {"PENDING", "APPROVED", "REJECTED"}
-    if new_status not in allowed:
+    if new_status not in {"PENDING", "APPROVED", "REJECTED"}:
         messages.error(request, "Invalid status ❌")
         return redirect(request.META.get("HTTP_REFERER", "control_loans"))
 
-    old_status = (loan.status or "").upper()
+    success_message = (request.POST.get("success_message") or "").strip()
 
-    # ✅ If approve -> credit balance ONLY ONCE
+    # ✅ ALWAYS update loan status
+    loan.status = new_status
+
+    # ✅ ALSO update user account_status (this is what dashboard shows)
+    u = loan.user
+    if new_status == "APPROVED":
+        u.account_status = "APPROVED"   # dashboard will show APPROVED (not ACTIVE)
+    elif new_status == "REJECTED":
+        u.account_status = "REJECTED"
+    else:
+        u.account_status = "PENDING"
+
+    # ✅ APPROVED: credit once + send success message
     if new_status == "APPROVED":
         if not loan.approved_at:
             loan.approved_at = timezone.now()
@@ -1593,24 +1602,32 @@ def view_loan_status_update(request, loan_id):
                 amt = Decimal("0")
 
             if amt > 0:
-                u = loan.user
-                try:
-                    bal = Decimal(str(u.balance or "0"))
-                except Exception:
-                    bal = Decimal("0")
-                u.balance = bal + amt
-                u.save(update_fields=["balance"])
+                u.balance = Decimal(str(u.balance or "0")) + amt
+
+            if success_message:
+                u.success_message = success_message
+                u.success_message_updated_at = timezone.now()
+                u.success_is_read = False
+
+            u.save(update_fields=[
+                "account_status",
+                "balance",
+                "success_message",
+                "success_message_updated_at",
+                "success_is_read"
+            ])
 
             loan.credited_to_balance = True
-
-    # if not approved -> keep approved_at empty (same behavior as you used)
-    if new_status != "APPROVED":
+        else:
+            # already credited but still ensure status saved
+            u.save(update_fields=["account_status"])
+    else:
+        # not approved => clear approve time
         loan.approved_at = None
+        u.save(update_fields=["account_status"])
 
-    loan.status = new_status
     loan.save(update_fields=["status", "approved_at", "credited_to_balance"])
 
-    messages.success(request, f"Loan #{loan.id} status updated ✅")
     return redirect(request.META.get("HTTP_REFERER", "control_loans"))
 
 @login_required(login_url="login")

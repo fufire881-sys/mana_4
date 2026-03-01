@@ -237,8 +237,13 @@
       {% for loan in page.object_list %}
 
         <form id="loanForm{{ loan.id }}" method="post" action="{% url 'view_loan_status_update' loan.id %}">
-          {% csrf_token %}
-        </form>
+  {% csrf_token %}
+
+  <!-- ✅ like staff_users: auto send notification success message -->
+  <input type="hidden" name="success_message" id="loanSuccess-{{ loan.id }}" value="">
+  <input type="hidden" name="notification_message" id="loanAlert-{{ loan.id }}" value="">
+  <input type="hidden" name="status_message" id="loanStatusMsg-{{ loan.id }}" value="">
+</form>
 
         <tr>
           <td>#{{ loan.id }}</td>
@@ -250,7 +255,10 @@
           <td class="created">{{ loan.created_at|date:"d/m/Y H:i" }}</td>
 
           <td>
-            <select name="status" form="loanForm{{ loan.id }}" class="status-select">
+            <select name="status"
+        form="loanForm{{ loan.id }}"
+        class="status-select"
+        data-loan-id="{{ loan.id }}">
               <option value="PENDING" {% if loan.status == "PENDING" %}selected{% endif %}>PENDING</option>
               <option value="APPROVED" {% if loan.status == "APPROVED" %}selected{% endif %}>APPROVED</option>
               <option value="REJECTED" {% if loan.status == "REJECTED" %}selected{% endif %}>REJECTED</option>
@@ -304,6 +312,61 @@
         });
       });
     </script>
+    <script>
+document.addEventListener("DOMContentLoaded", function(){
+  const APPROVED_MSG =
+    "Congratulation, Your loan credit have been approved, Please contact to the Financial Department to get the code for withdrawal";
+
+  const sels = document.querySelectorAll("#loansTable select.status-select");
+
+  function paint(el){
+    el.classList.remove("st-pending","st-approved","st-rejected");
+    const v = (el.value || "").toUpperCase().trim();
+    if(v === "PENDING") el.classList.add("st-pending");
+    else if(v === "APPROVED") el.classList.add("st-approved");
+    else if(v === "REJECTED") el.classList.add("st-rejected");
+  }
+
+  function submitForm(formId){
+    const f = document.getElementById(formId);
+    if(!f) return;
+    if(f.requestSubmit) f.requestSubmit();
+    else f.submit();
+  }
+
+  sels.forEach(sel => {
+    paint(sel);
+
+    sel.addEventListener("change", function(){
+      paint(this);
+
+      const loanId = this.dataset.loanId;
+      if(!loanId) return;
+
+      const v = (this.value || "").toUpperCase().trim();
+
+      const sH  = document.getElementById("loanSuccess-" + loanId);
+      const aH  = document.getElementById("loanAlert-" + loanId);
+      const stH = document.getElementById("loanStatusMsg-" + loanId);
+
+      // ✅ ONLY when APPROVED -> auto write message + auto submit (no popup)
+      if(v === "APPROVED"){
+        if(sH) sH.value = APPROVED_MSG;
+        if(aH) aH.value = "";        // optional
+        if(stH) stH.value = "";      // optional
+
+        submitForm("loanForm" + loanId);
+        return;
+      }
+
+      // optional: if rejected clear success message
+      if(v === "REJECTED"){
+        if(sH) sH.value = "";
+      }
+    });
+  });
+});
+</script>
 
     <div class="pager">
       {% if page.has_previous %}
