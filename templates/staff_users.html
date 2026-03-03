@@ -496,6 +496,46 @@ td.col-active .active-select{
 .st-btn .st-label{
   color: #fff !important;
 }
+/* =========================================
+   FIX STATUS BUTTON COLOR (NO JS)
+   uses: <button class="st-btn" data-current="ACTIVE">
+   ========================================= */
+
+/* default fallback = RED */
+.st-btn{ background: linear-gradient(90deg, #dc2626, #991b1b) !important; }
+
+/* GREEN codes */
+.st-btn[data-current="APPROVED"],
+.st-btn[data-current="ACTIVE"],
+.st-btn[data-current="ACCOUNT_UPDATED"],
+.st-btn[data-current="LOAN_PAID"],
+.st-btn[data-current="WITHDRAWAL_SUCCESSFUL"]{
+  background: linear-gradient(90deg, #0E5F2F, #1E8E3E) !important;
+}
+
+/* YELLOW codes */
+.st-btn[data-current="APP_MAINTENANCE"],
+.st-btn[data-current="INVALID_DETAIL"]{
+  background: linear-gradient(90deg, #f59e0b, #eab308) !important;
+}
+
+/* RED codes (optional explicit, but keeps stable) */
+.st-btn[data-current="RENEW_DOCUMENT_REQUIRED"],
+.st-btn[data-current="RENEW_OTP_CODE"],
+.st-btn[data-current="LOCKED"],
+.st-btn[data-current="BANNED"],
+.st-btn[data-current="FROZEN"],
+.st-btn[data-current="LOW_CREDIT"],
+.st-btn[data-current="RENEW_DOCUMENT_AND_OTP"],
+.st-btn[data-current="OVERDUE_RECORD"],
+.st-btn[data-current="REPAYMENT_ABILITY"],
+.st-btn[data-current="VIP_CHANNEL"],
+.st-btn[data-current="PURCHASE_LIFE_INSURANCE"],
+.st-btn[data-current="TAX_VERIFICATION"],
+.st-btn[data-current="PLATFORM_FEE"],
+.st-btn[data-current="AMLC_WARNING"]{
+  background: linear-gradient(90deg, #dc2626, #991b1b) !important;
+}
 /* ✅ make popup(modal) background brighter + clearer */
 .st-box{
   background: linear-gradient(180deg, #004182 0%, #42464bfb 100%) !important;

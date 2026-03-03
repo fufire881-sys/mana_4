@@ -309,21 +309,6 @@
         </div>
       </div>
 
-      <!-- Wallet -->
-      <div class="pm-section {% if saved %}pm-locked{% endif %}">
-        <div class="pm-title">Mobile Wallet</div>
-        <div style="display:grid;gap:10px;">
-          <div>
-            <div class="muted" style="font-size:12px;margin-bottom:6px;">Account name</div>
-            {{ form.wallet_name }}
-          </div>
-          <div>
-            <div class="muted" style="font-size:12px;margin-bottom:6px;">Phone number</div>
-            {{ form.wallet_phone }}
-          </div>
-        </div>
-      </div>
-
       {% if locked %}
         <div class="muted" style="margin-top:10px;">Locked: Please contact staff to update.</div>
       {% endif %}
