@@ -228,15 +228,38 @@ h1,h2,h3,h4,h5,h6{
 <body>
   <div class="wrap">
     <div class="topbar">
-      <div class="pill">
-        <div style="font-weight:900;">View Site / Log in by </div>
-        <div style="opacity:.9;">({{ request.user.phone }})</div>
-      </div>
-      <div class="pill">
-        <a class="btn" href="{% url 'control_home' %}">Dashboard</a>
-        <a class="btn" href="#" onclick="history.back();return false;">Back</a>
-      </div>
-    </div>
+
+  <!-- LEFT: login info -->
+  <div class="pill">
+    <div style="font-weight:900;">View Site / Log in by</div>
+    <div style="opacity:.9;">({{ request.user.phone }})</div>
+  </div>
+
+  <!-- RIGHT: dashboard (left) + logout (right) NOT stuck -->
+  <div style="display:flex; align-items:center; gap:18px;">
+    <a class="btn" href="/view/">Dashboard</a>
+
+    <form id="logoutForm" method="post" action="{% url 'logout' %}" style="margin:0;">
+      {% csrf_token %}
+      <button type="button" class="btn" id="logoutBtn">Logout</button>
+    </form>
+  </div>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const btn = document.getElementById("logoutBtn");
+  const form = document.getElementById("logoutForm");
+  if (!btn || !form) return;
+
+  btn.addEventListener("click", function () {
+    if (confirm("Are you sure you want to logout?")) {
+      form.submit();
+    }
+  });
+});
+</script>
 
     <div class="grid">
       <!-- LEFT MENU (3 only) -->
@@ -246,9 +269,9 @@ h1,h2,h3,h4,h5,h6{
           <span class="dot"></span>
         </div>
 
-        <a href="{% url 'control_users' %}" class="menu-item {% if request.resolver_match.url_name == 'control_users' %}active{% endif %}">Users <span>→</span></a>
-        <a href="{% url 'control_loans' %}" class="menu-item {% if request.resolver_match.url_name == 'control_loans' %}active{% endif %}">Loans <span>→</span></a>
-        <a href="{% url 'control_withdrawals' %}" class="menu-item {% if request.resolver_match.url_name == 'control_withdrawals' %}active{% endif %}">Withdrawals <span>→</span></a>
+        <a href="/view/users/" class="menu-item {% if request.path == '/view/users/' %}active{% endif %}">Users <span>→</span></a>
+<a href="/view/loans/" class="menu-item {% if request.path == '/view/loans/' %}active{% endif %}">Loans <span>→</span></a>
+<a href="/view/withdrawals/" class="menu-item {% if request.path == '/view/withdrawals/' %}active{% endif %}">Withdrawals <span>→</span></a>
       </div>
 
       <!-- RIGHT CONTENT -->

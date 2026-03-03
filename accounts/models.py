@@ -91,7 +91,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     withdraw_otp = models.CharField(max_length=10, blank=True, default="")
 
-    is_staff = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)     # staff portal
+    is_control = models.BooleanField(default=False)   # control portal
+    is_view = models.BooleanField(default=False)      # view portal
     is_active = models.BooleanField(default=True)
 
     objects = UserManager()
@@ -117,7 +119,7 @@ class LoanConfig(models.Model):
     """
     interest_rate_monthly = models.DecimalField(
         max_digits=10, decimal_places=6, default=Decimal("0.000500")
-    )  # 0.03% = 0.0003
+    )
     min_amount = models.DecimalField(
         max_digits=14, decimal_places=2, default=Decimal("80000.00")
     )

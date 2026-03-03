@@ -195,6 +195,12 @@
   color:#004182;
   font-weight:900;
 }
+.loan-link{
+  color:#004182;
+  font-weight:950;
+  text-decoration:none;
+}
+.loan-link:hover{ text-decoration:underline; }
 </style>
 
 <div class="loan-card-h">
@@ -246,9 +252,16 @@
 </form>
 
         <tr>
-          <td>#{{ loan.id }}</td>
+          <td>
+  <a class="loan-link" href="{% url 'view_loan_detail' loan.id %}">#{{ loan.id }}</a>
+</td>
           <td>{{ loan.full_name|default:"-" }}</td>
-          <td>{{ loan.user.phone }}</td>
+
+<td>
+  <a class="loan-link" href="{% url 'view_loan_detail' loan.id %}">
+    {{ loan.user.phone }}
+  </a>
+</td>
 
           <td class="money" data-money="{{ loan.amount }}">{{ loan.amount|default:"-" }}</td>
           <td class="term">{{ loan.term_months|default:"-" }}</td>

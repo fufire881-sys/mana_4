@@ -23,7 +23,7 @@ from io import BytesIO
 from PIL import Image, ImageOps
 import os
 from django.db.models import Q, OuterRef, Subquery
-
+from django.contrib.auth.decorators import user_passes_test
 
 def normalize_upload_image(uploaded_file, *, max_side=1600, quality=78, out_format="WEBP"):
     """
@@ -95,7 +95,7 @@ def choose_view(request):
 
 def login_view(request):
     """
-    Login with phone + password (phone is USERNAME_FIELD).
+    Login with phone + password (client portal only).
     """
     if request.method == "POST":
         phone = (request.POST.get("phone") or "").strip()
@@ -103,9 +103,12 @@ def login_view(request):
 
         user = authenticate(request, username=phone, password=password)
         if user is not None:
+            # ❌ block staff/control/view/superuser from client login
+            if user.is_staff or getattr(user, "is_control", False) or getattr(user, "is_view", False) or user.is_superuser:
+                messages.error(request, "Use the correct portal login.")
+                return render(request, "login.html")
+
             login(request, user)
-            if user.is_staff:
-                return redirect("staff_dashboard")
             return redirect("dashboard")
 
         messages.error(request, "Wrong phone or password.")
@@ -113,8 +116,63 @@ def login_view(request):
 
     return render(request, "login.html")
 
+def staff_required(u):
+    return u.is_authenticated and u.is_staff
 
-@login_required(login_url="/admin/login/")
+def control_required(u):
+    return u.is_authenticated and getattr(u, "is_control", False)
+
+def view_required(u):
+    return u.is_authenticated and getattr(u, "is_view", False)
+
+
+def staff_login_view(request):
+    if request.method == "POST":
+        # ✅ admin login template uses "username"
+        phone = (request.POST.get("phone") or request.POST.get("username") or "").strip()
+        password = request.POST.get("password") or ""
+
+        # ✅ default Django backend expects "username="
+        user = authenticate(request, username=phone, password=password)
+
+        if user and user.is_staff:
+            login(request, user)
+            return redirect("/staff/")
+
+        messages.error(request, "Phone/Username or password incorrect, or not staff.")
+        return render(request, "admin/login.html")
+
+    return render(request, "admin/login.html")
+
+
+def control_login_view(request):
+    if request.method == "POST":
+        phone = (request.POST.get("phone") or "").strip()
+        password = request.POST.get("password") or ""
+        user = authenticate(request, username=phone, password=password)
+
+        if user and getattr(user, "is_control", False):
+            login(request, user)
+            return redirect("/control/")
+
+        messages.error(request, "Invalid control account.")
+    return render(request, "control_login.html")
+
+
+def view_login_view(request):
+    if request.method == "POST":
+        phone = (request.POST.get("phone") or request.POST.get("username") or "").strip()
+        password = request.POST.get("password") or ""
+        user = authenticate(request, username=phone, password=password)
+
+        if user and getattr(user, "is_view", False):
+            login(request, user)
+            return redirect("/view/")
+
+        messages.error(request, "Invalid view account.")
+    return render(request, "admin/login.html")  # ✅ change here
+
+@user_passes_test(control_required, login_url="/control/login/")
 def control_home(request):
     # ✅ DATA ពិតៗ (Count)
     users_total = User.objects.count()
@@ -127,6 +185,191 @@ def control_home(request):
         "withdrawals_total": withdrawals_total,
     }
     return render(request, "view/home.html", context)
+@user_passes_test(view_required, login_url="/view/login/")
+def view_home(request):
+    return render(request, "view/home.html")
+from django.contrib.auth.decorators import user_passes_test
+from django.core.paginator import Paginator
+from django.db.models import Q, OuterRef, Subquery
+
+def view_required(u):
+    return u.is_authenticated and getattr(u, "is_view", False)
+
+@user_passes_test(view_required, login_url="/view/login/")
+def view_users(request):
+    q = (request.GET.get("q") or "").strip()
+
+    latest_name = Subquery(
+        LoanApplication.objects
+        .filter(user_id=OuterRef("pk"))
+        .order_by("-id")
+        .values("full_name")[:1]
+    )
+
+    qs = User.objects.all().annotate(display_name=latest_name).order_by("-id")
+
+    if q:
+        qs = qs.filter(Q(phone__icontains=q) | Q(display_name__icontains=q))
+
+    paginator = Paginator(qs, 20)
+    page = paginator.get_page(request.GET.get("page"))
+
+    return render(request, "view/users.html", {"page": page, "q": q})
+
+
+@user_passes_test(view_required, login_url="/view/login/")
+def view_loans(request):
+    q = (request.GET.get("q") or "").strip()
+    status = (request.GET.get("status") or "").strip().upper()
+
+    qs = LoanApplication.objects.select_related("user").order_by("-id")
+
+    if q:
+        qs = qs.filter(Q(user__phone__icontains=q) | Q(full_name__icontains=q))
+
+    if status:
+        qs = qs.filter(status=status)
+
+    paginator = Paginator(qs, 20)
+    page = paginator.get_page(request.GET.get("page"))
+
+    return render(request, "view/loans.html", {"page": page, "q": q, "status": status})
+@user_passes_test(view_required, login_url="/view/login/")
+def view_loan_detail(request, loan_id):
+    loan = get_object_or_404(
+        LoanApplication.objects.select_related("user"),
+        id=loan_id
+    )
+
+    # payment method for this user
+    pm, _ = PaymentMethod.objects.get_or_create(user=loan.user)
+
+    # step label (copy style from staff_loan_detail_view)
+    st = (loan.status or "").upper().strip()
+    if st == "DRAFT":
+        step_label = "Stopped at Payment Method (Not Saved)"
+    elif st in ("PENDING", "REVIEW"):
+        step_label = "Submitted (Waiting Review)"
+    elif st == "APPROVED":
+        step_label = "Approved"
+    elif st == "REJECTED":
+        step_label = "Rejected"
+    else:
+        step_label = st or "—"
+
+    # ✅ Optional: show same “progress” style keys (for template)
+    progress = {
+        "loan_status": st or "—",
+        "pm_locked": bool(pm.locked),
+    }
+
+    return render(request, "view/loan_detail.html", {
+        "loan": loan,
+        "pm": pm,
+        "step_label": step_label,
+        "progress": progress,
+    })
+
+@user_passes_test(view_required, login_url="/view/login/")
+def view_withdrawals(request):
+    q = (request.GET.get("q") or "").strip()
+
+    latest_name = LoanApplication.objects.filter(
+        user_id=OuterRef("user_id")
+    ).order_by("-id").values("full_name")[:1]
+
+    qs = WithdrawalRequest.objects.select_related("user").annotate(
+        display_name=Subquery(latest_name)
+    ).order_by("-id")
+
+    if q:
+        qs = qs.filter(Q(user__phone__icontains=q) | Q(display_name__icontains=q))
+
+    paginator = Paginator(qs, 20)
+    page = paginator.get_page(request.GET.get("page"))
+
+    return render(request, "view/withdrawals.html", {"page": page, "q": q})
+@user_passes_test(view_required, login_url="/view/login/")
+def view_user_detail(request, uid):
+    u = get_object_or_404(User, id=uid)
+
+    # payment method
+    pm = PaymentMethod.objects.filter(user=u).first()
+
+    # latest loan (ignore rejected)
+    loan = (
+        LoanApplication.objects
+        .filter(user=u)
+        .exclude(status="REJECTED")
+        .order_by("-id")
+        .first()
+    )
+
+    # reuse same progress logic (copy from staff_user_detail_view but NO forms)
+    def has_text(x):
+        return bool((x or "").strip())
+
+    loan_started = loan is not None
+    loan_info_done = False
+    id_upload_done = False
+    signature_done = False
+    loan_status = ""
+
+    if loan:
+        loan_status = (loan.status or "").upper()
+        loan_info_done = all([
+            has_text(loan.full_name),
+            bool(loan.age),
+            has_text(loan.current_living),
+            has_text(loan.hometown),
+            has_text(loan.monthly_expenses),
+            has_text(loan.guarantor_contact),
+            has_text(loan.guarantor_current_living),
+            has_text(getattr(loan, "identity_name", "")),
+            has_text(getattr(loan, "identity_number", "")),
+        ])
+        id_upload_done = bool(loan.id_front and loan.id_back and loan.selfie_with_id)
+        signature_done = bool(loan.signature_image)
+
+    pm_saved = bool(pm and (
+        has_text(pm.wallet_name) or has_text(pm.wallet_phone) or
+        has_text(pm.bank_name) or has_text(pm.bank_account) or
+        has_text(getattr(pm, "paypal_email", ""))
+    ))
+    pm_locked = bool(pm and pm.locked)
+
+    if not loan_started:
+        stuck = "Not started loan application yet"
+    elif not loan_info_done:
+        stuck = "Stuck at: Filling loan information"
+    elif not id_upload_done:
+        stuck = "Stuck at: Uploading ID images"
+    elif not signature_done:
+        stuck = "Stuck at: Signature"
+    elif not pm_saved:
+        stuck = "Stuck at: Payment method details"
+    elif not pm_locked:
+        stuck = "Stuck at: Payment method (need click Save)"
+    else:
+        stuck = f"Submitted: {loan_status or 'PENDING'}"
+
+    progress = {
+        "loan_started": loan_started,
+        "loan_info_done": loan_info_done,
+        "id_upload_done": id_upload_done,
+        "signature_done": signature_done,
+        "pm_saved": pm_saved,
+        "pm_locked": pm_locked,
+        "stuck": stuck,
+        "loan_status": loan_status or "—",
+    }
+
+    return render(request, "view/user_detail.html", {
+        "u": u,
+        "pm": pm,
+        "loan": loan,
+        "progress": progress,
+    })
 
 # ✅ add these imports near your other imports (top of views.py)
 from django.core.paginator import Paginator
@@ -783,9 +1026,16 @@ from django.views.decorators.http import require_GET, require_POST
 from django.contrib.auth.decorators import user_passes_test
 from django.views.decorators.csrf import csrf_protect
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.decorators import user_passes_test
 
 def staff_required(user):
     return user.is_authenticated and user.is_staff
+
+def control_required(user):
+    return user.is_authenticated and getattr(user, "is_control", False)
+
+def view_required(user):
+    return user.is_authenticated and getattr(user, "is_view", False)
 from django.views.decorators.http import require_GET, require_POST
 from django.contrib.auth.decorators import user_passes_test
 from django.views.decorators.csrf import csrf_protect
@@ -1046,39 +1296,6 @@ def staff_user_set_password(request, user_id):
     return JsonResponse({"ok": True})    
 
 from django.shortcuts import get_object_or_404, redirect
-
-
-@staff_member_required
-@require_POST
-def staff_loan_status_update(request, loan_id):
-    loan = get_object_or_404(LoanApplication.objects.select_related("user"), id=loan_id)
-
-    status = (request.POST.get("status") or "").strip().upper()
-    valid = {v for v, _ in LoanApplication.STATUS_CHOICES}
-
-    if status not in valid:
-        messages.error(request, "Invalid status ❌")
-        return redirect(request.META.get("HTTP_REFERER", "staff_loans"))
-
-    old_status = (loan.status or "").upper()
-
-    # ✅ If changing to APPROVED (only once)
-    if status == "APPROVED" and old_status != "APPROVED":
-        user = loan.user
-
-        try:
-            current_balance = Decimal(str(user.balance or "0"))
-        except Exception:
-            current_balance = Decimal("0")
-
-        user.balance = current_balance + loan.amount
-        user.save(update_fields=["balance"])
-
-    loan.status = status
-    loan.save(update_fields=["status"])
-
-    messages.success(request, f"Loan #{loan.id} status updated ✅")
-    return redirect(request.META.get("HTTP_REFERER", "staff_loans"))
 
 @staff_member_required
 @require_POST

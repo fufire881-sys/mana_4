@@ -114,7 +114,6 @@ class UserAdmin(admin.ModelAdmin):
     fields = (
         "phone",
 
-        # ✅ Register info (NEW)
         "register_ip",
         "register_country",
         "register_city",
@@ -133,6 +132,8 @@ class UserAdmin(admin.ModelAdmin):
 
         "is_active",
         "is_staff",
+        "is_view",
+        "is_control",
         "groups",
         "user_permissions",
     )
@@ -146,19 +147,6 @@ class UserAdmin(admin.ModelAdmin):
         "notification_updated_at",
         "success_message_updated_at",
     )
-
-    def save_model(self, request, obj, form, change):
-        from django.utils import timezone
-
-        if "notification_message" in form.changed_data:
-            obj.notification_updated_at = timezone.now()
-            obj.notification_is_read = False
-
-        if "success_message" in form.changed_data:
-            obj.success_message_updated_at = timezone.now()
-            obj.success_is_read = False
-
-        super().save_model(request, obj, form, change)
 
     def save_model(self, request, obj, form, change):
         from django.utils import timezone
