@@ -1361,6 +1361,27 @@ a.quick{ border-radius: 999px !important; }
 
 .fx-country{ opacity: .78 !important; }
 .fx-meta{ color:#ffffff !important; opacity:.88 !important; }
+/* ✅ Dashboard-only status message box */
+.dash-status-msg{
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  font-weight: 900;
+  font-size: 12px;
+  line-height: 1.35;
+  border: 2px solid rgba(255,255,255,.18);
+  box-shadow: 0 10px 24px rgba(0,0,0,.25);
+}
+
+.dash-status-green{
+  background: linear-gradient(90deg, #0E5F2F, #1E8E3E);
+  color:#fff;
+}
+
+.dash-status-red{
+  background: linear-gradient(90deg, #dc2626, #991b1b);
+  color:#fff;
+}
 </style>
 
 <div id="top"></div>
@@ -1428,22 +1449,22 @@ a.quick{ border-radius: 999px !important; }
       <div class="amount">PHP <span data-balance>{{ request.user.balance|default:"0.00" }}</span></div>
       <div class="muted" style="margin-top:6px;">
         {# Dashboard status badge #}
-        {% with raw=request.user.account_status|default:""|upper %}
-  {% with key=raw|cut:" "|cut:"_" %}
-    <span id="accStatusBadge"
-          class="status-badge
-            {% if key == 'ACTIVE' or key == 'APPROVED' or key == 'ACCOUNTUPDATED' or key == 'LOANPAID' or key == 'WITHDRAWALSUCCESSFUL' %}
-  status-active
-              status-active
-            {% elif key == 'APPMAINTENANCE' %}
-              status-warn
-            {% else %}
-              status-danger
-            {% endif %}">
-      {{ raw }}
-    </span>
-  {% endwith %}
+        {# Dashboard status badge (the badge in image 2) #}
+{# ✅ Dashboard status badge should read from DB directly #}
+{% with raw=request.user.dashboard_status_label|default:request.user.account_status|default:"ACTIVE" %}
+  <span id="accStatusBadge"
+        class="status-badge
+        {% if raw|lower == 'active' or raw|lower == 'approved' %}
+          status-active
+        {% elif raw|lower == 'pending' or raw|lower == 'review' or raw|lower == 'app maintenance' or raw|lower == 'invalid detail' %}
+          status-warn
+        {% else %}
+          status-danger
+        {% endif %}">
+    {{ raw }}
+  </span>
 {% endwith %}
+</span>
       </div>      
     </div>
   </div>

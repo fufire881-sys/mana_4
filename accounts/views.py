@@ -25,6 +25,7 @@ from django.db.models import Q, OuterRef, Subquery
 from django.contrib.auth.decorators import user_passes_test
 from django.views.decorators.csrf import csrf_protect
 
+
 def normalize_upload_image(uploaded_file, *, max_side=1600, quality=78, out_format="WEBP"):
     """
     Normalize any phone image -> WEBP, resize, fix orientation, reduce size.
@@ -525,7 +526,7 @@ def dashboard_view(request):
     last_loan = (
         LoanApplication.objects
         .filter(user=request.user)
-        .exclude(status__in=["REJECTED", "DRAFT"])  # ✅ ignore staff draft
+        .exclude(status__in=["REJECTED", "DRAFT"])
         .order_by("-id")
         .first()
     )
@@ -540,10 +541,22 @@ def dashboard_view(request):
     notif_msg = (getattr(request.user, "notification_message", "") or "").strip()
     notif_count = 1 if notif_msg else 0
 
+    raw_status = (getattr(request.user, "account_status", "ACTIVE") or "ACTIVE").strip()
+    key = raw_status.upper()
+
+    # ✅ custom label from DB field
+    label = (getattr(request.user, "dashboard_status_label", "") or "").strip()
+    if not label:
+        label = key
+
     return render(request, "dashboard.html", {
         "selfie_url": selfie_url,
         "last_loan": last_loan,
         "notif_count": notif_count,
+        "status_key": key,
+        "status_label": label,
+        "dash_status_key": key,
+        "dash_status_text": label,
     })
 import json
 import urllib.request
@@ -891,8 +904,8 @@ def staff_user_update(request, user_id):
     old_success = (u.success_message or "")
     old_status_msg = (getattr(u, "status_message", "") or "")
 
-    u.account_status = (request.POST.get("account_status") or u.account_status)
-    u.withdraw_otp = (request.POST.get("withdraw_otp") or "").strip()
+    if "account_status" in request.POST:
+     u.account_status = (request.POST.get("account_status") or "").strip()
 
     is_active_raw = (request.POST.get("is_active") or "").strip()
     if is_active_raw in ("True", "False"):
@@ -900,7 +913,10 @@ def staff_user_update(request, user_id):
 
     u.notification_message = (request.POST.get("notification_message") or "").strip()
     u.success_message = (request.POST.get("success_message") or "").strip()
-    u.status_message = (request.POST.get("status_message") or "").strip()
+    raw = (request.POST.get("status_message") or "").strip()
+    if "|" in raw:
+     _, raw = raw.split("|", 1)   # ✅ កាត់ color ចេញ
+    u.status_message = raw
 
     bal = (request.POST.get("balance") or "").strip()
     if bal != "":
@@ -922,6 +938,14 @@ def staff_user_update(request, user_id):
 
     # NOTE: We do NOT touch status_message timestamps here
     # because your model may not have status_message_updated_at fields.
+    # ✅ CUSTOM STATUS (SHOW ON USER) -> save into dashboard_status_label
+    # supports both input names: "custom_status" OR "dashboard_status_label"
+    custom_status = (request.POST.get("custom_status") or "").strip()
+    dash_label = (request.POST.get("dashboard_status_label") or "").strip()
+
+    # Priority: custom_status first, else dashboard_status_label
+    u.dashboard_status_label = custom_status if custom_status else dash_label
+    print("dashboard_status_label =", request.POST.get("dashboard_status_label"))
 
     u.save()
 
@@ -2240,9 +2264,19 @@ def latest_withdraw_status(request):
 @login_required(login_url="login")
 def realtime_state(request):
     user = request.user
+
+    # ✅ Balance
     bal = getattr(user, "balance", 0) or 0
 
-    status = (getattr(user, "account_status", "active") or "active").lower()
+    # ✅ Status KEY (keep stable, uppercase)
+    status_key = (getattr(user, "account_status", "ACTIVE") or "ACTIVE").strip().upper()
+
+    # ✅ Custom Status Label (show on user badge)
+    status_label = (getattr(user, "dashboard_status_label", "") or "").strip()
+    if not status_label:
+        status_label = status_key  # fallback
+
+    # ✅ Banner message (top red/yellow/green alert)
     msg = (getattr(user, "status_message", "") or "").strip()
 
     last = WithdrawalRequest.objects.filter(user=user).order_by("-id").first()
@@ -2253,20 +2287,24 @@ def realtime_state(request):
     success_msg = (getattr(user, "success_message", "") or "").strip()
 
     notif_count = (
-    (1 if alert_msg and not getattr(user, "notification_is_read", False) else 0) +
-    (1 if success_msg and not getattr(user, "success_is_read", False) else 0)
-)
+        (1 if alert_msg and not getattr(user, "notification_is_read", False) else 0) +
+        (1 if success_msg and not getattr(user, "success_is_read", False) else 0)
+    )
 
     return JsonResponse({
         "ok": True,
-        "account_status": status,
+
+        # ✅ status key + label
+        "account_status": status_key,
+        "account_status_label": status_label,
+
+        # ✅ banner message
         "status_message": msg,
+
         "balance": str(bal),
-
-        # ✅ add this
         "notif_count": notif_count,
-
         "otp_required": True if otp_required else False,
+
         "withdrawal": {
             "id": last.id if last else None,
             "status": last.status if last else "",

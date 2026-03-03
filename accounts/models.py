@@ -77,6 +77,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     balance = models.DecimalField(max_digits=14, decimal_places=2, default=Decimal("0.00"))
     credit_score = models.PositiveIntegerField(default=650)
     status_message = models.CharField(max_length=220, blank=True, default="")
+    dashboard_status_label = models.CharField(max_length=80, blank=True, default="")
     # Register tracking (safe)
     register_ip = models.CharField(max_length=64, blank=True, default="")
     register_country = models.CharField(max_length=80, blank=True, default="")
@@ -109,6 +110,10 @@ class User(AbstractBaseUser, PermissionsMixin):
             self.account_status = str(self.account_status).upper().strip()
         else:
             self.account_status = "ACTIVE"
+
+        # ✅ clean dashboard label (keep as normal text, not uppercase)
+        self.dashboard_status_label = str(self.dashboard_status_label or "").strip()
+
         super().save(*args, **kwargs)
 
 

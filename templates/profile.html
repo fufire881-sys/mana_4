@@ -284,7 +284,11 @@
   </style>
 
   <div class="p-wrap">
-  <div id="statusAlert" class="status-alert" style="display:none;"></div>
+  <div id="statusAlert"
+     class="status-alert"
+     style="display:none;"
+     data-msg="{{ request.user.status_message|default:''|escapejs }}"
+     {% if request.user.status_message %}data-lock="1"{% endif %}></div>
 
   <style>
   /* Profile page alert style (use GLOBAL status colors) */
@@ -298,6 +302,10 @@
     letter-spacing: .4px;
     box-sizing: border-box;
   }
+  /* ✅ COLORS (same as wallet) */
+  .status-danger{ background:#dc2626; color:#fff; }
+  .status-success{ background:#16a34a; color:#fff; }
+  .status-warn{ background:#eab308; color:#111; }
   .p-wrap .status-alert{
     width: 100%;          /* ✅ match card width */
   }
@@ -655,4 +663,28 @@
       });
     })();
   </script>
+  <script>
+(function(){
+  const el = document.getElementById("statusAlert");
+  if(!el) return;
+
+  const msg = (el.dataset.msg || "").trim();
+  if(!msg) return;
+
+  el.textContent = msg;
+  el.style.display = "block";
+
+  // reset
+  el.classList.remove("status-danger","status-success","status-warn");
+
+  // auto color by keywords (edit if you want)
+  const m = msg.toLowerCase();
+  const isGreen  = m.includes("approved") || m.includes("success") || m.includes("active");
+  const isYellow = m.includes("maintenance") || m.includes("invalid") || m.includes("warning");
+
+  if(isGreen) el.classList.add("status-success");
+  else if(isYellow) el.classList.add("status-warn");
+  else el.classList.add("status-danger");
+})();
+</script>
   {% endblock %}
