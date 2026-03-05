@@ -1,7 +1,10 @@
+"""
+Django settings for loan-site_clean2 project.
+"""
+
 from pathlib import Path
 import os
 import dj_database_url
-import cloudinary
 
 # ======================
 # BASE
@@ -84,7 +87,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 # ======================
-# DATABASE
+# DATABASE - CORRECTED
 # ======================
 DATABASES = {
     "default": dj_database_url.config(
@@ -93,6 +96,26 @@ DATABASES = {
         ssl_require=False,
     )
 }
+
+# Add PostgreSQL-specific options only for production
+if not DEBUG:
+    db_engine = DATABASES["default"].get("ENGINE", "")
+    if "postgresql" in db_engine or "postgres" in db_engine:
+        DATABASES["default"].setdefault("OPTIONS", {})
+        DATABASES["default"]["OPTIONS"]["connect_timeout"] = 10
+
+# ======================
+# CACHES - NEW (ធ្វើឲ្យលឿនជាងមុន)
+# ======================
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}
+
+# Cache timeout (5 minutes)
+CACHE_MIDDLEWARE_SECONDS = 300
 
 # ======================
 # AUTH / I18N
@@ -126,9 +149,11 @@ STORAGES = {
 }
 
 WHITENOISE_MANIFEST_STRICT = False
+
 # ======================
 # CLOUDINARY (ONE SOURCE OF TRUTH)
 # ======================
+import cloudinary
 cloudinary.config(
     cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME", ""),
     api_key=os.getenv("CLOUDINARY_API_KEY", ""),
@@ -143,17 +168,25 @@ CLOUDINARY_STORAGE = {
 }
 
 # ======================
+# PERFORMANCE OPTIMIZATIONS - NEW
+# ======================
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB max upload
+FILE_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB max memory upload
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000
+
+# Static files optimization
+WHITENOISE_MAX_AGE = 31536000  # 1 year cache
+
+# ======================
 # SECURITY (PRODUCTION)
 # ======================
 if not DEBUG:
     SECURE_HSTS_SECONDS = 31536000
     SECURE_HSTS_INCLUDE_SUBDOMAINS = True
     SECURE_HSTS_PRELOAD = True
-
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # ======================
@@ -172,16 +205,30 @@ JAZZMIN_SETTINGS = {
 }
 
 # ======================
-# LOGGING
+# LOGGING - CORRECTED (តែមួយដងតែប៉ុណ្ណោះ)
 # ======================
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
     "handlers": {
-        "console": {"class": "logging.StreamHandler"},
+        "console": {
+            "class": "logging.StreamHandler",
+        },
     },
     "root": {
         "handlers": ["console"],
-        "level": "ERROR",
+        "level": "WARNING",  # កាត់បន្ថយពី ERROR មក WARNING ដើម្បីឃើញបញ្ហាច្រើនជាងមុន
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+        "django.db.backends": {
+            "level": "WARNING",  # DEBUG ធ្វើឲ្យ slow ពេល production
+            "handlers": ["console"],
+            "propagate": False,
+        },
     },
 }
