@@ -1,5 +1,4 @@
 # config/gunicorn.conf.py
-import multiprocessing
 import os
 
 # Worker configuration
@@ -7,14 +6,14 @@ workers = 2
 threads = 4
 worker_class = "gthread"
 
-# Timeout settings - INCREASED for image processing
-timeout = 120  # ពី 30 មក 120 វិនាទី
-graceful_timeout = 120
-keep_alive = 5
+# Timeout settings - INCREASED significantly
+timeout = 300  # 5 នាទី (ពី 120)
+graceful_timeout = 300
+keep_alive = 10
 
-# Memory optimization
-max_requests = 500  # កាត់បន្ថយពី 1000 មក 500
-max_requests_jitter = 50
+# Memory optimization - REDUCED to prevent memory issues
+max_requests = 100  # កាត់ពី 500 មក 100
+max_requests_jitter = 20
 preload_app = True
 
 # File upload limits
@@ -25,7 +24,7 @@ limit_request_field_size = 8190
 # Logging
 accesslog = "-"
 errorlog = "-"
-loglevel = "info"
+loglevel = "warning"
 
 def when_ready(server):
     print("Gunicorn is ready!")
