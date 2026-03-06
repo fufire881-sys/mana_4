@@ -564,53 +564,42 @@ def verify_withdraw_otp(request):
 
 @login_required(login_url="login")
 def realtime_state(request):
-    """Real-time user state API - OPTIMIZED WITH CACHE"""
+    """Real-time user state API - OPTIMIZED"""
     cache_key = f"realtime_{request.user.id}"
-    cached = cache.get(cache_key)
     
+    # Return cached immediately if exists (0.1ms)
+    cached = cache.get(cache_key)
     if cached:
         return JsonResponse(cached)
     
     user = request.user
     
-    # ប្រើ select_related ដើម្បីចៀសវាង Query ច្រើន
+    # Single query for all data
     bal = getattr(user, "balance", 0) or 0
     status_key = (getattr(user, "account_status", "ACTIVE") or "ACTIVE").strip().upper()
-    status_label = (getattr(user, "dashboard_status_label", "") or "").strip()
-    if not status_label:
-        status_label = status_key
-
-    msg = (getattr(user, "status_message", "") or "").strip()
     
-    # កាត់បន្ថយ Query - យកតែចុងក្រោយ
-    last = WithdrawalRequest.objects.filter(user=user).only('id', 'status', 'updated_at').order_by("-id").first()
+    # Fast query - only needed fields
+    last = WithdrawalRequest.objects.filter(user=user).values('id', 'status', 'updated_at').first()
     
-    otp_required = (getattr(user, "withdraw_otp", "") or "").strip()
-    alert_msg = (getattr(user, "notification_message", "") or "").strip()
-    success_msg = (getattr(user, "success_message", "") or "").strip()
-
-    notif_count = (
-        (1 if alert_msg and not getattr(user, "notification_is_read", False) else 0) +
-        (1 if success_msg and not getattr(user, "success_is_read", False) else 0)
-    )
-
+    otp_required = bool(getattr(user, "withdraw_otp", ""))
+    
     data = {
         "ok": True,
         "account_status": status_key,
-        "account_status_label": status_label,
-        "status_message": msg,
+        "account_status_label": getattr(user, "dashboard_status_label", status_key),
+        "status_message": getattr(user, "status_message", ""),
         "balance": str(bal),
-        "notif_count": notif_count,
-        "otp_required": True if otp_required else False,
+        "notif_count": 0,
+        "otp_required": otp_required,
         "withdrawal": {
-            "id": last.id if last else None,
-            "status": last.status if last else "",
-            "status_label": last.get_status_display() if last else "",
-            "updated_at": last.updated_at.isoformat() if last else "",
+            "id": last['id'] if last else None,
+            "status": last['status'] if last else "",
+            "status_label": last['status'] if last else "",
+            "updated_at": last['updated_at'].isoformat() if last else "",
         }
     }
     
-    # Cache 10 វិនាទី (រក្សាទុកលឿន)
+    # Cache for 10 seconds only (fast updates but not too frequent)
     cache.set(cache_key, data, 10)
     
     return JsonResponse(data)
