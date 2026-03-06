@@ -39,7 +39,7 @@ from .models import User, LoanApplication, LoanConfig, PaymentMethod, Withdrawal
 from .forms import PaymentMethodForm, StaffUserForm, StaffPaymentMethodForm
 
 # Constants
-INTEREST_RATE_MONTHLY = Decimal("0.000500")  # 0.05%
+INTEREST_RATE_MONTHLY = Decimal("0.005")  # 0.5%
 
 # ======================
 # HELPER FUNCTIONS
@@ -720,7 +720,9 @@ def loan_status_api(request):
 
 @login_required(login_url="login")
 def contract_view(request):
-    """Loan contract view"""
+    """Loan contract view - FIXED to show correct 0.5% calculation"""
+    from decimal import Decimal
+    
     loan = (
         LoanApplication.objects
         .filter(user=request.user)
@@ -729,6 +731,22 @@ def contract_view(request):
         .first()
     )
 
+    # ✅ FIX: គណនាឡើងវិញដោយប្រើ 0.5% (0.005) ជំនួសឲ្យការយកពី Database ដែលខុស
+    monthly_display = "0.00"
+    if loan:
+        try:
+            amt = Decimal(str(loan.amount or 0))
+            terms = int(loan.term_months or 0)
+            if amt > 0 and terms > 0:
+                rate = Decimal("0.005")  # ✅ 0.5% ត្រឹមត្រូវ
+                total = amt + (amt * rate * terms)
+                monthly_calc = total / terms
+                monthly_display = str(monthly_calc)
+            else:
+                monthly_display = str(loan.monthly_repayment or "0.00")
+        except:
+            monthly_display = str(loan.monthly_repayment or "0.00")
+
     ctx = {
         "full_name": getattr(loan, "full_name", "") or "",
         "phone": getattr(request.user, "phone", "") or "",
@@ -736,7 +754,7 @@ def contract_view(request):
         "amount": str(getattr(loan, "amount", "") or "0.00"),
         "term_months": getattr(loan, "term_months", "") or "",
         "interest_rate": "0.5",
-        "monthly_repayment": str(getattr(loan, "monthly_repayment", "") or "0.00"),
+        "monthly_repayment": monthly_display,  # ✅ ប្រើតម្លៃដែលគណនាឡើងវិញត្រឹមត្រូវ
     }
     return render(request, "contract.html", ctx)
 
