@@ -158,8 +158,8 @@ CSRF_COOKIE_SAMESITE = 'Lax'
 CSRF_USE_SESSIONS = False
 
 # Upload settings - កាត់បន្ថយទំហំឲ្យតូចជាងនេះ
-DATA_UPLOAD_MAX_MEMORY_SIZE = 2621440  # 2.5MB (ពី 5MB)
-FILE_UPLOAD_MAX_MEMORY_SIZE = 2621440  # 2.5MB
+DATA_UPLOAD_MAX_MEMORY_SIZE = 20971520  # 20MB (ធំជាង 2.5MB ចាស់)
+FILE_UPLOAD_MAX_MEMORY_SIZE = 20971520  # 20MB
 FILE_UPLOAD_MAX_NUMBER_FILES = 10
 
 # Request timeout
@@ -186,13 +186,6 @@ CLOUDINARY_STORAGE = {
     "API_KEY": os.getenv("CLOUDINARY_API_KEY", ""),
     "API_SECRET": os.getenv("CLOUDINARY_API_SECRET", ""),
 }
-
-# ======================
-# PERFORMANCE OPTIMIZATIONS - NEW
-# ======================
-DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB max upload
-FILE_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB max memory upload
-DATA_UPLOAD_MAX_NUMBER_FIELDS = 1000
 
 # Static files optimization
 WHITENOISE_MAX_AGE = 31536000  # 1 year cache

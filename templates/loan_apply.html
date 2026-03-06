@@ -831,9 +831,10 @@ textarea{
                  alt="ID Front guide">
         
             <input type="file" name="id_front" accept="image/*"
-                   {% if not locked %}required{% endif %}
-                   {% if locked %}disabled{% endif %}
-                   hidden>
+                 class="compress-img"
+                 {% if not locked %}required{% endif %}
+                 {% if locked %}disabled{% endif %}
+                 hidden>
           </label>
         
         
@@ -848,9 +849,10 @@ textarea{
                  alt="ID Back guide">
         
             <input type="file" name="id_back" accept="image/*"
-                   {% if not locked %}required{% endif %}
-                   {% if locked %}disabled{% endif %}
-                   hidden>
+       class="compress-img"
+       {% if not locked %}required{% endif %}
+       {% if locked %}disabled{% endif %}
+       hidden>
           </label>
         
         
@@ -865,9 +867,10 @@ textarea{
                  alt="Selfie + ID guide">
         
             <input type="file" name="selfie_with_id" accept="image/*"
-                   {% if not locked %}required{% endif %}
-                   {% if locked %}disabled{% endif %}
-                   hidden>
+                class="compress-img"
+                {% if not locked %}required{% endif %}
+                {% if locked %}disabled{% endif %}
+                hidden>
           </label>
         
         </div>
