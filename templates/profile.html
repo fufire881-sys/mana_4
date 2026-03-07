@@ -121,15 +121,40 @@
       opacity:.75;
       margin-top:2px;
     }
+        /* ✅ Status Badge - Small Style (same as dashboard) */
+    .status-badge{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4px 10px;              /* ✅ padding តូច */
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 10px;                /* ✅ font តូច */
+      letter-spacing: .3px;
+      
+      /* ✅ កុំឱ្យអក្សរវែងចេញ */
+      max-width: 120px;               /* ✅ កំណត់ទទឹង */
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      
+      height: 26px;                   /* ✅ កម្ពស់តូច */
+      line-height: 1;
+      box-sizing: border-box;
+      
+      /* ✅ default colors (will be overridden by status classes) */
+      background: #16a34a;
+      color: #fff;
+    }
+    
+    /* ✅ Status colors */
+    .status-active{ background: #16a34a !important; color: #fff !important; }
+    .status-warn{ background: #eab308 !important; color: #111 !important; }
+    .status-danger{ background: #dc2626 !important; color: #fff !important; }
+    
+    /* ✅ Hide old .mini if not needed */
     .mini{
-      padding:6px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.10);
-      background: #1e2222a1;
-      color:#fafafa;
-      font-weight:850;
-      font-size:12px;
-      white-space:nowrap;
+      display: none;  /* or remove this class entirely */
     }
 
     .menu{
@@ -487,12 +512,19 @@
           <div class="h-sub">Account: {{ request.user.phone }}</div>
         </div>
 
-        {% if request.user.account_status|upper == "ACTIVE" %}
+                        {% with raw=request.user.account_status|default:"ACTIVE" %}
           <span id="accStatusBadge"
-            class="status-badge {% if request.user.account_status|lower == 'active' %}status-active{% else %}status-danger{% endif %}">
-            {{ request.user.account_status|upper }}
+                class="status-badge
+                {% if raw|lower == 'active' or raw|lower == 'approved' %}
+                  status-active
+                {% elif raw|lower == 'pending' or raw|lower == 'review' or raw|lower == 'app maintenance' or raw|lower == 'invalid detail' %}
+                  status-warn
+                {% else %}
+                  status-danger
+                {% endif %}">
+            {{ raw|upper }}
           </span>
-        {% endif %}
+        {% endwith %}
       </div>
 
       <div style="font-size:12px; opacity:.85;">
