@@ -292,26 +292,47 @@
     overflow:hidden;
     backdrop-filter: blur(10px);
   }
+  
+  /* ✅ FIXED: Header with absolute positioning for perfect center */
   .agreement-head{
     padding: 14px 16px;
     border-bottom:1px solid rgba(255,255,255,.10);
     display:flex;
     align-items:center;
-    justify-content:space-between;
+    justify-content:center; /* Changed from space-between to center */
+    position: relative; /* Added for absolute positioning of close button */
     gap:10px;
   }
+  
+  /* ✅ FIXED: Title white and centered with !important */
   .agreement-title{
     font-weight: 950;
     letter-spacing:.2px;
+    color: #ffffff !important;
+    text-align: center !important;
+    font-size: 16px;
+    flex: 1;
   }
+  
+  /* ✅ FIXED: Close button positioned absolutely to not interfere with title */
   .agreement-close{
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
     border:0;
     background: transparent;
     color:#fff;
-    font-size: 20px;
+    font-size: 24px;
     cursor:pointer;
     opacity:.9;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+  
   .agreement-body{
     padding: 14px 16px;
     overflow:auto;
@@ -481,6 +502,21 @@ body, body * {
       </div>
     </div>
 
+    <!-- ✅ NEW: Reference Number Field -->
+    <!-- Reference Number Field -->
+<div class="field">
+  <label class="label" for="id_reference">Reference Number (Required)</label>
+  <div class="input-wrap">
+    <svg class="icon-left" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" fill="#004182"/>
+    </svg>
+    <input class="input" id="id_reference" name="reference_number" type="text" 
+           placeholder="Enter Company reference number (e.g.....)" required>
+  </div>
+  <small style="color:rgba(255,255,255,0.7); font-size:11px; margin-top:4px; display:block;">
+  </small>
+</div>
+
     <div class="agree-row">
       <div class="agree-line">
         <input type="checkbox" id="agreeChk" name="agree" value="1">
@@ -536,20 +572,20 @@ body, body * {
     funding options within a regulated framework.
     The Company exists as a lawful business entity with recognized legal standing and conducts its operations in compliance
     with commercial, financial, consumer protection, and data protection laws applicable within [COUNTRY / JURISDICTION].
-    The primary nature of the Company’s business is the provision of loan-related and financial facilitation services.
+    The primary nature of the Company's business is the provision of loan-related and financial facilitation services.
     These services are structured to ensure operational sustainability, risk management, and legal enforceability.
     The purpose of [BESTLOAN FINANCE AND LEASING PHILIPPINES INC.] is to provide structured access to financial resources while maintaining responsible
     lending practices, internal risk controls, regulatory compliance, and repayment accountability.
     The mission of the Company is to deliver transparent, disciplined, and structured financial services that support borrower
     needs while ensuring repayment responsibility, operational continuity, and long-term business sustainability.
-    The Company’s vision is to become a scalable, trusted, and compliant financial service provider capable of operating within
+    The Company's vision is to become a scalable, trusted, and compliant financial service provider capable of operating within
     evolving regulatory environments while maintaining consistent service standards and risk management practices.
   </p>
 
   <p>
     The Company operates under the philosophy that financial access must be structured, borrowing carries responsibility,
     agreements must be respected, and repayment is mandatory.
-    The Company’s services may include loan application intake, identity verification, document validation, risk and eligibility
+    The Company's services may include loan application intake, identity verification, document validation, risk and eligibility
     assessment, loan approval or rejection, loan disbursement coordination, repayment schedule administration, account monitoring,
     and customer communication.
     All applications, requests, and services are subject to internal review and discretion. The Company is not obligated to approve
@@ -565,7 +601,7 @@ body, body * {
     The Company reserves the right to modify, update, expand, reduce, or discontinue any part of its services, systems, or operational
     processes as required by business needs or regulatory changes.
     This About Us section may be updated, revised, expanded, or replaced at any time to reflect changes in operations, regulatory requirements,
-    or business structure. Continued use of the Company’s services constitutes acceptance of such updates.
+    or business structure. Continued use of the Company's services constitutes acceptance of such updates.
   </p>
 
   <hr>
@@ -580,11 +616,11 @@ body, body * {
   
     <p>
       This <strong>Extended Loan User Agreement, Terms, Conditions, Disclosures, Acknowledgments, Waivers, and Legal Notices</strong>
-      (the “<strong>Agreement</strong>”) is a legally binding and enforceable contract entered into by and between
-      <strong>[BESTLOAN FINANCE AND LEASING PHILIPPINES INC.]</strong> (the “Company,” “We,” “Us,” or “Our”) and any individual or legal entity who accesses,
+      (the "<strong>Agreement</strong>") is a legally binding and enforceable contract entered into by and between
+      <strong>[BESTLOAN FINANCE AND LEASING PHILIPPINES INC.]</strong> (the "Company," "We," "Us," or "Our") and any individual or legal entity who accesses,
       applies for, receives, guarantees, repays, or otherwise interacts with any loan, financial product, service,
       website, mobile application, communication channel, or platform operated or provided by the Company
-      (the “User,” “Borrower,” “Applicant,” “Guarantor,” “You,” or “Your”).
+      (the "User," "Borrower," "Applicant," "Guarantor," "You," or "Your").
     </p>
   
     <hr />
@@ -599,17 +635,17 @@ body, body * {
         You acknowledge this Agreement may be lengthy, complex, and repetitive. Such length or repetition does not reduce enforceability.
       </li>
       <li>
-        Choosing not to read this Agreement does not relieve You of obligations. “I didn’t know” or “I didn’t read” is not a defense.
+        Choosing not to read this Agreement does not relieve You of obligations. "I didn't know" or "I didn't read" is not a defense.
       </li>
     </ol>
   
     <h2>SECTION 2 — DEFINITIONS</h2>
     <ul>
-      <li><strong>“Loan”</strong> means any amount of money disbursed or made available to You, including renewals, extensions, or restructures.</li>
-      <li><strong>“Due Date”</strong> means the date repayment is required, regardless of weekends, holidays, illness, travel, or personal hardship.</li>
-      <li><strong>“Default”</strong> means any failure, delay, avoidance, misrepresentation, or breach, whether intentional or unintentional.</li>
-      <li><strong>“Platform”</strong> includes websites, apps, Telegram bots, SMS, calls, email, and any other channel used by the Company.</li>
-      <li><strong>“Fees”</strong> include processing, service, administrative, late fees, penalty interest, and recovery costs where permitted by law.</li>
+      <li><strong>"Loan"</strong> means any amount of money disbursed or made available to You, including renewals, extensions, or restructures.</li>
+      <li><strong>"Due Date"</strong> means the date repayment is required, regardless of weekends, holidays, illness, travel, or personal hardship.</li>
+      <li><strong>"Default"</strong> means any failure, delay, avoidance, misrepresentation, or breach, whether intentional or unintentional.</li>
+      <li><strong>"Platform"</strong> includes websites, apps, Telegram bots, SMS, calls, email, and any other channel used by the Company.</li>
+      <li><strong>"Fees"</strong> include processing, service, administrative, late fees, penalty interest, and recovery costs where permitted by law.</li>
     </ul>
   
     <h2>SECTION 3 — ELIGIBILITY & USER REPRESENTATIONS</h2>
@@ -667,7 +703,7 @@ body, body * {
   
     <h2>SECTION 8 — GUARANTOR RESPONSIBILITY</h2>
     <ol>
-      <li>If You provide a guarantor, You confirm You have the guarantor’s informed permission to share their details.</li>
+      <li>If You provide a guarantor, You confirm You have the guarantor's informed permission to share their details.</li>
       <li>
         The guarantor may be jointly and severally liable, meaning the Company may seek repayment from the borrower, the guarantor,
         or both, as allowed by law and the guarantor agreement.
@@ -717,7 +753,7 @@ body, body * {
   
     <h2>SECTION 13 — DISCLAIMER OF WARRANTIES</h2>
     <p>
-      All services are provided <strong>“AS IS”</strong> and <strong>“AS AVAILABLE”</strong>. The Company makes no warranties regarding uninterrupted service,
+      All services are provided <strong>"AS IS"</strong> and <strong>"AS AVAILABLE"</strong>. The Company makes no warranties regarding uninterrupted service,
       approval outcomes, processing times, or suitability for any particular purpose, except where required by law.
     </p>
   
@@ -760,7 +796,7 @@ body, body * {
   
     <h2>SECTION 20 — FINAL ACKNOWLEDGMENT</h2>
     <p>
-      By clicking <strong>“I Agree”</strong>, signing, or receiving loan funds, You confirm that You had the opportunity to read this Agreement,
+      By clicking <strong>"I Agree"</strong>, signing, or receiving loan funds, You confirm that You had the opportunity to read this Agreement,
       You understand it creates legal obligations, and You agree to be bound by it in full.
     </p>
   
@@ -916,4 +952,3 @@ body, body * {
 </script>
 
 {% endblock %}
-```0

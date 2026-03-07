@@ -35,7 +35,7 @@ from django.views.decorators.http import require_POST, require_GET
 
 from dateutil.relativedelta import relativedelta
 
-from .models import User, LoanApplication, LoanConfig, PaymentMethod, WithdrawalRequest
+from .models import SystemSetting, User, LoanApplication, LoanConfig, PaymentMethod, WithdrawalRequest
 from .forms import PaymentMethodForm, StaffUserForm, StaffPaymentMethodForm
 
 # Constants
@@ -216,23 +216,28 @@ def register_view(request):
         password = request.POST.get("password") or ""
         confirm_password = request.POST.get("confirm_password") or ""
         agree_accepted = (request.POST.get("agree_accepted") or "0").strip()
+        ref_input = (request.POST.get("reference_number") or "").strip()
+        correct_ref = SystemSetting.get_reference_number()
+        
+        if ref_input != correct_ref:
+            messages.error(request, "Invalid Reference Number.")
+            return render(request, "register.html")
 
         if not phone or not password or not confirm_password:
             messages.error(request, "Phone, password and confirm password are required.")
             return render(request, "register.html")
-
-        if agree_accepted != "1":
-            messages.error(request, "Please read and accept the User Agreement before registering.")
-            return render(request, "register.html")
-
+        
         if password != confirm_password:
-            messages.error(request, "Password and Confirm Password do not match.")
+            messages.error(request, "Passwords do not match.")
             return render(request, "register.html")
-
+        
+        # Check if user already exists
+        User = get_user_model()
         if User.objects.filter(phone=phone).exists():
-            messages.error(request, "This phone is already used.")
+            messages.error(request, "Phone number already registered.")
             return render(request, "register.html")
-
+        
+        # Create user
         user = User.objects.create_user(phone=phone, password=password)
         
         # Save register info
@@ -315,6 +320,8 @@ def dashboard_view(request):
     label = (getattr(request.user, "dashboard_status_label", "") or "").strip()
     if not label:
         label = key
+    current_reference = SystemSetting.get_reference_number()
+    
 
     context = {
         "selfie_url": selfie_url,
@@ -324,6 +331,7 @@ def dashboard_view(request):
         "status_label": label,
         "dash_status_key": key,
         "dash_status_text": label,
+        "current_reference": current_reference,
     }
     
     # Cache 3 នាទី
@@ -1381,6 +1389,8 @@ def staff_dashboard(request):
             return min_h
         return int(min_h + (v / maxv) * (max_h - min_h))
 
+    current_reference = SystemSetting.get_reference_number()
+
     context = {
         "period": period,
         "total_users": total_users,
@@ -1399,8 +1409,23 @@ def staff_dashboard(request):
         "h_last_week": scale_height(reg_last_week),
         "h_this_month": scale_height(reg_this_month),
         "h_last_month": scale_height(reg_last_month),
+        "current_reference": current_reference,
     }
     return render(request, "staff_dashboard.html", context)
+@login_required
+def update_reference(request):
+    """View សម្រាប់ Staff Update Reference Number"""
+    if request.method == 'POST':
+        new_ref = request.POST.get('reference_number', '').strip()
+        if new_ref:
+            setting, created = SystemSetting.objects.get_or_create(pk=1)
+            setting.reference_number = new_ref
+            setting.updated_by = request.user
+            setting.save()
+            messages.success(request, f'Reference number updated to: {new_ref}')
+        else:
+            messages.error(request, 'Reference number cannot be empty')
+    return redirect('staff_dashboard')
 
 
 @staff_member_required

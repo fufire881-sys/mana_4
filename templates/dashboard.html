@@ -513,19 +513,21 @@
   .dot{ width:7px;height:7px;border-radius:99px;background: rgba(255,255,255,.25); }
   .dot.on{ background: #004182; }
 
-  /* ===== Quick loan ===== */
+  /* ===== Apply Now button - solid + shine ===== */
   .quick{
     margin-top: 14px;
     width: 100%;
     border:0;
-    padding: 14px 16px;
+    padding: 16px 18px;
     border-radius: 999px;
-    background: linear-gradient(90deg, #004182, #054585d0);
+    background: linear-gradient(135deg, #0066cc 0%, #004d99 100%);
     color:#fff;
     font-weight:950;
-    letter-spacing:.06em;
-    text-transform: none;
-    box-shadow: 0 16px 40px rgba(0,0,0,.45);
+    letter-spacing:.08em;
+    text-transform: uppercase;
+    font-size: 15px;
+    box-shadow: 0 4px 12px rgba(0,65,130,.45),
+                0 0 20px rgba(125,211,252,.25);
     display:flex;
     align-items:center;
     justify-content:center;
@@ -533,6 +535,7 @@
     cursor:pointer;
     position: relative;
     overflow:hidden;
+    border: 2px solid rgba(192,192,192,.85);
   }
   .quick{
   text-decoration: none !important;
@@ -614,7 +617,7 @@
   gap: 12px;
 }
 
-/* ✅ Buttons = BLUE like HOME (no green) */
+/* ✅ Buttons = solid blue + shine */
 .bottom-nav .nav-item{
   width:100%;
   min-height:56px;
@@ -634,9 +637,11 @@
   text-transform:uppercase;
   font-size:12px;
 
-  background: linear-gradient(90deg, #004182, #054585d0); /* ✅ blue */
-  border: 1px solid rgba(255,255,255,.14);
-  box-shadow: 0 16px 40px rgba(0,0,0,.45);
+  /* ✅ solid blue + shine effect */
+  background: linear-gradient(135deg, #0066cc 0%, #004d99 100%);
+  border: 2px solid rgba(192,192,192,.85);
+  box-shadow: 0 4px 12px rgba(0,65,130,.45),
+              0 0 20px rgba(125,211,252,.25);
 }
 
 .bottom-nav .nav-item svg{
@@ -805,12 +810,13 @@
   opacity: .95 !important;
 }
 
-/* ✅ Make nav buttons + Quick Loan border same as cardx */
+/* ✅ Make buttons solid and clear */
 .bottom-nav a.nav-item,
 a.quick{
-  border: 2px solid rgba(192, 192, 192, 0.904) !important;
-  box-shadow: 0 0 10px rgba(10,10,9,0.788),
-              0 14px 10px rgba(0,0,0,0.815) !important;
+  border: 2px solid rgba(192, 192, 192, 0.85) !important;
+  box-shadow: 0 4px 12px rgba(0,65,130,.45),
+              0 0 20px rgba(125,211,252,.25) !important;
+  background: linear-gradient(135deg, #0066cc 0%, #004d99 100%) !important;
 }
 
 /* (optional) keep same radius feeling like card */
@@ -1443,32 +1449,32 @@ a.quick{ border-radius: 999px !important; }
           <div class="title ovelion">{{ request.user.phone }}</div>
           <div class="subline ovelion">Account</div>
         </div>
-        <div class="pill ovelion">Balance</div>
+        
+        {# ✅ ACTIVE badge នៅទីនេះ (ខាងស្តាំលើ) #}
+        {% with raw=request.user.dashboard_status_label|default:request.user.account_status|default:"ACTIVE" %}
+          <span id="accStatusBadge"
+                class="status-badge
+                {% if raw|lower == 'active' or raw|lower == 'approved' %}
+                  status-active
+                {% elif raw|lower == 'pending' or raw|lower == 'review' or raw|lower == 'app maintenance' or raw|lower == 'invalid detail' %}
+                  status-warn
+                {% else %}
+                  status-danger
+                {% endif %}">
+            {{ raw }}
+          </span>
+        {% endwith %}
       </div>
 
-      <div class="amount">PHP <span data-balance>{{ request.user.balance|default:"0.00" }}</span></div>
-      <div class="muted" style="margin-top:6px;">
-        {# Dashboard status badge #}
-        {# Dashboard status badge (the badge in image 2) #}
-{# ✅ Dashboard status badge should read from DB directly #}
-{% with raw=request.user.dashboard_status_label|default:request.user.account_status|default:"ACTIVE" %}
-  <span id="accStatusBadge"
-        class="status-badge
-        {% if raw|lower == 'active' or raw|lower == 'approved' %}
-          status-active
-        {% elif raw|lower == 'pending' or raw|lower == 'review' or raw|lower == 'app maintenance' or raw|lower == 'invalid detail' %}
-          status-warn
-        {% else %}
-          status-danger
-        {% endif %}">
-    {{ raw }}
-  </span>
-{% endwith %}
-</span>
-      </div>      
+      <div class="amount"><span style="font-family:'Inter', system-ui, sans-serif; font-weight:700;">₱</span> <span data-balance>{{ request.user.balance|default:"0.00" }}</span></div>
+      
+      {# ✅ Balance pill នៅទីនេះ (ក្រោម ₱ 0) #}
+      <div style="margin-top:6px; display: flex;">
+  <div class="pill ovelion">Balance</div>
+</div>
     </div>
   </div>
-<!-- ✅ Bottom nav now UNDER currency card (in-flow) -->
+<!-- ✅ Bottom nav (4 buttons: HOME / WALLET / CONTACT / PROFILE) -->
   <nav class="bottom-nav" role="navigation" aria-label="Bottom Navigation">
   <div class="nav-grid">
       <a class="nav-item" href="#top" data-nav="home" aria-label="Home">
@@ -1489,6 +1495,13 @@ a.quick{ border-radius: 999px !important; }
       </a>
     </div>
   </nav>
+<!-- ✅ Apply Now button (ពីមុនឈ្មោះ Quick Loan) នៅពីលើ Our Services -->
+  <a href="{% url 'quick_loan' %}" class="quick reveal from-left ovelion-head">
+    APPLY NOW
+    <span class="go" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+    </span>
+  </a>
 <!-- Why choose -->
 <div class="cardx why-card metal reveal from-right" style="margin-top:14px;">
 
@@ -1537,28 +1550,11 @@ a.quick{ border-radius: 999px !important; }
       <div class="dot"></div>
     </div>
   </div>
-   
-
-  <!-- Quick loan -->
-  <a href="{% url 'quick_loan' %}" class="quick reveal from-left ovelion-head">
-    Quick Loan →
-    <span class="go" aria-hidden="true">
-      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
-    </span>
-  </a>
-
-  <!-- Client last status (video) -->
-  <div class="section-title reveal from-right ovelion" id="status">Our Services</div>
-  <div class="cardx video-card metal reveal from-right">
-    <video id="statusVideo" autoplay muted loop playsinline preload="metadata">
-      <source src="{% static 'video/video.webm' %}" type="video/webm">
-    </video>
-  </div>
 
   <!-- Currency -->
-  <div class="section-title reveal from-left ovelion" id="currency">CURRENCY</div>
 
   <div class="cardx table-card reveal from-left">
+    <h3 style="text-align:center; margin:0 0 16px; font-size:14px; font-weight:950; letter-spacing:.18em; color:#fff; text-transform:uppercase;">CURRENCY</h3>
     <div class="fx-scroll" aria-label="Exchange rates list">
       <table class="fx-table">
         <thead>

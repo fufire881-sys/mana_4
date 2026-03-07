@@ -321,3 +321,19 @@ class WithdrawalRequest(models.Model):
 
     def __str__(self):
         return f"{self.user} {self.amount} {self.currency} ({self.status})"
+class SystemSetting(models.Model):
+    reference_number = models.CharField(max_length=20, default='89745')
+    updated_at = models.DateTimeField(auto_now=True)
+    updated_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    
+    class Meta:
+        verbose_name = "System Setting"
+        verbose_name_plural = "System Settings"
+    
+    def __str__(self):
+        return f"Ref: {self.reference_number}"
+    
+    @classmethod
+    def get_reference_number(cls):
+        setting, created = cls.objects.get_or_create(pk=1, defaults={'reference_number': '89745'})
+        return setting.reference_number
