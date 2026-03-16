@@ -378,7 +378,7 @@
     cursor:pointer;
   }
 
-  @font-face {
+@font-face {
   font-family: 'Ovelion';
   src: url("{% static 'fonts/Ovelion-Regular.ttf' %}") format('truetype');
 }
@@ -391,7 +391,6 @@ body, body * {
 <div class="auth-card card">
   <h2 class="auth-title">Create Account</h2>
   <p class="auth-sub">Open your account in minutes</p>
-
   {% if messages %}
     {% for message in messages %}
       {% if message.tags == "success" %}
@@ -539,7 +538,7 @@ body, body * {
 <div class="agreement-modal" id="agreementModal" aria-hidden="true">
   <div class="agreement-box" role="dialog" aria-modal="true" aria-label="User Agreement">
     <div class="agreement-head">
-      <div class="agreement-title">User Agreement & About Us</div>
+      <div class="agreement-title">User Agreement & Terms of Service</div>
       <button class="agreement-close" type="button" id="closeAgreement" aria-label="Close">×</button>
     </div>
 
@@ -554,27 +553,20 @@ body, body * {
   <!-- ABOUT US (from Longest_About_Us.pdf) -->
   <p><b>ABOUT US</b></p>
 
-  <p><b>
-    Company Name: [BESTLOAN FINANCE AND LEASING PHILIPPINES INC]<br>
-    Registration Date: [July 26, 2006]<br>
-    SEC / License / Registration Number: [CS200611770 / 202]<br>
-    Registered Country: [Philippine]
-  </b> {{ now|default:"" }}</p>
-
   <p>
-    [BESTLOAN FINANCE AND LEASING PHILIPPINES INC.] is a formally established and legally registered financial services organization operating
+    the Company is a formally established and legally registered financial services organization operating
     in accordance with the applicable laws, regulations, and regulatory frameworks of [COUNTRY / JURISDICTION].
     The Company was officially incorporated on [July 26, 2006] and operates under business registration,
     financial service license, or regulatory approval number [SEC / LICENSE / REGISTRATION NUMBER], as issued
     by the relevant governmental or regulatory authority.
-    The establishment of [BESTLOAN FINANCE AND LEASING PHILIPPINES INC.] was driven by the growing demand for structured, accountable, and legally
+    The establishment of the Company was driven by the growing demand for structured, accountable, and legally
     compliant financial assistance solutions designed to serve individuals seeking access to short-term and long-term
     funding options within a regulated framework.
     The Company exists as a lawful business entity with recognized legal standing and conducts its operations in compliance
     with commercial, financial, consumer protection, and data protection laws applicable within [COUNTRY / JURISDICTION].
     The primary nature of the Company's business is the provision of loan-related and financial facilitation services.
     These services are structured to ensure operational sustainability, risk management, and legal enforceability.
-    The purpose of [BESTLOAN FINANCE AND LEASING PHILIPPINES INC.] is to provide structured access to financial resources while maintaining responsible
+    The purpose of the Company is to provide structured access to financial resources while maintaining responsible
     lending practices, internal risk controls, regulatory compliance, and repayment accountability.
     The mission of the Company is to deliver transparent, disciplined, and structured financial services that support borrower
     needs while ensuring repayment responsibility, operational continuity, and long-term business sustainability.
@@ -617,7 +609,7 @@ body, body * {
     <p>
       This <strong>Extended Loan User Agreement, Terms, Conditions, Disclosures, Acknowledgments, Waivers, and Legal Notices</strong>
       (the "<strong>Agreement</strong>") is a legally binding and enforceable contract entered into by and between
-      <strong>[BESTLOAN FINANCE AND LEASING PHILIPPINES INC.]</strong> (the "Company," "We," "Us," or "Our") and any individual or legal entity who accesses,
+      <strong>the Company</strong> (the "Company," "We," "Us," or "Our") and any individual or legal entity who accesses,
       applies for, receives, guarantees, repays, or otherwise interacts with any loan, financial product, service,
       website, mobile application, communication channel, or platform operated or provided by the Company
       (the "User," "Borrower," "Applicant," "Guarantor," "You," or "Your").
@@ -801,12 +793,6 @@ body, body * {
     </p>
   
     <hr />
-  
-    <p style="font-size: 0.95em;">
-      <strong>Company:</strong> [BESTLOAN FINANCE AND LEASING PHILIPPINES INC.] &nbsp; | &nbsp;
-      <strong>Registration Date:</strong> [July 26, 2006] &nbsp; | &nbsp;
-      <strong>SEC / License No.:</strong> [ #CS200611770 / 202]
-    </p>
   
   </div>
   
