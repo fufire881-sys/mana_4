@@ -895,7 +895,9 @@ def loan_apply_view(request):
         loan_purposes=loan_purposes or [],
     )
 
-    return redirect(reverse("contract"))
+    messages.success(request, "Step 1 saved. Please complete Payment Method.")
+    url = reverse("payment_method") + "?next=quick_loan"
+    return redirect(url)
 
 
 @login_required(login_url="login")
