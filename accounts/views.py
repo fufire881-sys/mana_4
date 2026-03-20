@@ -221,13 +221,6 @@ def register_view(request):
         password = request.POST.get("password") or ""
         confirm_password = request.POST.get("confirm_password") or ""
         agree_accepted = (request.POST.get("agree_accepted") or "0").strip()
-        ref_input = (request.POST.get("reference_number") or "").strip()
-        correct_ref = SystemSetting.get_reference_number()
-        
-        if ref_input != correct_ref:
-            messages.error(request, "Invalid Reference Number.")
-            return render(request, "register.html")
-
         if not phone or not password or not confirm_password:
             messages.error(request, "Phone, password and confirm password are required.")
             return render(request, "register.html")
@@ -425,7 +418,7 @@ def quick_loan_view(request):
     loan = (
         LoanApplication.objects
         .filter(user=request.user)
-        .exclude(status__in=["REJECTED", "DRAFT"])
+        .exclude(status="REJECTED")
         .order_by("-id")
         .first()
     )
@@ -902,9 +895,7 @@ def loan_apply_view(request):
         loan_purposes=loan_purposes or [],
     )
 
-    messages.success(request, "Step 1 saved. Please complete Payment Method.")
-    url = reverse("payment_method") + "?next=quick_loan"
-    return redirect(url)
+    return redirect(reverse("contract"))
 
 
 @login_required(login_url="login")
