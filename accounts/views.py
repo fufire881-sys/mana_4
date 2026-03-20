@@ -1636,8 +1636,9 @@ def staff_user_update(request, user_id):
             loan.save(update_fields=["status", "approved_at", "credited_to_balance"])
             u.save(update_fields=["balance"])
 
-    # Clear cache
+    # Clear cache (both dashboard and realtime)
     cache.delete(f"dashboard_{u.id}")
+    cache.delete(f"realtime_{u.id}")
 
     if is_ajax:
         return ok_json()

@@ -4,109 +4,25 @@
 
 {% block content %}
 <style>
-  
 
-/* Back button shape like picture */
-/* ✅ Top actions wrapper for Back button */
-.top-actions{
-  margin-top: 12px;         /* space from above */
-  display: flex;
-  justify-content: flex-start;
-}
-.back-btn{
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  height: 42px;
-  padding: 0 22px 0 28px;   /* left a bit bigger */
-  border-radius: 12px;
-
-  background: #13111185;
-  color: #ffffffc9;
-  font-weight: 800;
-  text-decoration: none;
-
-  border: 1px solid rgba(189, 189, 189, 0.164);
-  box-shadow:
-    0 6px 14px rgba(0,0,0,.18),
-    inset 0 1px 0 rgba(255,255,255,.65);
-}
-/* hover/active */
-.back-btn:hover{
-  transform: translateY(-1px);
-}
-.back-btn:active{
-  transform: translateY(0px);
-  opacity: .92;
+body, .w-wrap, .w-wrap * {
+  font-family: "Ovelion", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
-/* Mobile adjustments */
-@media (max-width:520px){
-  .top-actions{ padding: 10px 12px 0; }
-  .top-actions-line{ margin: 10px 12px 0; }
-  .back-btn{ height: 40px; padding: 0 18px 0 24px; font-size: 13px; }
-  .back-btn::before{
-    left: -13px;
-    border-top: 20px solid transparent;
-    border-bottom: 20px solid transparent;
-    border-right: 13px solid #e7e7e7;
-  }
+body {
 }
-/* Center alert same width as wallet cards */
-.status-alert{
+
+/* ── Wrapper ── */
+.w-wrap {
   width: min(520px, 94vw);
-  margin: 0 auto 14px;     /* center + space bottom */
-  padding: 12px 16px;
-  border-radius: 999px;
-  text-align: center;
-  font-weight: 900;
-  letter-spacing: .4px;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 16px 16px 100px;
   box-sizing: border-box;
 }
 
-.status-danger{
-  background: #dc2626;
-  color: #fff;
-}
-.status-danger{ background:#dc2626; color:#fff; }
-  /* ===== Account Status Badge (Shared) ===== */
-  .status-badge{
-  display: flex;
-  align-items: center;
-  justify-content: center;   /* ⭐ center អក្សរ */
-  text-align: center;
-
-  padding: 12px 18px;
-  border-radius: 999px;
-  font-weight: 800;
-  font-size: 14px;
-  letter-spacing: .4px;
-  margin-bottom: 12px;
-}
-
-
-/* ACTIVE */
-.status-active{
-  background: #16a34a;
-  color: #fff;
-}
-
-/* FROZEN / ERROR / REJECT */
-.status-danger{
-  background: #dc2626;
-  color: #fff;
-}
-  /* wrapper center same as cards */
-  .w-wrap{
-  width: min(520px, 94vw);
-  margin: 0 auto;
-  padding-top: 20px;   /* ✅ space top 10–12px */
-}
-
-/* alert banner */
-.status-alert{
+/* ── Status alert banner ── */
+.status-alert {
   width: 100%;
   margin-bottom: 14px;
   padding: 12px 16px;
@@ -116,599 +32,302 @@
   letter-spacing: .4px;
   box-sizing: border-box;
 }
+.status-danger  { background: #dc2626; color: #fff; }
+.status-success { background: #16a34a; color: #fff; }
+.status-warn    { background: #eab308; color: #111; }
 
-.status-danger{
-  background: #dc2626;
+/* ── Account status badge ── */
+.status-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: .4px;
+  margin-bottom: 12px;
+}
+.status-active { background: #16a34a; color: #fff; }
+
+/* ── Hero balance card ── */
+.cardx.card-diamond {
+  background: linear-gradient(135deg, #1e4a06, #2d6b0a, #7CB342) !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(124,179,66,.35) !important;
+  border-top: 1px solid rgba(124,179,66,.35) !important;
+  color: #fff !important;
+  padding: 24px;
+  box-shadow: 0 8px 32px rgba(74,122,30,.35) !important;
+  margin-bottom: 16px;
+  overflow: hidden;
+  position: relative;
+}
+.cardx.card-diamond::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.10) 50%, transparent 100%);
+  transform: translateX(-120%);
+  animation: walletShine 4s ease-in-out infinite;
+}
+@keyframes walletShine {
+  0%, 55% { transform: translateX(-120%); }
+  100%     { transform: translateX(120%); }
+}
+.cardx.card-diamond > * { position: relative; z-index: 2; }
+
+.cardx.card-diamond,
+.cardx.card-diamond * { color: #fff !important; }
+
+/* ── Standard info / action cards ── */
+.cardx {
+  background: #ffffff;
+  border-radius: 16px;
+  border-left: 4px solid #7CB342;
+  box-shadow: 0 2px 12px rgba(74,122,30,.10);
+  color: #1a1a1a;
+  padding: 18px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Shared row layout ── */
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* ── Titles ── */
+.title {
+  font-weight: 950;
+  font-size: 18px;
+  color: #1a1a1a;
+}
+.sub {
+  font-size: 12px;
+  color: rgba(255,255,255,.75);
+  margin-top: 2px;
+}
+/* sub on white cards */
+.cardx:not(.card-diamond) .sub {
+  color: #5a6a4a;
+}
+
+/* ── Balance amount ── */
+.cardx.card-diamond .balance-amount {
+  font-size: 28px;
+  font-weight: 900;
+  color: #fff !important;
+  margin-top: 12px;
+}
+
+/* ── Pill chips ── */
+.pill {
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-weight: 900;
+  font-size: 12px;
+  white-space: nowrap;
+  background: rgba(255,255,255,.18);
+  border: 1px solid rgba(255,255,255,.25);
   color: #fff;
 }
-.status-success{
-  background:#16a34a;
-  color:#fff;
-}
-.status-warn{
-  background:#eab308;
-  color:#111;
-}
-  .cardx{
-  position: relative;
-
-  background: rgba(0, 0, 0, 0.788);
-
-  border-radius: 18px;
-  border: 2px solid rgba(192, 192, 192, 0.904);
-
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
-
-  box-shadow: 0 0 10px rgba(10, 10, 9, 0.788),
-              0 14px 10px rgba(0, 0, 0, 0.815);
-
-  overflow: hidden;
-  margin-bottom: 16px;
-  padding: 18px;
+/* pill on white cards */
+.cardx:not(.card-diamond) .pill {
+  background: #f1f8e9;
+  border: 1px solid rgba(124,179,66,.30);
+  color: #3d6b1c;
 }
 
-/* =========================
-   ✅ DASHBOARD PROFILE CARD STYLE (DIAMOND)
-   Use: class="cardx card-diamond"
-   ========================= */
-.cardx.card-diamond{
-  position: relative;
-  background: linear-gradient(135deg,
-    #004182 0%,
-    #053a66 45%,
-    #0b2f55 70%,
-    #d4af37 100%) !important;
-
-  border: 2px solid rgba(212,175,55,.90) !important;
-  border-radius: 18px !important;
-
-  box-shadow: 0 18px 46px rgba(0,0,0,.55),
-              0 0 0 1px rgba(255,255,255,.10) inset !important;
-
-  overflow: hidden;
+/* ── Inputs ── */
+.num-input {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #d0e8b8;
+  background: #f8fdf4;
+  color: #1a1a1a;
+  outline: none;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.num-input::placeholder { color: #a0b48a; }
+.num-input:focus {
+  border-color: #7CB342;
+  box-shadow: 0 0 0 3px rgba(124,179,66,.20);
+  background: #fff;
 }
 
-/* stripes + light spots */
-.cardx.card-diamond::before{
-  content:"";
-  position:absolute;
-  inset:-40px;
-  pointer-events:none;
-  opacity:.22;
-  background:
-    repeating-linear-gradient(
-      135deg,
-      rgba(255,255,255,.22) 0px,
-      rgba(255,255,255,.22) 10px,
-      rgba(255,255,255,0)   10px,
-      rgba(255,255,255,0)   26px
-    ),
-    radial-gradient(circle at 18% 22%, rgba(125,211,252,.20), transparent 60%),
-    radial-gradient(circle at 85% 78%, rgba(212,175,55,.18), transparent 62%);
+/* ── Hint text ── */
+.hint {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #8a9a7a;
 }
 
-/* shine sweep */
-.cardx.card-diamond::after{
-  content:"";
-  position:absolute; inset:0;
-  pointer-events:none;
-  opacity:.55;
-  background: linear-gradient(120deg,
-    transparent 0%,
-    rgba(255,255,255,.22) 50%,
-    transparent 100%);
-  transform: translateX(-120%);
-  animation: diamondShine 3.6s ease-in-out infinite;
+/* ── Action labels ── */
+.action-label {
+  color: #3d6b1c;
+  font-weight: 700;
+  font-size: 13px;
 }
 
-@keyframes diamondShine{
-  0%,55%{ transform: translateX(-120%); }
-  100%{ transform: translateX(120%); }
+/* ── Withdraw NOW button ── */
+.big-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: 54px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(135deg, #4a7a1e, #7CB342);
+  box-shadow: 0 6px 20px rgba(74,122,30,.30);
+  border: 0;
+  width: 100%;
+  cursor: pointer;
+  transition: opacity .2s ease, transform .08s ease;
+}
+.big-btn:hover  { opacity: .92; }
+.big-btn:active { transform: scale(.99); }
+.big-btn[disabled] {
+  opacity: .45;
+  cursor: not-allowed;
+}
+.big-btn .dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,.15);
 }
 
-/* keep content above overlays */
-.cardx.card-diamond > *{
-  position: relative;
-  z-index: 2;
+/* ── Form alert box ── */
+#formAlert {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
-/* ✅ make text white on diamond card */
-.cardx.card-diamond,
-.cardx.card-diamond *{
-  color:#fff !important;
-  text-shadow: 0 1px 0 rgba(0,0,0,.35), 0 10px 22px rgba(0,0,0,.35);
+/* ── List rows ── */
+.list-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f4ec;
+  font-size: 13px;
+  color: #1a1a1a;
+}
+.list-row:last-child { border-bottom: none; }
+
+/* ── Muted secondary text ── */
+.muted {
+  font-size: 12px;
+  color: #8a9a7a;
+  margin-top: 2px;
 }
 
-/* inputs inside diamond card */
-.cardx.card-diamond .num-input{
-  background: rgba(0,0,0,.18) !important;
-  border: 1px solid rgba(255,255,255,.18) !important;
-  color:#fff !important;
+/* ── Timeline ── */
+.timeline { margin-top: 14px; display: none; }
+.tl-item  { display: flex; align-items: center; gap: 12px; padding: 10px 0; }
+
+.tl-bullet {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #d8e8c0;
+  border: 1px solid rgba(124,179,66,.20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  transition: background .25s ease;
 }
-.cardx.card-diamond .num-input::placeholder{
-  color: rgba(255,255,255,.65) !important;
+.tl-bullet.on {
+  background: #7CB342;
+  border-color: rgba(255,255,255,.20);
+  box-shadow: 0 0 8px rgba(124,179,66,.50);
 }
-  /* ✅ Wallet top card same color as WITHDRAW NOW button */
-/* ✅ Wallet top card = SAME as other cardx */
-.cardx.wallet-card{
-  background: #004182 !important;
-  border: 2px solid rgba(192, 192, 192, 0.904) !important;
-
-  backdrop-filter: blur(22px) !important;
-  -webkit-backdrop-filter: blur(22px) !important;
-
-  box-shadow: 0 0 10px rgba(10, 10, 9, 0.788),
-              0 14px 10px rgba(0, 0, 0, 0.815) !important;
-}
-/* =========================
-   ✅ WALLET TOP CARD = DASHBOARD PROFILE-LIKE STRIPES
-   (no animation)
-   ========================= */
-.cardx.wallet-card{
-  position: relative !important;
-  overflow: hidden !important;
-}
-
-/* stripes + soft shine */
-.cardx.wallet-card::before{
-  content:"";
-  position:absolute;
-  inset:-40px;
-  pointer-events:none;
-  opacity:.22;
-
-  /* diagonal stripe texture */
-  background:
-    repeating-linear-gradient(
-      135deg,
-      rgba(255,255,255,.22) 0px,
-      rgba(255,255,255,.22) 10px,
-      rgba(255,255,255,0)   10px,
-      rgba(255,255,255,0)   26px
-    ),
-    /* subtle light spots like dashboard */
-    radial-gradient(circle at 18% 22%, rgba(125,211,252,.20), transparent 60%),
-    radial-gradient(circle at 85% 78%, rgba(212,175,55,.18), transparent 62%);
-}
-
-/* top glossy shine */
-.cardx.wallet-card::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  opacity:.55;
-  background: linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,0) 45%);
-}
-
-/* keep content above overlays */
-.cardx.wallet-card > *{
-  position: relative;
-  z-index: 1;
-}
-.cardx.wallet-card .sub,
-.cardx.wallet-card .pill{
-  background: rgba(0,0,0,.22);
-  border-color: rgba(255,255,255,.14);
-}
-  .row{
-    display:flex; align-items:center; justify-content:space-between; gap:12px;
-  }
-  .title{ font-weight:950; font-size:18px; }
-  .sub{ font-size:12px; opacity:.75; margin-top:2px; }
-  .pill{
-    padding:6px 12px; border-radius:999px;
-    border:1px solid rgba(255,255,255,.12);
-    background: rgba(0,0,0,.25);
-    font-weight:900; font-size:12px;
-    white-space:nowrap;
-  }
-
-  /* Inputs (number) */
-  .num-input{
-    width: 100%;
-    margin-top: 10px;
-    padding: 12px 14px;
-    border-radius: 12px;
-    border: 1px solid rgba(255,255,255,.18);
-    background: rgba(0,0,0,.18);
-    color: #fff;
-    outline: none;
-    font-size: 14px;
-  }
-  .num-input::placeholder{ color: rgba(255,255,255,.45); }
-  .num-input:focus{
-  border-color: rgba(0,65,130,.75); /* #004182 */
-  box-shadow: 0 0 0 3px rgba(5,69,133,.35); /* #054585d0 느낌 */
-  background: rgba(0,0,0,.22);
-}
-
-  /* Withdraw NOW button (Quick Loan style) */
-  .big-btn{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    height:54px;
-    border-radius:999px;
-    text-decoration:none;
-    font-weight:950;
-    letter-spacing:.10em;
-    text-transform:uppercase;
-    color:#fff;
-    background: linear-gradient(90deg, #004182, #054585d0);
-    box-shadow: 0 18px 45px rgba(0,0,0,.40);
-    border:0;
-    width:100%;
-    cursor:pointer;
-    transition: opacity .2s ease, transform .08s ease, filter .2s ease;
-  }
-  .big-btn:active{ transform: scale(.99); }
-  .big-btn .dot{
-    width:32px; height:32px;
-    border-radius:999px;
-    background: rgba(0,0,0,.22);
-    display:flex; align-items:center; justify-content:center;
-    border:1px solid rgba(255,255,255,.10);
-  }
-
-  /* Disabled state */
-  .big-btn[disabled]{
-    opacity:.45;
-    cursor:not-allowed;
-    filter: grayscale(.25);
-  }
-
-  .hint{
-    margin-top: 10px;
-    font-size: 12px;
-    opacity: .75;
-  }
-
-  /* Timeline */
-  .timeline{ margin-top: 12px; display:none; }
-  .tl-item{ display:flex; align-items:center; gap:12px; padding:10px 0; }
-  .tl-bullet{
-    width:34px; height:34px;
-    border-radius:999px;
-    background: rgba(0,0,0,.22);
-    border:1px solid rgba(255,255,255,.10);
-    display:flex; align-items:center; justify-content:center;
-    flex:0 0 auto;
-  }
-  .tl-bullet.on{
-  background:#004182;
-  border-color: rgba(255,255,255,.18);
-}
-
-/* ✅ rejected must ALWAYS win even if .on exists */
 .tl-bullet.rejected,
-.tl-bullet.on.rejected{
-  background:#dc2626 !important;
-  border-color: rgba(255,255,255,.18) !important;
+.tl-bullet.on.rejected {
+  background: #e53935 !important;
+  border-color: rgba(255,255,255,.20) !important;
+  box-shadow: none !important;
 }
-  .tl-bullet.rej{
-    background: rgba(239,68,68,.22);
-    border-color: rgba(239,68,68,.55);
-  }
-  /* rejected style (ONLY last tick) */
-.tl-bullet.rejected{
-  background: rgba(239,68,68,.25);
-  border-color: rgba(239,68,68,.6);
+.tl-bullet.success {
+  background: #7CB342;
 }
-.tl-text.rejected{
-  color:#ef4444;
-}
-/* icons toggle */
-.tl-bullet .ico-ok{ display:block; }
-.tl-bullet .ico-x{ display:none; }
-
-.tl-bullet.rejected .ico-ok{ display:none; }
-.tl-bullet.rejected .ico-x{ display:block; }
-
-/* ✅ success icon */
-.tl-bullet svg{
-  width:18px; height:18px;
-  fill:#fff;
-  opacity:.98;
+.tl-bullet svg {
+  width: 18px;
+  height: 18px;
+  fill: #fff;
+  opacity: .95;
 }
 
-/* ❌ rejected: strong red */
-.tl-bullet.rejected{
-  background:#dc2626;                 /* ✅ strong red */
-  border-color: rgba(255,255,255,.18);
+/* icon toggle helpers */
+.tl-bullet .ico-ok { display: block; }
+.tl-bullet .ico-x  { display: none; }
+.tl-bullet.rejected .ico-ok { display: none; }
+.tl-bullet.rejected .ico-x  { display: block; }
+
+#b3 .ico-ok         { display: block !important; }
+#b3 .ico-x          { display: none !important; }
+#b3.rejected .ico-ok{ display: none !important; }
+#b3.rejected .ico-x { display: block !important; }
+#b3.success .ico-ok { display: block !important; }
+#b3.success .ico-x  { display: none !important; }
+
+.tl-text {
+  font-weight: 900;
+  color: #1a1a1a;
+  font-size: 14px;
 }
+.tl-text.rejected { color: #e53935; font-weight: 950; }
+.tl-text.success  { color: #2e7d32; }
 
-/* rejected text strong red */
-.tl-text.rejected{
-  color:#dc2626;
-  font-weight: 950;
+/* ── Back / top actions ── */
+.top-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-start;
 }
-
-  .tl-text.rej{ color: #ffb4b4; }
-  .muted.rej{ color: rgba(255,170,170,.85); opacity:1; }
-  .tl-bullet svg{ width:18px; height:18px; fill:#fff; opacity:.95; }
-  .tl-text{ font-weight:900; }
-  .muted{ font-size:12px; opacity:.75; margin-top:2px; }
-
-  .list-row{
-    display:flex; justify-content:space-between; gap:12px;
-    padding:10px 0;
-    border-bottom: 1px solid rgba(255,255,255,.08);
-    font-size:13px;
-  }
-  /* Alert spacing control */
-  #formAlert{
-  display:flex;
-  align-items:center;      /* vertical center */
-  justify-content:center;  /* horizontal center */
-  text-align:center;       /* text center */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: rgba(124,179,66,.12);
+  color: #4a7a1e !important;
+  border: 1px solid rgba(124,179,66,.30);
+  font-weight: 800;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background .15s ease, transform .08s ease;
 }
-/* =========================
-   FIX ICON SWITCH (b3 only)
-   ========================= */
+.back-btn:hover  { background: rgba(124,179,66,.22); transform: translateY(-1px); }
+.back-btn:active { transform: scale(.98); }
 
-/* Default: show ✅, hide ❌ */
-#b3 .ico-ok{ display:block !important; }
-#b3 .ico-x{ display:none !important; }
-
-/* When rejected: hide ✅, show ❌ */
-#b3.rejected .ico-ok{ display:none !important; }
-#b3.rejected .ico-x{ display:block !important; }
-
-/* When success: show ✅, hide ❌ */
-#b3.success .ico-ok{ display:block !important; }
-#b3.success .ico-x{ display:none !important; }
-
-/* =========================
-   ✅ QUICK LOAN CARD PATTERN (DIAGONAL STRIPES)
-   - no animation
-   - left->right OR right->left
-   ========================= */
-
-/* 1) apply to ONLY quick-loan cards you choose */
-.cardx.loan-card{
-  position: relative !important;
-  overflow: hidden !important;
-
-  /* base blue like your culture */
-  background: linear-gradient(90deg, #004182, #054585) !important;
-  border: 2px solid rgba(212,175,55,.90) !important;  /* gold border */
-  box-shadow: 0 0 10px rgba(10,10,9,.78),
-              0 14px 10px rgba(0,0,0,.82) !important;
-}
-
-/* 2) stripes overlay (default = LEFT -> RIGHT) */
-.cardx.loan-card::before{
-  content:"";
-  position:absolute;
-  inset:-40px;
-  pointer-events:none;
-  opacity:.22;
-
-  /* ✅ diagonal stripes (left->right) */
-  background:
-    repeating-linear-gradient(
-      135deg,
-      rgba(255,255,255,.18) 0px,
-      rgba(255,255,255,.18) 10px,
-      rgba(255,255,255,0)   10px,
-      rgba(255,255,255,0)   24px
-    ),
-    /* soft gold wash */
-    radial-gradient(circle at 85% 25%, rgba(212,175,55,.35), transparent 55%),
-    radial-gradient(circle at 15% 80%, rgba(125,211,252,.22), transparent 60%);
-}
-/* =========================
-   ✅ CARD STYLE = WHITE LUXURY
-   Clean White + Gold Glow
-   ========================= */
-
-.cardx.currency-style{
-  position: relative !important;
-  overflow: hidden !important;
-
-  background: linear-gradient(
-      180deg,
-      #ffffff 0%,
-      #f8fafc 45%,
-      #eef2f7 75%,
-      #ffffff 100%
-  ) !important;
-
-  border: 2px solid rgba(212,175,55,.85) !important;
-
-  box-shadow:
-      0 20px 45px rgba(0,0,0,.12),
-      0 0 0 1px rgba(255,255,255,.9) inset !important;
-}
-
-/* soft gold glow bottom right */
-.cardx.currency-style::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  background:
-    radial-gradient(circle at 90% 90%, rgba(212,175,55,.25), transparent 55%),
-    radial-gradient(circle at 10% 10%, rgba(0,65,130,.08), transparent 60%);
-  opacity:.75;
-}
-
-/* soft white shine top */
-.cardx.currency-style::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  background: linear-gradient(
-      180deg,
-      rgba(255,255,255,.9),
-      rgba(255,255,255,0) 55%
-  );
-  opacity:.6;
-}
-
-/* dark text for white card */
-.cardx.currency-style,
-.cardx.currency-style *{
-  color:#0b2f55 !important;  /* deep blue text */
-}
-
-/* keep content above glow */
-.cardx.currency-style > *{
-  position:relative;
-  z-index:1;
-}
-/* =========================
-   ✅ WALLET PAGE: GLOBAL WHITE TEXT + SHINE
-   ========================= */
-.w-wrap,
-.w-wrap *{
-  color:#fff !important;
-  text-shadow: 0 1px 0 rgba(0,0,0,.35), 0 8px 20px rgba(0,0,0,.35);
-}
-
-/* BUT: keep currency-style card readable (dark text on white card) */
-.cardx.currency-style,
-.cardx.currency-style *{
-  color:#0b2f55 !important;
-  text-shadow: none !important;
-}
-
-/* Inputs & placeholder */
-.num-input{
-  color:#fff !important;
-}
-.num-input::placeholder{
-  color: rgba(255,255,255,.65) !important;
-}
-
-/* Pills / small chips */
-.pill{
-  color:#fff !important;
-}
-
-/* =========================
-   ✅ APPLY WHITE-LUXURY STYLE TO ONLY 3 CARDS
-   (NOT wallet-card)
-   ========================= */
-
-/* 1) Withdrawal amount card */
-.cardx.withdraw-card{}
-
-/* 2) OTP card */
-.cardx.otp-card{}
-
-/* 3) Withdraw button + timeline card */
-.cardx.withdraw-action-card{}
-
-/* Make these 3 cards use the white-luxury style */
-.cardx.withdraw-card,
-.cardx.otp-card,
-.cardx.withdraw-action-card{
-  /* reuse your white-luxury look */
-  position: relative !important;
-  overflow: hidden !important;
-
-  background: linear-gradient(
-      180deg,
-      #ffffff 0%,
-      #f8fafc 45%,
-      #eef2f7 75%,
-      #ffffff 100%
-  ) !important;
-
-  border: 2px solid rgba(212,175,55,.85) !important;
-
-  box-shadow:
-      0 20px 45px rgba(0,0,0,.12),
-      0 0 0 1px rgba(255,255,255,.9) inset !important;
-}
-
-/* glow overlay for these 3 cards */
-.cardx.withdraw-card::before,
-.cardx.otp-card::before,
-.cardx.withdraw-action-card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  background:
-    radial-gradient(circle at 90% 90%, rgba(212,175,55,.25), transparent 55%),
-    radial-gradient(circle at 10% 10%, rgba(0,65,130,.08), transparent 60%);
-  opacity:.75;
-}
-
-.cardx.withdraw-card::after,
-.cardx.otp-card::after,
-.cardx.withdraw-action-card::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,0) 55%);
-  opacity:.6;
-}
-
-/* content above overlays */
-.cardx.withdraw-card > *,
-.cardx.otp-card > *,
-.cardx.withdraw-action-card > *{
-  position:relative;
-  z-index:1;
-}
-
-/* Make text INSIDE these 3 cards dark (because card is white) */
-.cardx.withdraw-card,
-.cardx.withdraw-card *,
-.cardx.otp-card,
-.cardx.otp-card *,
-.cardx.withdraw-action-card,
-.cardx.withdraw-action-card *{
-  color:#0b2f55 !important;
-  text-shadow: none !important;
-}
-
-/* inputs inside white cards should be dark */
-.cardx.withdraw-card .num-input,
-.cardx.otp-card .num-input{
-  background: rgba(11,47,85,.06) !important;
-  border-color: rgba(11,47,85,.18) !important;
-  color:#0b2f55 !important;
-}
-.cardx.withdraw-card .num-input::placeholder,
-.cardx.otp-card .num-input::placeholder{
-  color: rgba(11,47,85,.55) !important;
-}
-/* ✅ Wallet Back button = White (visible on white cards) */
-.back-btn{
-  background: #ffffff !important;
-  color: #0b2f55 !important;                 /* blue text */
-  border: 2px solid rgba(11,47,85,.22) !important;
-
-  box-shadow: 0 10px 22px rgba(0,0,0,.14),
-              0 0 0 1px rgba(255,255,255,.9) inset !important;
-
-  font-weight: 950 !important;
-  text-decoration: none !important;
-}
-
-.back-btn:hover{
-  transform: translateY(-1px);
-  box-shadow: 0 14px 28px rgba(0,0,0,.16),
-              0 0 0 1px rgba(255,255,255,.9) inset !important;
-}
-
-.back-btn:active{
-  transform: scale(.98);
-  opacity: 1 !important;
-}
-
-/* (Optional) if you add arrow later */
-.back-btn::before{
-  border-right-color: #ffffff !important;
+@media (max-width: 520px) {
+  .top-actions { padding: 0; }
 }
 
 </style>
@@ -1219,7 +838,7 @@
         else if(err === "otp_already_used") showAlert(data.message || "This OTP has already been used. Please request a new one.");
         else if(err === "account_not_active") showAlert("Your account is not ACTIVE. Please contact company department.");
         else showAlert("Request failed. Try again.");
-        
+
         return;  // ✅ ត្រូវការ return នៅទីនេះ
       }
 

@@ -4,109 +4,91 @@
 
 {% block content %}
 <style>
-  /* រំលងការកំណត់ពី base.html */
+  /* Override base.html wrapper */
   #pageRoot.wrap {
     max-width: 100% !important;
     width: 100% !important;
     padding: 0 !important;
     display: block !important;
   }
-  
+
   body {
     padding-bottom: 0 !important;
     overflow-x: hidden !important;
   }
-  
+
   * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
   }
 
-  /* 🔥 ANIMATION KEYFRAMES */
+  /* ANIMATION KEYFRAMES */
   @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
   @keyframes fadeInLeft {
-    from {
-      opacity: 0;
-      transform: translateX(-30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
+    from { opacity: 0; transform: translateX(-30px); }
+    to   { opacity: 1; transform: translateX(0); }
   }
 
   @keyframes fadeIn {
     from { opacity: 0; }
-    to { opacity: 1; }
+    to   { opacity: 1; }
   }
 
   @keyframes pulse {
     0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+    50%       { transform: scale(1.05); }
   }
 
   @keyframes shimmer {
-    0% { background-position: -200% center; }
+    0%   { background-position: -200% center; }
     100% { background-position: 200% center; }
   }
 
-  /* Welcome Section */
+  /* ── Page wrapper ── */
+  .gl-page {
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 0 0 80px;
+  }
+
+  /* ── Hero / Welcome card ── */
   .welcome-wrap {
-    position: relative;
-    overflow: hidden;
-    padding: 40px 20px 60px;
-    min-height: auto;
+    background: linear-gradient(160deg, #1e4a06 0%, #2d6b0a 60%, #4a7a1e 100%);
+    border-radius: 0 0 28px 28px;
+    padding: 40px 24px 32px;
+    color: #ffffff;
+    text-align: center;
   }
 
   .welcome-card {
-    position: relative;
-    z-index: 10;
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(10px);
-    padding: 40px 35px;
-    border-radius: 24px;
-    box-shadow: 0 20px 60px rgba(0, 65, 130, 0.15), 0 0 0 1px rgba(201, 162, 39, 0.2);
-    text-align: center;
     width: 100%;
-    max-width: 420px;
-    margin: 0 auto;
-    border: 2px solid rgba(201, 162, 39, 0.3);
   }
 
-  /* 🔥 WELCOME TEXT ANIMATION */
   .welcome-card h1 {
-    margin: 0 0 15px;
-    font-size: 36px;
+    font-size: 24px;
     font-weight: 900;
-    letter-spacing: 2px;
-    color: #004182;
+    color: #fff;
+    margin: 0 0 8px;
     opacity: 0;
     animation: fadeInUp 0.8s ease-out forwards;
     animation-delay: 0.2s;
   }
 
   .welcome-card h1 span:last-child {
-    color: #C9A227;
     display: inline-block;
     animation: pulse 2s ease-in-out infinite;
     animation-delay: 1s;
   }
 
   .welcome-card p {
-    color: #475569;
-    margin-bottom: 25px;
-    font-size: 16px;
+    color: rgba(255,255,255,.8);
+    font-size: 14px;
+    margin-bottom: 24px;
     line-height: 1.6;
     opacity: 0;
     animation: fadeInUp 0.8s ease-out forwards;
@@ -115,57 +97,51 @@
 
   .welcome-card small {
     display: block;
-    margin-top: 15px;
-    color: #64748b;
-    font-size: 13px;
+    margin-top: 14px;
+    color: rgba(255,255,255,.7);
+    font-size: 12px;
     opacity: 0;
     animation: fadeIn 1s ease-out forwards;
     animation-delay: 0.8s;
   }
 
-  /* 🔥 BUTTONS WITH ANIMATION */
+  /* Hero CTA buttons */
   .btn-main {
     display: block;
     width: 100%;
-    padding: 14px;
+    padding: 14px 28px;
     border-radius: 999px;
-    background: linear-gradient(90deg, #004182, #054585ab);
-    color: #fff;
+    background: #fff;
+    color: #2d5a0e;
     font-weight: 800;
-    text-decoration: none;
-    margin-bottom: 12px;
     font-size: 16px;
-    border: none;
+    text-decoration: none;
     text-align: center;
+    border: none;
+    margin-bottom: 12px;
     opacity: 0;
     animation: fadeInUp 0.8s ease-out forwards;
     animation-delay: 0.5s;
     transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
   }
 
   .btn-main:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(0, 65, 130, 0.3);
-  }
-
-  .btn-main:active {
-    transform: translateY(0);
+    box-shadow: 0 8px 20px rgba(0,0,0,.20);
   }
 
   .btn-ghost {
     display: block;
     width: 100%;
-    padding: 12px;
+    padding: 12px 24px;
     border-radius: 999px;
-    border: 1px solid rgba(0, 65, 130, 0.3);
-    color: #004182;
-    text-decoration: none;
+    border: 2px solid rgba(255,255,255,.6);
+    color: #fff;
+    background: transparent;
     font-weight: 700;
     font-size: 16px;
+    text-decoration: none;
     text-align: center;
-    background: transparent;
     opacity: 0;
     animation: fadeInUp 0.8s ease-out forwards;
     animation-delay: 0.6s;
@@ -173,137 +149,46 @@
   }
 
   .btn-ghost:hover {
-    background: rgba(0, 65, 130, 0.05);
-    border-color: #004182;
+    background: rgba(255,255,255,.10);
     transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(0, 65, 130, 0.1);
   }
 
-  /* Loan Section */
-  .loan-section {
-    background: 
-      linear-gradient(135deg, rgba(0, 65, 130, 0.85) 0%, rgba(0, 102, 204, 0.85) 100%),
-      url('{% static "img/loan-bg.jpg" %}') center/cover no-repeat;
-    padding: 100px 20px;
-    position: relative;
-    z-index: 2;
-  }
-
-  .loan-section[style*="background"] {
-    background-attachment: fixed;
-  }
-
-  .loan-container {
-    max-width: 800px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .hero-content {
-    width: 100%;
-    max-width: 600px;
-  }
-
-  /* 🔥 FAST & SECURE ANIMATION */
-  .hero-content h2 {
-    font-size: 36px;
-    color: #ffffff;
-    margin-bottom: 20px;
-    font-weight: 900;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    opacity: 0;
-    animation: fadeInLeft 1s ease-out forwards;
-    animation-delay: 0.3s;
-  }
-
-  @media (min-width: 768px) {
-    .hero-content h2 {
-      font-size: 48px;
-    }
-  }
-
-  /* 🔥 ONLINE LOANS (GOLD TEXT) ANIMATION */
-  .hero-content .highlight {
-    color: #ffd700;
-    display: block;
-    margin-top: 10px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    opacity: 0;
-    animation: fadeInLeft 1s ease-out forwards;
-    animation-delay: 0.5s;
-    background: linear-gradient(90deg, #ffd700, #ffed4e, #ffd700);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: fadeInLeft 1s ease-out forwards, shimmer 3s linear infinite;
-    animation-delay: 0.5s, 1.5s;
-  }
-
-  /* 🔥 DESCRIPTION TEXT ANIMATION */
-  .hero-content p {
-    color: rgba(255, 255, 255, 0.95);
-    font-size: 18px;
-    line-height: 1.7;
-    margin-bottom: 0;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
-    opacity: 0;
-    animation: fadeIn 1.2s ease-out forwards;
-    animation-delay: 0.8s;
-  }
-
-  .hero-buttons {
-    display: none;
-  }
-
-  /* Stats Section */
+  /* ── Stats section ── */
   .stats-section {
-    background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
-    padding: 60px 20px;
+    padding: 20px 16px;
   }
 
   .stats-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  @media (min-width: 640px) {
-    .stats-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
   }
 
   .stat-box {
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
+    background: #ffffff;
+    border-radius: 14px;
+    border-top: 3px solid #7CB342;
+    box-shadow: 0 2px 10px rgba(74,122,30,.08);
+    padding: 16px 10px;
     text-align: center;
-    box-shadow: 0 4px 20px rgba(0, 65, 130, 0.08);
-    border: 1px solid rgba(201, 162, 39, 0.2);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
   .stat-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 65, 130, 0.15);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 18px rgba(74,122,30,.14);
   }
 
   .stat-icon {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #004182, #0066cc);
-    border-radius: 16px;
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, #4a7a1e, #7CB342);
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 15px;
-    color: #C9A227;
+    margin: 0 auto 10px;
+    color: #fff;
     transition: transform 0.3s ease;
   }
 
@@ -312,236 +197,184 @@
   }
 
   .stat-icon svg {
-    width: 32px;
-    height: 32px;
+    width: 22px;
+    height: 22px;
     fill: currentColor;
   }
 
   .stat-box h3 {
-    color: #004182;
-    font-size: 28px;
+    color: #2d5a0e;
+    font-size: 18px;
     font-weight: 900;
     margin: 0;
   }
 
   .stat-box p {
-    color: #64748b;
-    margin: 8px 0 0;
-    font-size: 14px;
+    color: #8a9a7a;
+    font-size: 11px;
+    margin: 4px 0 0;
   }
 
-  /* Features Section */
+  /* ── Features section ── */
   .features-section {
-    background: #f1f5f9;
-    padding: 60px 20px;
-    text-align: center;
+    padding: 0 0 4px;
   }
 
   .features-section h2 {
-    color: #004182;
-    font-size: 32px;
-    margin-bottom: 10px;
+    color: #2d5a0e;
     font-weight: 900;
+    font-size: 16px;
+    margin: 20px 16px 12px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #DCEDC8;
   }
 
   .features-section > p {
-    color: #64748b;
-    margin-bottom: 40px;
-    font-size: 16px;
+    display: none;
   }
 
   .features-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  @media (min-width: 640px) {
-    .features-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .features-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 0 16px;
   }
 
   .feature-card {
-    background: white;
-    padding: 30px;
-    border-radius: 20px;
-    text-align: left;
-    box-shadow: 0 4px 20px rgba(0, 65, 130, 0.08);
-    border: 1px solid rgba(201, 162, 39, 0.2);
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 2px 10px rgba(74,122,30,.06);
+    padding: 16px 14px;
+    border-left: 3px solid #7CB342;
+    color: #1a1a1a;
     transition: all 0.3s ease;
   }
 
   .feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 35px rgba(0, 65, 130, 0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(74,122,30,.12);
   }
 
   .feature-icon {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #004182, #0066cc);
-    border-radius: 16px;
+    color: #7CB342;
+    font-size: 22px;
+    margin-bottom: 8px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 20px;
-    color: #C9A227;
-    transition: all 0.3s ease;
-  }
-
-  .feature-card:hover .feature-icon {
-    transform: scale(1.1);
-    box-shadow: 0 5px 15px rgba(0, 65, 130, 0.3);
   }
 
   .feature-icon svg {
-    width: 28px;
-    height: 28px;
-    fill: currentColor;
+    width: 22px;
+    height: 22px;
+    fill: #7CB342;
   }
 
   .feature-card h3 {
-    color: #004182;
-    margin: 0 0 10px;
-    font-size: 20px;
+    color: #2d5a0e;
     font-weight: 800;
+    font-size: 13px;
+    margin: 0 0 6px;
   }
 
   .feature-card p {
-    color: #64748b;
+    color: #5a6a4a;
+    font-size: 12px;
     margin: 0;
-    font-size: 15px;
-    line-height: 1.6;
+    line-height: 1.5;
   }
 
-  /* CTA Section */
+  /* ── Loan hero (hidden/repurposed as CTA) ── */
+  .loan-section {
+    display: none;
+  }
+
+  /* ── CTA section ── */
   .cta-section {
-    background: linear-gradient(135deg, #004182 0%, #0066cc 100%);
-    padding: 50px 20px;
-    margin: 30px 15px;
-    border-radius: 24px;
+    background: linear-gradient(135deg, #2d6b0a, #4a7a1e);
+    border-radius: 18px;
+    margin: 16px;
+    padding: 28px 20px;
     text-align: center;
-    border: 3px solid #C9A227;
-    position: relative;
-    overflow: hidden;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
+    color: #fff;
     transition: transform 0.3s ease;
   }
 
   .cta-section:hover {
-    transform: scale(1.02);
-  }
-
-  @media (min-width: 768px) {
-    .cta-section {
-      padding: 70px 40px;
-      margin: 50px auto;
-    }
+    transform: scale(1.01);
   }
 
   .cta-section h2 {
-    color: white;
-    font-size: 28px;
-    margin-bottom: 15px;
+    color: #fff;
+    font-size: 18px;
     font-weight: 900;
+    margin-bottom: 10px;
     animation: fadeInUp 0.8s ease-out;
   }
 
-  @media (min-width: 768px) {
-    .cta-section h2 {
-      font-size: 36px;
-    }
-  }
-
   .cta-section p {
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 25px;
-    font-size: 16px;
+    color: rgba(255,255,255,.88);
+    font-size: 13px;
+    margin-bottom: 20px;
     animation: fadeIn 1s ease-out 0.3s both;
   }
 
   .btn-gold {
-    background: linear-gradient(135deg, #C9A227 0%, #e5c100 100%);
-    color: #004182;
-    padding: 16px 36px;
-    border-radius: 50px;
+    background: #fff;
+    color: #2d5a0e;
+    padding: 13px 28px;
+    border-radius: 999px;
     text-decoration: none;
     font-weight: 800;
     display: inline-block;
-    border: 2px solid #C9A227;
-    font-size: 16px;
+    font-size: 14px;
     transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
   }
 
   .btn-gold:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(201, 162, 39, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,.18);
   }
 
-  .btn-gold:active {
-    transform: translateY(-1px);
-  }
-
-  /* Footer */
+  /* ── Footer ── */
   .site-footer {
-    background: #0f172a;
-    color: white;
-    padding: 50px 20px 30px;
-    border-top: 4px solid #C9A227;
+    background: #fff;
+    border-top: 1px solid #e0eed0;
+    padding: 20px 16px;
+    color: #5a6a4a;
+    font-size: 12px;
   }
 
   .footer-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 30px;
-    max-width: 1200px;
-    margin: 0 auto 30px;
+    gap: 16px;
+    margin-bottom: 16px;
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: 480px) {
     .footer-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  @media (min-width: 768px) {
-    .footer-grid {
-      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
     }
   }
 
   .footer-brand {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 15px;
+    gap: 10px;
+    margin-bottom: 8px;
   }
 
-  /* 🔥 UPDATED LOGO STYLING - Replace BL text with Image */
   .footer-logo {
-    width: 45px;
-    height: 45px;
-    border-radius: 10px;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
     overflow: hidden;
     flex-shrink: 0;
-    transition: transform 0.3s ease;
-  }
-
-  .footer-logo:hover {
-    transform: scale(1.1);
+    background: linear-gradient(135deg, #4a7a1e, #7CB342);
+    position: relative;
   }
 
   .footer-logo img {
@@ -549,39 +382,28 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    position: relative; /* ដាក់លើពាក្យ BL */
+    position: relative;
     z-index: 2;
-  }
-
-
-  .footer-logo {
-    width: 45px;
-    height: 45px;
-    border-radius: 10px;
-    overflow: hidden;
-    flex-shrink: 0;
-    transition: transform 0.3s ease;
-    position: relative; /* ត្រូវការសម្រាប់ positioning */
-    background: linear-gradient(135deg, #C9A227, #e5c100); /* Fallback ពណ៌ */
   }
 
   .footer-brand h3 {
     margin: 0;
-    font-size: 22px;
+    font-size: 16px;
     font-weight: 900;
-    color: white;
+    color: #2d5a0e;
   }
 
   .footer-desc {
-    color: #94a3b8;
-    font-size: 14px;
+    color: #5a6a4a;
+    font-size: 12px;
     line-height: 1.6;
+    margin: 0;
   }
 
   .footer-section h4 {
-    color: #C9A227;
-    margin-bottom: 15px;
-    font-size: 18px;
+    color: #4a7a1e;
+    margin-bottom: 10px;
+    font-size: 13px;
     font-weight: 800;
   }
 
@@ -592,40 +414,38 @@
   }
 
   .footer-section li {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
 
   .footer-section a {
-    color: #cbd5e1;
+    color: #4a7a1e;
     text-decoration: none;
-    font-size: 14px;
-    transition: color 0.3s ease, padding-left 0.3s ease;
-    display: inline-block;
+    font-size: 12px;
+    transition: color 0.2s ease;
   }
 
   .footer-section a:hover {
-    color: #C9A227;
-    padding-left: 5px;
+    color: #2d5a0e;
   }
 
   .footer-section p {
-    color: #94a3b8;
-    margin: 5px 0;
-    font-size: 14px;
+    color: #5a6a4a;
+    margin: 4px 0;
+    font-size: 12px;
   }
 
   .footer-bottom {
     text-align: center;
-    padding-top: 25px;
-    border-top: 1px solid #334155;
-    color: #64748b;
-    font-size: 13px;
-    max-width: 1200px;
-    margin: 0 auto;
+    padding-top: 14px;
+    border-top: 1px solid #e0eed0;
+    color: #8a9a7a;
+    font-size: 11px;
   }
 </style>
 
 <!-- Welcome Section -->
+<div class="gl-page">
+
 <section class="welcome-wrap">
   <div class="welcome-card">
     <h1>WELCOME <span>!</span></h1>
@@ -656,13 +476,21 @@
       <h3>18+</h3>
       <p>Years Experience</p>
     </div>
-    
+
     <div class="stat-box">
       <div class="stat-icon">
         <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
       </div>
       <h3>50K+</h3>
       <p>Happy Customers</p>
+    </div>
+
+    <div class="stat-box">
+      <div class="stat-icon">
+        <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+      </div>
+      <h3>₱5M</h3>
+      <p>Max Loan Amount</p>
     </div>
   </div>
 </section>
@@ -671,7 +499,7 @@
 <section class="features-section">
   <h2>Why Choose Us</h2>
   <p>We provide the best loan services with competitive rates</p>
-  
+
   <div class="features-grid">
     <div class="feature-card">
       <div class="feature-icon">
@@ -680,7 +508,7 @@
       <h3>Quick Loans</h3>
       <p>Apply for loans from ₱80,000 to ₱5,000,000 with competitive rates and fast approval.</p>
     </div>
-    
+
     <div class="feature-card">
       <div class="feature-icon">
         <svg viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
@@ -688,7 +516,7 @@
       <h3>Fast Approval</h3>
       <p>Get approved within 24-48 hours with our streamlined digital process.</p>
     </div>
-    
+
     <div class="feature-card">
       <div class="feature-icon">
         <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
@@ -703,6 +531,7 @@
 <section class="cta-section">
   <h2>Ready to Get Started?</h2>
   <p>Apply for a loan today and get approved within 24-48 hours. No hidden fees.</p>
+  <a href="/register/" class="btn-gold">APPLY NOW →</a>
 </section>
 
 <!-- Footer -->
@@ -711,7 +540,7 @@
     <div>
       <p class="footer-desc">Providing secure and fast loan services since July 26, 2006</p>
     </div>
-    
+
     <div class="footer-section">
       <h4>Quick Links</h4>
       <ul>
@@ -719,11 +548,13 @@
         <li><a href="/register/">Register</a></li>
       </ul>
     </div>
-    
-  
+
+
   <div class="footer-bottom">
     <p>© 2026 last updated</p>
   </div>
 </footer>
+
+</div><!-- .gl-page -->
 
 {% endblock %}

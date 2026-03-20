@@ -1,300 +1,29 @@
-  {% extends "base.html" %}
-  {% load static %}
-  {% block title %}Profile{% endblock %}
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Profile{% endblock %}
 
-  {% block content %}
-  <style>
-    /* ✅ Apply Ovillon to ALL text on this page */
-    body, body *{
+{% block content %}
+<style>
+  body, body * {
     font-family: "Ovelion", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
   }
 
-    /* Back button shape like picture */
-    .back-btn{
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-
-      height: 42px;
-      padding: 0 22px 0 28px;   /* left a bit bigger */
-      border-radius: 12px;
-
-      background: #13111185;
-      color: #ffffffc9;
-      font-weight: 800;
-      text-decoration: none;
-
-      border: 1px solid rgba(189, 189, 189, 0.164);
-      box-shadow:
-        0 6px 14px rgba(0,0,0,.18),
-        inset 0 1px 0 rgba(255,255,255,.65);
-    }
-    /* ✅ Profile Back button = White (visible on white cards) */
-  .back-btn{
-    background: #ffffff !important;
-    color: #0b2f55 !important;                 /* blue text */
-    border: 2px solid rgba(11,47,85,.22) !important;
-
-    box-shadow: 0 10px 22px rgba(0,0,0,.14),
-                0 0 0 1px rgba(255,255,255,.9) inset !important;
-
-    font-weight: 950 !important;
-    text-decoration: none !important;
+  body {
   }
 
-  /* keep your hover/active feeling */
-  .back-btn:hover{
-    transform: translateY(-1px);
-    box-shadow: 0 14px 28px rgba(0,0,0,.16),
-                0 0 0 1px rgba(255,255,255,.9) inset !important;
+  /* ── Wrapper ── */
+  .p-wrap {
+    width: min(520px, 94vw);
+    max-width: 520px;
+    margin: 0 auto;
+    padding: 16px 16px 100px;
+    box-sizing: border-box;
   }
 
-  .back-btn:active{
-    transform: scale(.98);
-    opacity: 1 !important;
-  }
-
-  /* (Optional) if you later add arrow shape ::before, make it white too */
-  .back-btn::before{
-    border-right-color: #ffffff !important;
-  }
-    .back-btn:hover{ transform: translateY(-1px); }
-    .back-btn:active{ transform: translateY(0px); opacity: .92; }
-
-    @media (max-width:520px){
-      .top-actions{ padding: 10px 12px 0; }
-      .top-actions-line{ margin: 10px 12px 0; }
-      .back-btn{ height: 40px; padding: 0 18px 0 24px; font-size: 13px; }
-      .back-btn::before{
-        left: -13px;
-        border-top: 20px solid transparent;
-        border-bottom: 20px solid transparent;
-        border-right: 13px solid #e7e7e7;
-      }
-    }
-    .wrap{
-      align-items:flex-start !important;
-      justify-content:center !important;
-      padding-top:72px !important;
-    }
-    .p-wrap{
-      width: min(520px, 94vw);
-      margin: 0 auto;
-      padding: 14px;
-      box-sizing: border-box;
-    }
-
-    /* ===== cards ===== */
-    .cardx{
-    position: relative;
-
-    background: rgba(0, 0, 0, 0.788);
-
-    border-radius: 18px;
-    border: 2px solid rgba(192, 192, 192, 0.904);
-
-    backdrop-filter: blur(22px);
-    -webkit-backdrop-filter: blur(22px);
-
-    box-shadow: 0 0 10px rgba(10, 10, 9, 0.788),
-                0 14px 10px rgba(0, 0, 0, 0.815);
-
-    overflow: hidden;
-    margin-bottom: 16px;
-    padding: 18px;
-  }
-    .head{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:12px;
-    }
-    .h-title{
-      font-weight:950;
-      font-size:18px;
-      letter-spacing:.02em;
-    }
-    .h-sub{
-      font-size:12px;
-      opacity:.75;
-      margin-top:2px;
-    }
-    .mini{
-      padding:6px 12px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.10);
-      background: #1e2222a1;
-      color:#fafafa;
-      font-weight:850;
-      font-size:12px;
-      white-space:nowrap;
-    }
-
-    .menu{
-      display:grid;
-      gap:12px;
-    }
-    /* ✅ Menu cards (Credit Score -> Logout) = SAME as profile card */
-  .p-btn{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    padding:14px 14px;
-    text-decoration:none;
-    color:#fff;
-
-    position: relative;
-    background: rgba(0, 0, 0, 0.788);
-    border-radius: 18px;
-    border: 2px solid rgba(192, 192, 192, 0.904);
-
-    backdrop-filter: blur(22px);
-    -webkit-backdrop-filter: blur(22px);
-
-    box-shadow: 0 0 10px rgba(10, 10, 9, 0.788),
-                0 14px 10px rgba(0, 0, 0, 0.815);
-
-    overflow:hidden;
-
-    transition: transform .08s ease, opacity .2s ease;
-    margin-bottom:12px;
-  }
-  .p-btn:active{ transform: scale(.99); }
-    .p-btn:active{ transform: none; }
-
-    .left{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:0;
-    }
-    .ico{
-      width:42px;
-      height:42px;
-      border-radius:14px;
-      background: rgba(255,255,255,.10);
-      border:1px solid rgba(255,255,255,.10);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex: 0 0 auto;
-    }
-    .ico svg{ width:20px; height:20px; fill:#fff; opacity:.95; }
-
-    .txt{ min-width:0; }
-    .t1{
-      font-weight:950;
-      font-size:14px;
-      letter-spacing:.02em;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .t2{
-      font-size:12px;
-      opacity:.75;
-      margin-top:2px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .chev{
-      width:30px;
-      height:30px;
-      border-radius:999px;
-      background: rgba(0,0,0,.20);
-      border:1px solid rgba(255,255,255,.14);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex:0 0 auto;
-    }
-    .chev svg{ width:16px; height:16px; fill:#fff; opacity:.95; }
-
-    /* ===== Logout Confirm Modal ===== */
-    .logout-modal{
-      position:fixed;
-      inset:0;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      background: rgba(0,0,0,.62);
-      z-index:9999;
-      padding: 18px 14px;
-      box-sizing:border-box;
-    }
-    .logout-modal.show{ display:flex; }
-
-    .logout-box{
-      width:min(420px, 92vw);
-      background: rgba(25,25,25,.92);
-      border:1px solid rgba(255,255,255,.14);
-      border-radius: 18px;
-      box-shadow: 0 24px 60px rgba(0,0,0,.55);
-      overflow:hidden;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      padding: 16px;
-    }
-    .logout-title{
-      font-weight: 950;
-      letter-spacing:.2px;
-      font-size:16px;
-      margin-bottom:6px;
-    }
-    .logout-text{
-      font-size:13px;
-      opacity:.9;
-      line-height:1.45;
-      margin-bottom:14px;
-    }
-    .logout-actions{
-      display:flex;
-      gap:10px;
-      justify-content:flex-end;
-    }
-    .btn-cancel{
-      height:40px;
-      padding:0 16px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.22);
-      background: rgba(255,255,255,.08);
-      color:#fff;
-      font-weight: 900;
-      cursor:pointer;
-    }
-    .btn-confirm{
-    height:40px;
-    padding:0 16px;
-    border-radius:999px;
-    border:0;
-    font-weight: 900;
-    cursor:pointer;
-    background: linear-gradient(90deg, #004182, #054585d0);
-    color:#e6f1ff;
-    box-shadow: 0 12px 30px rgba(0,0,0,.35);
-  }
-
-  .btn-confirm:active{
-    transform: scale(.98);
-  }
-  </style>
-
-  <div class="p-wrap">
-  <div id="statusAlert"
-     class="status-alert"
-     style="display:none;"
-     data-msg="{{ request.user.status_message|default:''|escapejs }}"
-     {% if request.user.status_message %}data-lock="1"{% endif %}></div>
-
-  <style>
-  /* Profile page alert style (use GLOBAL status colors) */
-  .status-alert{
+  /* ── Status alert banner ── */
+  .status-alert {
     width: 100%;
-    margin: 0 0 12px;     /* ❗ remove auto center causing weird offset */
+    margin: 0 0 12px;
     padding: 12px 16px;
     border-radius: 999px;
     text-align: center;
@@ -302,183 +31,303 @@
     letter-spacing: .4px;
     box-sizing: border-box;
   }
-  /* ✅ COLORS (same as wallet) */
-  .status-danger{ background:#dc2626; color:#fff; }
-  .status-success{ background:#16a34a; color:#fff; }
-  .status-warn{ background:#eab308; color:#111; }
-  .p-wrap .status-alert{
-    width: 100%;          /* ✅ match card width */
-  }
-  /* =========================
-    ✅ PROFILE MENU = WHITE (same as wallet white cards)
-    ========================= */
-  .p-btn{
-    position: relative !important;
-    overflow: hidden !important;
+  .status-danger  { background: #dc2626; color: #fff; }
+  .status-success { background: #16a34a; color: #fff; }
+  .status-warn    { background: #eab308; color: #111; }
 
-    background: linear-gradient(
-        180deg,
-        #ffffff 0%,
-        #f8fafc 45%,
-        #eef2f7 75%,
-        #ffffff 100%
-    ) !important;
-
-    border: 2px solid rgba(212,175,55,.85) !important;
-
-    box-shadow:
-        0 20px 45px rgba(0,0,0,.12),
-        0 0 0 1px rgba(255,255,255,.9) inset !important;
+  /* ── Hero / Diamond card ── */
+  .cardx.card-diamond {
+    background: linear-gradient(135deg, #1e4a06 0%, #2d6b0a 50%, #7CB342 100%) !important;
+    border-radius: 20px !important;
+    border: 1px solid rgba(124,179,66,.35) !important;
+    border-top: 1px solid rgba(124,179,66,.35) !important;
+    box-shadow: 0 8px 32px rgba(74,122,30,.35) !important;
+    padding: 24px 20px;
+    color: #ffffff !important;
+    margin-bottom: 20px;
+    overflow: hidden;
+    position: relative;
   }
 
-  /* glow */
-  .p-btn::before{
-    content:"" !important;
-    position:absolute !important;
-    inset:0 !important;
-    pointer-events:none !important;
-    opacity:.75 !important;
-    border-radius: 18px !important;
-
-    background:
-      radial-gradient(circle at 90% 90%, rgba(212,175,55,.25), transparent 55%),
-      radial-gradient(circle at 10% 10%, rgba(0,65,130,.08), transparent 60%) !important;
+  .cardx.card-diamond::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.10) 50%, transparent 100%);
+    transform: translateX(-120%);
+    animation: heroShine 4s ease-in-out infinite;
+  }
+  @keyframes heroShine {
+    0%, 55% { transform: translateX(-120%); }
+    100%     { transform: translateX(120%); }
   }
 
-  /* top shine */
-  .p-btn::after{
-    content:"" !important;
-    position:absolute !important;
-    inset:0 !important;
-    pointer-events:none !important;
-    opacity:.6 !important;
-    border-radius: 18px !important;
+  .cardx.card-diamond > * { position: relative; z-index: 2; }
 
-    background: linear-gradient(
-        180deg,
-        rgba(255,255,255,.9),
-        rgba(255,255,255,0) 55%
-    ) !important;
+  .cardx.card-diamond,
+  .cardx.card-diamond * {
+    color: #fff !important;
   }
 
-  /* content above overlays */
-  .p-btn > *{
-    position: relative !important;
-    z-index: 1 !important;
+  /* ── Card head row ── */
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .h-title {
+    font-weight: 950;
+    font-size: 18px;
+    letter-spacing: .02em;
+    color: #fff !important;
+  }
+  .h-sub {
+    font-size: 12px;
+    color: rgba(255,255,255,.80) !important;
+    margin-top: 2px;
   }
 
-  /* text inside menu cards must be dark (white card) */
-  .p-btn,
-  .p-btn *{
-    color:#0b2f55 !important;
-    text-shadow: none !important;
+  /* Balance amount on hero card */
+  .amount {
+    font-size: 26px;
+    font-weight: 950;
+    color: #DCEDC8 !important;
+    margin-top: 4px;
   }
 
-  /* icons/chips */
-  .p-btn .ico{
-    background: rgba(11,47,85,.06) !important;
-    border-color: rgba(11,47,85,.14) !important;
+  /* Status badge inside hero card */
+  .status-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: .3px;
+    white-space: nowrap;
   }
-  .p-btn .ico svg,
-  .p-btn .chev svg{
-    fill:#0b2f55 !important;
-    opacity:.95 !important;
+  .status-active  { background: rgba(255,255,255,.20); color: #fff !important; border: 1px solid rgba(255,255,255,.30); }
+  .status-warn    { background: rgba(234,179,8,.30);   color: #ffe082 !important; border: 1px solid rgba(234,179,8,.40); }
+  .status-danger  { background: rgba(220,38,38,.30);   color: #ffcdd2 !important; border: 1px solid rgba(220,38,38,.40); }
+
+  /* ── Section title ── */
+  .menu-label {
+    color: #2d5a0e;
+    font-weight: 900;
+    font-size: 14px;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    margin: 16px 0 8px;
   }
-  .p-btn .chev{
-    background: rgba(11,47,85,.06) !important;
-    border-color: rgba(11,47,85,.14) !important;
+
+  /* ── Menu grid ── */
+  .menu { display: grid; gap: 0; }
+
+  /* ── Menu buttons ── */
+  .p-btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    text-decoration: none;
+    background: #ffffff;
+    border-radius: 14px;
+    border: 1px solid #e0eed0;
+    box-shadow: 0 2px 8px rgba(74,122,30,.06);
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: background .15s ease, border-color .15s ease, transform .08s ease;
+    overflow: hidden;
   }
-  .p-btn .t2{
-    opacity:.75 !important;
+  .p-btn:hover {
+    background: #f1f8e9;
+    border-color: #7CB342;
   }
-/* ✅ Dashboard Diamond Card Style */
-.cardx.card-diamond{
-  position: relative;
-  background: linear-gradient(135deg,
-    #004182 0%,
-    #053a66 45%,
-    #0b2f55 70%,
-    #d4af37 100%) !important;
+  .p-btn:active { transform: scale(.99); }
 
-  border: 2px solid rgba(212,175,55,.90) !important;
-  border-radius: 18px !important;
+  /* ── Left cluster ── */
+  .left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+  }
 
-  box-shadow: 0 18px 46px rgba(0,0,0,.55),
-              0 0 0 1px rgba(255,255,255,.10) inset !important;
+  /* ── Icon container ── */
+  .ico {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: rgba(124,179,66,.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+  }
+  .ico svg {
+    width: 20px;
+    height: 20px;
+    fill: #4a7a1e;
+    opacity: .95;
+  }
 
-  overflow: hidden !important;
-}
+  /* ── Text block ── */
+  .txt { min-width: 0; }
+  .t1 {
+    font-weight: 950;
+    font-size: 14px;
+    letter-spacing: .02em;
+    color: #1a1a1a;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .t2 {
+    font-size: 12px;
+    color: #8a9a7a;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-.cardx.card-diamond::before{
-  content:"";
-  position:absolute;
-  inset:-40px;
-  pointer-events:none;
-  opacity:.22;
-  background:
-    repeating-linear-gradient(
-      135deg,
-      rgba(255,255,255,.22) 0px,
-      rgba(255,255,255,.22) 10px,
-      rgba(255,255,255,0)   10px,
-      rgba(255,255,255,0)   26px
-    ),
-    radial-gradient(circle at 18% 22%, rgba(125,211,252,.20), transparent 60%),
-    radial-gradient(circle at 85% 78%, rgba(212,175,55,.18), transparent 62%);
-}
+  /* ── Chevron ── */
+  .chev {
+    width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    background: rgba(124,179,66,.10);
+    border: 1px solid rgba(124,179,66,.20);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+  }
+  .chev svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: rgba(74,122,30,.60);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
 
-.cardx.card-diamond::after{
-  content:"";
-  position:absolute; inset:0;
-  pointer-events:none;
-  opacity:.55;
-  background: linear-gradient(120deg,
-    transparent 0%,
-    rgba(255,255,255,.22) 50%,
-    transparent 100%);
-  transform: translateX(-120%);
-  animation: diamondShine 3.6s ease-in-out infinite;
-}
+  /* ── Back button ── */
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    padding: 0 18px;
+    border-radius: 999px;
+    background: rgba(124,179,66,.12);
+    color: #4a7a1e !important;
+    border: 1px solid rgba(124,179,66,.30);
+    font-weight: 800;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background .15s ease, transform .08s ease;
+  }
+  .back-btn:hover  { background: rgba(124,179,66,.20); transform: translateY(-1px); }
+  .back-btn:active { transform: scale(.98); }
 
-@keyframes diamondShine{
-  0%,55%{ transform: translateX(-120%); }
-  100%{ transform: translateX(120%); }
-}
+  /* ── Top actions row ── */
+  .top-actions {
+    margin-top: 16px;
+    display: flex;
+    justify-content: flex-start;
+  }
 
-.cardx.card-diamond > *{
-  position: relative;
-  z-index: 2;
-}
+  /* ── Logout modal overlay ── */
+  .logout-modal {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,.45);
+    z-index: 9999;
+    padding: 18px 14px;
+    box-sizing: border-box;
+  }
+  .logout-modal.show { display: flex; }
 
-/* ✅ White text inside diamond */
-.cardx.card-diamond,
-.cardx.card-diamond *{
-  color:#fff !important;
-  text-shadow: 0 1px 0 rgba(0,0,0,.35), 0 10px 22px rgba(0,0,0,.35) !important;
-}
-/* ✅ FORCE Logout Modal text = WHITE */
-#logoutModal .logout-box,
-#logoutModal .logout-box *{
-  color:#fff !important;
-  text-shadow: 0 1px 0 rgba(0,0,0,.35) !important;
-}
+  /* ── Logout modal box ── */
+  .logout-box {
+    width: min(420px, 92vw);
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.25);
+    overflow: hidden;
+    padding: 28px;
+    text-align: center;
+  }
+  .logout-title {
+    font-weight: 900;
+    font-size: 18px;
+    color: #1a1a1a !important;
+    margin-bottom: 8px;
+    letter-spacing: .2px;
+  }
+  .logout-text {
+    font-size: 14px;
+    color: #5a6a4a !important;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  .logout-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  .btn-cancel {
+    height: 44px;
+    padding: 0 24px;
+    border-radius: 999px;
+    border: 2px solid #c8ddb0;
+    background: #ffffff;
+    color: #5a6a4a !important;
+    font-weight: 900;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background .15s ease;
+  }
+  .btn-cancel:hover { background: #f1f8e9; }
 
-/* optional: make title stronger */
-#logoutModal .logout-title{
-  color:#fff !important;
-  font-weight: 950 !important;
-}
+  .btn-confirm {
+    height: 44px;
+    padding: 0 24px;
+    border-radius: 999px;
+    border: 0;
+    background: linear-gradient(135deg, #c62828, #e53935);
+    color: #fff !important;
+    font-weight: 900;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(198,40,40,.30);
+    transition: opacity .15s ease, transform .08s ease;
+  }
+  .btn-confirm:hover  { opacity: .92; }
+  .btn-confirm:active { transform: scale(.98); }
 
-/* optional: make body text a bit softer */
-#logoutModal .logout-text{
-  color: rgba(255,255,255,.92) !important;
-}
+  @media (max-width: 520px) {
+    .top-actions { padding: 0; }
+  }
+</style>
 
-/* ✅ Cancel button keep white text */
-#logoutModal .btn-cancel{
-  color:#fff !important;
-}
-  </style>
+<div class="p-wrap">
+  <div id="statusAlert"
+     class="status-alert"
+     style="display:none;"
+     data-msg="{{ request.user.status_message|default:''|escapejs }}"
+     {% if request.user.status_message %}data-lock="1"{% endif %}></div>
 
     <div class="cardx card-diamond" id="profile-currency-section">
       <div class="head">
@@ -487,12 +336,15 @@
           <div class="h-sub">Account: {{ request.user.phone }}</div>
         </div>
 
-        {% if request.user.account_status|upper == "ACTIVE" %}
+        {% with color_key=request.user.account_status|default:"ACTIVE"|upper display_text=request.user.dashboard_status_label|default:request.user.account_status|default:"ACTIVE" %}
           <span id="accStatusBadge"
-            class="status-badge {% if request.user.account_status|lower == 'active' %}status-active{% else %}status-danger{% endif %}">
-            {{ request.user.account_status|upper }}
+            class="status-badge
+            {% if color_key == 'ACTIVE' or color_key == 'APPROVED' or color_key == 'LOAN_PAID' or color_key == 'WITHDRAWAL_SUCCESSFUL' or color_key == 'ACCOUNT_UPDATED' %}status-active
+            {% elif color_key == 'APP_MAINTENANCE' or color_key == 'INVALID_DETAIL' or color_key == 'RENEW_DOCUMENT_REQUIRED' %}status-warn
+            {% else %}status-danger{% endif %}">
+            {{ display_text }}
           </span>
-        {% endif %}
+        {% endwith %}
       </div>
 
       <div style="font-size:12px; opacity:.85;">
@@ -560,7 +412,7 @@
           <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
         </div>
       </a>
-      
+
       <a class="p-btn" href="{% url 'agreement' %}">
         <div class="left">
           <div class="ico" aria-hidden="true">

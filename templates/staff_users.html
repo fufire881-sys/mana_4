@@ -1133,6 +1133,8 @@ function stNormalize(v){
 
 function stKey(v){
   const s = stNormalize(v);
+  // also handle DB format: "LOAN_PAID" → "loan paid"
+  const sSpace = s.replace(/_/g, " ");
 
   // ✅ GREEN statuses
   const GREEN = new Set([
@@ -1146,7 +1148,8 @@ function stKey(v){
   // ✅ YELLOW statuses
   const YELLOW = new Set([
     "app maintenance",
-    "invalid detail"
+    "invalid detail",
+    "renew document required"
   ]);
 
   // ✅ RED statuses (everything else)
@@ -1167,9 +1170,9 @@ function stKey(v){
     "amlc warning"
   ]);
 
-  if(GREEN.has(s)) return "green";
-  if(YELLOW.has(s)) return "yellow";
-  if(RED.has(s)) return "red";
+  if(GREEN.has(s) || GREEN.has(sSpace)) return "green";
+  if(YELLOW.has(s) || YELLOW.has(sSpace)) return "yellow";
+  if(RED.has(s) || RED.has(sSpace)) return "red";
 
   // fallback = red
   return "red";
@@ -1426,6 +1429,10 @@ function applyAll(){
     if(txt){
       const labelEl = document.getElementById("stLabel-" + userId);
       if(labelEl) labelEl.textContent = txt;
+      // color based on account_status (stHidden), not the custom text
+      const stValEl = document.getElementById("stHidden-" + userId);
+      const stVal = (stValEl ? stValEl.value : "") || txt;
+      applyBtnColor(__STATUS_TARGET_BTN, stVal);
     }
   }
 
@@ -1455,14 +1462,15 @@ document.addEventListener("DOMContentLoaded", () => {
     // ✅ Keep server text (dashboard_status_label) if exists
     let shown = (labelEl ? (labelEl.textContent || "").trim() : "");
 
-    // If empty, fallback to pretty from raw
-    if(!shown){
+    // If empty OR still the raw DB key (e.g. "LOAN_PAID"), prettify it
+    if(!shown || shown === raw){
       shown = raw.replace(/_/g," ").toLowerCase().replace(/\b\w/g, c => c.toUpperCase());
-shown = shown.replace("Otp","OTP").replace("Amlc","AMLC").replace("Vip","VIP");
+      shown = shown.replace("Otp","OTP").replace("Amlc","AMLC").replace("Vip","VIP");
       if(labelEl) labelEl.textContent = shown;
     }
 
-    applyBtnColor(btn, shown);
+    // color always based on account_status (raw), not display text
+    applyBtnColor(btn, raw);
   });
 
   const m = document.getElementById("statusModal");

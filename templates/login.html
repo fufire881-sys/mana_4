@@ -5,178 +5,206 @@
 
 {% block content %}
 <style>
-  :root{
-  --g1: #004182;
-  --g2: #054585d0;
-}
-  .center{
+  :root {
+    --primary: #7CB342;
+    --dark-green: #4a7a1e;
+    --light-accent: #DCEDC8;
+    --page-bg: #F0F4EC;
+    --card-bg: #ffffff;
+    --text-primary: #1a1a1a;
+    --text-secondary: #3d6b1c;
+    --text-muted: #8a9a7a;
+    --border: #c8ddb0;
+    --input-bg: #f8fdf4;
+    --error: #e53935;
+  }
+
+  body {
+    background: var(--page-bg) !important;
+  }
+
+  .center {
     min-height: calc(100vh - 120px);
-    display:flex;
-    align-items:flex-start;
-    justify-content:center;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
     padding: 22px 14px 40px;
-    box-sizing:border-box;
+    box-sizing: border-box;
+    background: var(--page-bg);
   }
 
-  .glass-card{
-    width: min(560px, 100%);
+  .glass-card {
+    width: min(480px, 100%);
     margin-top: 10px;
-    background: rgba(40,40,40,.40);
-    border: 1px solid rgba(255,255,255,.18);
-    border-radius: 18px;
-    padding: 18px;
-    backdrop-filter: blur(14px);
-    box-shadow: 0 18px 50px rgba(0,0,0,.45);
-    animation: zoomIn .35s ease-out both;
+    background: #ffffff;
+    border-radius: 20px;
+    border-top: 4px solid #7CB342;
+    box-shadow: 0 8px 32px rgba(74,122,30,.12), 0 2px 8px rgba(0,0,0,.06);
+    padding: 32px 28px;
+    box-sizing: border-box;
+    animation: slideUp .35s ease-out both;
   }
 
-  @keyframes zoomIn{
-    from{ transform: translateY(6px) scale(.97); opacity:0; }
-    to{ transform: translateY(0) scale(1); opacity:1; }
+  @keyframes slideUp {
+    from { transform: translateY(10px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
   }
 
-  .title{
-    text-align:center;
-    font-size: 20px;
-    font-weight: 950;
+  .title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 900;
     letter-spacing: .6px;
-    margin: 6px 0 14px;
-    background: linear-gradient(90deg, rgba(255,255,255,.35), rgba(255,255,255,.95), rgba(255,255,255,.35));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    background-size: 220% 100%;
-    animation: shimmer 2.2s linear infinite;
-  }
-  @keyframes shimmer{
-    0%{ background-position: 0% 50%; }
-    100%{ background-position: 200% 50%; }
+    margin: 0 0 20px;
+    color: #2d5a0e;
   }
 
-  .field{ margin: 12px 0; }
-  .label{
+  .field { margin: 14px 0; }
+
+  .label {
+    display: block;
     font-size: 13px;
-    font-weight: 800;
-    opacity: .92;
-    margin: 0 0 8px;
-    color:#fff !important;
-    text-shadow: 0 1px 0 rgba(0,0,0,.35), 0 10px 22px rgba(0,0,0,.35);
+    font-weight: 700;
+    color: #3d6b1c;
+    margin-bottom: 6px;
   }
 
-  .input-wrap{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding: 10px 12px;
-    border-radius: 14px;
-    background: rgba(255,255,255,.92);
-    border: 1px solid rgba(255,255,255,.35);
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.65);
-    box-sizing:border-box;
+  .input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: #f8fdf4;
+    border: 1.5px solid #c8ddb0;
+    box-sizing: border-box;
+    transition: border-color .2s, box-shadow .2s, background .2s;
   }
 
-  .icon-box svg{
-    width:18px;
-    height:18px;
-    fill:#054585d0;
-    opacity:.95;
+  .input-wrap:focus-within {
+    border-color: #7CB342;
+    box-shadow: 0 0 0 3px rgba(124,179,66,.18);
+    background: #ffffff;
   }
 
-  .input{
-    width:100%;
-    border:none;
-    outline:none;
-    background:transparent;
-    font-size:14px;
-    color:#111;
-    caret-color:#111;
+  .icon-box svg {
+    width: 18px;
+    height: 18px;
+    fill: #7CB342;
+    flex-shrink: 0;
   }
 
-  .input::placeholder{
-    color:#888;
-    opacity:1;
+  .input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 14px;
+    color: #1a1a1a;
+    caret-color: #4a7a1e;
+  }
+
+  .input::placeholder {
+    color: #8a9a7a;
+    opacity: 1;
   }
 
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
-  input:-webkit-autofill:focus{
-    -webkit-text-fill-color:#111 !important;
-    box-shadow: 0 0 0px 1000px rgba(255,255,255,.92) inset !important;
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #1a1a1a !important;
+    box-shadow: 0 0 0px 1000px #f8fdf4 inset !important;
     transition: background-color 9999s ease-in-out 0s;
   }
 
-  .eye-btn{
-    border:none;
-    background:transparent;
-    cursor:pointer;
-    width:34px;
-    height:34px;
-    border-radius: 11px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+  .eye-btn {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background .15s;
   }
-  .eye-btn:hover{ background: rgba(0,0,0,.06); }
-  .eye-btn svg{
-    width:18px;
-    height:18px;
-    fill:#054585d0;
-    opacity:.9;
-  }
-
-  .btn{
-    width:100%;
-    height:46px;
-    border:none;
-    border-radius:999px;
-    margin-top: 10px;
-    background: linear-gradient(90deg,var(--g1),var(--g2));
-    color:#fff;
-    font-weight: 950;
-    letter-spacing:.4px;
-    box-shadow: 0 14px 28px rgba(0,0,0,.40);
-    cursor:pointer;
+  .eye-btn:hover { background: rgba(124,179,66,.10); }
+  .eye-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: #7CB342;
   }
 
-  .foot{
-    text-align:center;
-    margin-top: 10px;
+  .btn {
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 999px;
+    margin-top: 16px;
+    background: linear-gradient(135deg, #4a7a1e, #7CB342);
+    color: #fff;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: .5px;
+    box-shadow: 0 4px 14px rgba(74,122,30,.30);
+    cursor: pointer;
+    transition: opacity .2s, transform .05s;
+  }
+  .btn:hover  { opacity: .93; }
+  .btn:active { transform: translateY(1px); }
+
+  .foot {
+    text-align: center;
+    margin-top: 14px;
     font-size: 13px;
-    opacity: .92;
-    color:#fff !important;
-    text-shadow: 0 1px 0 rgba(0,0,0,.35), 0 10px 22px rgba(0,0,0,.35);
+    color: #5a6a4a;
   }
-  .foot a{
-    color:#59acffe8 !important;
-    font-weight: 900;
-    text-decoration:none;
+  .foot a {
+    color: #4a7a1e;
+    font-weight: 700;
+    text-decoration: none;
   }
-  .foot a:hover{ text-decoration: underline; }
+  .foot a:hover { text-decoration: underline; }
 
-  .err{
-  background-color:#c0392b;
-  color:#ffffff;
-  font-weight:bold;
-  text-align:center;
-  padding:12px;
-  border-radius:6px;
-  margin:10px 0;
-  font-size:14px;
-}
-  @media (max-width:480px){
-    .glass-card{ padding:16px; border-radius:16px; }
-    .btn{ height:46px; }
+  .err {
+    background: #ffebee;
+    color: #c62828;
+    border-left: 4px solid #e53935;
+    border-radius: 8px;
+    padding: 12px;
+    margin: 10px 0;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .suspended-box {
+    background: #ffebee;
+    color: #c62828;
+    font-weight: 800;
+    text-align: center;
+    padding: 12px;
+    border-radius: 8px;
+    border-left: 4px solid #e53935;
+    margin-bottom: 14px;
+    font-size: 14px;
+    letter-spacing: .5px;
+  }
+
+  @media (max-width: 480px) {
+    .glass-card { padding: 24px 18px; border-radius: 16px; }
+    .btn { height: 46px; }
   }
 
   @font-face {
-  font-family: 'Ovelion';
-  src: url("{% static 'fonts/Ovelion-Regular.ttf' %}") format('truetype');
-}
+    font-family: 'Ovelion';
+    src: url("{% static 'fonts/Ovelion-Regular.ttf' %}") format('truetype');
+  }
 
-body, body * {
-  font-family: 'Ovelion', sans-serif !important;
-}
-
+  body, body * {
+    font-family: 'Ovelion', sans-serif !important;
+  }
 </style>
 
 <div class="center">
@@ -185,9 +213,7 @@ body, body * {
     <div class="title">Login</div>
 
     {% if suspended %}
-    <div style="background-color:#c0392b; color:#ffffff; font-weight:bold;
-                text-align:center; padding:12px; border-radius:6px;
-                margin-bottom:12px; font-size:15px; letter-spacing:1px;">
+    <div class="suspended-box">
        ACCOUNT SUSPENDED
     </div>
     {% endif %}
@@ -199,8 +225,8 @@ body, body * {
     {% endif %}
 
     {% if form.errors %}
-  <div class="err"> Phone or password incorrect. Please try again.</div>
-{% endif %}
+    <div class="err"> Phone or password incorrect. Please try again.</div>
+    {% endif %}
 
     <form method="post" autocomplete="off">
       {% csrf_token %}

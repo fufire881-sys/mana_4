@@ -4,7 +4,7 @@
 
 {% block content %}
 <style>
-  @font-face{
+  @font-face {
     font-family: "Ovelion";
     src: url("{% static 'fonts/Ovelion-Regular.ttf' %}") format("truetype");
     font-weight: 400;
@@ -12,212 +12,309 @@
     font-display: swap;
   }
 
-  /* ✅ apply font to agreement page only */
-  .agree-page, .agree-page *{
+  body {
+  }
+
+  /* Apply font to agreement page */
+  .agree-page, .agree-page * {
     font-family: "Ovelion", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
   }
 
-  .agree-page{
-    padding: 22px 14px;
-    color: rgba(255,255,255,.96);
+  .agree-page {
+    padding: 20px 16px 40px;
+    color: #1a1a1a;
   }
 
-  .agree-wrap{
-    width: min(980px, 96vw);
+  .agree-wrap {
+    max-width: 700px;
     margin: 0 auto;
   }
 
-  /* paper / glass style like your screenshot */
-  .agree-card{
-  position: relative;
-  border-radius: 8px;              /* មិនមូលពេក */
-  padding: 30px 28px;
-  margin-bottom: 24px;
-
-  /* Paper gradient theme */
-  background: linear-gradient(
-    145deg,
-    #ffffff 0%,
-    #f5f8fc 60%,
-    #e6eef7 100%
-  );
-
-  border: 1px solid #004182;
-  box-shadow:
-    0 8px 20px rgba(0, 0, 0, 0.15),
-    0 0 0 4px rgba(0, 65, 130, 0.08);
-
-  color: #1a1a1a;   /* អក្សរខ្មៅដូចក្រដាស */
-}
-
-/* Header inside agreement */
-.agree-card h1,
-.agree-card h2{
-  color: #004182;
-  font-weight: 700;
-  margin-top: 28px;
-}
-
-/* Strong / highlight */
-.agree-card strong{
-  color: #054585d0;
-}
-
-/* HR line */
-.agree-card hr{
-  border: none;
-  height: 2px;
-  background: linear-gradient(
-    to right,
-    #004182,
-    #054585d0
-  );
-  margin: 28px 0;
-}
-
-/* Lists spacing */
-.agree-card ol,
-.agree-card ul{
-  padding-left: 20px;
-  margin: 12px 0;
-}
-
-.agree-card li{
-  margin-bottom: 8px;
-}
-
-  .agree-title{
-    font-size: 20px;
-    font-weight: 900;
-    letter-spacing: .03em;
-    margin: 0 0 8px;
-    text-shadow: 0 0 10px rgba(255,255,255,.20);
+  /* Back button */
+  .agree-back-wrap {
+    margin-bottom: 18px;
   }
 
-  .agree-sub{
+  .agree-back-btn {
+    display: inline-flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 22px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #4a7a1e, #7CB342);
+    color: #fff;
+    font-weight: 800;
+    font-size: 13px;
+    text-decoration: none;
+    border: none;
+    box-shadow: 0 4px 12px rgba(74,122,30,.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .agree-back-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(74,122,30,.32);
+  }
+
+  .agree-back-btn:active {
+    transform: scale(.98);
+  }
+
+  /* Main header banner */
+  .agree-header-banner {
+    background: linear-gradient(135deg, #1e4a06, #4a7a1e);
+    border-radius: 16px;
+    padding: 24px 20px;
+    color: #fff;
+    font-weight: 900;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  .agree-header-banner h1,
+  .agree-header-banner h2 {
+    color: #fff;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 900;
+  }
+
+  /* Content cards */
+  .agree-card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(74,122,30,.08);
+    padding: 24px;
+    color: #1a1a1a;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Section title */
+  .ag-title-wrap {
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .ag-title {
+    color: #2d5a0e;
+    font-weight: 900;
+    font-size: 18px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #DCEDC8;
+    margin: 0 0 12px;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    letter-spacing: .04em;
+  }
+
+  .agree-title {
+    color: #2d5a0e;
+    font-weight: 900;
+    font-size: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #DCEDC8;
+    margin: 0 0 8px;
+    letter-spacing: .03em;
+  }
+
+  .agree-sub {
     font-size: 12px;
-    opacity: .82;
+    color: #5a6a4a;
     margin: 0 0 14px;
   }
 
-  .agree-hr{
+  /* HR */
+  .agree-hr {
     height: 1px;
     border: 0;
-    background: rgba(255,255,255,.14);
+    background: #e0eed0;
     margin: 14px 0;
   }
 
-  .agree-kv{
-    margin: 0;
-    padding-left: 16px;
-    line-height: 1.65;
-  }
-  .agree-kv li{ margin: 6px 0; }
-
-  .agree-p{
+  /* Body paragraphs */
+  .agree-p {
     margin: 10px 0;
-    line-height: 1.75;
-    opacity: .95;
+    line-height: 1.7;
+    font-size: 14px;
+    color: #3d3d3d;
   }
 
-  .agree-h{
-    margin: 14px 0 8px;
-    font-size: 16px;
+  /* Headings inside cards */
+  .agree-card h2,
+  .agree-h {
+    color: #2d5a0e;
     font-weight: 900;
+    font-size: 15px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #DCEDC8;
+    margin: 18px 0 10px;
   }
 
-  .article-block{
+  /* Article block */
+  .article-block {
     margin-top: 10px;
-    padding: 12px 14px;
-    border-radius: 14px;
-    background: rgba(0,0,0,.20);
-    border: 1px solid rgba(255,255,255,.12);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
-  .article-item{
-    margin: 10px 0;
-    padding: 12px 12px;
-    border-radius: 14px;
-    background: rgba(255,255,255,.06);
-    border: 1px solid rgba(255,255,255,.10);
+  .article-item {
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: #f8fdf4;
+    border: 1px solid #e0eed0;
+    color: #1a1a1a;
   }
-  .article-item b{
-    font-weight: 900;
-    color: rgba(255,255,255,.98);
+
+  /* Article headings */
+  .art-title {
+    color: #4a7a1e;
+    font-weight: 800;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    display: block;
+    margin-bottom: 6px;
   }
-  .article-item .article-text{
+
+  .art-title:hover {
+    color: #2d5a0e;
+  }
+
+  .article-item p {
+    margin: 0;
+    padding: 0;
+  }
+
+  .article-text {
     margin-top: 6px;
-    line-height: 1.75;
-    opacity: .95;
+    line-height: 1.7;
+    font-size: 13px;
+    color: #3d3d3d;
     white-space: pre-line;
   }
 
-  /* bottom long agreement block */
-  .loan-agreement{
-    max-width: 900px;
+  .article-item b {
+    font-weight: 900;
+    color: #1a1a1a;
+  }
+
+  /* Loan agreement long text */
+  .loan-agreement {
+    max-width: 100%;
     margin: 0 auto;
     line-height: 1.8;
+    color: #3d3d3d;
   }
-  .loan-agreement h1{
+
+  .loan-agreement h1 {
     text-align: center;
-    margin: 0 0 12px 0;
-    font-size: 20px;
-    font-weight: 950;
+    margin: 0 0 16px;
+    font-size: 16px;
+    font-weight: 900;
+    color: #2d5a0e;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #DCEDC8;
     letter-spacing: .02em;
   }
-  .loan-agreement h2{
-    margin: 16px 0 8px;
-    font-size: 15px;
-    font-weight: 950;
+
+  .loan-agreement h2 {
+    margin: 18px 0 8px;
+    font-size: 13px;
+    font-weight: 900;
+    color: #4a7a1e;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    padding-bottom: 0;
+    border-bottom: none;
   }
-  .loan-agreement p, .loan-agreement li{
-    opacity: .95;
+
+  .loan-agreement p,
+  .loan-agreement li {
+    color: #3d3d3d;
+    font-size: 13px;
+    line-height: 1.7;
   }
-  .loan-agreement hr{
+
+  .loan-agreement ul,
+  .loan-agreement ol {
+    padding-left: 20px;
+    margin: 10px 0;
+    color: #3d3d3d;
+  }
+
+  .loan-agreement li {
+    margin-bottom: 6px;
+  }
+
+  .loan-agreement hr {
     border: 0;
     height: 1px;
-    background: rgba(255,255,255,.14);
-    margin: 14px 0;
+    background: #e0eed0;
+    margin: 18px 0;
   }
 
-  @media (max-width: 560px){
-    .agree-card{ padding: 14px; }
-    .agree-title{ font-size: 18px; }
-    .loan-agreement h1{ font-size: 18px; }
+  .loan-agreement strong {
+    color: #1a1a1a;
+    font-weight: 800;
   }
 
-  .ag-title{
-  text-align:center;         /* ✅ កណ្ដាល */
-  font-weight: 950;
-  letter-spacing: .08em;
-  margin: 0 0 12px 0;
-  font-size: 22px;
-  padding: 10px 12px;
-  display: inline-block;     /* ✅ ឲ្យវាដូច label */
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(0,0,0,.18);
-  border-radius: 12px;
-}
+  /* Lists in agree-card */
+  .agree-card ol,
+  .agree-card ul {
+    padding-left: 20px;
+    margin: 10px 0;
+    color: #3d3d3d;
+  }
 
-/* ✅ ឲ្យ label កណ្ដាលពិតៗក្នុង card */
-.ag-title-wrap{
-  text-align:center;
-  margin-bottom: 6px;
-}
-.art-title{
-  color: #004182;          /* Blue like image 2 */
-  font-weight: 900;
-  letter-spacing: .4px;
-  text-transform: uppercase;
-}
+  .agree-card li {
+    margin-bottom: 7px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #3d3d3d;
+  }
 
-.art-title:hover{
-  color: #054585d0;
-}
+  .agree-card hr {
+    border: none;
+    height: 1px;
+    background: #e0eed0;
+    margin: 18px 0;
+  }
+
+  .agree-card strong {
+    color: #1a1a1a;
+  }
+
+  .agree-kv {
+    margin: 0;
+    padding-left: 16px;
+    line-height: 1.65;
+    color: #3d3d3d;
+  }
+
+  .agree-kv li {
+    margin: 6px 0;
+    font-size: 14px;
+  }
+
+  @media (max-width: 560px) {
+    .agree-card { padding: 16px; }
+    .agree-title { font-size: 14px; }
+    .loan-agreement h1 { font-size: 14px; }
+    .ag-title { font-size: 16px; }
+  }
 </style>
 
 <div class="agree-page">
   <div class="agree-wrap">
+
+    <!-- Back button -->
+    <div class="agree-back-wrap">
+      <a class="agree-back-btn" href="javascript:history.back()">Back</a>
+    </div>
 
     <!-- =========================
          TOP: ABOUT US
@@ -253,7 +350,7 @@
       </p>
 
       <p class="agree-p">
-        The primary nature of the Company’s business is the provision of loan-related and financial facilitation services. These
+        The primary nature of the Company's business is the provision of loan-related and financial facilitation services. These
         services are structured to ensure operational sustainability, risk management, and legal enforceability.
       </p>
 
@@ -268,7 +365,7 @@
       </p>
 
       <p class="agree-p">
-        The Company’s vision is to become a scalable, trusted, and compliant financial service provider capable of operating within
+        The Company's vision is to become a scalable, trusted, and compliant financial service provider capable of operating within
         evolving regulatory environments while maintaining consistent service standards and risk management practices.
       </p>
 
@@ -278,7 +375,7 @@
       </p>
 
       <p class="agree-p">
-        The Company’s services may include loan application intake, identity verification, document validation, risk and eligibility
+        The Company's services may include loan application intake, identity verification, document validation, risk and eligibility
         assessment, loan approval or rejection, loan disbursement coordination, repayment schedule administration, account monitoring,
         and customer communication.
       </p>
@@ -315,7 +412,7 @@
 
       <p class="agree-p">
         This About Us section may be updated, revised, expanded, or replaced at any time to reflect changes in operations, regulatory requirements,
-        or business structure. Continued use of the Company’s services constitutes acceptance of such updates.
+        or business structure. Continued use of the Company's services constitutes acceptance of such updates.
       </p>
     </div>
 
@@ -335,12 +432,12 @@
 
         <div class="article-item">
           <p><span class="art-title">Article 2: Disbursement & Compliance</span><br>
-          <div class="article-text">Approved funds will be credited to the borrower’s registered account. The borrower agrees to comply with all approved terms and conditions.</div>
+          <div class="article-text">Approved funds will be credited to the borrower's registered account. The borrower agrees to comply with all approved terms and conditions.</div>
         </div>
 
         <div class="article-item">
           <p><span class="art-title">Article 3: Unsecured Loan Verification</span><br>
-          <div class="article-text">For loans without collateral, a refundable verification payment is required to confirm repayment ability. This verification amount will be credited back and added to the borrower’s account balance.</div>
+          <div class="article-text">For loans without collateral, a refundable verification payment is required to confirm repayment ability. This verification amount will be credited back and added to the borrower's account balance.</div>
         </div>
 
         <div class="article-item">
@@ -350,7 +447,7 @@
 
         <div class="article-item">
           <p><span class="art-title">Article 5: Legal Responsibility & Breach</span><br>
-          <div class="article-text">Errors from incorrect information are the borrower’s responsibility. False information or violations of this agreement are a breach of contract and handled by law.</div>
+          <div class="article-text">Errors from incorrect information are the borrower's responsibility. False information or violations of this agreement are a breach of contract and handled by law.</div>
         </div>
 
         <div class="article-item">
@@ -431,11 +528,11 @@ The remaining provisions shall continue to be valid and enforceable to the fulle
 
         <p>
           This <strong>Extended Loan User Agreement, Terms, Conditions, Disclosures, Acknowledgments, Waivers, and Legal Notices</strong>
-          (the “<strong>Agreement</strong>”) is a legally binding and enforceable contract entered into by and between
-          <strong></strong> (the “Company,” “We,” “Us,” or “Our”) and any individual or legal entity who accesses,
+          (the "<strong>Agreement</strong>") is a legally binding and enforceable contract entered into by and between
+          <strong></strong> (the "Company," "We," "Us," or "Our") and any individual or legal entity who accesses,
           applies for, receives, guarantees, repays, or otherwise interacts with any loan, financial product, service,
           website, mobile application, communication channel, or platform operated or provided by the Company
-          (the “User,” “Borrower,” “Applicant,” “Guarantor,” “You,” or “Your”).
+          (the "User," "Borrower," "Applicant," "Guarantor," "You," or "Your").
         </p>
 
         <hr />
@@ -450,17 +547,17 @@ The remaining provisions shall continue to be valid and enforceable to the fulle
             You acknowledge this Agreement may be lengthy, complex, and repetitive. Such length or repetition does not reduce enforceability.
           </li>
           <li>
-            Choosing not to read this Agreement does not relieve You of obligations. “I didn’t know” or “I didn’t read” is not a defense.
+            Choosing not to read this Agreement does not relieve You of obligations. "I didn't know" or "I didn't read" is not a defense.
           </li>
         </ol>
 
         <h2>SECTION 2 — DEFINITIONS</h2>
         <ul>
-          <li><strong>“Loan”</strong> means any amount of money disbursed or made available to You, including renewals, extensions, or restructures.</li>
-          <li><strong>“Due Date”</strong> means the date repayment is required, regardless of weekends, holidays, illness, travel, or personal hardship.</li>
-          <li><strong>“Default”</strong> means any failure, delay, avoidance, misrepresentation, or breach, whether intentional or unintentional.</li>
-          <li><strong>“Platform”</strong> includes websites, apps, Telegram bots, SMS, calls, email, and any other channel used by the Company.</li>
-          <li><strong>“Fees”</strong> include processing, service, administrative, late fees, penalty interest, and recovery costs where permitted by law.</li>
+          <li><strong>"Loan"</strong> means any amount of money disbursed or made available to You, including renewals, extensions, or restructures.</li>
+          <li><strong>"Due Date"</strong> means the date repayment is required, regardless of weekends, holidays, illness, travel, or personal hardship.</li>
+          <li><strong>"Default"</strong> means any failure, delay, avoidance, misrepresentation, or breach, whether intentional or unintentional.</li>
+          <li><strong>"Platform"</strong> includes websites, apps, Telegram bots, SMS, calls, email, and any other channel used by the Company.</li>
+          <li><strong>"Fees"</strong> include processing, service, administrative, late fees, penalty interest, and recovery costs where permitted by law.</li>
         </ul>
 
         <h2>SECTION 3 — ELIGIBILITY & USER REPRESENTATIONS</h2>
@@ -518,7 +615,7 @@ The remaining provisions shall continue to be valid and enforceable to the fulle
 
         <h2>SECTION 8 — GUARANTOR RESPONSIBILITY</h2>
         <ol>
-          <li>If You provide a guarantor, You confirm You have the guarantor’s informed permission to share their details.</li>
+          <li>If You provide a guarantor, You confirm You have the guarantor's informed permission to share their details.</li>
           <li>
             The guarantor may be jointly and severally liable, meaning the Company may seek repayment from the borrower, the guarantor,
             or both, as allowed by law and the guarantor agreement.
@@ -568,7 +665,7 @@ The remaining provisions shall continue to be valid and enforceable to the fulle
 
         <h2>SECTION 13 — DISCLAIMER OF WARRANTIES</h2>
         <p>
-          All services are provided <strong>“AS IS”</strong> and <strong>“AS AVAILABLE”</strong>. The Company makes no warranties regarding uninterrupted service,
+          All services are provided <strong>"AS IS"</strong> and <strong>"AS AVAILABLE"</strong>. The Company makes no warranties regarding uninterrupted service,
           approval outcomes, processing times, or suitability for any particular purpose, except where required by law.
         </p>
 
@@ -611,7 +708,7 @@ The remaining provisions shall continue to be valid and enforceable to the fulle
 
         <h2>SECTION 20 — FINAL ACKNOWLEDGMENT</h2>
         <p>
-          By clicking <strong>“I Agree”</strong>, signing, or receiving loan funds, You confirm that You had the opportunity to read this Agreement,
+          By clicking <strong>"I Agree"</strong>, signing, or receiving loan funds, You confirm that You had the opportunity to read this Agreement,
           You understand it creates legal obligations, and You agree to be bound by it in full.
         </p>
 

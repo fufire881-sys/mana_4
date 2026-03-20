@@ -5,437 +5,258 @@
 {% block content %}
 <style>
 
-/* Telegram button clean style */
-.tg-btn{
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-
-  height: 42px;
-  padding: 0 18px;
-
-  border-radius: 999px;
-  background: linear-gradient(90deg, #004182, #054585d0);
-
-  color: #e8f2ff;
-  font-weight: 800;
-  font-size: 13px;        /* ⭐ អក្សរតូច */
-  letter-spacing: .04em;
-
-  text-decoration: none;
-  box-shadow: 0 10px 26px rgba(0,0,0,.28);
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
-.tg-btn:active{
-  transform: scale(.98);
-}
-
-/* Telegram icon */
-.tg-icon{
-  width: 18px;
-  height: 18px;
-  object-fit: contain;
-}
-
-/* text spacing */
-.tg-text{
-  line-height: 1;
-}
-
-/* Telegram inline (NO card background) */
-.telegram-inline{
-  text-align:center;
-  margin: 6px 0 12px;   /* ឲ្យវាជិតល្អ */
-}
-
-.tg-title{
-  margin: 0 0 10px;
-  font-weight: 950;
-  font-size: 14px;
-  opacity: .9;
-  letter-spacing: .03em;
-}
-/* Back button shape like picture */
-.back-btn{
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  height: 42px;
-  padding: 0 22px 0 28px;   /* left a bit bigger */
-  border-radius: 12px;
-
-  background: #13111185;
-  color: #ffffffc9;
-  font-weight: 800;
-  text-decoration: none;
-
-  border: 1px solid rgba(189, 189, 189, 0.164);
-  box-shadow:
-    0 6px 14px rgba(0,0,0,.18),
-    inset 0 1px 0 rgba(255,255,255,.65);
-}
-/* hover/active */
-.back-btn:hover{
-  transform: translateY(-1px);
-}
-.back-btn:active{
-  transform: translateY(0px);
-  opacity: .92;
-}
-
-/* Mobile adjustments */
-@media (max-width:520px){
-  .top-actions{ padding: 10px 12px 0; }
-  .top-actions-line{ margin: 10px 12px 0; }
-  .back-btn{ height: 40px; padding: 0 18px 0 24px; font-size: 13px; }
-  .back-btn::before{
-    left: -13px;
-    border-top: 20px solid transparent;
-    border-bottom: 20px solid transparent;
-    border-right: 13px solid #e7e7e7;
-  }
-}
-
-  .wrap{
-    align-items:flex-start !important;
-    justify-content:center !important;
-    padding-top:72px !important;
-  }
-
-  .page{
-    width: min(520px, 94vw);
-    margin: 0 auto;
-    padding: 14px 14px 92px; /* leave space for bottom nav */
-    box-sizing: border-box;
-  }
-
-  .cardx{
-  position: relative;
-
-  background: rgba(0, 0, 0, 0.788);
-
-  border-radius: 18px;
-  border: 2px solid rgba(192, 192, 192, 0.904);
-
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
-
-  box-shadow: 0 0 10px rgba(10, 10, 9, 0.788),
-              0 14px 10px rgba(0, 0, 0, 0.815);
-
-  overflow: hidden;
-  margin-bottom: 16px;
-  padding: 18px;
-}
-
-  .title{
-    font-weight: 950;
-    font-size: 18px;
-    letter-spacing:.04em;
-    margin: 0 0 6px;
-  }
-  .sub{
-    font-size: 12px;
-    opacity: .80;
-    margin: 0;
-  }
-
-  label{
-    display:block;
-    font-size: 12px;
-    opacity:.90;
-    margin: 10px 0 6px;
-    font-weight: 800;
-  }
-
-  input, textarea{
-    width:100%;
-    box-sizing:border-box;
-    border-radius: 14px;
-    border: 1px solid rgba(255,255,255,.16);
-    background: rgba(255,255,255,.08);
-    color:#fff;
-    padding: 12px 12px;
-    outline:none;
-  }
-
-  textarea{
-    min-height: 110px;
-    resize: none;
-  }
-
-  input:focus, textarea:focus{
-  border-color: rgba(0,65,130,.85);
-  box-shadow: 0 0 0 3px rgba(5,69,133,.25);
-}
-
-  .btn{
-    width:100%;
-    margin-top: 12px;
-    border: none;
-    border-radius: 999px;
-    padding: 14px 16px;
-    font-weight: 950;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color:#fff;
-    cursor:pointer;
-    background: linear-gradient(90deg, #004182, #054585d0);
-    box-shadow: 0 12px 30px rgba(0,0,0,.35);
-  }
-  .btn:active{ transform: scale(.99); }
-
-  .alert-success{
-  border: 1px solid rgba(34,197,94,.55);
-  background: rgba(34,197,94,.12);
-  color: #e6f1ff;
-
-  padding: 12px 12px;
-  border-radius: 14px;
-  font-weight: 900;
-  margin-bottom: 12px;
-}
-
-  .muted{
-    font-size: 12px;
-    opacity:.75;
-    margin-top: 10px;
-  }
-
-/* =========================
-   CONTACT US = WHITE CARDS + BLUE TEXT
-   ========================= */
-
-/* Font */
-.page, .page *{
+.page, .page * {
   font-family: "Ovelion", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 }
 
-/* page wrapper */
-.page{
+.wrap {
+  align-items: flex-start !important;
+  justify-content: center !important;
+  padding-top: 72px !important;
+}
+
+.page {
   width: min(520px, 94vw);
   margin: 0 auto;
-  padding: 14px 14px 92px;
+  padding: 16px 16px 100px;
   box-sizing: border-box;
 }
 
-/* ✅ White luxury card style (same as wallet white cards) */
-.cardx{
-  position: relative;
-  overflow: hidden;
-
-  background: linear-gradient(
-      180deg,
-      #ffffff 0%,
-      #f8fafc 45%,
-      #eef2f7 75%,
-      #ffffff 100%
-  ) !important;
-
-  border-radius: 18px;
-  border: 2px solid rgba(212,175,55,.85) !important;
-
-  box-shadow:
-    0 20px 45px rgba(0,0,0,.12),
-    0 0 0 1px rgba(255,255,255,.9) inset !important;
-
+/* Back button */
+.top-actions {
+  margin-top: 12px;
   margin-bottom: 16px;
-  padding: 18px;
-}
-
-/* glow */
-.cardx::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  opacity:.75;
-  background:
-    radial-gradient(circle at 90% 90%, rgba(212,175,55,.25), transparent 55%),
-    radial-gradient(circle at 10% 10%, rgba(0,65,130,.08), transparent 60%);
-}
-
-/* shine */
-.cardx::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  opacity:.6;
-  background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,0) 55%);
-}
-
-/* keep content above overlays */
-.cardx > *{
-  position: relative;
-  z-index: 1;
-}
-
-/* ✅ Blue text inside cards */
-.cardx, .cardx *{
-  color:#0b2f55 !important;
-  text-shadow: none !important;
-}
-
-.title{
-  font-weight: 950;
-  font-size: 18px;
-  letter-spacing:.04em;
-  margin: 0 0 6px;
-}
-.sub{
-  font-size: 12px;
-  opacity: .75;
-  margin: 0;
-}
-
-/* labels */
-label{
-  display:block;
-  font-size: 12px;
-  margin: 10px 0 6px;
-  font-weight: 900;
-  color:#0b2f55 !important;
-  opacity: .9;
-}
-
-/* ✅ inputs look like wallet white inputs */
-input, textarea{
-  width:100%;
-  box-sizing:border-box;
-  border-radius: 14px;
-
-  border: 1px solid rgba(11,47,85,.18) !important;
-  background: rgba(11,47,85,.06) !important;
-
-  color:#0b2f55 !important;
-  padding: 12px 12px;
-  outline:none;
-}
-
-input::placeholder, textarea::placeholder{
-  color: rgba(11,47,85,.55) !important;
-}
-
-textarea{
-  min-height: 110px;
-  resize: none;
-}
-
-input:focus, textarea:focus{
-  border-color: rgba(0,65,130,.75) !important;
-  box-shadow: 0 0 0 3px rgba(5,69,133,.22) !important;
-  background: rgba(11,47,85,.08) !important;
-}
-
-/* send button keep blue */
-.btn{
-  width:100%;
-  margin-top: 12px;
-  border: none;
-  border-radius: 999px;
-  padding: 14px 16px;
-  font-weight: 950;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color:#fff !important;
-  cursor:pointer;
-  background: linear-gradient(90deg, #004182, #054585d0);
-  box-shadow: 0 12px 30px rgba(0,0,0,.35);
-}
-.btn:active{ transform: scale(.99); }
-
-/* ✅ success alert also white style */
-.alert-success{
-  border: 2px solid rgba(212,175,55,.65) !important;
-  background: linear-gradient(180deg, #ffffff, #f3f6fb) !important;
-  color:#0b2f55 !important;
-
-  padding: 12px 12px;
-  border-radius: 14px;
-  font-weight: 900;
-  margin-bottom: 12px;
-
-  box-shadow: 0 14px 34px rgba(0,0,0,.12);
-}
-
-/* =========================
-   ✅ Back button = White visible
-   ========================= */
-.top-actions{
-  margin-top: 12px;
   display: flex;
   justify-content: flex-start;
 }
 
-.back-btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
+.top-actions-line { margin: 0; }
 
-  height: 42px;
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
   padding: 0 22px;
-  border-radius: 12px;
-
-  background: #ffffff !important;
-  color: #0b2f55 !important;
-  font-weight: 950;
-  text-decoration:none;
-
-  border: 2px solid rgba(11,47,85,.22) !important;
-  box-shadow: 0 10px 22px rgba(0,0,0,.14),
-              0 0 0 1px rgba(255,255,255,.9) inset !important;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #4a7a1e, #7CB342);
+  color: #fff;
+  font-weight: 800;
+  font-size: 13px;
+  text-decoration: none;
+  border: none;
+  box-shadow: 0 4px 12px rgba(74,122,30,.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.back-btn:hover{
+.back-btn:hover {
   transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(74,122,30,.32);
 }
-.back-btn:active{
+
+.back-btn:active {
   transform: scale(.98);
-  opacity: 1 !important;
 }
 
-/* keep telegram inline text readable */
-.telegram-inline{
-  text-align:center;
-  margin: 6px 0 12px;
+/* Page title */
+.page-title {
+  color: #2d5a0e;
+  font-weight: 900;
+  font-size: 20px;
+  margin: 0 0 14px;
 }
-/* Telegram title = Blue (visible on light background) */
-.tg-title{
-  color:#004182 !important;
-  opacity: 1 !important;
-  text-shadow: 0 1px 0 rgba(255,255,255,.65);
-}
-/* =========================
-   CONTACT PAGE BODY (MATCH WALLET/DASHBOARD)
-   ========================= */
 
-body{
+/* Telegram section */
+.telegram-inline {
+  margin: 0 0 16px;
+}
+
+.tg-title {
+  color: #2d5a0e;
+  font-weight: 900;
+  font-size: 14px;
+  margin: 0 0 10px;
+  letter-spacing: .03em;
+}
+
+.tg-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: linear-gradient(135deg, #0077b6, #0096c7);
+  color: #fff;
+  border-radius: 14px;
+  padding: 14px 18px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: .04em;
+  box-shadow: 0 4px 14px rgba(0,119,182,.25);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.tg-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,119,182,.35);
+}
+
+.tg-btn:active {
+  transform: scale(.98);
+}
+
+.tg-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.tg-text {
+  line-height: 1;
+}
+
+/* Main form card */
+.cardx {
+  background: #ffffff;
+  border-radius: 18px;
+  border-top: 4px solid #7CB342;
+  box-shadow: 0 4px 20px rgba(74,122,30,.10);
+  padding: 24px;
+  color: #1a1a1a;
+  margin-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.title {
+  font-weight: 900;
+  font-size: 18px;
+  letter-spacing: .04em;
+  margin: 0 0 6px;
+  color: #1a1a1a;
+}
+
+.sub {
+  font-size: 12px;
+  color: #5a6a4a;
   margin: 0;
-  min-height: 100vh;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
 
-  /* ✅ NO overlay, show image original */
-  background: url("{% static 'img/SL-012322-48100-03.webp' %}") center/cover no-repeat fixed !important;
-  background-color: #ffffff;
-  background-blend-mode: normal;
+/* Labels */
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #3d6b1c;
+  margin: 12px 0 6px;
+}
+
+/* Inputs and textarea */
+input, textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 1.5px solid #c8ddb0;
+  background: #f8fdf4;
+  color: #1a1a1a;
+  padding: 12px 14px;
+  outline: none;
+  font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input::placeholder, textarea::placeholder {
+  color: rgba(61,107,28,.45);
+}
+
+textarea {
+  min-height: 110px;
+  resize: none;
+}
+
+input:focus, textarea:focus {
+  border-color: #7CB342;
+  box-shadow: 0 0 0 3px rgba(124,179,66,.18);
+  background: #f8fdf4;
+}
+
+/* Send button */
+.btn {
+  width: 100%;
+  margin-top: 14px;
+  border: none;
+  border-radius: 999px;
+  padding: 14px 16px;
+  font-weight: 800;
+  font-size: 14px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #fff;
+  cursor: pointer;
+  background: linear-gradient(135deg, #4a7a1e, #7CB342);
+  box-shadow: 0 6px 20px rgba(74,122,30,.28);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(74,122,30,.36);
+}
+
+.btn:active {
+  transform: scale(.99);
+}
+
+/* Success alert */
+.alert-success {
+  background: #f1f8e9;
+  border-left: 4px solid #7CB342;
+  border-radius: 10px;
+  padding: 14px;
+  color: #2e7d32;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 14px;
+}
+
+.muted {
+  font-size: 12px;
+  color: #8a9a7a;
+  margin-top: 10px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 520px) {
+  .page { padding: 12px 12px 100px; }
 }
 </style>
 
 <div class="page">
+  <!-- TOP ACTIONS -->
+  <div class="top-actions">
+    <a class="back-btn" href="javascript:history.back()">
+      Back
+    </a>
+  </div>
+  <div class="top-actions-line"></div>
+
   <div class="telegram-inline">
     <h4 class="tg-title">Telegram Contact</h4>
-  
+
     <a href="https://t.me/CustomerServices24h_16868"
        target="_blank"
        class="tg-btn">
-  
+
       <img src="{% static 'img/icons/telegram.png' %}"
            alt="Telegram"
            class="tg-icon">
-  
+
       <span class="tg-text">Telegram</span>
     </a>
   </div>
@@ -444,7 +265,7 @@ body{
     <p class="sub">Send us a message — we will contact you soon.</p>
   </div>
   <!-- TELEGRAM CONTACT CARD -->
-  
+
 
 
   {% if sent %}
@@ -472,13 +293,6 @@ body{
       <button class="btn" type="submit">Send Message</button>
     </form>
   </div>
-  <!-- TOP ACTIONS -->
-<div class="top-actions">
-  <a class="back-btn" href="javascript:history.back()">
-    Back
-  </a>
-</div>
-<div class="top-actions-line"></div>
 
 </div>
 {% endblock %}

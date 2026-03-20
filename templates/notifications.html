@@ -3,157 +3,177 @@
 
 {% block content %}
 <style>
-.msg-box.success{
-  background: rgba(34,197,94,.10);
-  border: 1px solid rgba(34,197,94,.25);
-}
-  .back-btn{
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+/* ===== GreenLeaf Design System — Notifications ===== */
 
-  height: 42px;
-  padding: 0 22px 0 28px;
-  border-radius: 12px;
-
-  background: #13111185;
-  color: #ffffffc9;
-  font-weight: 800;
-  text-decoration: none;
-
-  border: 1px solid rgba(189, 189, 189, 0.164);
-  box-shadow:
-    0 6px 14px rgba(0,0,0,.18),
-    inset 0 1px 0 rgba(255,255,255,.65);
-}
-.back-btn:hover{ transform: translateY(-1px); }
-.back-btn:active{ transform: translateY(0px); opacity: .92; }
-
-@media (max-width:520px){
-  .top-actions{ padding: 10px 12px 0; }
-  .top-actions-line{ margin: 10px 12px 0; }
-  .back-btn{ height: 40px; padding: 0 18px 0 24px; font-size: 13px; }
-  .back-btn::before{
-    left: -13px;
-    border-top: 20px solid transparent;
-    border-bottom: 20px solid transparent;
-    border-right: 13px solid #e7e7e7;
-  }
+body{
 }
 
+/* ===== Page wrapper ===== */
 .dash-wrap{
   width: min(520px, 94vw);
+  max-width: 520px;
   margin: 0 auto;
-  padding: 74px 14px 24px;
+  padding: 80px 16px 100px;
   box-sizing: border-box;
 }
 
-.cardx{
+/* ===== Back button ===== */
+.back-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: rgba(124,179,66,.12);
+  color: #4a7a1e;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  border: 1px solid rgba(124,179,66,.3);
+  transition: background .18s ease, transform .14s ease;
+  margin-bottom: 16px;
   position: relative;
-  background: rgba(0, 0, 0, 0.58);
-  border-radius: 18px;
-  padding: 18px;
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  box-shadow: 0 2px 2px rgba(245,245,245,.55), inset 0 1px 0 rgba(255,255,255,.10);
-  overflow: hidden;
+}
+.back-btn:hover{ background: rgba(124,179,66,.20); transform: translateY(-1px); }
+.back-btn:active{ transform: translateY(0); opacity: .9; }
+
+@media (max-width:520px){
+  .back-btn{ height: 38px; padding: 0 16px; font-size: 13px; }
 }
 
+/* ===== Main card ===== */
+.cardx{
+  position: relative;
+  background: #ffffff;
+  border-radius: 18px;
+  border: none;
+  border-top: 4px solid #7CB342;
+  box-shadow: 0 4px 20px rgba(74,122,30,.10);
+  overflow: hidden;
+  padding: 20px;
+  color: #1a1a1a;
+}
+
+/* ===== Page title ===== */
+.notif-title{
+  color: #2d5a0e;
+  font-weight: 900;
+  font-size: 18px;
+  margin: 0 0 16px;
+}
+
+/* ===== Muted text ===== */
 .muted{
-  color: rgba(255,255,255,.78);
+  color: #3d3d3d;
   font-size: 13px;
   line-height: 1.45;
 }
 
-/* message box */
+/* ===== Message boxes ===== */
 .msg-box{
-  margin-top: 14px;
-  border-radius: 16px;
-  padding: 18px 16px 16px;
+  background: #f8fdf4;
+  border-radius: 12px;
+  border-left: 4px solid #c8ddb0;
+  padding: 14px;
+  margin-bottom: 10px;
+  margin-top: 0;
   position: relative;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255,255,255,.10);
-  box-shadow: 0 10px 26px rgba(0,0,0,.25);
+  color: #1a1a1a;
+  box-shadow: none;
+}
+
+.msg-box.success{
+  border-left-color: #7CB342;
+  background: #f1f8e9;
 }
 
 .msg-box.info{
-  background: rgba(34, 197, 94, 0.10);
-  border: 1px solid rgba(34, 197, 94, 0.22);
+  border-left-color: #7CB342;
+  background: #f1f8e9;
 }
+
 .msg-box.danger{
-  background: rgba(220, 38, 38, 0.12);
-  border: 1px solid rgba(220, 38, 38, 0.26);
+  border-left-color: #e53935;
+  background: #ffebee;
+  color: #c62828;
 }
 
-/* icon (only for alert) */
+/* ===== Message icon ===== */
 .msg-ico{
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   border-radius: 999px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  position:absolute;
-  left: 14px;
-  top: 14px;
-
-  background: rgba(255,255,255,.12);
-  border: 1px solid rgba(255,255,255,.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  float: left;
+  margin-right: 12px;
+  margin-top: 2px;
+  flex-shrink: 0;
+  background: rgba(124,179,66,.15);
+  border: 1px solid rgba(124,179,66,.25);
 }
 .msg-box.danger .msg-ico{
-  background: rgba(220, 38, 38, 0.16);
-  border-color: rgba(220, 38, 38, 0.28);
+  background: rgba(229,57,53,.12);
+  border-color: rgba(229,57,53,.25);
 }
-.msg-box.info .msg-ico{
-  background: rgba(34, 197, 94, 0.16);
-  border-color: rgba(34, 197, 94, 0.28);
-}
-.msg-ico svg{ width: 18px; height: 18px; opacity: .95; }
-.msg-box.danger .msg-ico svg{ fill: #ffb4b4; }
-.msg-box.info .msg-ico svg{ fill: #b7ffd0; }
+.msg-ico svg{ width: 16px; height: 16px; }
+.msg-box.danger .msg-ico svg{ fill: #e53935; }
+.msg-box:not(.danger) .msg-ico svg{ fill: #4a7a1e; }
 
-/* body */
+/* ===== Message body ===== */
 .msg-body{
-  text-align: center;
-  padding: 6px 10px 0;
+  text-align: left;
+  padding: 0;
+  overflow: hidden;
 }
 .msg-head{
-  font-weight: 950;
+  font-weight: 800;
   font-size: 15px;
-  color:#fff;
-  letter-spacing: .02em;
-  margin: 0;
-  text-align:center;
+  color: #2d5a0e;
+  letter-spacing: .01em;
+  margin: 0 0 4px;
+  text-align: left;
+}
+.msg-box.danger .msg-head{
+  color: #c62828;
 }
 
 .msg-text{
-  margin-top: 10px;
-  max-width: 380px;
-  margin-left:auto;
-  margin-right:auto;
+  margin: 0;
   white-space: normal;
   word-break: break-word;
-  line-height: 1.35;
-  text-align: center;
+  line-height: 1.45;
+  text-align: left;
   padding: 0;
+  color: #3d3d3d;
+  font-size: 13px;
 }
-.msg-meta{
-  margin-top: 12px;
-  font-size: 12px;
-  opacity: .72;
-  text-align:center;
+.msg-box.danger .msg-text{
+  color: #b71c1c;
 }
 
+.msg-meta{
+  margin-top: 8px;
+  font-size: 11px;
+  color: #8a9a7a;
+  text-align: left;
+}
+.msg-box.danger .msg-meta{
+  color: #c17070;
+}
+
+/* ===== Empty state ===== */
 .empty-note{
   margin-top: 14px;
-  padding: 14px;
-  border-radius: 14px;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.10);
-  color: rgba(255,255,255,.75);
-  text-align:center;
+  padding: 40px 20px;
+  border-radius: 12px;
+  background: transparent;
+  border: none;
+  color: #8a9a7a;
+  text-align: center;
+  font-size: 14px;
 }
 </style>
 
@@ -192,8 +212,8 @@
       {% endfor %}
     {% else %}
       <div class="empty-note">
-        <div class="muted" style="font-weight:900; color:#fff;">No notifications</div>
-        <div class="muted" style="margin-top:4px;">You don’t have any new messages right now.</div>
+        <div class="muted" style="font-weight:900; color:#2d5a0e;">No notifications</div>
+        <div class="muted" style="margin-top:4px;">You don't have any new messages right now.</div>
       </div>
     {% endif %}
 

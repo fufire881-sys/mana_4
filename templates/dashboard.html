@@ -4,106 +4,218 @@
 
 {% block content %}
 <style>
-/* ===== Notification Bell (with badge + small alert animation) ===== */
-/* ✅ Dashboard ONLY: reserve space for top bar */
+/* ===== GreenLeaf Design System — Dashboard ===== */
 
-.notify-wrap{
-  width:34px;
-  height:34px;
-  border-radius:12px;
-  background:rgba(0,0,0,.18);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  flex: 0 0 auto;
-  text-decoration:none;
-  position: relative; /* ✅ for badge */
+/* ===== Root & Layout ===== */
+:root{
+  --topbar-pad: 10px;
+  --topbar-card-h: 58px;
+  --topbar-gap: 14px;
 }
 
-/* badge number */
+html, body{
+  width: 100%;
+  overflow-x: hidden;
+}
+
+body{
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.wrap{
+  padding-top: 0 !important;
+}
+
+.dash-wrap{
+  width: min(520px, 94vw);
+  margin: 0 auto;
+  padding-top: calc(
+    (var(--topbar-pad) * 2) + var(--topbar-card-h) + var(--topbar-gap)
+  ) !important;
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-bottom: 24px;
+  box-sizing: border-box;
+}
+
+/* ===== Topbar ===== */
+.topbar{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 999;
+  padding: var(--topbar-pad) 0 !important;
+  background: #7CB342 !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,.12) !important;
+  border-bottom: 0 !important;
+  transition: transform .22s ease;
+}
+.topbar.hide-bar{
+  transform: translateY(-110%);
+}
+
+.topbar-inner{
+  height: var(--topbar-card-h) !important;
+  width: min(520px, 94vw) !important;
+  margin: 0 auto !important;
+  padding: 0 14px !important;
+  box-sizing: border-box !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.topbar-left,
+.topbar-right{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ===== Welcome Slider ===== */
+.welcome-slider{
+  position: absolute;
+  left: 22px;
+  right: 58px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.welcome-track{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: #fff;
+  font-weight: 900;
+  font-size: 10px;
+  letter-spacing: .02em;
+  padding: 2px 10px;
+  line-height: 1;
+  border-radius: 999px;
+  background: rgba(74,122,30,.85);
+  border: 1px solid rgba(255,255,255,.3);
+  box-shadow: 0 0 6px rgba(0,0,0,.2);
+  max-width: 100%;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(6px);
+}
+.welcome-track.show{
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity .35s ease, transform .35s ease;
+}
+.welcome-dot{
+  width: 6px; height: 6px; border-radius: 999px;
+  background: rgba(255,255,255,.85);
+  flex: 0 0 auto;
+}
+.welcome-text{
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width:420px){
+  .welcome-track{ font-size: 12px; padding: 4px 8px; }
+}
+
+/* ===== Brand ===== */
+.brand-mini{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 900;
+}
+.brand-mini .logo{
+  width: 34px; height: 34px;
+  border-radius: 10px;
+  background: rgba(0,0,0,.18);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px;
+}
+
+.info-btn{
+  width: 34px; height: 34px; border-radius: 12px;
+  border: 0;
+  background: rgba(0,0,0,.18);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+}
+
+/* ===== Notification Bell ===== */
+.notify-wrap{
+  width: 34px; height: 34px;
+  border-radius: 12px;
+  background: rgba(0,0,0,.18);
+  display: flex; align-items: center; justify-content: center;
+  flex: 0 0 auto;
+  text-decoration: none;
+  position: relative;
+}
 .notify-badge{
-  position:absolute;
-  top:-6px;
-  right:-6px;
-  min-width:18px;
-  height:18px;
-  padding:0 6px;
-  border-radius:999px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  font-size:11px;
-  font-weight:950;
-  color:#fff;
-
-  background:#ef4444;
+  position: absolute;
+  top: -6px; right: -6px;
+  min-width: 18px; height: 18px;
+  padding: 0 6px;
+  border-radius: 999px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 950; color: #fff;
+  background: #ef4444;
   box-shadow: 0 6px 14px rgba(0,0,0,.35);
   border: 2px solid rgba(0,0,0,.25);
 }
-/* ===== Unread pulse (CSS only) ===== */
 .notify-wrap.has-unread{
   animation: notifPulse 1.35s ease-in-out infinite;
 }
-
 @keyframes notifPulse{
   0%   { box-shadow: 0 0 0 0 rgba(239,68,68,.45); }
   70%  { box-shadow: 0 0 0 10px rgba(239,68,68,0); }
   100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); }
 }
-
-/* ===== Red dot mode (no number) ===== */
-/* ✅ if you want dot-only, add class "dot-only" on <a class="notify-wrap ..."> */
 .notify-wrap.dot-only .notify-badge{
-  min-width:10px;
-  width:10px;
-  height:10px;
-  padding:0;
-  border-radius:999px;
-  font-size:0;          /* hide number */
-  line-height:0;
-  top: -4px;
-  right: -4px;
+  min-width: 10px; width: 10px; height: 10px;
+  padding: 0; border-radius: 999px;
+  font-size: 0; line-height: 0;
+  top: -4px; right: -4px;
 }
 
-/* bell base */
+/* Bell icon */
 .bell-container{
-  --color:#ffffff;
-  --size:22px;
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  font-size:var(--size);
-  fill:var(--color);
-  text-decoration:none;
+  --color: #ffffff;
+  --size: 22px;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  font-size: var(--size);
+  fill: var(--color);
+  text-decoration: none;
   color: inherit;
 }
-.bell-container input{ display:none; }
-
+.bell-container input{ display: none; }
 .bell-regular,
 .bell-solid{
-  width:22px;
-  height:22px;
-  position:absolute;
-  transition:transform .3s ease, opacity .3s ease;
+  width: 22px; height: 22px;
+  position: absolute;
+  transition: transform .3s ease, opacity .3s ease;
 }
-.bell-solid{ opacity:0; }
-
-.bell-container input:checked ~ .bell-regular{
-  transform:rotate(-15deg);
-  opacity:0;
-}
-.bell-container input:checked ~ .bell-solid{
-  opacity:1;
-  animation:ring .5s ease;
-}
-
-/* ✅ alert animation when there is unread */
-.notify-wrap.has-unread{
-  animation: pop .28s ease;
-}
+.bell-solid{ opacity: 0; }
+.bell-container input:checked ~ .bell-regular{ transform: rotate(-15deg); opacity: 0; }
+.bell-container input:checked ~ .bell-solid{ opacity: 1; animation: ring .5s ease; }
 .notify-wrap.has-unread .bell-regular{
   animation: bellShake 1.2s ease-in-out infinite;
   transform-origin: 50% 10%;
@@ -120,21 +232,16 @@
   80%{ transform: rotate(3deg); }
   100%{ transform: rotate(0); }
 }
-@keyframes pop{
-  from{ transform: scale(.92); }
-  to{ transform: scale(1); }
-}
-
+@keyframes pop{ from{ transform: scale(.92); } to{ transform: scale(1); } }
 @keyframes ring{
-  0%{transform:rotate(0)}
-  25%{transform:rotate(-15deg)}
-  50%{transform:rotate(15deg)}
-  75%{transform:rotate(-10deg)}
-  100%{transform:rotate(0)}
+  0%{ transform: rotate(0); }
+  25%{ transform: rotate(-15deg); }
+  50%{ transform: rotate(15deg); }
+  75%{ transform: rotate(-10deg); }
+  100%{ transform: rotate(0); }
 }
 
-
-  /* ===== Account Status Badge ===== */
+/* ===== Account Status Badge ===== */
 .status-badge{
   display: inline-block;
   padding: 6px 14px;
@@ -143,984 +250,56 @@
   font-size: 13px;
   letter-spacing: .5px;
 }
-
-/* ACTIVE */
 .status-active{
-  background: #16a34a; /* green */
-  color: #fff;
+  background: #7CB342 !important;
+  color: #fff !important;
 }
-
-/* FROZEN / ERROR / REJECT */
 .status-danger{
-  background: #dc2626; /* red */
+  background: #dc2626;
   color: #fff;
 }
-/* WARNING / YELLOW */
 .status-warn{
-  background: #eab308; /* yellow strong */
-  color: #111;         /* readable */
+  background: #eab308;
+  color: #111;
 }
+#accStatusBadge.status-active { background: #7CB342 !important; color: #fff !important; }
+#accStatusBadge.status-warn   { background: #eab308 !important; color: #111 !important; }
+#accStatusBadge.status-danger { background: #dc2626 !important; color: #fff !important; }
 
-  html, body{
-    width:100%;
-    overflow-x:hidden; /* stop sideways jump/twist */
-  }
-
-  /* ===== Dashboard page layout (center on PC/phone) ===== */
-  .dash-wrap{
-  width: min(520px, 94vw);
-  margin: 0 auto;
-  padding: 0 14px 24px !important;   /* ✅ remove the 74px */
-  box-sizing: border-box;
-}
-
-  /* ===== Background fixed ===== */
-  body{
-  margin: 0;
-  min-height: 100vh;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-
-  /* ✅ NO overlay, show image original */
-  background: url("{% static 'img/SL-012322-48100-03.webp' %}") center/cover no-repeat fixed !important;
-  background-color: #ffffff;
-  background-blend-mode: normal;
-}
-  /* ===== Top bar (mini only) ===== */
-  .topbar{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 80;
-    background: linear-gradient(90deg, #004182, #054585d0);
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(0,0,0,.18);
-    box-shadow: 0 8px 24px rgba(0,0,0,.25);
-    transform: translateY(0);
-    transition: transform .22s ease;
-  }
-  .topbar.hide-bar{
-    transform: translateY(-110%);
-  }
-/* ===== Welcome Slide Text (RIGHT -> LEFT, fit between bell and card-left) ===== */
-.welcome-slider{
-  position:absolute;
-  left:22px;
-  right:58px;
-  top:50%;
-  transform:translateY(-50%);
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  pointer-events:none;
-}
-
-.welcome-track{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-
-  color:#fff;
-  font-weight:900;
-  font-size:10px;
-  letter-spacing:.02em;
-
-  padding:2px 10px;
-  line-height:1;
-
-  border-radius:999px;
-
-  background: linear-gradient(90deg, #004182, #054585d0);
-  border:1px solid rgba(192,192,192,.6);
-
-  box-shadow: 0 0 6px rgba(10,10,9,.6);
-
-  max-width:100%;
-  overflow:hidden;
-
-  opacity:0;
-  transform:translateY(6px);
-}
-
-.welcome-track.show{
-  opacity:1;
-  transform:translateY(0);
-  transition:opacity .35s ease, transform .35s ease;
-}
-
-.welcome-dot{
-  width:6px;height:6px;border-radius:999px;
-  background: rgba(255,255,255,.75);
-  box-shadow: 0 0 10px rgba(107,255,42,.55);
-  flex: 0 0 auto;
-  opacity:.9;
-}
-
-.welcome-text{
-  overflow:hidden;
-  text-overflow: ellipsis;
-}
-
-@media (max-width: 420px){
-  .welcome-track{ font-size:12px; padding: 4px 8px; }
-}
-  .topbar-inner{
-  width: min(520px, 94vw);   /* ✅ same as dash-wrap */
-  margin: 0 auto;
-  position: relative;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  min-height: 40px;
-  padding: 0 14px;          /* ✅ same padding as dash-wrap */
-  box-sizing: border-box;
-
-  max-width: none;          /* ✅ important: stop old max-width behavior */
-}
-
-  /* Brand mini still center absolutely for logo */
-  .brand-mini{
-    position:absolute;
-    left:50%;
-    transform:translateX(-50%);
-    display:flex;
-    align-items:center;
-    gap:10px;
-    color:#fff;
-    text-decoration:none;
-    font-weight:900;
-  }
-  .brand-mini .logo{
-    width:34px;height:34px;
-    border-radius:10px;
-    background: rgba(0,0,0,.18);
-    display:flex;align-items:center;justify-content:center;
-    font-size:14px;
-  }
-
-  /* === Topbar left & right buttons tweak for pixel alignment === */
-  .topbar-left,
-  .topbar-right{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .topbar-left{
-    margin-left: 0px; /* Tweak so button aligns to left edge of .cardx (profile card) */
-  }
-  .topbar-right{
-    margin-right: 0px; /* Tweak so button aligns to right edge of .cardx (profile card) */
-  }
-
-  .info-btn{
-    width:34px;height:34px;border-radius:12px;
-    border:0;
-    background: rgba(0,0,0,.18);
-    color:#fff;
-    display:flex;align-items:center;justify-content:center;
-    cursor:pointer;
-  }
-
-  /* ===== Cards ===== */
-  /* ===== Cards ===== */
+/* ===== Cards — Base ===== */
 .cardx{
   position: relative;
-
-  background: rgba(0, 0, 0, 0.788);
-
+  background: #ffffff;
   border-radius: 18px;
-  border: 2px solid rgba(192, 192, 192, 0.904);
-
-  backdrop-filter: blur(22px);
-  -webkit-backdrop-filter: blur(22px);
-
-  box-shadow: 0 0 10px rgba(10, 10, 9, 0.788),
-              0 14px 10px rgba(0, 0, 0, 0.815);
-
+  border: none;
+  border-left: 4px solid #7CB342;
+  box-shadow: 0 2px 16px rgba(74,122,30,.10), 0 6px 24px rgba(0,0,0,.05);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
   overflow: hidden;
   margin-bottom: 16px;
-  padding: 18px;
+  padding: 20px;
+  color: #1a1a1a !important;
 }
 
-  /* ===== Swipe in animation (left/right) ===== */
-  .reveal{
-    opacity:0;
-    transform: translateX(0);
-    will-change: transform, opacity;
-  }
-  .from-left{ transform: translateX(-18px); }
-  .from-right{ transform: translateX(18px); }
-  .reveal.on{
-    opacity:1;
-    transform: translateX(0);
-    transition: opacity .45s ease, transform .45s ease;
-  }
-
-  /* ===== Profile card ===== */
-  .profile-card{ display:flex; gap:12px; align-items:flex-start; }
-  .avatar{
-    width:44px;height:44px;border-radius:14px;
-    background: rgba(255, 255, 255, 0.699);
-    display:flex;align-items:center;justify-content:center;
-    flex:0 0 auto;
-    border:1px solid rgba(255,255,255,.10);
-  }
-  .avatar svg{ width:22px; height:22px; opacity:.9; }
-  .profile-main{ flex:1 1 auto; min-width:0; }
-  .row1{ display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
-  .title{ color:#fff; font-weight:900; font-size:18px; line-height:1.1; }
-  .subline{ color:rgba(255,255,255,.72); font-size:12px; margin-top:2px; }
-  .pill{
-    padding:6px 12px;border-radius:999px;
-    border:1px solid rgba(255,255,255,.10);
-    background: rgba(0, 65, 130, 0.60);   /* #004182 */color: rgba(255,255,255,.92);
-    color:#dfffe9;
-    font-weight:800;
-    font-size:12px;
-    white-space:nowrap;
-  }
-  .amount{
-  font-size:26px;
-  font-weight:950;
-  letter-spacing:.02em;
-  color:#fff;
-  margin-top:10px;
-} 
-  .status{ margin-top:6px;font-size:12px;font-weight:900;color:#d5ffe7; }
-
-  /* ===== Section title ===== */
-  .section-title{
-    margin: 14px 2px 10px;
-    color:#e9fff1;
-    font-weight:950;
-    font-size:12px;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    opacity:.9;
-  }
-
-/* ===== Why choose — centered Philippine-inspired header ===== */
-.why-card{ padding: 14px; }
-
-.why-head{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  margin-bottom: 12px;
-}
-
-.why-head-row{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.why-head .why-title{
-  color: #fff;
-  font-size: clamp(15px, 4vw, 17px);
-  font-weight: 950;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  text-shadow: 0 2px 10px rgba(0,0,0,.5);
-  white-space: nowrap;
-}
-
-/* Philippine sun icon — 8 pointed */
-.why-sun{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  line-height: 1;
-  color: #d4af37;
-  filter: drop-shadow(0 0 5px rgba(212,175,55,.7));
-  animation: sunSpin 12s linear infinite;
-  flex-shrink: 0;
-}
-
-@keyframes sunSpin{
-  from{ transform: rotate(0deg); }
-  to  { transform: rotate(360deg); }
-}
-
-/* gold underline bar */
-.why-divider{
-  width: 60px;
-  height: 2.5px;
-  border-radius: 99px;
-  background: linear-gradient(90deg, transparent, #d4af37 40%, #fff8dc 60%, #d4af37, transparent);
-}
-  .ad-frame{
-    border-radius: 16px; overflow:hidden;
-    border:1px solid rgba(255,255,255,.10);
-    background: #000;
-    position:relative;
-    /* aspect-ratio scales cleanly on all screen sizes */
-    aspect-ratio: 16 / 6.5;
-    width: 100%;
-  }
-  .ovelion-head{
-  font-family: "Ovelion", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight: 600;
-  letter-spacing: .04em;
-}
-  .ad-slide{
-    position:absolute; inset:0;
-    opacity:0;
-    transform: translateX(16px);
-    transition: opacity .45s ease, transform .45s ease;
-    display:flex;
-    align-items:stretch;
-    justify-content:stretch;
-  }
-  .ad-slide.on{ opacity:1; transform: translateX(0); }
-  .ad-slide img{
-    width:100%; height:100%;
-    object-fit:cover;
-    object-position: center center;
-    filter: contrast(1.08) saturate(1.08) brightness(1.02);
-  }
-  .ad-overlay{
-    position:absolute; inset:0;
-    /* left side darker for text readability, right stays almost clear */
-    background: linear-gradient(90deg,
-      rgba(0,0,0,.52) 0%,
-      rgba(0,0,0,.28) 45%,
-      rgba(0,0,0,.06) 100%);
-    pointer-events:none;
-  }
-  .ad-text{
-    position:absolute; left:14px; top:14px; right: 92px;
-    color:#fff; z-index:2;
-  }
-  .ad-text h4{ margin:0; font-size:16px; font-weight:950; letter-spacing:.01em; }
-  .ad-text p{ margin:4px 0 0; font-size:12px; opacity:.86; }
-  .ad-btn{
-    position:absolute; left:14px; bottom:12px; z-index:2;
-    display:inline-flex; align-items:center; gap:8px;
-    padding:7px 12px; border-radius:999px;
-    border:1px solid rgba(255,255,255,.16);
-    background: rgba(0,0,0,.28);
-    color:#fff; font-weight:900; font-size:12px;
-    text-decoration:none;
-  }
-  .dots{ display:flex; gap:6px; justify-content:center; margin-top:10px; opacity:.9; }
-  .dot{ width:7px;height:7px;border-radius:99px;background: rgba(255,255,255,.25); }
-  .dot.on{ background: #004182; }
-
-  /* ===== Apply Now button - solid + shine ===== */
-  .quick{
-    margin-top: 14px;
-    width: 100%;
-    border:0;
-    padding: 16px 18px;
-    border-radius: 999px;
-    background: linear-gradient(135deg, #0066cc 0%, #004d99 100%);
-    color:#fff;
-    font-weight:950;
-    letter-spacing:.08em;
-    text-transform: uppercase;
-    font-size: 15px;
-    box-shadow: 0 4px 12px rgba(0,65,130,.45),
-                0 0 20px rgba(125,211,252,.25);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:12px;
-    cursor:pointer;
-    position: relative;
-    overflow:hidden;
-    border: 2px solid rgba(192,192,192,.85);
-  }
-  .quick{
-  text-decoration: none !important;
-}
-
-.quick::after{
-  display: none !important;
-  content: none !important;
-}  
-  .quick .go{
-    width:30px;height:30px;border-radius:999px;
-    background: rgba(0,0,0,.20);
-    display:flex;align-items:center;justify-content:center;
-    border:1px solid rgba(255,255,255,.20);
-  }
-  .quick .go svg{ width:16px;height:16px; fill:#fff; opacity:.95; }
-
-  /* ===== Video section ===== */
-  .video-card{
-    overflow:hidden;
-    border:1px solid rgba(255,255,255,.10);
-    height: 160px;
-    position:relative;
-  }
-  .video-card video{
-    width:100%;
-    height:100%;
-    object-fit: cover;
-    display:block;
-    border-radius: 16px
-  }
-
-  /* ===== Currency table card ===== */
-  .table-card{ padding: 12px; }
-
-  /* ===== Bottom nav (CENTER, IN-FLOW, above Quick Loan) ===== */
-/* ✅ Bottom nav = NO CARD background (transparent) */
-/* ✅ bottom nav centered, no card background */
-.bottom-nav{
-  position: static !important;
-  width: 100% !important;        /* ✅ inside .dash-wrap -> take full width */
-  margin: 12px 0 16px !important;/* ✅ no auto (avoid weird shift) */
-  padding: 0 !important;
-
-  background: transparent !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
-
-
-
-.menu-btn svg{
-  width:20px;
-  height:20px;
-  fill:#fff;
-  opacity:.95;
-}
-
-.menu-btn:active{
-  transform: scale(.99);
-}
-  .bottom-nav.hide-bar{ transform:none !important; }
-
-/* ✅ NEW NAV GRID (2x2) */
-.nav-grid{
-  display:grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  align-items: stretch;
-}
-
-/* ✅ 2x2 grid */
-.nav-grid{
-  display:grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-/* ✅ Buttons = solid blue + shine */
-.bottom-nav .nav-item{
-  width:100%;
-  min-height:56px;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-
-  padding:14px 12px;
-  border-radius:18px;
-
-  color:#fff;
-  text-decoration:none;
-  font-weight:950;
-  letter-spacing:.06em;
-  text-transform:uppercase;
-  font-size:12px;
-
-  /* ✅ solid blue + shine effect */
-  background: linear-gradient(135deg, #0066cc 0%, #004d99 100%);
-  border: 2px solid rgba(192,192,192,.85);
-  box-shadow: 0 4px 12px rgba(0,65,130,.45),
-              0 0 20px rgba(125,211,252,.25);
-}
-
-.bottom-nav .nav-item svg{
-  width:20px;
-  height:20px;
-  fill:#fff;
-  opacity:.95;
-}
-
-.bottom-nav .nav-item:active{
-  transform: scale(.99);
-}
-
-/* ✅ optional active highlight */
-.bottom-nav .nav-item.active{
-  outline: 2px solid rgba(125,211,252,.45);
-}
-
-.bottom-nav .nav-item svg{
-  width:20px;
-  height:20px;
-  fill:#fff;
-  opacity:.95;
-}
-
-.bottom-nav .nav-item:active{
-  transform: scale(.99);
-}
-
-/* ✅ each button fill its grid cell */
-.nav-item{
-  width: 100%;
-  min-height: 54px;               /* make it look like real button */
-  justify-content: center;
-}
-
-  .nav-item:active{ transform: scale(.98); }
-  .nav-item svg{ width:20px;height:20px; fill:#fff; opacity:.95; }
-  .nav-item.active{
-    opacity:1;
-    background: rgba(0, 65, 130, 0.22);
-    border: 1px solid rgba(255,255,255,.16);
-  }
-
-  /* ===== Exchange rate ===== */
-  .fx-scroll{
-    max-height: 260px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding-right: 2px;
-  }
-  .fx-scroll::-webkit-scrollbar{ width: 6px; }
-  .fx-scroll::-webkit-scrollbar-thumb{ background: rgba(255,255,255,.18); border-radius: 99px; }
-  .fx-table{ width:100%; border-collapse: collapse; }
-  .fx-table thead th{
-    position: sticky;
-    top: 0;
-    background: rgba(0,0,0,.35);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    z-index: 2;
-  }
-  .fx-table th, .fx-table td{ padding: 10px 10px; }
-  .fx-table th{
-    font-size: 11px;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    opacity: .85;
-  }
-  .fx-table td{ border-top: 1px solid rgba(255,255,255,.08); color:#f2fff7; }
-  .fx-left{ display:flex; align-items:center; gap:10px; min-width: 0; }
-  .fx-flag{
-    width: 22px; height: 16px;
-    object-fit: cover;
-    border-radius: 3px;
-    box-shadow: 0 0 0 1px rgba(255,255,255,.15);
-    flex: 0 0 auto;
-  }
-  .fx-code{ font-weight: 950; letter-spacing: .04em; }
-  .fx-country{
-    font-size: 11px;
-    opacity: .7;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .fx-meta{
-    display:flex;
-    justify-content: space-between;
-    align-items:center;
-    margin-top: 8px;
-    font-size: 11px;
-    opacity: .85;
-    color:#eafff1;
-  }
-  .fx-auto{ opacity: .75; }
-  
-  @media (max-width: 768px){
-  .cardx{ backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }
-  .bottom-nav{ backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }
-  .fx-table thead th{ backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }
-}
-/* =========================
-   ✅ STEP 1: Mobile/Android performance mode
-   - Keep blur on iPhone/PC
-   - Disable blur on phone/Android (smooth)
-   ========================= */
-/* ===== STEP 2: Keep blur on iPhone/PC, disable blur on Android only ===== */
-.android-no-blur .cardx,
-.android-no-blur .bottom-nav,
-.android-no-blur .topbar,
-.android-no-blur .fx-table thead th,
-.android-no-blur .video-card{
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
-
-/* keep look glass (but cheap for android) */
-.android-no-blur .cardx{
-  background: rgba(0,0,0,.72) !important;
-}
-
-/* ✅ FORCE badge color (prevent CSS override) */
-#accStatusBadge.status-active { background:#16a34a !important; color:#fff !important; }
-#accStatusBadge.status-warn   { background:#eab308 !important; color:#111 !important; }
-#accStatusBadge.status-danger { background:#dc2626 !important; color:#fff !important; }
-
-/* ✅ FORCE NAV BUTTONS = BLUE like Quick Loan (override all green) */
-.bottom-nav .nav-grid{
-  width: 100% !important;
-  display: grid !important;
-  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  gap: 12px !important;
-}
-
-.bottom-nav a.nav-item{
-  width: 100% !important;
-  min-height: 56px !important;
-
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 10px !important;
-
-  padding: 14px 12px !important;
-  border-radius: 18px !important;
-
-  color: #fff !important;
-  text-decoration: none !important;
-  font-weight: 950 !important;
-  letter-spacing: .06em !important;
-  text-transform: uppercase !important;
-  font-size: 12px !important;
-
-  /* ✅ same as Quick Loan */
-  background: linear-gradient(90deg, #004182, #054585d0) !important;
-  border: 1px solid rgba(255,255,255,.14) !important;
-  box-shadow: 0 16px 40px rgba(0,0,0,.45) !important;
-}
-
-.bottom-nav a.nav-item svg{
-  width: 20px !important;
-  height: 20px !important;
-  fill: #fff !important;
-  opacity: .95 !important;
-}
-
-/* ✅ Make buttons solid and clear */
-.bottom-nav a.nav-item,
-a.quick{
-  border: 2px solid rgba(192, 192, 192, 0.85) !important;
-  box-shadow: 0 4px 12px rgba(0,65,130,.45),
-              0 0 20px rgba(125,211,252,.25) !important;
-  background: linear-gradient(135deg, #0066cc 0%, #004d99 100%) !important;
-}
-
-/* (optional) keep same radius feeling like card */
-.bottom-nav a.nav-item{ border-radius: 18px !important; }
-a.quick{ border-radius: 999px !important; }
-
-/* ✅ OUR SERVICES card = same as other cardx */
-.cardx.video-card{
-  background: rgba(0, 0, 0, 0.788) !important;
-  border: 2px solid rgba(192, 192, 192, 0.904) !important;
-  border-radius: 18px !important;
-
-  box-shadow: 0 0 10px rgba(10, 10, 9, 0.788),
-              0 14px 10px rgba(0, 0, 0, 0.815) !important;
-
-  backdrop-filter: blur(22px) !important;
-  -webkit-backdrop-filter: blur(22px) !important;
-
-  padding: 18px !important;
-  overflow: hidden !important;
-  height: 160px; /* keep your size */
-}
-
-/* ✅ video must follow same radius */
-.cardx.video-card video{
-  border-radius: 16px !important;
-}
-
-/* marquee removed — company name no longer shown in why-choose header */
-/* ===============================
-   ✅ TOPBAR = SAME WIDTH AS CARD
-   =============================== */
-
-/* 1) topbar background full width (ok) */
-.topbar{
-  left: 0;
-  right: 0;
-  width: 100%;
-}
-
-/* 2) make inner EXACT same width + same padding as .dash-wrap */
-.topbar-inner{
-  width: min(520px, 94vw) !important;   /* ✅ same as .dash-wrap */
-  margin: 0 auto !important;
-  padding: 0 14px !important;          /* ✅ same as .dash-wrap padding */
-  box-sizing: border-box !important;
-}
-
-/* 3) OPTIONAL: If you want topbar look like a card (border + radius) */
-.topbar{
-  background: transparent !important;  /* remove full bar color */
-  padding: 10px 0 !important;
-  box-shadow: none !important;
-  border-bottom: 0 !important;
-}
-.topbar-inner{
-  background: linear-gradient(90deg, #004182, #054585d0) !important;
-  border-radius: 18px !important;
-  border: 2px solid rgba(192, 192, 192, 0.904) !important;
-  box-shadow: 0 0 10px rgba(10,10,9,0.788), 0 14px 10px rgba(0,0,0,0.815) !important;
-  min-height: 50px !important;
-}
-
-:root{
-  --topbar-h: 58px;   /* ✅ height of the top bar card */
-  --topbar-gap: 14px; /* ✅ gap like other cards */
-}
-
-/* ✅ Topbar card stays fixed */
-.topbar{
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-
-  background: transparent !important;
-  padding: 10px 0 !important; /* outer breathing */
-  box-shadow: none !important;
-  border-bottom: 0 !important;
-  z-index: 80;
-}
-
-/* ✅ inner looks like card and controls real height */
-.topbar-inner{
-  height: var(--topbar-h) !important;
-  width: min(520px, 94vw) !important;
-  margin: 0 auto !important;
-  padding: 0 14px !important;
-  box-sizing: border-box !important;
-
-  background: linear-gradient(90deg, #004182, #054585d0) !important;
-  border-radius: 18px !important;
-  border: 2px solid rgba(192, 192, 192, 0.904) !important;
-  box-shadow: 0 0 10px rgba(10,10,9,0.788),
-              0 14px 10px rgba(0,0,0,0.815) !important;
-
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-}
-
-/* ✅ DASHBOARD: remove double spacing from base + dashboard */
-.wrap{
-  padding-top: 18px !important;     /* keep base top spacing only */
-}
-
-/* ✅ topbar card height + gap like other cards */
-:root{
-  --topbar-h: 58px;
-  --topbar-gap: 14px;
-}
-/* =========================
-   ✅ FINAL TOPBAR FIX (NO OVERLAP + SOLID BG)
-   ========================= */
-
-/* 1) Dashboard only: stop base wrap from adding extra top space */
-.wrap{
-  padding-top: 0 !important;
-}
-
-/* 2) One source of truth for topbar sizing */
-:root{
-  --topbar-pad: 10px;      /* outer padding of .topbar */
-  --topbar-card-h: 58px;   /* height of .topbar-inner card */
-  --topbar-gap: 14px;      /* gap between topbar and first card */
-}
-
-/* 3) Topbar always solid (background 100%) */
-.topbar{
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 999;
-  padding: var(--topbar-pad) 0 !important;
-
-  /* ✅ make the area behind TOPBAR solid (no showing wallpaper) */
-  background: #004182 !important;/* or #004182 if you want full blue */
-  box-shadow: none !important;
-  border-bottom: 0 !important;
-}
-
-/* 4) The card itself (inner) stays like your design */
-.topbar-inner{
-  height: var(--topbar-card-h) !important;
-  width: min(520px, 94vw) !important;
-  margin: 0 auto !important;
-  padding: 0 14px !important;
-  box-sizing: border-box !important;
-
-  background: linear-gradient(90deg, #004182, #054585) !important; /* 100% color */
-  border-radius: 18px !important;
-  border: 2px solid rgba(192, 192, 192, 0.904) !important;
-  box-shadow: 0 0 10px rgba(10,10,9,0.788),
-              0 14px 10px rgba(0,0,0,0.815) !important;
-
-  display: flex !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-}
-
-/* 5) ✅ This is the main fix: push content down exactly */
-.dash-wrap{
-  padding-top: calc(
-    (var(--topbar-pad) * 2) + var(--topbar-card-h) + var(--topbar-gap)
-  ) !important;
-}
-/* ✅ Remove the blue background behind the topbar (keep the topbar card) */
-.topbar{
-  background: transparent !important;   /* remove big blue bar */
-}
-
-/* ✅ Optional: remove any shadow behind the big bar (card still has its own shadow) */
-.topbar{
-  box-shadow: none !important;
-}
-/* ✅ ONLY profile card = diamond/real card look */
+/* ===== Card Diamond (Profile card) ===== */
 .cardx.card-diamond{
-  position: relative;
-  background: linear-gradient(135deg,
-    #004182 0%,
-    #053a66 45%,
-    #0b2f55 70%,
-    #d4af37 100%) !important; /* blue + gold */
-
-  border: 2px solid rgba(212,175,55,.90) !important; /* gold border */
-  border-radius: 18px !important;
-
-  box-shadow: 0 18px 46px rgba(0,0,0,.55),
-              0 0 0 1px rgba(255,255,255,.10) inset !important;
-
-  overflow: hidden;
+  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 50%, #ffffff 100%) !important;
+  color: #1a1a1a !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(124,179,66,.4) !important;
+  border-left: none !important;
+  box-shadow: 0 8px 32px rgba(74,122,30,.35) !important;
+}
+.cardx.card-diamond *{
+  color: #1a1a1a !important;
 }
 
-/* polygon / diamond texture */
+/* Diamond texture overlay */
 .cardx.card-diamond::before{
-  content:"";
-  position:absolute;
-  inset:-40%;
-  background:
-    linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,0) 60%),
-    repeating-linear-gradient(135deg,
-      rgba(255,255,255,.14) 0px,
-      rgba(255,255,255,.14) 14px,
-      rgba(255,255,255,0) 14px,
-      rgba(255,255,255,0) 34px);
-  transform: rotate(18deg);
-  opacity:.50;
-  pointer-events:none;
-}
-
-/* shine sweep */
-.cardx.card-diamond::after{
-  content:"";
-  position:absolute; inset:0;
-  background: linear-gradient(120deg,
-    transparent 0%,
-    rgba(255,255,255,.22) 50%,
-    transparent 100%);
-  transform: translateX(-120%);
-  animation: diamondShine 3.6s ease-in-out infinite;
-  pointer-events:none;
-  opacity:.55;
-}
-
-@keyframes diamondShine{
-  0%,55%{ transform: translateX(-120%); }
-  100%{ transform: translateX(120%); }
-}
-
-/* keep inside content above overlays */
-.cardx.card-diamond > *{
-  position: relative;
-  z-index: 2;
-}
-/* ✅ Section titles: OUR SERVICES / CURRENCY = blue+gold shine */
-.section-title{
-  font-weight: 950 !important;
-  letter-spacing: .12em !important;
-  text-transform: uppercase !important;
-
-  /* gradient text */
-  background: linear-gradient(90deg, #004182, #d4af37, #004182) !important;
-  background-size: 220% 100% !important;
-  -webkit-background-clip: text !important;
-  background-clip: text !important;
-  color: transparent !important;
-
-  /* glow */
-  text-shadow: 0 2px 14px rgba(0,65,130,.35),
-               0 2px 18px rgba(212,175,55,.22) !important;
-  opacity: 1 !important;
-}
-
-/* ✨ shiny move */
-.section-title{
-  animation: titleShine 3.2s linear infinite !important;
-}
-@keyframes titleShine{
-  0%{ background-position: 0% 50%; }
-  100%{ background-position: 220% 50%; }
-}
-.section-title{
-  display: inline-block !important;
-  padding-bottom: 6px !important;
-  border-bottom: 2px solid rgba(212,175,55,.55) !important;
-}
-/* ✅ Currency table header text = WHITE (fix missing/black) */
-.fx-table thead th{
-  color: #ffffff !important;
-  opacity: 1 !important;
-  text-shadow: 0 2px 10px rgba(0,0,0,.6) !important;
-}
-
-/* ✅ optional: make header row look cleaner */
-.fx-table thead{
-  border-bottom: 1px solid rgba(255,255,255,.10) !important;
-}
-/* ✅ WHY CHOOSE CARD = Blue + Gold theme */
-.why-card{
-  position: relative;
-
-  background: linear-gradient(
-    135deg,
-    #004182 0%,
-    #053a66 45%,
-    #0b2f55 70%,
-    #d4af37 100%
-  ) !important;
-
-  border: 2px solid rgba(212,175,55,.90) !important; /* gold border */
-  border-radius: 18px !important;
-
-  box-shadow: 0 20px 50px rgba(0,0,0,.55),
-              0 0 0 1px rgba(255,255,255,.08) inset !important;
-
-  overflow: hidden;
-}
-
-/* ✨ Diamond shine overlay */
-.why-card::before{
-  content:"";
-  position:absolute;
-  inset:-40%;
+  content: "";
+  position: absolute;
+  inset: -40%;
   background:
     linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,0) 60%),
     repeating-linear-gradient(135deg,
@@ -1129,213 +308,409 @@ a.quick{ border-radius: 999px !important; }
       rgba(255,255,255,0) 14px,
       rgba(255,255,255,0) 34px);
   transform: rotate(18deg);
-  opacity:.45;
-  pointer-events:none;
+  opacity: .40;
+  pointer-events: none;
 }
 
-/* ✨ moving shine */
-.why-card::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: linear-gradient(
-    120deg,
+/* Shine sweep */
+.cardx.card-diamond::after{
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(120deg,
     transparent 0%,
-    rgba(255,255,255,.25) 50%,
-    transparent 100%
-  );
+    rgba(255,255,255,.18) 50%,
+    transparent 100%);
   transform: translateX(-120%);
-  animation: whyShine 4s ease-in-out infinite;
-  pointer-events:none;
-  opacity:.5;
+  animation: diamondShine 3.6s ease-in-out infinite;
+  pointer-events: none;
+  opacity: .45;
 }
-
-@keyframes whyShine{
-  0%,55%{ transform: translateX(-120%); }
+@keyframes diamondShine{
+  0%, 55%{ transform: translateX(-120%); }
   100%{ transform: translateX(120%); }
 }
-
-/* keep text above shine */
-.why-card > *{
+.cardx.card-diamond > *{
   position: relative;
   z-index: 2;
 }
-/* =========================
-   ✅ OUR SERVICES CARD STYLE (NO ANIMATION)
-   ========================= */
 
-/* Our Services section title (make bigger + blue/gold) */
-.section-title#status{
-  font-size: 14px !important;      /* bigger */
-  font-weight: 1000 !important;
-  letter-spacing: .18em !important;
-  margin-top: 16px !important;
-  margin-bottom: 10px !important;
-
-  /* blue -> gold text */
-  background: linear-gradient(90deg, #7dd3fc 0%, #ffffff 35%, #d4af37 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent !important;
-
-  text-shadow: 0 2px 10px rgba(0,0,0,.35);
+/* Android no-blur fallback */
+.android-no-blur .cardx{
+  background: #ffffff !important;
+}
+.android-no-blur .cardx.card-diamond{
+  background: linear-gradient(135deg, #1e4a06 0%, #2d6b0a 50%, #4a7a1e 100%) !important;
 }
 
-/* Our Services card itself */
+/* ===== Reveal animation ===== */
+.reveal{
+  opacity: 0;
+  transform: translateX(0);
+  will-change: transform, opacity;
+}
+.from-left{ transform: translateX(-18px); }
+.from-right{ transform: translateX(18px); }
+.reveal.on{
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity .45s ease, transform .45s ease;
+}
+
+/* ===== Profile Card Contents ===== */
+.profile-card{ display: flex; gap: 12px; align-items: flex-start; }
+.avatar{
+  width: 44px; height: 44px; border-radius: 14px;
+  background: rgba(255,255,255,.25);
+  display: flex; align-items: center; justify-content: center;
+  flex: 0 0 auto;
+  border: 1px solid rgba(255,255,255,.20);
+}
+.avatar svg{ width: 22px; height: 22px; opacity: .9; }
+.profile-main{ flex: 1 1 auto; min-width: 0; }
+.row1{ display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.title{ color: #fff; font-weight: 900; font-size: 18px; line-height: 1.1; }
+.subline{ color: rgba(255,255,255,.72); font-size: 12px; margin-top: 2px; }
+.pill{
+  padding: 6px 12px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.20);
+  background: rgba(255,255,255,.15);
+  color: #fff;
+  font-weight: 800;
+  font-size: 12px;
+  white-space: nowrap;
+}
+.amount{
+  font-size: 26px;
+  font-weight: 950;
+  letter-spacing: .02em;
+  color: #fff;
+  margin-top: 10px;
+}
+.status{ margin-top: 6px; font-size: 12px; font-weight: 900; color: #d5ffe7; }
+
+/* ===== Section Titles ===== */
+.section-title{
+  margin: 14px 2px 10px;
+  color: #2d5a0e;
+  font-weight: 900;
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  opacity: 1;
+  display: inline-block;
+  padding-bottom: 4px;
+  border-bottom: 2px solid rgba(124,179,66,.45);
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: unset !important;
+  text-shadow: none !important;
+  animation: none !important;
+}
+
+/* ===== Trust Card ===== */
+.trust-card{
+  padding: 18px !important;
+  overflow: hidden;
+}
+.trust-header{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1.5px solid #DCEDC8;
+}
+.trust-title{
+  color: #2d5a0e;
+  font-weight: 900;
+  font-size: 14px;
+  letter-spacing: .02em;
+}
+.trust-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.trust-item{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f8fdf4;
+  border-radius: 12px;
+  border: 1px solid #e0eed0;
+  padding: 12px 10px;
+}
+.trust-icon{
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  background: rgba(124,179,66,.12);
+  display: flex; align-items: center; justify-content: center;
+  flex: 0 0 auto;
+}
+.trust-label{
+  color: #1a1a1a;
+  font-weight: 800;
+  font-size: 12px;
+  line-height: 1.3;
+}
+.trust-sub{
+  color: #8a9a7a;
+  font-size: 10px;
+  margin-top: 2px;
+}
+
+/* ===== Apply Now button ===== */
+@keyframes applyPulse {
+  0%   { box-shadow: 0 4px 16px rgba(74,122,30,.40), 0 0 0 0 rgba(124,179,66,.55); }
+  50%  { box-shadow: 0 6px 24px rgba(74,122,30,.55), 0 0 0 10px rgba(124,179,66,.0); }
+  100% { box-shadow: 0 4px 16px rgba(74,122,30,.40), 0 0 0 0 rgba(124,179,66,.0); }
+}
+@keyframes applyShimmer {
+  0%   { left: -75%; }
+  100% { left: 125%; }
+}
+@keyframes applyBounce {
+  0%, 100% { transform: translateX(0); }
+  30%       { transform: translateX(4px); }
+  60%       { transform: translateX(-2px); }
+}
+.quick{
+  margin-top: 14px;
+  width: 100%;
+  border: 0;
+  padding: 16px 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #7CB342 0%, #4a7a1e 100%);
+  color: #fff;
+  font-weight: 950;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: 15px;
+  box-shadow: 0 4px 16px rgba(74,122,30,.40);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid rgba(255,255,255,.35);
+  text-decoration: none !important;
+  animation: applyPulse 2s ease-in-out infinite;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+/* Shimmer sweep */
+.quick::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.30), transparent);
+  transform: skewX(-20deg);
+  animation: applyShimmer 2.4s ease-in-out infinite;
+  pointer-events: none;
+}
+.quick::after{
+  display: none !important;
+  content: none !important;
+}
+.quick:hover {
+  transform: translateY(-3px) scale(1.02);
+  filter: brightness(1.08);
+}
+.quick .go{
+  width: 30px; height: 30px; border-radius: 999px;
+  background: rgba(0,0,0,.20);
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(255,255,255,.25);
+  animation: applyBounce 2s ease-in-out infinite;
+}
+.quick .go svg{ width: 16px; height: 16px; fill: #fff; opacity: .95; }
+
+/* ===== Bottom Nav (in-flow 2x2 grid) ===== */
+.bottom-nav{
+  position: static !important;
+  width: 100% !important;
+  margin: 12px 0 16px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.bottom-nav.hide-bar{ transform: none !important; }
+
+.nav-grid{
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 12px !important;
+  width: 100% !important;
+}
+
+.bottom-nav a.nav-item,
+.nav-item{
+  width: 100% !important;
+  min-height: 56px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  padding: 14px 12px !important;
+  border-radius: 18px !important;
+  color: #fff !important;
+  text-decoration: none !important;
+  font-weight: 950 !important;
+  letter-spacing: .06em !important;
+  text-transform: uppercase !important;
+  font-size: 12px !important;
+  background: linear-gradient(135deg, #7CB342 0%, #4a7a1e 100%) !important;
+  border: 2px solid rgba(255,255,255,.30) !important;
+  box-shadow: 0 4px 14px rgba(74,122,30,.30) !important;
+}
+.bottom-nav a.nav-item svg,
+.nav-item svg{
+  width: 20px !important;
+  height: 20px !important;
+  fill: #fff !important;
+  opacity: .95 !important;
+}
+.nav-item:active,
+.bottom-nav a.nav-item:active{ transform: scale(.99); }
+.nav-item.active,
+.bottom-nav a.nav-item.active{
+  outline: 2px solid rgba(124,179,66,.5);
+}
+
+/* ===== Video / Our Services card ===== */
 .cardx.video-card{
-  position: relative !important;
-
-  /* blue + gold base */
-  background: linear-gradient(
-    135deg,
-    #004182 0%,
-    #053a66 55%,
-    #0b2f55 78%,
-    #d4af37 100%
-  ) !important;
-
-  border: 2px solid rgba(212,175,55,.90) !important; /* gold border */
+  background: #ffffff !important;
+  border: none !important;
+  border-left: 4px solid #7CB342 !important;
   border-radius: 18px !important;
-
-  box-shadow: 0 20px 50px rgba(0,0,0,.55),
-              0 0 0 1px rgba(255,255,255,.08) inset !important;
-
+  box-shadow: 0 2px 16px rgba(74,122,30,.10), 0 6px 24px rgba(0,0,0,.05) !important;
   overflow: hidden !important;
-  padding: 14px !important; /* little inner spacing so it looks like real card */
-}
-
-/* Stripes overlay (static, no animation) */
-.cardx.video-card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: repeating-linear-gradient(
-    135deg,
-    rgba(255,255,255,.10) 0px,
-    rgba(255,255,255,.10) 14px,
-    rgba(255,255,255,0) 14px,
-    rgba(255,255,255,0) 34px
-  );
-  opacity: .35;
-  pointer-events:none;
-}
-
-/* keep video above background */
-.cardx.video-card video{
-  position: relative;
-  z-index: 2;
-  border-radius: 14px !important;
-}
-/* Currency title bigger + blue/gold too */
-.section-title#currency{
-  font-size: 14px !important;
-  font-weight: 1000 !important;
-  letter-spacing: .18em !important;
-
-  background: linear-gradient(90deg, #7dd3fc 0%, #ffffff 35%, #d4af37 100%);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color: transparent !important;
-
-  text-shadow: 0 2px 10px rgba(0,0,0,.35);
-}
-/* =========================
-   ✅ CURRENCY CARD = BLUE+GOLD (DIAMOND FACET, NO ANIMATION)
-   ========================= */
-
-/* Currency title bigger + blue/gold */
-.section-title#currency{
-  font-size: 14px !important;
-  font-weight: 1000 !important;
-  letter-spacing: .18em !important;
-  margin-top: 16px !important;
-  margin-bottom: 10px !important;
-
-  background: linear-gradient(90deg, #7dd3fc 0%, #ffffff 35%, #d4af37 100%);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color: transparent !important;
-
-  text-shadow: 0 2px 10px rgba(0,0,0,.35);
-}
-
-/* Currency card base */
-.cardx.table-card{
-  position: relative !important;
-  border-radius: 18px !important;
-
-  background: linear-gradient(
-    135deg,
-    #004182 0%,
-    #073a68 50%,
-    #0b2f55 78%,
-    #d4af37 100%
-  ) !important;
-
-  border: 2px solid rgba(212,175,55,.90) !important;
-  box-shadow: 0 20px 50px rgba(0,0,0,.55),
-              0 0 0 1px rgba(255,255,255,.08) inset !important;
-
-  overflow: hidden !important;
+  height: 160px;
   padding: 14px !important;
 }
+.cardx.video-card video{
+  border-radius: 14px !important;
+  position: relative;
+  z-index: 2;
+}
+.cardx.video-card::before{ display: none !important; }
 
-/* ✅ Diamond / Facet overlay (different style, no repeating stripes) */
-.cardx.table-card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  opacity:.42;
-
-  background:
-    linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,0) 55%),
-    linear-gradient(315deg, rgba(212,175,55,.14), rgba(212,175,55,0) 60%),
-    linear-gradient(45deg, rgba(255,255,255,.08), rgba(255,255,255,0) 58%);
-
-  /* facet cuts */
-  clip-path: polygon(
-    0% 0%, 58% 0%, 100% 22%, 100% 100%, 40% 100%, 0% 68%,
-    0% 0%,
-    18% 20%, 42% 8%, 68% 22%, 86% 44%, 70% 70%, 44% 86%, 20% 72%
-  );
+/* Our Services section title */
+.section-title#status{
+  font-size: 14px !important;
+  font-weight: 1000 !important;
+  letter-spacing: .18em !important;
+  margin-top: 16px !important;
+  margin-bottom: 10px !important;
+  color: #2d5a0e !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: #2d5a0e !important;
+  text-shadow: none !important;
+  animation: none !important;
 }
 
-/* extra facet lines (crystal look) */
-.cardx.table-card::after{
-  content:"";
-  position:absolute;
-  inset:-40px;
-  pointer-events:none;
-  opacity:.22;
-
-  background:
-    radial-gradient(circle at 25% 30%, rgba(255,255,255,.22), transparent 55%),
-    radial-gradient(circle at 75% 70%, rgba(212,175,55,.22), transparent 58%),
-    linear-gradient(115deg, transparent 40%, rgba(255,255,255,.12) 41%, transparent 43%),
-    linear-gradient(205deg, transparent 52%, rgba(212,175,55,.12) 53%, transparent 55%);
+/* ===== Currency / Table card ===== */
+.cardx.table-card{
+  background: #ffffff !important;
+  border: none !important;
+  border-left: 4px solid #7CB342 !important;
+  border-radius: 18px !important;
+  box-shadow: 0 2px 16px rgba(74,122,30,.10), 0 6px 24px rgba(0,0,0,.05) !important;
+  overflow: hidden !important;
+  padding: 14px !important;
+  color: #1a1a1a !important;
 }
-
-/* Make table readable on new background */
+.cardx.table-card::before,
+.cardx.table-card::after{ display: none !important; }
 .cardx.table-card,
 .cardx.table-card *{
-  color: #ffffff !important;
+  color: #1a1a1a !important;
 }
 
-.fx-table td{
-  border-top: 1px solid rgba(255,255,255,.12) !important;
+/* Currency section title */
+.section-title#currency{
+  font-size: 14px !important;
+  font-weight: 1000 !important;
+  letter-spacing: .18em !important;
+  margin-top: 16px !important;
+  margin-bottom: 10px !important;
+  color: #2d5a0e !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: #2d5a0e !important;
+  text-shadow: none !important;
+  animation: none !important;
 }
 
-/* header area inside table (make it slightly glass but readable) */
+/* Exchange rate table */
+.fx-scroll{
+  max-height: 260px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 2px;
+}
+.fx-scroll::-webkit-scrollbar{ width: 6px; }
+.fx-scroll::-webkit-scrollbar-thumb{ background: rgba(74,122,30,.20); border-radius: 99px; }
+.fx-table{ width: 100%; border-collapse: collapse; }
 .fx-table thead th{
-  background: rgba(0,0,0,.22) !important;
-  color: #ffffff !important;
-  border-bottom: 1px solid rgba(255,255,255,.14) !important;
+  position: sticky;
+  top: 0;
+  background: #DCEDC8 !important;
+  color: #2d5a0e !important;
+  font-size: 11px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 10px;
+  opacity: 1 !important;
+  text-shadow: none !important;
+  border-bottom: 1px solid #c8ddb0 !important;
+  z-index: 2;
 }
+.fx-table thead{
+  border-bottom: 1px solid #c8ddb0 !important;
+}
+.fx-table td{ padding: 10px; border-top: 1px solid #f0f4ec; color: #1a1a1a !important; }
+.fx-left{ display: flex; align-items: center; gap: 10px; min-width: 0; }
+.fx-flag{
+  width: 22px; height: 16px;
+  object-fit: cover;
+  border-radius: 3px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.10);
+  flex: 0 0 auto;
+}
+.fx-code{ font-weight: 950; letter-spacing: .04em; color: #1a1a1a !important; }
+.fx-country{
+  font-size: 11px;
+  color: #5a7a3a !important;
+  opacity: 1 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.fx-meta{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 11px;
+  color: #5a7a3a !important;
+  opacity: 1 !important;
+}
+.fx-auto{ opacity: .8; }
 
-.fx-country{ opacity: .78 !important; }
-.fx-meta{ color:#ffffff !important; opacity:.88 !important; }
-/* ✅ Dashboard-only status message box */
+/* ===== Dashboard status message boxes ===== */
 .dash-status-msg{
   margin-top: 10px;
   padding: 10px 12px;
@@ -1343,18 +718,33 @@ a.quick{ border-radius: 999px !important; }
   font-weight: 900;
   font-size: 12px;
   line-height: 1.35;
-  border: 2px solid rgba(255,255,255,.18);
-  box-shadow: 0 10px 24px rgba(0,0,0,.25);
+  border: 1px solid rgba(124,179,66,.3);
 }
-
 .dash-status-green{
-  background: linear-gradient(90deg, #0E5F2F, #1E8E3E);
-  color:#fff;
+  background: #f1f8e9;
+  color: #2d5a0e;
+  border-color: #7CB342;
+}
+.dash-status-red{
+  background: #ffebee;
+  color: #c62828;
+  border-color: #e53935;
 }
 
-.dash-status-red{
-  background: linear-gradient(90deg, #dc2626, #991b1b);
-  color:#fff;
+/* ===== Muted text ===== */
+.muted{
+  color: rgba(26,26,26,.72);
+  font-size: 13px;
+  line-height: 1.45;
+}
+/* But inside card-diamond, muted stays light */
+.card-diamond .muted{
+  color: rgba(26,26,26,.65) !important;
+}
+
+/* ===== Mobile ===== */
+@media (max-width:768px){
+  .cardx{ backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
 }
 </style>
 
@@ -1424,22 +814,22 @@ a.quick{ border-radius: 999px !important; }
       <div class="muted" style="margin-top:6px;">
         {# Dashboard status badge #}
         {# Dashboard status badge (the badge in image 2) #}
-{# ✅ Dashboard status badge should read from DB directly #}
-{% with raw=request.user.dashboard_status_label|default:request.user.account_status|default:"ACTIVE" %}
+{# Dashboard badge: color from account_status (stable key), text from dashboard_status_label #}
+{% with color_key=request.user.account_status|default:"ACTIVE"|upper display_text=request.user.dashboard_status_label|default:request.user.account_status|default:"ACTIVE" %}
   <span id="accStatusBadge"
         class="status-badge
-        {% if raw|lower == 'active' or raw|lower == 'approved' %}
+        {% if color_key == 'ACTIVE' or color_key == 'APPROVED' or color_key == 'LOAN_PAID' or color_key == 'WITHDRAWAL_SUCCESSFUL' or color_key == 'ACCOUNT_UPDATED' %}
           status-active
-        {% elif raw|lower == 'pending' or raw|lower == 'review' or raw|lower == 'app maintenance' or raw|lower == 'invalid detail' %}
+        {% elif color_key == 'APP_MAINTENANCE' or color_key == 'INVALID_DETAIL' or color_key == 'RENEW_DOCUMENT_REQUIRED' %}
           status-warn
         {% else %}
           status-danger
         {% endif %}">
-    {{ raw }}
+    {{ display_text }}
   </span>
 {% endwith %}
 </span>
-      </div>      
+      </div>
     </div>
   </div>
 <!-- ✅ Bottom nav (4 buttons: HOME / WALLET / CONTACT / PROFILE) -->
@@ -1470,52 +860,72 @@ a.quick{ border-radius: 999px !important; }
       <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
     </span>
   </a>
-<!-- Why choose -->
-<div class="cardx why-card metal reveal from-right" style="margin-top:14px;">
-
-    <div class="ad-frame" aria-label="Why choose slider">
-      <div class="ad-slide on" data-i="0">
-        <img src="{% static 'img/ads/ad1.jpg' %}" alt="Ad 1">
-        <div class="ad-overlay"></div>
-        <div class="ad-text">
-          <h4>Fast approval</h4>
-          <p>Clear process • quick verification • secure system</p>
-        </div>
-        <a class="ad-btn" href="#">Learn more <span style="opacity:.85;">›</span></a>
+<!-- Security Trust Card -->
+<div class="cardx trust-card reveal from-right" style="margin-top:14px;">
+  <div class="trust-header">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex:0 0 auto;">
+      <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V6L12 2z" fill="#7CB342" opacity=".18"/>
+      <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V6L12 2z" stroke="#7CB342" stroke-width="1.5" fill="none"/>
+      <path d="M9 12l2 2 4-4" stroke="#7CB342" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="trust-title">Secure &amp; Trusted Platform</span>
+  </div>
+  <div class="trust-grid">
+    <div class="trust-item">
+      <div class="trust-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="11" width="18" height="11" rx="2" stroke="#7CB342" stroke-width="1.8" fill="none"/>
+          <path d="M7 11V7a5 5 0 0110 0v4" stroke="#7CB342" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
       </div>
-
-      <div class="ad-slide" data-i="1">
-        <img src="{% static 'img/ads/ad2.jpg' %}" alt="Ad 2">
-        <div class="ad-overlay"></div>
-        <div class="ad-text">
-          <h4>Trusted service</h4>
-          <p>No hidden fees • transparent policy • 24/7 support</p>
-        </div>
-        <a class="ad-btn" href="#">Details <span style="opacity:.85;">›</span></a>
-      </div>
-
-      <div class="ad-slide" data-i="2">
-        <img src="{% static 'img/ads/ad3.jpg' %}" alt="Ad 3">
-        <div class="ad-overlay"></div>
-        <div class="ad-text">
-          <h4>Easy to use</h4>
-          <p>Mobile-friendly dashboard • simple steps • strong security</p>
-        </div>
-        <a class="ad-btn" href="#">Start now <span style="opacity:.85;">›</span></a>
+      <div class="trust-text">
+        <div class="trust-label">Data Encrypted</div>
+        <div class="trust-sub">256-bit SSL security</div>
       </div>
     </div>
-
-    <div class="dots" aria-hidden="true" id="adsDots">
-      <div class="dot on"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
+    <div class="trust-item">
+      <div class="trust-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="9" stroke="#7CB342" stroke-width="1.8" fill="none"/>
+          <path d="M12 7v5l3 3" stroke="#7CB342" stroke-width="1.8" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="trust-text">
+        <div class="trust-label">Fast Approval</div>
+        <div class="trust-sub">Response within 24 hrs</div>
+      </div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M9 12l2 2 4-4" stroke="#7CB342" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="#7CB342" stroke-width="1.8" fill="none"/>
+        </svg>
+      </div>
+      <div class="trust-text">
+        <div class="trust-label">Verified Process</div>
+        <div class="trust-sub">Transparent &amp; fair</div>
+      </div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#7CB342" stroke-width="1.8" stroke-linecap="round"/>
+          <circle cx="12" cy="7" r="4" stroke="#7CB342" stroke-width="1.8" fill="none"/>
+        </svg>
+      </div>
+      <div class="trust-text">
+        <div class="trust-label">24/7 Support</div>
+        <div class="trust-sub">Always here for you</div>
+      </div>
     </div>
   </div>
+</div>
 
   <!-- Currency -->
 
   <div class="cardx table-card reveal from-left">
-    <h3 style="text-align:center; margin:0 0 16px; font-size:14px; font-weight:950; letter-spacing:.18em; color:#fff; text-transform:uppercase;">CURRENCY</h3>
+    <h3 style="text-align:center; margin:0 0 16px; font-size:14px; font-weight:950; letter-spacing:.18em; color:#2d5a0e; text-transform:uppercase;">CURRENCY</h3>
     <div class="fx-scroll" aria-label="Exchange rates list">
       <table class="fx-table">
         <thead>
@@ -1568,23 +978,6 @@ a.quick{ border-radius: 999px !important; }
 })();
 </script>
 
-<script>
-/* ===== Ad slider ===== */
-(function(){
-  const slides = Array.from(document.querySelectorAll('.ad-slide'));
-  const dots = Array.from(document.querySelectorAll('#adsDots .dot'));
-  if(!slides.length) return;
-
-  let i = 0;
-  setInterval(() => {
-    slides[i].classList.remove('on');
-    dots[i].classList.remove('on');
-    i = (i + 1) % slides.length;
-    slides[i].classList.add('on');
-    dots[i].classList.add('on');
-  }, 3500);
-})();
-</script>
 
 <script>
 /* ===== Bottom nav active highlight ===== */
@@ -1608,7 +1001,7 @@ a.quick{ border-radius: 999px !important; }
     const rowsEl = document.getElementById("fxRows");
     const updatedEl = document.getElementById("fxUpdated");
     if (!rowsEl || !updatedEl) return;
-  
+
     // ✅ Only MUST show
     const currencies = [
   { code:"PHP", country:"Philippines", flag:"{% static 'img/flags/philippines.png' %}" },
@@ -1622,7 +1015,7 @@ a.quick{ border-radius: 999px !important; }
   { code:"PKR", country:"Pakistan",    flag:"{% static 'img/flags/pakistan.png' %}" },
   { code:"VND", country:"Vietnam",     flag:"{% static 'img/flags/vietnam.png' %}" },
 ];
-  
+
     function fmtRate(x){
       if (!Number.isFinite(x)) return "—";
       // ✅ no trailing .00
@@ -1632,15 +1025,15 @@ a.quick{ border-radius: 999px !important; }
       }).format(x);
       return s;
     }
-  
+
     function render(rates, updatedText){
       rowsEl.innerHTML = "";
       currencies.forEach(c => {
         const raw = rates && Object.prototype.hasOwnProperty.call(rates, c.code) ? rates[c.code] : null;
         const rate = (raw === null || raw === undefined) ? NaN : Number(raw);
-  
+
         const tr = document.createElement("tr");
-  
+
         const td1 = document.createElement("td");
         td1.innerHTML =
           '<div class="fx-left">' +
@@ -1650,21 +1043,21 @@ a.quick{ border-radius: 999px !important; }
               '<div class="fx-country">'+c.country+'</div>' +
             '</div>' +
           '</div>';
-  
+
         const td2 = document.createElement("td");
         td2.textContent = "1 USD";
-  
+
         const td3 = document.createElement("td");
         td3.style.textAlign = "right";
         td3.textContent = Number.isFinite(rate) ? (fmtRate(rate) + " " + c.code) : ("— " + c.code);
-  
+
         tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3);
         rowsEl.appendChild(tr);
       });
-  
+
       updatedEl.textContent = "Updated: " + (updatedText || new Date().toLocaleString());
     }
-  
+
     // ✅ IMPORTANT: use your Django endpoint
     fetch("/api/fx/", { cache: "no-store" })
       .then(r => r.ok ? r.json() : Promise.reject(r))
@@ -1678,30 +1071,31 @@ a.quick{ border-radius: 999px !important; }
   (function(){
     const topBar = document.querySelector('.topbar');
     if(!topBar) return;
-  
+
     const ua = (navigator.userAgent || "").toLowerCase();
     const isAndroid = ua.includes("android");
-  
+
     // ✅ Android: keep bar always visible (NO scroll listener = smoother)
     if(isAndroid){
       topBar.classList.remove('hide-bar');
       return;
     }
-  
+
     // ✅ iPhone/PC: keep your smart hide/show
     topBar.classList.remove('hide-bar');
-  
+
     let lastY = window.scrollY || 0;
     const SCROLL_THRESHOLD = 6;
-  
+
     window.addEventListener('scroll', () => {
       const y = window.scrollY || 0;
       const diff = y - lastY;
+
       if(Math.abs(diff) < SCROLL_THRESHOLD) return;
-  
+
       if(diff > 0) topBar.classList.add('hide-bar');
       else topBar.classList.remove('hide-bar');
-  
+
       lastY = y;
     }, { passive:true });
   })();
@@ -1711,7 +1105,7 @@ a.quick{ border-radius: 999px !important; }
   (function(){
     const a = document.querySelector('.notify-wrap');
     if(!a) return;
-  
+
     a.addEventListener('click', function(){
       a.classList.remove('has-unread');
       const b = a.querySelector('.notify-badge');
@@ -1727,8 +1121,8 @@ a.quick{ border-radius: 999px !important; }
       document.documentElement.classList.add("android-no-blur");
     }
   })();
-  
-  </script>  
+
+  </script>
 
 <script>
 /* ===== Topbar Welcome rotate ===== */

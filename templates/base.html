@@ -8,8 +8,8 @@
 {% block extra_css %}
 <style>
 :root{
-  --g1:#0f7a3a;
-  --g2:#22c55e;
+  --g1:#4a7a1e;
+  --g2:#7CB342;
 }
 @font-face{
   font-family: "Ovelion";
@@ -107,7 +107,7 @@ body{
 
   /* ✅ NO overlay, show image original */
   background: url("{% static 'img/SL-012322-48100-03.webp' %}") center/cover no-repeat fixed !important;
-  background-color: #ffffff;
+  background-color: #DCEDC8;
   background-blend-mode: normal;
 }
 
@@ -154,7 +154,7 @@ body{
   max-width:420px;
   padding:28px;
   border-radius:18px;
-  background:rgba(255,255,255,.14);
+  background:rgba(220,237,200,.22);
   backdrop-filter:blur(8px);         /* ✅ កាត់ពី 18px មក 8px */
   -webkit-backdrop-filter:blur(8px); /* ✅ កាត់ពី 18px មក 8px */
   box-shadow:0 30px 70px rgba(0,0,0,.45);
@@ -267,7 +267,7 @@ h1,h2,h3{ margin:0 0 10px; }
 }
 .btn:active{ transform: scale(.98); }
 .btn-primary{
-  background: linear-gradient(90deg, #004182, #054585d0);
+  background: linear-gradient(90deg, #4a7a1e, #7CB342d0);
   color:#fff;
 }
 .btn-ghost{
@@ -396,16 +396,14 @@ html, body{
    Make cards NOT transparent
    ========================= */
 .cardx{
-  background: rgb(0, 0, 0) !important;   /* ✅ darker solid */
-  border: 2px solid rgba(192,192,192,.904) !important;
+  background: rgba(255,255,255,0.93) !important;
+  border: none !important;
+  border-top: 3px solid #7CB342 !important;
   border-radius: 18px !important;
-
-  /* ✅ remove glass see-through */
+  color: #1a1a1a !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-
-  box-shadow: 0 0 10px rgba(10,10,9,.78),
-              0 14px 10px rgba(0,0,0,.82) !important;
+  box-shadow: 0 4px 20px rgba(0,0,0,.12), 0 2px 8px rgba(74,122,30,.10) !important;
 }
 
 </style>
