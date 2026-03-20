@@ -13,11 +13,11 @@
 }
   :root{
   --c1:#4a7a1e;
-  --c2:#7CB342d0;
+  --c2:#7CB342;
   --ink:#0b0f0c;
   --paper:#ffffff;
-  --mut:#4b5563;
-  --line:#e7e7e7;
+  --mut:#5a6a4a;
+  --line:#d8e8c0;
 }
 
   /* container */
@@ -39,86 +39,48 @@
   background: var(--paper);
   color: #111827;
   border-radius: 18px;
-  box-shadow: 0 18px 60px rgba(0,0,0,.35);
+  box-shadow: 0 8px 32px rgba(74,122,30,.15), 0 2px 8px rgba(0,0,0,.08);
   overflow: hidden;
-
-  position: relative; /* ✅ add this */
+  position: relative;
+  border-top: 3px solid #7CB342;
 }
 
 .ct-wrap, 
 .ct-wrap * {
   font-family: 'ArialNarrowCustom', Arial, sans-serif !important;
 }
-/* Back button shape like picture */
+/* Back button - GreenLeaf style */
 .back-btn{
-  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  height: 42px;
-  padding: 0 22px 0 28px;   /* left a bit bigger */
-  border-radius: 12px;
-
-  background: #e7e7e7;
-  color: #111827;
+  height: 40px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: rgba(124,179,66,.12);
+  color: #4a7a1e;
   font-weight: 800;
+  font-size: 14px;
   text-decoration: none;
-
-  border: 1px solid rgba(0,0,0,.18);
-  box-shadow:
-    0 6px 14px rgba(0,0,0,.18),
-    inset 0 1px 0 rgba(255,255,255,.65);
+  border: 1px solid rgba(124,179,66,.30);
+  transition: transform .15s ease, background .15s ease;
 }
+.back-btn:hover{ transform: translateY(-1px); background: rgba(124,179,66,.22); }
+.back-btn:active{ transform: translateY(0); opacity: .9; }
 
-/* left arrow tip */
-.back-btn::before{
-  content:"";
-  position:absolute;
-  left: -14px;
-  width: 0; height: 0;
-  border-top: 21px solid transparent;
-  border-bottom: 21px solid transparent;
-  border-right: 14px solid #e7e7e7; /* same as button */
-  filter: drop-shadow(0 4px 6px rgba(0,0,0,.16));
-}
-
-/* hover/active */
-.back-btn:hover{
-  transform: translateY(-1px);
-}
-.back-btn:active{
-  transform: translateY(0px);
-  opacity: .92;
-}
-
-/* Mobile adjustments */
 @media (max-width:520px){
   .top-actions{ padding: 10px 12px 0; }
   .top-actions-line{ margin: 10px 12px 0; }
-  .back-btn{ height: 40px; padding: 0 18px 0 24px; font-size: 13px; }
-  .back-btn::before{
-    left: -13px;
-    border-top: 20px solid transparent;
-    border-bottom: 20px solid transparent;
-    border-right: 13px solid #e7e7e7;
-  }
+  .back-btn{ height: 38px; font-size: 13px; }
 }
 
-  /* header like sample */
+  /* header - GreenLeaf gradient */
   .head{
   position: relative;
-  padding: 16px 18px 14px;   /* ⬅️ បន្ថយ top padding */
+  padding: 16px 18px 14px;
   border-bottom: 1px solid var(--line);
-
-  background: linear-gradient(
-  90deg,
-  rgba(0,65,130,.95),
-  rgba(5,69,133,.82)
-);
-
+  background: linear-gradient(135deg, #2d5a0e 0%, #4a7a1e 55%, #7CB342 100%);
   color: #fff;
-  /* ✅ align ជាមួយ paper */
 }
 
   .head-inner{
@@ -184,10 +146,11 @@
   }
 
   .box{
-    border: 1px solid var(--line);
+    border: 1px solid #d8e8c0;
+    border-top: 3px solid #7CB342;
     border-radius: 14px;
     padding: 14px;
-    background: #fbfbfb;
+    background: #f8fdf4;
   }
 
   .box h4{
@@ -195,7 +158,8 @@
     font-size: 13px;
     letter-spacing: .08em;
     text-transform: uppercase;
-    color: #111827;
+    color: #3d6b1c;
+    font-weight: 900;
   }
 
   .kv{
@@ -212,9 +176,9 @@
     grid-template-columns: 120px 1fr; /* still 2 columns on phone */
   }
 }
-  .k{ color: #374151; font-weight: 800; }
+  .k{ color: #4a7a1e; font-weight: 800; }
   .v{
-  color: #111827;
+  color: #1a2e0a;
   font-weight: 700;
   position: relative;
   display: inline-block;
@@ -252,6 +216,7 @@
     font-weight: 950;
     letter-spacing: .06em;
     text-transform: uppercase;
+    color: #2d5a0e;
   }
 
   .para{
@@ -273,29 +238,29 @@
     max-width: 520px;
   }
   .sig .line{
-    border-bottom: 2px solid #111827;
+    border-bottom: 2px solid #7CB342;
     height: 24px;
     width: 100%;
   }
 
-  /* footer band like sample */
+  /* footer band */
   .foot{
     padding: 12px 18px;
-    border-top: 1px solid var(--line);
-    background: #f6f7f7;
+    border-top: 1px solid #d8e8c0;
+    background: #f1f8e9;
     display:flex;
     align-items:center;
     justify-content:space-between;
     gap: 10px;
     flex-wrap: wrap;
     font-size: 12px;
-    color: #111827;
+    color: #4a7a1e;
   }
   .foot .badge{
-    border: 1px solid rgba(0,65,130,.22);
-    background: rgba(5,69,133,.10);
+    border: 1px solid rgba(124,179,66,.35);
+    background: rgba(124,179,66,.15);
     color: #4a7a1e;
-    padding: 6px 10px;
+    padding: 6px 14px;
     border-radius: 999px;
     font-weight: 900;
   }
