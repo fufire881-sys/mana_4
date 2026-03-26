@@ -2466,9 +2466,17 @@ def staff_aboutus_update(request, section_id):
     img = request.FILES.get("image")
     if img:
         try:
-            section.image = normalize_upload_image(img, max_side=1200, quality=80, out_format="WEBP")
+            import cloudinary.uploader
+            processed = normalize_upload_image(img, max_side=1200, quality=80, out_format="WEBP")
+            result = cloudinary.uploader.upload(processed, resource_type="image")
+            section.image = result['public_id']
         except Exception:
-            section.image = img
+            try:
+                import cloudinary.uploader
+                result = cloudinary.uploader.upload(img, resource_type="image")
+                section.image = result['public_id']
+            except Exception:
+                pass
 
     section.save()
     return redirect("/staff/about/?saved=1")
