@@ -6,10 +6,10 @@
 <style>
 
 body, .w-wrap, .w-wrap * {
-  font-family: "Ovelion", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
 }
-
 body {
+  background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%) !important;
 }
 
 /* ── Wrapper ── */
@@ -53,13 +53,13 @@ body {
 
 /* ── Hero balance card ── */
 .cardx.card-diamond {
-  background: linear-gradient(135deg, #1e4a06, #2d6b0a, #7CB342) !important;
+  background: linear-gradient(135deg, #0d2d6e, #1565C0 45%, #1a5c2a 80%, #2d6b0a) !important;
   border-radius: 20px !important;
-  border: 1px solid rgba(124,179,66,.35) !important;
-  border-top: 1px solid rgba(124,179,66,.35) !important;
+  border: 1px solid rgba(21,101,192,.35) !important;
+  border-top: 1px solid rgba(21,101,192,.35) !important;
   color: #fff !important;
   padding: 24px;
-  box-shadow: 0 8px 32px rgba(74,122,30,.35) !important;
+  box-shadow: 0 8px 32px rgba(21,101,192,.35) !important;
   margin-bottom: 16px;
   overflow: hidden;
   position: relative;
@@ -86,7 +86,7 @@ body {
 .cardx {
   background: #ffffff;
   border-radius: 16px;
-  border-left: 4px solid #7CB342;
+  border-left: 4px solid #1565C0;
   box-shadow: 0 2px 12px rgba(74,122,30,.10);
   color: #1a1a1a;
   padding: 18px;
@@ -161,8 +161,8 @@ body {
 }
 .num-input::placeholder { color: #a0b48a; }
 .num-input:focus {
-  border-color: #7CB342;
-  box-shadow: 0 0 0 3px rgba(124,179,66,.20);
+  border-color: #1565C0;
+  box-shadow: 0 0 0 3px rgba(21,101,192,.15);
   background: #fff;
 }
 
@@ -175,7 +175,7 @@ body {
 
 /* ── Action labels ── */
 .action-label {
-  color: #3d6b1c;
+  color: #1565C0;
   font-weight: 700;
   font-size: 13px;
 }
@@ -193,8 +193,8 @@ body {
   letter-spacing: .08em;
   text-transform: uppercase;
   color: #fff;
-  background: linear-gradient(135deg, #4a7a1e, #7CB342);
-  box-shadow: 0 6px 20px rgba(74,122,30,.30);
+  background: linear-gradient(135deg, #0d2d6e, #1565C0 50%, #2d6b0a);
+  box-shadow: 0 6px 20px rgba(21,101,192,.35);
   border: 0;
   width: 100%;
   cursor: pointer;
@@ -261,9 +261,9 @@ body {
   transition: background .25s ease;
 }
 .tl-bullet.on {
-  background: #7CB342;
+  background: #1565C0;
   border-color: rgba(255,255,255,.20);
-  box-shadow: 0 0 8px rgba(124,179,66,.50);
+  box-shadow: 0 0 8px rgba(21,101,192,.50);
 }
 .tl-bullet.rejected,
 .tl-bullet.on.rejected {
@@ -313,17 +313,18 @@ body {
   align-items: center;
   justify-content: center;
   height: 38px;
-  padding: 0 18px;
+  padding: 0 22px;
   border-radius: 999px;
-  background: rgba(124,179,66,.12);
-  color: #4a7a1e !important;
-  border: 1px solid rgba(124,179,66,.30);
+  background: linear-gradient(135deg, #0d2d6e, #1565C0 50%, #2d6b0a);
+  color: #fff !important;
+  border: none;
   font-weight: 800;
   font-size: 14px;
   text-decoration: none;
-  transition: background .15s ease, transform .08s ease;
+  box-shadow: 0 4px 14px rgba(21,101,192,0.30);
+  transition: opacity .15s ease, transform .08s ease;
 }
-.back-btn:hover  { background: rgba(124,179,66,.22); transform: translateY(-1px); }
+.back-btn:hover  { opacity: .90; transform: translateY(-1px); }
 .back-btn:active { transform: scale(.98); }
 
 @media (max-width: 520px) {

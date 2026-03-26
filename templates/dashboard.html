@@ -3,8 +3,9 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-/* ===== GreenLeaf Design System — Dashboard ===== */
+/* ===== ASIASOURCE Brand Design System — Dashboard ===== */
 
 /* ===== Root & Layout ===== */
 :root{
@@ -21,7 +22,8 @@ html, body{
 body{
   margin: 0;
   min-height: 100vh;
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+  background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%) !important;
 }
 
 .wrap{
@@ -36,7 +38,7 @@ body{
   ) !important;
   padding-left: 14px;
   padding-right: 14px;
-  padding-bottom: 80px;
+  padding-bottom: 96px;
   box-sizing: border-box;
 }
 
@@ -44,23 +46,24 @@ body{
 .topbar{
   position: fixed;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(520px, 100vw);
+  left: 0;
+  right: 0;
+  width: 100%;
+  transform: translateY(0);
   z-index: 999;
   padding: var(--topbar-pad) 0 !important;
-  background: #7CB342 !important;
-  box-shadow: 0 2px 12px rgba(0,0,0,.12) !important;
+  background: linear-gradient(135deg, #0d2d6e 0%, #1565C0 50%, #1a5c2a 80%, #2d6b0a 100%) !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,.25) !important;
   border-bottom: 0 !important;
-  transition: box-shadow .22s ease;
+  transition: transform .22s ease, box-shadow .22s ease;
 }
 .topbar.hide-bar{
-  transform: translateX(-50%) translateY(-110%);
+  transform: translateY(-110%);
 }
 
 .topbar-inner{
   height: var(--topbar-card-h) !important;
-  width: min(520px, 94vw) !important;
+  width: min(520px, 96vw) !important;
   margin: 0 auto !important;
   padding: 0 14px !important;
   box-sizing: border-box !important;
@@ -283,7 +286,7 @@ body{
   letter-spacing: .5px;
 }
 .status-active{
-  background: #7CB342 !important;
+  background: linear-gradient(135deg, #1565C0, #2d6b0a) !important;
   color: #fff !important;
 }
 .status-danger{
@@ -294,7 +297,7 @@ body{
   background: #eab308;
   color: #111;
 }
-#accStatusBadge.status-active { background: #7CB342 !important; color: #fff !important; }
+#accStatusBadge.status-active { background: linear-gradient(135deg, #1565C0, #2d6b0a) !important; color: #fff !important; }
 #accStatusBadge.status-warn   { background: #eab308 !important; color: #111 !important; }
 #accStatusBadge.status-danger { background: #dc2626 !important; color: #fff !important; }
 
@@ -304,8 +307,8 @@ body{
   background: #ffffff;
   border-radius: 18px;
   border: none;
-  border-left: 4px solid #7CB342;
-  box-shadow: 0 2px 16px rgba(74,122,30,.10), 0 6px 24px rgba(0,0,0,.05);
+  border-left: 4px solid #1565C0;
+  box-shadow: 0 2px 16px rgba(21,101,192,.10), 0 6px 24px rgba(0,0,0,.05);
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
   overflow: hidden;
@@ -316,31 +319,26 @@ body{
 
 /* ===== Card Diamond (Profile card) ===== */
 .cardx.card-diamond{
-  background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 50%, #ffffff 100%) !important;
-  color: #1a1a1a !important;
+  background: linear-gradient(135deg, #0d2d6e 0%, #1565C0 45%, #1a5c2a 80%, #2d6b0a 100%) !important;
+  color: #fff !important;
   border-radius: 20px !important;
-  border: 1px solid rgba(124,179,66,.4) !important;
+  border: 1px solid rgba(21,101,192,.4) !important;
   border-left: none !important;
-  box-shadow: 0 8px 32px rgba(74,122,30,.35) !important;
+  box-shadow: 0 8px 32px rgba(13,45,110,.45) !important;
 }
 .cardx.card-diamond *{
-  color: #1a1a1a !important;
+  color: #fff !important;
 }
 
-/* Diamond texture overlay */
+/* Subtle radial glow overlay — no stripes */
 .cardx.card-diamond::before{
   content: "";
   position: absolute;
-  inset: -40%;
+  inset: 0;
   background:
-    linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,0) 60%),
-    repeating-linear-gradient(135deg,
-      rgba(255,255,255,.10) 0px,
-      rgba(255,255,255,.10) 14px,
-      rgba(255,255,255,0) 14px,
-      rgba(255,255,255,0) 34px);
-  transform: rotate(18deg);
-  opacity: .40;
+    radial-gradient(ellipse at 30% 30%, rgba(255,255,255,.18) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, rgba(45,107,10,.25) 0%, transparent 55%);
+  opacity: 1;
   pointer-events: none;
 }
 
@@ -371,7 +369,7 @@ body{
   background: #ffffff !important;
 }
 .android-no-blur .cardx.card-diamond{
-  background: linear-gradient(135deg, #1e4a06 0%, #2d6b0a 50%, #4a7a1e 100%) !important;
+  background: linear-gradient(135deg, #0d2d6e 0%, #1565C0 45%, #1a5c2a 80%, #2d6b0a 100%) !important;
 }
 
 /* ===== Reveal animation ===== */
@@ -389,41 +387,58 @@ body{
 }
 
 /* ===== Profile Card Contents ===== */
-.profile-card{ display: flex; gap: 12px; align-items: flex-start; }
+.profile-card{ display: flex; flex-direction: column; gap: 0; padding: 20px 20px 18px; }
+
+/* ── Top row: avatar + brand + member pill ── */
+.cd-top{ display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.cd-brand{ display: flex; align-items: center; gap: 10px; }
 .avatar{
-  width: 44px; height: 44px; border-radius: 14px;
-  background: rgba(255,255,255,.25);
+  width: 40px; height: 40px; border-radius: 12px;
+  background: rgba(255,255,255,.20);
   display: flex; align-items: center; justify-content: center;
   flex: 0 0 auto;
-  border: 1px solid rgba(255,255,255,.20);
+  border: 1px solid rgba(255,255,255,.25);
+  overflow: hidden;
 }
-.avatar svg{ width: 22px; height: 22px; opacity: .9; }
-.profile-main{ flex: 1 1 auto; min-width: 0; }
-.row1{ display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
-.title{ color: #fff; font-weight: 900; font-size: 18px; line-height: 1.1; }
-.subline{ color: rgba(255,255,255,.72); font-size: 12px; margin-top: 2px; }
+.avatar svg{ width: 22px; height: 22px; fill: #fff; opacity: .9; }
+.avatar img{ width:100%; height:100%; object-fit:cover; }
+.cd-brand-name{ font-size: 11px; font-weight: 800; color: #fff; letter-spacing: .06em; text-transform: uppercase; }
+.cd-brand-sub{ font-size: 10px; color: rgba(255,255,255,.60); font-weight: 500; margin-top: 1px; }
+
+/* ── Divider ── */
+.cd-divider{ height: 1px; background: rgba(255,255,255,.15); margin-bottom: 14px; }
+
+/* ── Account row ── */
+.cd-acct-row{ display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.cd-acct-lbl{ font-size: 10px; color: rgba(255,255,255,.55); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+.cd-acct-num{ font-size: 14px; font-weight: 800; color: #fff; letter-spacing: .04em; }
+
+/* ── Balance ── */
+.cd-balance-wrap{ margin-bottom: 6px; }
+.cd-balance-lbl{ font-size: 10px; color: rgba(255,255,255,.55); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
+.cd-balance-amount{ display: flex; align-items: baseline; gap: 5px; }
+.cd-balance-sign{ font-size: 18px; font-weight: 700; color: rgba(255,255,255,.80); }
+.cd-balance-num{ font-size: 32px; font-weight: 950; color: #fff; letter-spacing: .01em; line-height: 1; }
+
+/* ── Status row ── */
+.cd-status-row{ margin-top: 14px; display: flex; align-items: center; justify-content: flex-end; }
+
 .pill{
-  padding: 6px 12px; border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.20);
-  background: rgba(255,255,255,.15);
-  color: #fff;
-  font-weight: 800;
-  font-size: 12px;
-  white-space: nowrap;
+  padding: 5px 12px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(255,255,255,.14);
+  color: #fff; font-weight: 800; font-size: 11px; white-space: nowrap;
 }
-.amount{
-  font-size: 26px;
-  font-weight: 950;
-  letter-spacing: .02em;
-  color: #fff;
-  margin-top: 10px;
-}
-.status{ margin-top: 6px; font-size: 12px; font-weight: 900; color: #d5ffe7; }
+/* keep old classes working */
+.title{ color:#fff; font-weight:900; font-size:18px; }
+.subline{ color:rgba(255,255,255,.72); font-size:12px; }
+.amount{ font-size:26px; font-weight:950; color:#fff; margin-top:10px; }
+.status{ margin-top:6px; font-size:12px; font-weight:900; color:#d5ffe7; }
 
 /* ===== Section Titles ===== */
 .section-title{
   margin: 14px 2px 10px;
-  color: #2d5a0e;
+  color: #1565C0;
   font-weight: 900;
   font-size: 12px;
   letter-spacing: .08em;
@@ -431,7 +446,7 @@ body{
   opacity: 1;
   display: inline-block;
   padding-bottom: 4px;
-  border-bottom: 2px solid rgba(124,179,66,.45);
+  border-bottom: 2px solid rgba(21,101,192,.45);
   background: none !important;
   -webkit-background-clip: unset !important;
   background-clip: unset !important;
@@ -451,10 +466,10 @@ body{
   gap: 8px;
   margin-bottom: 14px;
   padding-bottom: 12px;
-  border-bottom: 1.5px solid #DCEDC8;
+  border-bottom: 1.5px solid #DBEAFE;
 }
 .trust-title{
-  color: #2d5a0e;
+  color: #1565C0;
   font-weight: 900;
   font-size: 14px;
   letter-spacing: .02em;
@@ -468,15 +483,15 @@ body{
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #f8fdf4;
+  background: #EFF6FF;
   border-radius: 12px;
-  border: 1px solid #e0eed0;
+  border: 1px solid #DBEAFE;
   padding: 12px 10px;
 }
 .trust-icon{
   width: 36px; height: 36px;
   border-radius: 10px;
-  background: rgba(124,179,66,.12);
+  background: rgba(21,101,192,.12);
   display: flex; align-items: center; justify-content: center;
   flex: 0 0 auto;
 }
@@ -487,7 +502,7 @@ body{
   line-height: 1.3;
 }
 .trust-sub{
-  color: #8a9a7a;
+  color: #7a8a9a;
   font-size: 10px;
   margin-top: 2px;
 }
@@ -506,11 +521,11 @@ body{
 .feat-slider-title{
   font-size: 13px;
   font-weight: 800;
-  color: #2d5a0e;
+  color: #1565C0;
 }
 .feat-slider-hint{
   font-size: 10px;
-  color: #8a9a7a;
+  color: #7a8a9a;
   font-weight: 500;
 }
 .feat-track{
@@ -529,7 +544,7 @@ body{
   max-width: 130px;
   border-radius: 16px;
   background: #fff;
-  border: 1.5px solid #e0eed0;
+  border: 1.5px solid #DBEAFE;
   scroll-snap-align: start;
   flex-shrink: 0;
   cursor: pointer;
@@ -541,15 +556,15 @@ body{
   transform: scale(0.97);
 }
 .feat-slide.active-card{
-  border-color: #7CB342;
-  box-shadow: 0 4px 16px rgba(74,122,30,0.18);
+  border-color: #1565C0;
+  box-shadow: 0 4px 16px rgba(21,101,192,0.22);
 }
 .feat-slide-top{
   height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #f1f8e9, #dcedc8);
+  background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
   position: relative;
 }
 .feat-slide-top svg{
@@ -562,13 +577,13 @@ body{
 .feat-slide-name{
   font-size: 11px;
   font-weight: 800;
-  color: #2d5a0e;
+  color: #1565C0;
   line-height: 1.3;
   margin-bottom: 3px;
 }
 .feat-slide-sub{
   font-size: 10px;
-  color: #8a9a7a;
+  color: #7a8a9a;
   line-height: 1.4;
 }
 
@@ -576,8 +591,8 @@ body{
 .feat-detail-panel{
   margin-top: 10px;
   border-radius: 14px;
-  background: #f8fdf4;
-  border: 1.5px solid #c8e6a0;
+  background: #EFF6FF;
+  border: 1.5px solid #BFDBFE;
   overflow: hidden;
   max-height: 0;
   transition: max-height 0.35s ease, opacity 0.3s ease;
@@ -599,7 +614,7 @@ body{
 .feat-detail-icon{
   width: 40px; height: 40px;
   border-radius: 12px;
-  background: linear-gradient(135deg, #4a7a1e, #7CB342);
+  background: linear-gradient(135deg, #0d2d6e, #1565C0 50%, #2d6b0a);
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
@@ -607,11 +622,11 @@ body{
 .feat-detail-title{
   font-size: 14px;
   font-weight: 900;
-  color: #1a3a0a;
+  color: #0d2d6e;
 }
 .feat-detail-desc{
   font-size: 12px;
-  color: #4a5a3a;
+  color: #1e3a5f;
   line-height: 1.7;
 }
 .feat-dots{
@@ -623,16 +638,16 @@ body{
 .feat-dot{
   width: 5px; height: 5px;
   border-radius: 50%;
-  background: #c8e6a0;
+  background: #BFDBFE;
   transition: all 0.25s;
 }
-.feat-dot.on{ background: #4a7a1e; width: 14px; border-radius: 3px; }
+.feat-dot.on{ background: #1565C0; width: 14px; border-radius: 3px; }
 
 /* ===== Apply Now button ===== */
 @keyframes applyPulse {
-  0%   { box-shadow: 0 4px 16px rgba(74,122,30,.40), 0 0 0 0 rgba(124,179,66,.55); }
-  50%  { box-shadow: 0 6px 24px rgba(74,122,30,.55), 0 0 0 10px rgba(124,179,66,.0); }
-  100% { box-shadow: 0 4px 16px rgba(74,122,30,.40), 0 0 0 0 rgba(124,179,66,.0); }
+  0%   { box-shadow: 0 4px 16px rgba(21,101,192,.50), 0 0 0 0 rgba(21,101,192,.55); }
+  50%  { box-shadow: 0 6px 24px rgba(21,101,192,.65), 0 0 0 10px rgba(21,101,192,.0); }
+  100% { box-shadow: 0 4px 16px rgba(21,101,192,.50), 0 0 0 0 rgba(21,101,192,.0); }
 }
 @keyframes applyShimmer {
   0%   { left: -75%; }
@@ -649,13 +664,13 @@ body{
   border: 0;
   padding: 16px 18px;
   border-radius: 999px;
-  background: linear-gradient(135deg, #7CB342 0%, #4a7a1e 100%);
+  background: linear-gradient(135deg, #0d2d6e 0%, #1565C0 45%, #1a5c2a 80%, #2d6b0a 100%);
   color: #fff;
   font-weight: 950;
   letter-spacing: .08em;
   text-transform: uppercase;
   font-size: 15px;
-  box-shadow: 0 4px 16px rgba(74,122,30,.40);
+  box-shadow: 0 4px 16px rgba(21,101,192,.50);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -697,26 +712,24 @@ body{
 }
 .quick .go svg{ width: 16px; height: 16px; fill: #fff; opacity: .95; }
 
-/* ===== Bottom Nav — fixed app-style bar ===== */
+/* ===== Bottom Nav — floating fixed pill above bottom ===== */
 .bottom-nav{
   position: fixed !important;
-  bottom: 0 !important;
+  bottom: 16px !important;
   left: 50% !important;
-  transform: translateX(-50%) translateY(0) !important;
-  width: min(520px, 100vw) !important;
-  height: 64px !important;
+  transform: translateX(-50%) !important;
+  width: min(488px, calc(100vw - 32px)) !important;
+  height: 62px !important;
   background: #fff !important;
-  border-top: 1px solid #e8e8e8 !important;
-  box-shadow: 0 -4px 20px rgba(0,0,0,0.08) !important;
-  z-index: 999 !important;
-  padding: 0 !important;
+  border: 1px solid rgba(0,0,0,0.07) !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.20), 0 2px 8px rgba(0,0,0,0.10) !important;
+  border-radius: 20px !important;
   margin: 0 !important;
-  border-radius: 0 !important;
-  transition: transform 0.3s ease !important;
+  padding: 0 !important;
+  z-index: 999 !important;
+  overflow: hidden !important;
 }
-.bottom-nav.hide-bar{
-  transform: translateX(-50%) translateY(100%) !important;
-}
+/* nav always visible — no hide state */
 
 .nav-grid{
   display: flex !important;
@@ -746,8 +759,9 @@ body{
   border-radius: 0 !important;
   min-height: unset !important;
   position: relative !important;
-  transition: color 0.2s !important;
+  transition: color 0.2s, background 0.2s !important;
 }
+.bottom-nav a.nav-item.active { background: #F0F7FF !important; }
 .bottom-nav a.nav-item svg,
 .nav-item svg{
   width: 22px !important;
@@ -762,12 +776,12 @@ body{
 /* Active state */
 .nav-item.active,
 .bottom-nav a.nav-item.active{
-  color: #4a7a1e !important;
+  color: #1565C0 !important;
   outline: none !important;
 }
 .nav-item.active svg,
 .bottom-nav a.nav-item.active svg{
-  fill: #4a7a1e !important;
+  fill: #1565C0 !important;
 }
 /* Active dot indicator */
 .nav-item.active::before{
@@ -778,7 +792,7 @@ body{
   transform: translateX(-50%) !important;
   width: 28px !important;
   height: 3px !important;
-  background: #4a7a1e !important;
+  background: linear-gradient(90deg, #1565C0, #2d6b0a) !important;
   border-radius: 0 0 4px 4px !important;
 }
 
@@ -786,9 +800,9 @@ body{
 .cardx.video-card{
   background: #ffffff !important;
   border: none !important;
-  border-left: 4px solid #7CB342 !important;
+  border-left: 4px solid #1565C0 !important;
   border-radius: 18px !important;
-  box-shadow: 0 2px 16px rgba(74,122,30,.10), 0 6px 24px rgba(0,0,0,.05) !important;
+  box-shadow: 0 2px 16px rgba(21,101,192,.10), 0 6px 24px rgba(0,0,0,.05) !important;
   overflow: hidden !important;
   height: 160px;
   padding: 14px !important;
@@ -807,104 +821,48 @@ body{
   letter-spacing: .18em !important;
   margin-top: 16px !important;
   margin-bottom: 10px !important;
-  color: #2d5a0e !important;
+  color: #1565C0 !important;
   background: none !important;
   -webkit-background-clip: unset !important;
   background-clip: unset !important;
-  -webkit-text-fill-color: #2d5a0e !important;
+  -webkit-text-fill-color: #1565C0 !important;
   text-shadow: none !important;
   animation: none !important;
 }
 
-/* ===== Currency / Table card ===== */
-.cardx.table-card{
-  background: #ffffff !important;
-  border: none !important;
-  border-left: 4px solid #7CB342 !important;
-  border-radius: 18px !important;
-  box-shadow: 0 2px 16px rgba(74,122,30,.10), 0 6px 24px rgba(0,0,0,.05) !important;
-  overflow: hidden !important;
-  padding: 14px !important;
-  color: #1a1a1a !important;
-}
-.cardx.table-card::before,
-.cardx.table-card::after{ display: none !important; }
-.cardx.table-card,
-.cardx.table-card *{
-  color: #1a1a1a !important;
-}
-
-/* Currency section title */
-.section-title#currency{
-  font-size: 14px !important;
-  font-weight: 1000 !important;
-  letter-spacing: .18em !important;
-  margin-top: 16px !important;
-  margin-bottom: 10px !important;
-  color: #2d5a0e !important;
-  background: none !important;
-  -webkit-background-clip: unset !important;
-  background-clip: unset !important;
-  -webkit-text-fill-color: #2d5a0e !important;
-  text-shadow: none !important;
-  animation: none !important;
-}
-
-/* Exchange rate table */
-.fx-scroll{
-  max-height: 260px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding-right: 2px;
-}
-.fx-scroll::-webkit-scrollbar{ width: 6px; }
-.fx-scroll::-webkit-scrollbar-thumb{ background: rgba(74,122,30,.20); border-radius: 99px; }
-.fx-table{ width: 100%; border-collapse: collapse; }
-.fx-table thead th{
-  position: sticky;
-  top: 0;
-  background: #DCEDC8 !important;
-  color: #2d5a0e !important;
-  font-size: 11px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  padding: 10px;
-  opacity: 1 !important;
-  text-shadow: none !important;
-  border-bottom: 1px solid #c8ddb0 !important;
-  z-index: 2;
-}
-.fx-table thead{
-  border-bottom: 1px solid #c8ddb0 !important;
-}
-.fx-table td{ padding: 10px; border-top: 1px solid #f0f4ec; color: #1a1a1a !important; }
-.fx-left{ display: flex; align-items: center; gap: 10px; min-width: 0; }
-.fx-flag{
-  width: 22px; height: 16px;
-  object-fit: cover;
-  border-radius: 3px;
-  box-shadow: 0 0 0 1px rgba(0,0,0,.10);
-  flex: 0 0 auto;
-}
-.fx-code{ font-weight: 950; letter-spacing: .04em; color: #1a1a1a !important; }
-.fx-country{
-  font-size: 11px;
-  color: #5a7a3a !important;
-  opacity: 1 !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.fx-meta{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 8px;
-  font-size: 11px;
-  color: #5a7a3a !important;
-  opacity: 1 !important;
-}
-.fx-auto{ opacity: .8; }
+/* ===== Loan Calculator Card ===== */
+.calc-card{ background:#fff; border-radius:18px; border-left:4px solid #1565C0; box-shadow:0 2px 16px rgba(21,101,192,.10),0 6px 24px rgba(0,0,0,.05); overflow:hidden; margin-bottom:16px; }
+.calc-head{ background:linear-gradient(135deg,#0d2d6e,#1565C0 50%,#2d6b0a); padding:14px 16px; display:flex; align-items:center; gap:10px; }
+.calc-head-icon{ width:36px; height:36px; border-radius:10px; background:rgba(255,255,255,.15); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.calc-head-icon svg{ width:20px; height:20px; fill:#fff; }
+.calc-head-title{ font-size:14px; font-weight:800; color:#fff; letter-spacing:.12em; text-transform:uppercase; }
+.calc-head-sub{ font-size:11px; color:rgba(255,255,255,.65); margin-top:1px; }
+.calc-body{ padding:16px; }
+.calc-label{ font-size:11px; font-weight:700; color:#555; text-transform:uppercase; letter-spacing:.06em; margin-bottom:7px; display:block; }
+.calc-amount-wrap{ display:flex; align-items:center; border:1.5px solid #e0e8ff; border-radius:12px; background:#f8f9ff; overflow:hidden; margin-bottom:14px; transition:border-color .2s; }
+.calc-amount-wrap:focus-within{ border-color:#1565C0; box-shadow:0 0 0 3px rgba(21,101,192,.10); background:#fff; }
+.calc-currency-badge{ padding:0 12px; font-size:13px; font-weight:800; color:#1565C0; background:rgba(21,101,192,.08); align-self:stretch; display:flex; align-items:center; border-right:1.5px solid #e0e8ff; }
+.calc-amount-input{ flex:1; border:none; outline:none; background:transparent; padding:13px 12px; font-size:16px; font-weight:700; color:#1a1a1a; font-family:'Poppins',sans-serif; }
+.calc-amount-input::placeholder{ color:#ccc; font-weight:400; font-size:14px; }
+.calc-terms{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:14px; }
+.calc-term-btn{ border:1.5px solid #e0e8ff; border-radius:10px; padding:9px 0; font-size:13px; font-weight:700; color:#555; background:#f8f9ff; cursor:pointer; text-align:center; transition:all .2s; font-family:'Poppins',sans-serif; }
+.calc-term-btn:hover{ border-color:#1565C0; color:#1565C0; background:#EFF6FF; }
+.calc-term-btn.active{ background:linear-gradient(135deg,#0d2d6e,#1565C0); border-color:transparent; color:#fff; box-shadow:0 3px 10px rgba(21,101,192,.30); }
+.calc-result{ background:linear-gradient(135deg,#f0f7ff,#f0fff4); border:1.5px solid #BFDBFE; border-radius:14px; padding:14px 16px; margin-bottom:14px; }
+.calc-result-row{ display:flex; justify-content:space-between; align-items:center; padding:6px 0; }
+.calc-result-row+.calc-result-row{ border-top:1px solid rgba(21,101,192,.10); }
+.calc-result-lbl{ font-size:12px; color:#555; font-weight:500; }
+.calc-result-val{ font-size:13px; font-weight:800; color:#0d2d6e; }
+.calc-result-val.monthly{ font-size:20px; color:#1565C0; }
+.calc-result-val.interest{ color:#1565C0; }
+.calc-rate-badge{ display:flex; align-items:center; gap:6px; margin-bottom:14px; }
+.calc-rate-dot{ width:8px; height:8px; border-radius:50%; background:#1565C0; flex-shrink:0; }
+.calc-rate-text{ font-size:11px; color:#555; font-weight:600; }
+.calc-rate-pct{ font-weight:800; color:#1565C0; }
+.calc-apply-btn{ display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:13px; border-radius:12px; border:none; background:linear-gradient(135deg,#0d2d6e,#1565C0 50%,#2d6b0a); color:#fff; font-size:14px; font-weight:800; font-family:'Poppins',sans-serif; cursor:pointer; text-decoration:none; box-shadow:0 4px 16px rgba(21,101,192,.25); transition:transform .15s,box-shadow .15s; letter-spacing:.03em; }
+.calc-apply-btn svg{ width:18px; height:18px; fill:#fff; }
+.calc-apply-btn:hover{ transform:translateY(-1px); box-shadow:0 8px 24px rgba(21,101,192,.35); }
+.calc-apply-btn:active{ transform:scale(.98); }
 
 /* ===== Dashboard status message boxes ===== */
 .dash-status-msg{
@@ -914,12 +872,12 @@ body{
   font-weight: 900;
   font-size: 12px;
   line-height: 1.35;
-  border: 1px solid rgba(124,179,66,.3);
+  border: 1px solid rgba(21,101,192,.3);
 }
 .dash-status-green{
-  background: #f1f8e9;
-  color: #2d5a0e;
-  border-color: #7CB342;
+  background: #EFF6FF;
+  color: #0d2d6e;
+  border-color: #1565C0;
 }
 .dash-status-red{
   background: #ffebee;
@@ -933,9 +891,9 @@ body{
   font-size: 13px;
   line-height: 1.45;
 }
-/* But inside card-diamond, muted stays light */
+/* Inside card-diamond (dark gradient bg), muted is white */
 .card-diamond .muted{
-  color: rgba(26,26,26,.65) !important;
+  color: rgba(255,255,255,.75) !important;
 }
 
 /* ===== Mobile ===== */
@@ -1001,66 +959,56 @@ body{
 <div class="dash-wrap">
   <!-- Profile card -->
   <div class="cardx profile-card metal reveal from-left card-diamond">
-    <div class="avatar" aria-hidden="true">
-      {% if selfie_url %}
-        <img src="{{ selfie_url }}" alt="Selfie" style="width:100%;height:100%;object-fit:cover;border-radius:14px;">
-      {% else %}
-        <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.42 0-8 2-8 4.5V21h16v-2.5C20 16 16.42 14 12 14z"/></svg>
-      {% endif %}
-    </div>
 
-    <div class="profile-main">
-      <div class="row1">
-        <div>
-          <div class="title ovelion">{{ request.user.phone }}</div>
-          <div class="subline ovelion">Account</div>
+    <!-- Top: avatar + brand + member pill -->
+    <div class="cd-top">
+      <div class="cd-brand">
+        <div class="avatar" aria-hidden="true">
+          {% if selfie_url %}
+            <img src="{{ selfie_url }}" alt="Selfie">
+          {% else %}
+            <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.42 0-8 2-8 4.5V21h16v-2.5C20 16 16.42 14 12 14z"/></svg>
+          {% endif %}
         </div>
-        <div class="pill ovelion">Balance</div>
+        <div>
+          <div class="cd-brand-name">Asiasource</div>
+          <div class="cd-brand-sub">Financial Inc.</div>
+        </div>
       </div>
+      <div class="pill ovelion">Member</div>
+    </div>
 
-      <div class="amount"><span style="font-family:'Inter', system-ui, sans-serif; font-weight:700;">₱</span> <span data-balance>{{ request.user.balance|default:"0.00" }}</span></div>
-      <div class="muted" style="margin-top:6px;">
-        {# Dashboard status badge #}
-        {# Dashboard status badge (the badge in image 2) #}
-{# Dashboard badge: color from account_status (stable key), text from dashboard_status_label #}
-{% with color_key=request.user.account_status|default:"ACTIVE"|upper display_text=request.user.dashboard_status_label|default:request.user.account_status|default:"ACTIVE" %}
-  <span id="accStatusBadge"
-        class="status-badge
-        {% if color_key == 'ACTIVE' or color_key == 'APPROVED' or color_key == 'LOAN_PAID' or color_key == 'WITHDRAWAL_SUCCESSFUL' or color_key == 'ACCOUNT_UPDATED' %}
-          status-active
-        {% elif color_key == 'APP_MAINTENANCE' or color_key == 'INVALID_DETAIL' or color_key == 'RENEW_DOCUMENT_REQUIRED' %}
-          status-warn
-        {% else %}
-          status-danger
-        {% endif %}">
-    {{ display_text }}
-  </span>
-{% endwith %}
-</span>
+    <!-- Divider -->
+    <div class="cd-divider"></div>
+
+    <!-- Account number row -->
+    <div class="cd-acct-row">
+      <span class="cd-acct-lbl">Account No.</span>
+      <span class="cd-acct-num ovelion">{{ request.user.phone }}</span>
+    </div>
+
+    <!-- Balance -->
+    <div class="cd-balance-wrap">
+      <div class="cd-balance-lbl">Available Balance</div>
+      <div class="cd-balance-amount">
+        <span class="cd-balance-sign">₱</span>
+        <span class="cd-balance-num" data-balance>{{ request.user.balance|default:"0.00" }}</span>
       </div>
     </div>
-  </div>
-<!-- ✅ Bottom nav (4 buttons: HOME / WALLET / CONTACT / PROFILE) -->
-  <nav class="bottom-nav" role="navigation" aria-label="Bottom Navigation">
-  <div class="nav-grid">
-      <a class="nav-item" href="#top" data-nav="home" aria-label="Home">
-        <svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
-        Home
-      </a>
-      <a class="nav-item" href="/wallet/" data-nav="wallet" aria-label="Wallet">
-        <svg viewBox="0 0 24 24"><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2h-6a2 2 0 0 0 0 4h6v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M20 11h-5a1 1 0 0 0 0 2h5z" opacity=".75"/></svg>
-        Wallet
-      </a>
-      <a class="nav-item" href="{% url 'contact' %}" data-nav="contact" aria-label="Contact">
-        <svg viewBox="0 0 24 24"><path d="M4 4h16v12H7l-3 3z"/><path d="M7 8h10M7 11h7" stroke="#aaa" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
-        Contact
-      </a>
-      <a class="nav-item" href="/profile/" data-nav="profile" aria-label="Profile">
-        <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.42 0-8 2-8 4.5V21h16v-2.5C20 16 16.42 14 12 14z"/></svg>
-        Profile
-      </a>
+
+    <!-- Status badge -->
+    <div class="cd-status-row">
+      {% with color_key=request.user.account_status|default:"ACTIVE"|upper display_text=request.user.dashboard_status_label|default:request.user.account_status|default:"ACTIVE" %}
+        <span id="accStatusBadge" class="status-badge
+          {% if color_key == 'ACTIVE' or color_key == 'APPROVED' or color_key == 'LOAN_PAID' or color_key == 'WITHDRAWAL_SUCCESSFUL' or color_key == 'ACCOUNT_UPDATED' %}status-active
+          {% elif color_key == 'APP_MAINTENANCE' or color_key == 'INVALID_DETAIL' or color_key == 'RENEW_DOCUMENT_REQUIRED' %}status-warn
+          {% else %}status-danger{% endif %}">
+          {{ display_text }}
+        </span>
+      {% endwith %}
     </div>
-  </nav>
+
+  </div>
 <!-- ✅ Apply Now button (ពីមុនឈ្មោះ Quick Loan) នៅពីលើ Our Services -->
   <a href="{% url 'quick_loan' %}" class="quick reveal from-left ovelion-head">
     APPLY NOW
@@ -1081,9 +1029,9 @@ body{
       <div class="feat-slide active-card" data-idx="0" onclick="showFeatDetail(0)">
         <div class="feat-slide-top">
           <svg viewBox="0 0 24 24" fill="none">
-            <rect x="3" y="11" width="18" height="11" rx="2" stroke="#4a7a1e" stroke-width="1.8" fill="none"/>
-            <path d="M7 11V7a5 5 0 0110 0v4" stroke="#4a7a1e" stroke-width="1.8" stroke-linecap="round"/>
-            <circle cx="12" cy="16" r="1.5" fill="#7CB342"/>
+            <rect x="3" y="11" width="18" height="11" rx="2" stroke="#1565C0" stroke-width="1.8" fill="none"/>
+            <path d="M7 11V7a5 5 0 0110 0v4" stroke="#1565C0" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="12" cy="16" r="1.5" fill="#1565C0"/>
           </svg>
         </div>
         <div class="feat-slide-body">
@@ -1096,8 +1044,8 @@ body{
       <div class="feat-slide" data-idx="1" onclick="showFeatDetail(1)">
         <div class="feat-slide-top">
           <svg viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="9" stroke="#4a7a1e" stroke-width="1.8" fill="none"/>
-            <path d="M12 7v5l3 3" stroke="#7CB342" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="12" cy="12" r="9" stroke="#1565C0" stroke-width="1.8" fill="none"/>
+            <path d="M12 7v5l3 3" stroke="#1565C0" stroke-width="2" stroke-linecap="round"/>
           </svg>
         </div>
         <div class="feat-slide-body">
@@ -1110,8 +1058,8 @@ body{
       <div class="feat-slide" data-idx="2" onclick="showFeatDetail(2)">
         <div class="feat-slide-top">
           <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V6L12 2z" stroke="#4a7a1e" stroke-width="1.8" fill="rgba(124,179,66,0.12)"/>
-            <path d="M9 12l2 2 4-4" stroke="#7CB342" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V6L12 2z" stroke="#1565C0" stroke-width="1.8" fill="rgba(21,101,192,0.12)"/>
+            <path d="M9 12l2 2 4-4" stroke="#1565C0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
         <div class="feat-slide-body">
@@ -1124,9 +1072,9 @@ body{
       <div class="feat-slide" data-idx="3" onclick="showFeatDetail(3)">
         <div class="feat-slide-top">
           <svg viewBox="0 0 24 24" fill="none">
-            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#4a7a1e" stroke-width="1.8" stroke-linecap="round"/>
-            <circle cx="12" cy="7" r="4" stroke="#4a7a1e" stroke-width="1.8" fill="none"/>
-            <path d="M16 3.13a4 4 0 010 7.75" stroke="#7CB342" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#1565C0" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="12" cy="7" r="4" stroke="#1565C0" stroke-width="1.8" fill="none"/>
+            <path d="M16 3.13a4 4 0 010 7.75" stroke="#1565C0" stroke-width="1.5" stroke-linecap="round"/>
           </svg>
         </div>
         <div class="feat-slide-body">
@@ -1139,7 +1087,7 @@ body{
       <div class="feat-slide" data-idx="4" onclick="showFeatDetail(4)">
         <div class="feat-slide-top">
           <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6" stroke="#4a7a1e" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6" stroke="#1565C0" stroke-width="1.8" stroke-linecap="round"/>
           </svg>
         </div>
         <div class="feat-slide-body">
@@ -1176,30 +1124,84 @@ body{
   </div>
 </div>
 
-  <!-- Currency -->
-
-  <div class="cardx table-card reveal from-left">
-    <h3 style="text-align:center; margin:0 0 16px; font-size:14px; font-weight:950; letter-spacing:.18em; color:#2d5a0e; text-transform:uppercase;">CURRENCY</h3>
-    <div class="fx-scroll" aria-label="Exchange rates list">
-      <table class="fx-table">
-        <thead>
-          <tr>
-            <th>CURRENCY</th>
-            <th>USD</th>
-            <th>CONVERT</th>
-          </tr>
-        </thead>
-        <tbody id="fxRows"></tbody>
-      </table>
+  <!-- Loan Calculator -->
+  <div class="calc-card reveal from-left">
+    <div class="calc-head">
+      <div class="calc-head-icon">
+        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+      </div>
+      <div>
+        <div class="calc-head-title">Loan Calculator</div>
+        <div class="calc-head-sub">Estimate your monthly payment instantly</div>
+      </div>
     </div>
+    <div class="calc-body">
 
-    <div class="fx-meta">
-      <div id="fxUpdated">Updated: —</div>
-      <div class="fx-auto">Auto daily</div>
+      <div class="calc-rate-badge">
+        <div class="calc-rate-dot"></div>
+        <span class="calc-rate-text">Interest rate: <span class="calc-rate-pct">0.5% per month</span></span>
+      </div>
+
+      <label class="calc-label">Loan Amount (PHP)</label>
+      <div class="calc-amount-wrap">
+        <span class="calc-currency-badge">₱</span>
+        <input class="calc-amount-input" id="calcAmt" type="number" placeholder="e.g. 50000" min="80000" max="5000000">
+      </div>
+
+      <label class="calc-label">Loan Term</label>
+      <div class="calc-terms">
+        <button class="calc-term-btn" data-m="6">6 mo</button>
+        <button class="calc-term-btn active" data-m="12">12 mo</button>
+        <button class="calc-term-btn" data-m="24">24 mo</button>
+        <button class="calc-term-btn" data-m="36">36 mo</button>
+      </div>
+
+      <div class="calc-result" id="calcResult">
+        <div class="calc-result-row">
+          <span class="calc-result-lbl">Monthly Payment</span>
+          <span class="calc-result-val monthly" id="calcMonthly">₱ —</span>
+        </div>
+        <div class="calc-result-row">
+          <span class="calc-result-lbl">Total Payment</span>
+          <span class="calc-result-val" id="calcTotal">₱ —</span>
+        </div>
+        <div class="calc-result-row">
+          <span class="calc-result-lbl">Total Interest</span>
+          <span class="calc-result-val interest" id="calcInterest">₱ —</span>
+        </div>
+      </div>
+
+      <a href="/loan-apply/" class="calc-apply-btn">
+        <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+        Apply for a Loan
+      </a>
+
     </div>
   </div>
 
 </div>
+
+<!-- ✅ Bottom nav (4 buttons: HOME / WALLET / CONTACT / PROFILE) -->
+<nav class="bottom-nav" role="navigation" aria-label="Bottom Navigation">
+  <div class="nav-grid">
+    <a class="nav-item" href="#top" data-nav="home" aria-label="Home">
+      <svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
+      Home
+    </a>
+    <a class="nav-item" href="/wallet/" data-nav="wallet" aria-label="Wallet">
+      <svg viewBox="0 0 24 24"><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2h-6a2 2 0 0 0 0 4h6v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M20 11h-5a1 1 0 0 0 0 2h5z" opacity=".75"/></svg>
+      Wallet
+    </a>
+    <a class="nav-item" href="{% url 'contact' %}" data-nav="contact" aria-label="Contact">
+      <svg viewBox="0 0 24 24"><path d="M4 4h16v12H7l-3 3z"/><path d="M7 8h10M7 11h7" stroke="#aaa" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+      Contact
+    </a>
+    <a class="nav-item" href="/profile/" data-nav="profile" aria-label="Profile">
+      <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.42 0-8 2-8 4.5V21h16v-2.5C20 16 16.42 14 12 14z"/></svg>
+      Profile
+    </a>
+  </div>
+</nav>
 
 <script>
 /* ===== Reveal animation on load (swipe left/right) ===== */
@@ -1234,14 +1236,11 @@ body{
 
 
 <script>
-/* ===== Bottom nav: active highlight + smart hide/show on scroll ===== */
+/* ===== Bottom nav: active highlight only — always visible ===== */
 (function(){
-  const nav = document.querySelector('.bottom-nav');
   const items = Array.from(document.querySelectorAll(".bottom-nav .nav-item"));
-  if(!nav || !items.length) return;
-
-  /* -- Active state from URL/hash -- */
-  function setActiveFromHash(){
+  if(!items.length) return;
+  function setActive(){
     const h = (location.hash || "#top").toLowerCase();
     const path = location.pathname.toLowerCase();
     items.forEach(a => a.classList.remove("active"));
@@ -1251,149 +1250,62 @@ body{
     });
     (hit || items[0]).classList.add("active");
   }
-  window.addEventListener("hashchange", setActiveFromHash);
-  setActiveFromHash();
-
-  /* -- Show on load immediately -- */
-  nav.classList.remove('hide-bar');
-
-  /* -- Hide on scroll down, show on scroll up / stopped -- */
-  let lastY = window.scrollY || 0;
-  let ticking = false;
-  let hideTimer = null;
-
-  window.addEventListener('scroll', function(){
-    if(ticking) return;
-    ticking = true;
-    requestAnimationFrame(function(){
-      const y = window.scrollY || 0;
-      const diff = y - lastY;
-
-      if(Math.abs(diff) > 4){
-        if(diff > 0){
-          nav.classList.add('hide-bar');   // scrolling down → hide
-        } else {
-          nav.classList.remove('hide-bar'); // scrolling up → show
-        }
-        lastY = y;
-      }
-
-      /* Auto show again after user stops scrolling for 600ms */
-      clearTimeout(hideTimer);
-      hideTimer = setTimeout(function(){
-        nav.classList.remove('hide-bar');
-      }, 600);
-
-      ticking = false;
-    });
-  }, { passive: true });
+  window.addEventListener("hashchange", setActive);
+  setActive();
 })();
 </script>
 
 <script>
-  (function () {
-    const rowsEl = document.getElementById("fxRows");
-    const updatedEl = document.getElementById("fxUpdated");
-    if (!rowsEl || !updatedEl) return;
+/* ===== Mini Loan Calculator ===== */
+(function(){
+  var amtEl   = document.getElementById('calcAmt');
+  var termBtns= document.querySelectorAll('.calc-term-btn');
+  var monthly = document.getElementById('calcMonthly');
+  var total   = document.getElementById('calcTotal');
+  var interest= document.getElementById('calcInterest');
+  var selMonths = 12;
 
-    // ✅ Only MUST show
-    const currencies = [
-  { code:"PHP", country:"Philippines", flag:"{% static 'img/flags/philippines.png' %}" },
-  { code:"SAR", country:"Saudi",       flag:"{% static 'img/flags/saudi arabian.png' %}" },
-  { code:"MYR", country:"Malaysia",    flag:"{% static 'img/flags/malaysia.png' %}" },
-  { code:"IDR", country:"Indonesia",   flag:"{% static 'img/flags/indonesia.png' %}" },
-  { code:"INR", country:"India",       flag:"{% static 'img/flags/india.png' %}" },
-  { code:"AFN", country:"Afghanistan", flag:"{% static 'img/flags/afghanistan.png' %}" },
-  { code:"KES", country:"Kenya",       flag:"{% static 'img/flags/kenyan.png' %}" },
-  { code:"OMR", country:"Oman",        flag:"{% static 'img/flags/oman.png' %}" },
-  { code:"PKR", country:"Pakistan",    flag:"{% static 'img/flags/pakistan.png' %}" },
-  { code:"VND", country:"Vietnam",     flag:"{% static 'img/flags/vietnam.png' %}" },
-];
-
-    function fmtRate(x){
-      if (!Number.isFinite(x)) return "—";
-      // ✅ no trailing .00
-      const s = new Intl.NumberFormat(undefined, {
-        maximumFractionDigits: 2,
-        minimumFractionDigits: 0,
-      }).format(x);
-      return s;
-    }
-
-    function render(rates, updatedText){
-      rowsEl.innerHTML = "";
-      currencies.forEach(c => {
-        const raw = rates && Object.prototype.hasOwnProperty.call(rates, c.code) ? rates[c.code] : null;
-        const rate = (raw === null || raw === undefined) ? NaN : Number(raw);
-
-        const tr = document.createElement("tr");
-
-        const td1 = document.createElement("td");
-        td1.innerHTML =
-          '<div class="fx-left">' +
-            '<img class="fx-flag" src="'+c.flag+'" alt="'+c.country+'">' +
-            '<div style="min-width:0">' +
-              '<div class="fx-code">'+c.code+'</div>' +
-              '<div class="fx-country">'+c.country+'</div>' +
-            '</div>' +
-          '</div>';
-
-        const td2 = document.createElement("td");
-        td2.textContent = "1 USD";
-
-        const td3 = document.createElement("td");
-        td3.style.textAlign = "right";
-        td3.textContent = Number.isFinite(rate) ? (fmtRate(rate) + " " + c.code) : ("— " + c.code);
-
-        tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3);
-        rowsEl.appendChild(tr);
-      });
-
-      updatedEl.textContent = "Updated: " + (updatedText || new Date().toLocaleString());
-    }
-
-    // ✅ IMPORTANT: use your Django endpoint
-    fetch("/api/fx/", { cache: "no-store" })
-      .then(r => r.ok ? r.json() : Promise.reject(r))
-      .then(data => render(data.rates || {}, data.updated))
-      .catch(() => render(null, null));
-  })();
-  </script>
-
-<script>
-  /* ===== Smart hide/show TOP bar on scroll (disable on Android for smooth) ===== */
-  (function(){
-    const topBar = document.querySelector('.topbar');
-    if(!topBar) return;
-
-    const ua = (navigator.userAgent || "").toLowerCase();
-    const isAndroid = ua.includes("android");
-
-    // ✅ Android: keep bar always visible (NO scroll listener = smoother)
-    if(isAndroid){
-      topBar.classList.remove('hide-bar');
+  function fmt(n){
+    return '₱ ' + n.toLocaleString('en-PH', {minimumFractionDigits:2, maximumFractionDigits:2});
+  }
+  function calculate(){
+    var P = parseFloat(amtEl.value);
+    var n = selMonths;
+    var r = 0.005; // 0.5% simple interest — same as quick_loan & loan_apply
+    if(!P || P <= 0){
+      monthly.textContent='₱ —';
+      total.textContent='₱ —';
+      interest.textContent='₱ —';
       return;
     }
+    var T = P + (P * r * n);
+    var M = Math.round(T / n);
+    var I = T - P;
+    monthly.textContent  = fmt(M);
+    total.textContent    = fmt(T);
+    interest.textContent = fmt(I);
+  }
 
-    // ✅ iPhone/PC: keep your smart hide/show
-    topBar.classList.remove('hide-bar');
+  termBtns.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      termBtns.forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      selMonths = parseInt(btn.getAttribute('data-m'));
+      calculate();
+    });
+  });
 
-    let lastY = window.scrollY || 0;
-    const SCROLL_THRESHOLD = 6;
+  amtEl.addEventListener('input', calculate);
+})();
+</script>
 
-    window.addEventListener('scroll', () => {
-      const y = window.scrollY || 0;
-      const diff = y - lastY;
-
-      if(Math.abs(diff) < SCROLL_THRESHOLD) return;
-
-      if(diff > 0) topBar.classList.add('hide-bar');
-      else topBar.classList.remove('hide-bar');
-
-      lastY = y;
-    }, { passive:true });
+<script>
+  /* Topbar always visible — no scroll hide */
+  (function(){
+    const topBar = document.querySelector('.topbar');
+    if(topBar) topBar.classList.remove('hide-bar');
   })();
-  </script>
+</script>
 <script>
   /* ✅ Auto-clear dot/badge immediately when user opens notifications */
   (function(){

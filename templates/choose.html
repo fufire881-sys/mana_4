@@ -1,560 +1,572 @@
 {% extends "base.html" %}
-{% block title %}Welcome - BestLoan{% endblock %}
+{% block title %}Welcome - Asiasource Financial Inc.{% endblock %}
 {% load static %}
 
 {% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  /* Override base.html wrapper */
-  #pageRoot.wrap {
-    max-width: 100% !important;
-    width: 100% !important;
-    padding: 0 !important;
-    display: block !important;
-  }
+/* ── Reset ── */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body, body * { font-family: 'Poppins', sans-serif !important; }
+body {
+  padding-bottom: 0 !important;
+  overflow-x: hidden !important;
+  background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%) !important;
+}
+#pageRoot.wrap {
+  max-width: 100% !important; width: 100% !important;
+  padding: 0 !important; display: block !important;
+}
 
-  body {
-    padding-bottom: 0 !important;
-    overflow-x: hidden !important;
-  }
+/* ── Brand Colors ── */
+/* Blue:  #1565C0  /  #1976D2  /  #42A5F5 */
+/* Green: #2d6b0a  /  #43A047  /  #66BB6A */
 
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+/* ── Keyframes ── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; } to { opacity: 1; }
+}
+@keyframes floatY {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+@keyframes swooshIn {
+  from { opacity: 0; transform: scaleX(0.6); }
+  to   { opacity: 1; transform: scaleX(1); }
+}
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
 
-  /* ANIMATION KEYFRAMES */
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+/* ══════════════════════════════════════════
+   PAGE WRAPPER
+══════════════════════════════════════════ */
+.gl-page {
+  max-width: 520px;
+  margin: 0 auto;
+  padding-bottom: 0;
+}
 
-  @keyframes fadeInLeft {
-    from { opacity: 0; transform: translateX(-30px); }
-    to   { opacity: 1; transform: translateX(0); }
-  }
+/* ══════════════════════════════════════════
+   HERO SECTION
+══════════════════════════════════════════ */
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 0 0 40px;
+  /* Brand gradient over building photo */
+  background:
+    linear-gradient(145deg,
+      rgba(13,45,110,0.62) 0%,
+      rgba(21,101,192,0.50) 30%,
+      rgba(30,122,58,0.50) 70%,
+      rgba(45,107,10,0.62) 100%
+    ),
+    url("{% static 'img/building-bg.webp' %}") center / cover no-repeat;
+}
 
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-  }
+/* Decorative blobs */
+.hero-blob1 {
+  position: absolute; pointer-events: none;
+  width: 300px; height: 300px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(66,165,245,0.25) 0%, transparent 70%);
+  top: -80px; right: -60px;
+}
+.hero-blob2 {
+  position: absolute; pointer-events: none;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(102,187,106,0.20) 0%, transparent 70%);
+  bottom: 0px; left: -40px;
+}
+.hero-blob3 {
+  position: absolute; pointer-events: none;
+  width: 140px; height: 140px; border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  top: 50%; left: 30%;
+}
 
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50%       { transform: scale(1.05); }
-  }
+/* Swoosh divider at bottom */
+.hero-swoosh {
+  position: absolute; bottom: -1px; left: 0; right: 0;
+  line-height: 0;
+}
+.hero-swoosh svg { width: 100%; height: 40px; }
 
-  @keyframes shimmer {
-    0%   { background-position: -200% center; }
-    100% { background-position: 200% center; }
-  }
 
-  /* ── Page wrapper ── */
-  .gl-page {
-    max-width: 520px;
-    margin: 0 auto;
-    padding: 0 0 80px;
-  }
+/* ── Logo area ── */
+.hero-logo-wrap {
+  display: flex; justify-content: center;
+  padding-top: 44px; padding-bottom: 16px;
+  position: relative; z-index: 2;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+.hero-logo {
+  width: 100px; height: 100px;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.12);
+  border: 2px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(8px);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  animation: floatY 3.5s ease-in-out infinite;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+}
+.hero-logo img {
+  width: 90%; height: 90%; object-fit: contain;
+}
 
-  /* ── Hero / Welcome card ── */
-  .welcome-wrap {
-    background: linear-gradient(160deg, #1e4a06 0%, #2d6b0a 60%, #4a7a1e 100%);
-    border-radius: 0 0 28px 28px;
-    padding: 40px 24px 32px;
-    color: #ffffff;
-    text-align: center;
-  }
+/* ── Company name ── */
+.hero-brand {
+  text-align: center;
+  position: relative; z-index: 2;
+  padding: 0 20px;
+  animation: fadeInUp 0.7s ease-out 0.15s both;
+}
+.hero-brand .brand-asia {
+  font-size: 30px; font-weight: 900; letter-spacing: 1px;
+  color: #fff;
+  /* shimmer on "Asia" */
+  background: linear-gradient(90deg,
+    #ffffff 0%, #90CAF9 30%, #ffffff 60%, #A5D6A7 85%, #ffffff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+.hero-brand .brand-source {
+  font-size: 30px; font-weight: 900; letter-spacing: 1px;
+  color: #A5D6A7;
+}
+.hero-brand .brand-fin {
+  display: block;
+  font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,0.65);
+  letter-spacing: 4px; text-transform: uppercase;
+  margin-top: 2px;
+}
 
-  .welcome-card {
-    width: 100%;
-  }
+/* ── Tagline ── */
+.hero-tag {
+  text-align: center; color: rgba(255,255,255,0.80);
+  font-size: 13px; font-weight: 400; line-height: 1.6;
+  padding: 14px 28px 0;
+  position: relative; z-index: 2;
+  animation: fadeInUp 0.7s ease-out 0.30s both;
+}
 
-  .welcome-card h1 {
-    font-size: 24px;
-    font-weight: 900;
-    color: #fff;
-    margin: 0 0 8px;
-    opacity: 0;
-    animation: fadeInUp 0.8s ease-out forwards;
-    animation-delay: 0.2s;
-  }
+/* ── Divider line ── */
+.hero-divider {
+  width: 50px; height: 3px; border-radius: 2px;
+  background: linear-gradient(90deg, #1565C0, #42A5F5);
+  margin: 16px auto;
+  position: relative; z-index: 2;
+  animation: swooshIn 0.6s ease-out 0.4s both;
+}
 
-  .welcome-card h1 span:last-child {
-    display: inline-block;
-    animation: pulse 2s ease-in-out infinite;
-    animation-delay: 1s;
-  }
+/* ── CTA Buttons ── */
+.hero-btns {
+  padding: 0 24px;
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column; gap: 12px;
+  animation: fadeInUp 0.7s ease-out 0.45s both;
+}
 
-  .welcome-card p {
-    color: rgba(255,255,255,.8);
-    font-size: 14px;
-    margin-bottom: 24px;
-    line-height: 1.6;
-    opacity: 0;
-    animation: fadeInUp 0.8s ease-out forwards;
-    animation-delay: 0.4s;
-  }
+.btn-login {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 15px;
+  border-radius: 14px; border: none;
+  background: #fff;
+  color: #1565C0;
+  font-size: 15px; font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.20);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-login svg { width: 18px; height: 18px; fill: #1565C0; }
+.btn-login:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.25); }
+.btn-login:active { transform: scale(0.98); }
 
-  .welcome-card small {
-    display: block;
-    margin-top: 14px;
-    color: rgba(255,255,255,.7);
-    font-size: 12px;
-    opacity: 0;
-    animation: fadeIn 1s ease-out forwards;
-    animation-delay: 0.8s;
-  }
+.btn-register {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 15px;
+  border-radius: 14px;
+  border: 2px solid rgba(255,255,255,0.40);
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  font-size: 15px; font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.2s;
+}
+.btn-register svg { width: 18px; height: 18px; fill: #fff; }
+.btn-register:hover { background: rgba(255,255,255,0.20); transform: translateY(-2px); }
+.btn-register:active { transform: scale(0.98); }
 
-  /* Hero CTA buttons */
-  .btn-main {
-    display: block;
-    width: 100%;
-    padding: 14px 28px;
-    border-radius: 999px;
-    background: #fff;
-    color: #2d5a0e;
-    font-weight: 800;
-    font-size: 16px;
-    text-decoration: none;
-    text-align: center;
-    border: none;
-    margin-bottom: 12px;
-    opacity: 0;
-    animation: fadeInUp 0.8s ease-out forwards;
-    animation-delay: 0.5s;
-    transition: all 0.3s ease;
-  }
+/* Trust badges row */
+.hero-trust {
+  display: flex; justify-content: center; gap: 16px;
+  padding: 18px 24px 0;
+  position: relative; z-index: 2;
+  animation: fadeIn 0.8s ease-out 0.6s both;
+}
+.trust-badge {
+  display: flex; align-items: center; gap: 5px;
+  font-size: 11px; color: rgba(255,255,255,0.75); font-weight: 600;
+}
+.trust-badge svg { width: 13px; height: 13px; fill: #1565C0; }
 
-  .btn-main:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0,0,0,.20);
-  }
+/* ══════════════════════════════════════════
+   STATS SECTION
+══════════════════════════════════════════ */
+.stats-section {
+  padding: 24px 16px 8px;
+}
+.stats-section-label {
+  font-size: 11px; font-weight: 700; color: #888;
+  text-transform: uppercase; letter-spacing: 0.8px;
+  margin-bottom: 12px;
+}
+.stats-grid {
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 10px;
+}
+.stat-box {
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px 10px;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  position: relative; overflow: hidden;
+  transition: transform 0.2s;
+}
+.stat-box::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 3px;
+}
+.stat-box:nth-child(1)::before { background: linear-gradient(90deg, #1565C0, #42A5F5); }
+.stat-box:nth-child(2)::before { background: linear-gradient(90deg, #1565C0, #42A5F5); }
+.stat-box:nth-child(3)::before { background: linear-gradient(90deg, #0d2d6e, #1565C0); }
+.stat-box:hover { transform: translateY(-3px); }
 
-  .btn-ghost {
-    display: block;
-    width: 100%;
-    padding: 12px 24px;
-    border-radius: 999px;
-    border: 2px solid rgba(255,255,255,.6);
-    color: #fff;
-    background: transparent;
-    font-weight: 700;
-    font-size: 16px;
-    text-decoration: none;
-    text-align: center;
-    opacity: 0;
-    animation: fadeInUp 0.8s ease-out forwards;
-    animation-delay: 0.6s;
-    transition: all 0.3s ease;
-  }
+.stat-icon {
+  width: 40px; height: 40px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 8px;
+}
+.stat-box:nth-child(1) .stat-icon { background: linear-gradient(135deg, #1565C0, #42A5F5); }
+.stat-box:nth-child(2) .stat-icon { background: linear-gradient(135deg, #1565C0, #42A5F5); }
+.stat-box:nth-child(3) .stat-icon { background: linear-gradient(135deg, #0d2d6e, #1565C0); }
+.stat-icon svg { width: 20px; height: 20px; fill: #fff; }
 
-  .btn-ghost:hover {
-    background: rgba(255,255,255,.10);
-    transform: translateY(-2px);
-  }
+.stat-box h3 { font-size: 18px; font-weight: 900; color: #1a1a1a; margin: 0; }
+.stat-box p  { font-size: 10px; color: #999; margin: 3px 0 0; font-weight: 500; }
 
-  /* ── Stats section ── */
-  .stats-section {
-    padding: 20px 16px;
-  }
+/* ══════════════════════════════════════════
+   WHY CHOOSE US
+══════════════════════════════════════════ */
+.features-section { padding: 12px 16px; }
+.section-header { margin-bottom: 14px; }
+.section-header h2 {
+  font-size: 16px; font-weight: 800; color: #1a1a1a;
+  display: flex; align-items: center; gap: 8px;
+}
+.section-header h2::before {
+  content: '';
+  display: inline-block; width: 4px; height: 18px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, #0d2d6e, #1565C0);
+}
+.section-header p { font-size: 12px; color: #999; margin-top: 4px; }
 
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-  }
+.features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
-  .stat-box {
-    background: #ffffff;
-    border-radius: 14px;
-    border-top: 3px solid #7CB342;
-    box-shadow: 0 2px 10px rgba(74,122,30,.08);
-    padding: 16px 10px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+.feature-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px 14px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  transition: transform 0.2s;
+  position: relative; overflow: hidden;
+}
+.feature-card::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
+}
+.feature-card:nth-child(1)::after { background: linear-gradient(90deg, #1565C0, #42A5F5); }
+.feature-card:nth-child(2)::after { background: linear-gradient(90deg, #1565C0, #42A5F5); }
+.feature-card:nth-child(3)::after { background: linear-gradient(90deg, #0d2d6e, #1565C0); }
+.feature-card:nth-child(4)::after { background: linear-gradient(90deg, #1565C0, #42A5F5); }
+.feature-card:hover { transform: translateY(-3px); }
 
-  .stat-box:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 18px rgba(74,122,30,.14);
-  }
+.feature-icon {
+  width: 38px; height: 38px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 10px;
+}
+.feature-card:nth-child(1) .feature-icon { background: #EFF6FF; }
+.feature-card:nth-child(1) .feature-icon svg { fill: #1565C0; }
+.feature-card:nth-child(2) .feature-icon { background: #EFF6FF; }
+.feature-card:nth-child(2) .feature-icon svg { fill: #1565C0; }
+.feature-card:nth-child(3) .feature-icon { background: #EFF6FF; }
+.feature-card:nth-child(3) .feature-icon svg { fill: #1565C0; }
+.feature-card:nth-child(4) .feature-icon { background: #EFF6FF; }
+.feature-card:nth-child(4) .feature-icon svg { fill: #1565C0; }
+.feature-icon svg { width: 20px; height: 20px; }
 
-  .stat-icon {
-    width: 44px;
-    height: 44px;
-    background: linear-gradient(135deg, #4a7a1e, #7CB342);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 10px;
-    color: #fff;
-    transition: transform 0.3s ease;
-  }
+.feature-card h3 { font-size: 12px; font-weight: 700; color: #1a1a1a; margin-bottom: 5px; }
+.feature-card p  { font-size: 11px; color: #888; line-height: 1.5; }
 
-  .stat-box:hover .stat-icon {
-    transform: scale(1.1) rotate(5deg);
-  }
+/* ══════════════════════════════════════════
+   CTA SECTION
+══════════════════════════════════════════ */
+.cta-section {
+  margin: 16px 16px 0;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(135deg, #0d2d6e 0%, #1565C0 45%, #1a5c2a 80%, #2d6b0a 100%);
+  padding: 28px 24px;
+  text-align: center;
+}
+.cta-section .cta-blob {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  background: rgba(255,255,255,0.07);
+  width: 160px; height: 160px; top: -60px; right: -40px;
+}
+.cta-section h2 {
+  font-size: 17px; font-weight: 800; color: #fff;
+  margin-bottom: 8px; position: relative; z-index: 1;
+}
+.cta-section p {
+  font-size: 12px; color: rgba(255,255,255,0.80);
+  margin-bottom: 18px; line-height: 1.6; position: relative; z-index: 1;
+}
+.btn-cta {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: #fff; color: #1565C0;
+  padding: 12px 26px; border-radius: 12px;
+  font-size: 14px; font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+  transition: transform 0.2s;
+  position: relative; z-index: 1;
+}
+.btn-cta svg { width: 16px; height: 16px; fill: #1565C0; }
+.btn-cta:hover { transform: translateY(-2px); }
+.btn-cta:active { transform: scale(0.98); }
 
-  .stat-icon svg {
-    width: 22px;
-    height: 22px;
-    fill: currentColor;
-  }
+/* ══════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════ */
+.site-footer {
+  margin-top: 20px;
+  background: #fff;
+  border-top: 1px solid #eee;
+  padding: 20px 16px 16px;
+}
+.footer-top {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+}
+.footer-logo-box {
+  width: 44px; height: 44px; border-radius: 12px; overflow: hidden; flex-shrink: 0;
+  background: linear-gradient(135deg, #0d2d6e, #1565C0);
+  display: flex; align-items: center; justify-content: center;
+}
+.footer-logo-box img { width: 100%; height: 100%; object-fit: contain; }
+.footer-brand-name { font-size: 14px; font-weight: 800; color: #1a1a1a; }
+.footer-brand-sub  { font-size: 11px; color: #999; font-weight: 500; }
 
-  .stat-box h3 {
-    color: #2d5a0e;
-    font-size: 18px;
-    font-weight: 900;
-    margin: 0;
-  }
+.footer-links {
+  display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap;
+}
+.footer-link {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 7px 14px; border-radius: 999px;
+  font-size: 12px; font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.footer-link.blue { background: #EFF6FF; color: #1565C0; }
+.footer-link.blue:hover { background: #DBEAFE; }
+.footer-link.green { background: #EFF6FF; color: #1565C0; }
+.footer-link.green:hover { background: #DBEAFE; }
+.footer-link svg { width: 14px; height: 14px; }
+.footer-link.blue svg { fill: #1565C0; }
+.footer-link.green svg { fill: #1565C0; }
 
-  .stat-box p {
-    color: #8a9a7a;
-    font-size: 11px;
-    margin: 4px 0 0;
-  }
-
-  /* ── Features section ── */
-  .features-section {
-    padding: 0 0 4px;
-  }
-
-  .features-section h2 {
-    color: #2d5a0e;
-    font-weight: 900;
-    font-size: 16px;
-    margin: 20px 16px 12px;
-    padding-bottom: 8px;
-    border-bottom: 2px solid #DCEDC8;
-  }
-
-  .features-section > p {
-    display: none;
-  }
-
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    padding: 0 16px;
-  }
-
-  .feature-card {
-    background: #ffffff;
-    border-radius: 14px;
-    box-shadow: 0 2px 10px rgba(74,122,30,.06);
-    padding: 16px 14px;
-    border-left: 3px solid #7CB342;
-    color: #1a1a1a;
-    transition: all 0.3s ease;
-  }
-
-  .feature-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 18px rgba(74,122,30,.12);
-  }
-
-  .feature-icon {
-    color: #7CB342;
-    font-size: 22px;
-    margin-bottom: 8px;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .feature-icon svg {
-    width: 22px;
-    height: 22px;
-    fill: #7CB342;
-  }
-
-  .feature-card h3 {
-    color: #2d5a0e;
-    font-weight: 800;
-    font-size: 13px;
-    margin: 0 0 6px;
-  }
-
-  .feature-card p {
-    color: #5a6a4a;
-    font-size: 12px;
-    margin: 0;
-    line-height: 1.5;
-  }
-
-  /* ── Loan hero (hidden/repurposed as CTA) ── */
-  .loan-section {
-    display: none;
-  }
-
-  /* ── CTA section ── */
-  .cta-section {
-    background: linear-gradient(135deg, #2d6b0a, #4a7a1e);
-    border-radius: 18px;
-    margin: 16px;
-    padding: 28px 20px;
-    text-align: center;
-    color: #fff;
-    transition: transform 0.3s ease;
-  }
-
-  .cta-section:hover {
-    transform: scale(1.01);
-  }
-
-  .cta-section h2 {
-    color: #fff;
-    font-size: 18px;
-    font-weight: 900;
-    margin-bottom: 10px;
-    animation: fadeInUp 0.8s ease-out;
-  }
-
-  .cta-section p {
-    color: rgba(255,255,255,.88);
-    font-size: 13px;
-    margin-bottom: 20px;
-    animation: fadeIn 1s ease-out 0.3s both;
-  }
-
-  .btn-gold {
-    background: #fff;
-    color: #2d5a0e;
-    padding: 13px 28px;
-    border-radius: 999px;
-    text-decoration: none;
-    font-weight: 800;
-    display: inline-block;
-    font-size: 14px;
-    transition: all 0.3s ease;
-  }
-
-  .btn-gold:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0,0,0,.18);
-  }
-
-  /* ── Footer ── */
-  .site-footer {
-    background: #fff;
-    border-top: 1px solid #e0eed0;
-    padding: 20px 16px;
-    color: #5a6a4a;
-    font-size: 12px;
-  }
-
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-    margin-bottom: 16px;
-  }
-
-  @media (min-width: 480px) {
-    .footer-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  .footer-brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 8px;
-  }
-
-  .footer-logo {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    overflow: hidden;
-    flex-shrink: 0;
-    background: linear-gradient(135deg, #4a7a1e, #7CB342);
-    position: relative;
-  }
-
-  .footer-logo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    position: relative;
-    z-index: 2;
-  }
-
-  .footer-brand h3 {
-    margin: 0;
-    font-size: 16px;
-    font-weight: 900;
-    color: #2d5a0e;
-  }
-
-  .footer-desc {
-    color: #5a6a4a;
-    font-size: 12px;
-    line-height: 1.6;
-    margin: 0;
-  }
-
-  .footer-section h4 {
-    color: #4a7a1e;
-    margin-bottom: 10px;
-    font-size: 13px;
-    font-weight: 800;
-  }
-
-  .footer-section ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .footer-section li {
-    margin-bottom: 8px;
-  }
-
-  .footer-section a {
-    color: #4a7a1e;
-    text-decoration: none;
-    font-size: 12px;
-    transition: color 0.2s ease;
-  }
-
-  .footer-section a:hover {
-    color: #2d5a0e;
-  }
-
-  .footer-section p {
-    color: #5a6a4a;
-    margin: 4px 0;
-    font-size: 12px;
-  }
-
-  .footer-bottom {
-    text-align: center;
-    padding-top: 14px;
-    border-top: 1px solid #e0eed0;
-    color: #8a9a7a;
-    font-size: 11px;
-  }
+.footer-bottom {
+  padding-top: 12px; border-top: 1px solid #f0f0f0;
+  text-align: center; font-size: 11px; color: #bbb;
+}
 </style>
 
-<!-- Welcome Section -->
 <div class="gl-page">
 
-<section class="welcome-wrap">
-  <div class="welcome-card">
-    <h1>WELCOME <span>!</span></h1>
-    <p>Come to your trusted bank,<br>we are waiting to serve you 24 hours</p>
-    <a href="/login/" class="btn-main">START →</a>
-    <a href="/register/" class="btn-ghost">REGISTER +</a>
-    <small>Trusted • 24/7 support</small>
-  </div>
-</section>
+  <!-- ══ HERO ══ -->
+  <section class="hero">
+    <div class="hero-blob1"></div>
+    <div class="hero-blob2"></div>
+    <div class="hero-blob3"></div>
 
-<!-- Loan Hero Section -->
-<section class="loan-section">
-  <div class="loan-container">
-    <div class="hero-content">
-      <h2>Fast & Secure <span class="highlight">Online Loans</span></h2>
-      <p>Get instant access to personal loans with flexible terms. Apply online in minutes and receive funds directly to your account.</p>
-    </div>
-  </div>
-</section>
-
-<!-- Stats Section -->
-<section class="stats-section">
-  <div class="stats-grid">
-    <div class="stat-box">
-      <div class="stat-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 2L2 7v2h20V7L12 2zm0 2.8L18.2 7H5.8L12 4.8zM4 10v10H2v2h20v-2h-2V10h-2v10h-2V10h-2v10h-2V10h-2v10h-2V10H4z"/></svg>
+    <!-- Logo -->
+    <div class="hero-logo-wrap">
+      <div class="hero-logo">
+        <img src="{% static 'img/logo.webp' %}" alt="Asiasource Financial">
       </div>
-      <h3>18+</h3>
-      <p>Years Experience</p>
     </div>
 
-    <div class="stat-box">
-      <div class="stat-icon">
-        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+    <!-- Brand name -->
+    <div class="hero-brand">
+      <div>
+        <span class="brand-asia">Asia</span><span class="brand-source">source</span>
       </div>
-      <h3>50K+</h3>
-      <p>Happy Customers</p>
+      <span class="brand-fin">Financial Inc.</span>
     </div>
 
-    <div class="stat-box">
-      <div class="stat-icon">
-        <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+    <!-- Tagline -->
+    <p class="hero-tag">Your trusted financial partner —<br>fast, secure &amp; available 24/7</p>
+
+    <div class="hero-divider"></div>
+
+    <!-- Buttons -->
+    <div class="hero-btns">
+      <a href="/login/" class="btn-login">
+        <svg viewBox="0 0 24 24"><path d="M11 7L9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"/></svg>
+        Sign In
+      </a>
+      <a href="/register/" class="btn-register">
+        <svg viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        Create Account
+      </a>
+    </div>
+
+    <!-- Trust -->
+    <div class="hero-trust">
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+        Secure
       </div>
-      <h3>₱5M</h3>
-      <p>Max Loan Amount</p>
-    </div>
-  </div>
-</section>
-
-<!-- Features Section -->
-<section class="features-section">
-  <h2>Why Choose Us</h2>
-  <p>We provide the best loan services with competitive rates</p>
-
-  <div class="features-grid">
-    <div class="feature-card">
-      <div class="feature-icon">
-        <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+        24/7 Support
       </div>
-      <h3>Quick Loans</h3>
-      <p>Apply for loans from ₱80,000 to ₱5,000,000 with competitive rates and fast approval.</p>
-    </div>
-
-    <div class="feature-card">
-      <div class="feature-icon">
-        <svg viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        Trusted
       </div>
-      <h3>Fast Approval</h3>
-      <p>Get approved within 24-48 hours with our streamlined digital process.</p>
     </div>
 
-    <div class="feature-card">
-      <div class="feature-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></svg>
+    <!-- Swoosh -->
+    <div class="hero-swoosh">
+      <svg viewBox="0 0 520 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 40 Q130 0 260 20 Q390 40 520 10 L520 40 Z" fill="#f5f5f5"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ══ STATS ══ -->
+  <section class="stats-section">
+    <div class="stats-section-label">Our Achievements</div>
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7v2h20V7L12 2zm0 2.8L18.2 7H5.8L12 4.8zM4 10v10H2v2h20v-2h-2V10h-2v10h-2V10h-2v10h-2V10H4z"/></svg>
+        </div>
+        <h3>18+</h3>
+        <p>Years Experience</p>
       </div>
-      <h3>Secure Process</h3>
-      <p>Your data is protected with bank-level encryption and security.</p>
+      <div class="stat-box">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        </div>
+        <h3>50K+</h3>
+        <p>Happy Customers</p>
+      </div>
+      <div class="stat-box">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+        </div>
+        <h3>₱5M</h3>
+        <p>Max Loan</p>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- CTA Section -->
-<section class="cta-section">
-  <h2>Ready to Get Started?</h2>
-  <p>Apply for a loan today and get approved within 24-48 hours. No hidden fees.</p>
-  <a href="/register/" class="btn-gold">APPLY NOW →</a>
-</section>
-
-<!-- Footer -->
-<footer class="site-footer">
-  <div class="footer-grid">
-    <div>
-      <p class="footer-desc">Providing secure and fast loan services since July 26, 2006</p>
+  <!-- ══ FEATURES ══ -->
+  <section class="features-section">
+    <div class="section-header">
+      <p style="font-size:12px;color:#999;margin-bottom:12px;">Fast approvals, competitive rates &amp; full security</p>
     </div>
-
-    <div class="footer-section">
-      <h4>Quick Links</h4>
-      <ul>
-        <li><a href="/login/">Login</a></li>
-        <li><a href="/register/">Register</a></li>
-      </ul>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+        </div>
+        <h3>Quick Loans</h3>
+        <p>₱80,000 to ₱5,000,000 with flexible terms</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+        </div>
+        <h3>Fast Approval</h3>
+        <p>Approved within 24–48 hours online</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+        </div>
+        <h3>Secure Process</h3>
+        <p>Bank-level encryption on all data</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M11.5 2C6.81 2 3 5.81 3 10.5S6.81 19 11.5 19h.5v3c4.86-2.34 8-7 8-11.5C20 5.81 16.19 2 11.5 2zm1 14.5h-2v-2h2v2zm0-4h-2c0-3.25 3-3 3-5 0-1.1-.9-2-2-2s-2 .9-2 2h-2c0-2.21 1.79-4 4-4s4 1.79 4 4c0 2.5-3 2.75-3 5z"/></svg>
+        </div>
+        <h3>24/7 Support</h3>
+        <p>Always here to help you anytime</p>
+      </div>
     </div>
+  </section>
 
+  <!-- ══ CTA ══ -->
+  <section class="cta-section">
+    <div class="cta-blob"></div>
+    <h2>Ready to Get Started?</h2>
+    <p>Apply for a loan today and get approved within 24–48 hours. No hidden fees.</p>
+    <a href="/register/" class="btn-cta">
+      <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+      Apply Now
+    </a>
+  </section>
 
-  <div class="footer-bottom">
-    <p>© 2026 last updated</p>
-  </div>
-</footer>
+  <!-- ══ FOOTER ══ -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-logo-box">
+        <img src="{% static 'img/logo.webp' %}" alt="logo">
+      </div>
+      <div>
+        <div class="footer-brand-name">Asiasource Financial Inc.</div>
+        <div class="footer-brand-sub">Trusted since August 8, 2014</div>
+      </div>
+    </div>
+    <div class="footer-links">
+      <a href="/login/" class="footer-link blue">
+        <svg viewBox="0 0 24 24"><path d="M11 7L9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"/></svg>
+        Login
+      </a>
+      <a href="/register/" class="footer-link green">
+        <svg viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        Register
+      </a>
+    </div>
+    <div class="footer-bottom">© 2026 Asiasource Financial Inc. — All rights reserved.</div>
+  </footer>
 
 </div><!-- .gl-page -->
-
 {% endblock %}
