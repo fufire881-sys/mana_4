@@ -2434,6 +2434,18 @@ def about_us_view(request):
 def staff_aboutus_view(request):
     from accounts.models import AboutUsSection
     saved = request.GET.get('saved')
+
+    # Auto-create 4 default sections if table is empty
+    if not AboutUsSection.objects.exists():
+        defaults = [
+            {"order": 1, "title": "Who We Are", "subtitle": "Our Story", "description": "Tell your company story here."},
+            {"order": 2, "title": "Our Mission", "subtitle": "What We Stand For", "description": "Describe your mission here."},
+            {"order": 3, "title": "Our Services", "subtitle": "What We Offer", "description": "Describe your services here."},
+            {"order": 4, "title": "Why Choose Us", "subtitle": "Our Advantages", "description": "Explain why clients should choose you."},
+        ]
+        for d in defaults:
+            AboutUsSection.objects.create(**d)
+
     sections = AboutUsSection.objects.all().order_by('order')
     return render(request, "staff_aboutus.html", {"sections": sections, "saved": saved})
 
