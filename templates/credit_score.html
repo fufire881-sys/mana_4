@@ -2,444 +2,244 @@
 {% block title %}Credit Score{% endblock %}
 
 {% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-.cs-page, .cs-page * {
-  font-family: "Ovelion", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body, body * { font-family: 'Poppins', sans-serif !important; }
+.wrap { align-items: flex-start !important; padding-top: 0 !important; }
 
-body {
-}
-
-/* Page layout */
-.wrap {
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 92px;
+.cs-page {
+  width: min(520px, 100vw);
+  margin: 0 auto;
+  min-height: 100vh;
   padding-bottom: 40px;
 }
 
-@media(max-width:480px) {
-  .wrap { padding-top: 78px; }
-}
-
-/* Page wrapper */
-.cs-page {
-  max-width: 520px;
-  margin: 0 auto;
-  padding: 16px 16px 100px;
-  box-sizing: border-box;
-}
-
-/* Back button */
-.cs-back-wrap {
-  margin-bottom: 16px;
-}
-
-/* Main card */
-.cs-card {
-  width: 100%;
-  box-sizing: border-box;
+/* ── Header ── */
+.cs-header {
+  background: linear-gradient(160deg, #1e4a06 0%, #2d6b0a 55%, #4a8a1e 100%);
+  padding: 52px 24px 40px;
+  text-align: center;
   position: relative;
   overflow: hidden;
-  background: #ffffff;
-  border-radius: 20px;
-  border-top: 4px solid #7CB342;
-  box-shadow: 0 6px 28px rgba(74,122,30,.12), 0 2px 8px rgba(0,0,0,.06);
-  padding: 28px 20px;
-  color: #1a1a1a;
-  text-align: center;
-  animation: cardSwipe 0.5s ease both;
+}
+.cs-header .hbg1 {
+  position: absolute; border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  width: 220px; height: 220px; top: -80px; right: -60px; pointer-events: none;
+}
+.cs-header .hbg2 {
+  position: absolute; border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  width: 130px; height: 130px; bottom: -40px; left: -20px; pointer-events: none;
 }
 
-@keyframes cardSwipe {
-  from { opacity: 0; transform: translateY(20px) scale(0.98); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+.cs-back {
+  position: absolute; top: 16px; left: 16px;
+  display: inline-flex; align-items: center; gap: 4px;
+  color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 600;
+  text-decoration: none; z-index: 2;
+}
+.cs-back svg { width: 16px; height: 16px; fill: rgba(255,255,255,0.85); }
+
+.cs-head-title {
+  font-size: 14px; font-weight: 600;
+  color: rgba(255,255,255,0.7);
+  text-transform: uppercase; letter-spacing: 1px;
+  margin-bottom: 24px; position: relative; z-index: 1;
 }
 
-/* Header */
-.cs-header {
-  margin-bottom: 8px;
-}
-
-.cs-title {
-  font-size: 18px;
-  font-weight: 900;
-  color: #2d5a0e;
-  margin-bottom: 4px;
-  text-align: center;
-}
-
-.cs-subtitle {
-  font-size: 13px;
-  color: #8a9a7a;
-  text-align: center;
-}
-
-/* Gauge Container */
+/* ── Gauge ── */
 .cs-gauge-wrap {
   position: relative;
-  width: 280px;
-  height: 200px;
-  margin: 20px auto;
+  width: 240px; height: 160px;
+  margin: 0 auto 10px;
+  z-index: 1;
 }
+.cs-gauge-svg { width: 100%; height: 100%; overflow: visible; }
+.cs-gauge-bg  { fill: none; stroke: rgba(255,255,255,0.12); stroke-width: 20; stroke-linecap: round; }
+.cs-gauge-fill { fill: none; stroke-width: 20; stroke-linecap: round; transition: stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1), stroke 0.5s ease; }
+.cs-gauge-fill.red   { filter: drop-shadow(0 0 8px rgba(220,38,38,0.6)); }
+.cs-gauge-fill.green { filter: drop-shadow(0 0 8px rgba(124,179,66,0.6)); }
 
-/* SVG Gauge */
-.cs-gauge-svg {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-/* Background arc */
-.cs-gauge-bg {
-  fill: none;
-  stroke: rgba(74,122,30,.10);
-  stroke-width: 24;
-  stroke-linecap: round;
-}
-
-/* Progress arc */
-.cs-gauge-fill {
-  fill: none;
-  stroke-width: 24;
-  stroke-linecap: round;
-  transition: stroke-dashoffset 1s ease-out, stroke 0.5s ease;
-}
-
-.cs-gauge-fill.red {
-  filter: drop-shadow(0 4px 12px rgba(198,40,40,.4));
-}
-
-.cs-gauge-fill.green {
-  filter: drop-shadow(0 4px 12px rgba(74,122,30,.4));
-}
-
-/* Gauge ticks */
-.cs-gauge-tick {
-  stroke: rgba(74,122,30,.15);
-  stroke-width: 2;
-}
-
-.cs-gauge-tick.major {
-  stroke: rgba(74,122,30,.28);
-  stroke-width: 3;
-}
-
-/* Center Score Display */
 .cs-score-wrap {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
+  position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+  text-align: center; z-index: 2;
 }
-
 .cs-score-number {
-  font-size: 32px;
-  font-weight: 900;
-  line-height: 1;
+  font-size: 38px; font-weight: 800; line-height: 1;
   transition: color 0.5s ease;
 }
+.cs-score-number.red   { color: #ff5252; }
+.cs-score-number.green { color: #b9f6ca; }
+.cs-score-max { font-size: 13px; color: rgba(255,255,255,0.55); font-weight: 500; }
 
-.cs-score-number.red {
-  color: #e53935;
-}
-
-.cs-score-number.green {
-  color: #2e7d32;
-}
-
-.cs-score-max {
-  font-size: 14px;
-  color: #8a9a7a;
-  font-weight: 600;
-}
-
-/* Status Badge */
-.cs-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 16px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 800;
-  margin: 14px 0 20px;
-  transition: all 0.5s ease;
-}
-
-.cs-status.red {
-  background: #ffebee;
-  border: 1px solid rgba(198,40,40,.3);
-  color: #c62828;
-}
-
-.cs-status.green {
-  background: #f1f8e9;
-  border: 1px solid rgba(46,125,50,.3);
-  color: #2e7d32;
-}
-
-.cs-status-icon {
-  font-size: 14px;
-}
-
-/* Scale Labels */
+/* Scale */
 .cs-scale {
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px;
-  margin-top: -10px;
-  margin-bottom: 20px;
+  display: flex; justify-content: space-between;
+  padding: 0 14px; margin-bottom: 16px;
+  position: relative; z-index: 1;
 }
+.cs-scale-label { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.45); }
+.cs-scale-label.danger { color: rgba(255,130,130,0.7); }
+.cs-scale-label.safe   { color: rgba(185,246,202,0.7); }
 
-.cs-scale-label {
-  font-size: 11px;
-  font-weight: 700;
-  color: #8a9a7a;
+/* Status badge */
+.cs-status {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 18px; border-radius: 999px;
+  font-size: 13px; font-weight: 700;
+  transition: all 0.5s ease;
+  position: relative; z-index: 1;
 }
+.cs-status.red   { background: rgba(220,38,38,0.25); color: #ff8a80; border: 1px solid rgba(220,38,38,0.4); }
+.cs-status.green { background: rgba(124,179,66,0.25); color: #ccff90; border: 1px solid rgba(124,179,66,0.4); }
+.cs-status-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.cs-status.red   .cs-status-dot { background: #ff5252; }
+.cs-status.green .cs-status-dot { background: #69f0ae; }
 
-.cs-scale-label.danger {
-  color: #e53935;
-}
+/* ── Body ── */
+.cs-body { padding: 16px 16px 0; }
 
-.cs-scale-label.safe {
-  color: #2e7d32;
-}
-
-/* Info Message */
+/* Info message */
 .cs-message {
-  padding: 14px;
-  border-radius: 10px;
-  margin: 16px 0;
-  text-align: left;
+  border-radius: 16px; padding: 16px;
+  margin-bottom: 14px;
   transition: all 0.5s ease;
 }
-
-.cs-message.red {
-  background: #ffebee;
-  border-left: 4px solid #e53935;
-  color: #c62828;
-}
-
-.cs-message.green {
-  background: #f1f8e9;
-  border-left: 4px solid #7CB342;
-  color: #2e7d32;
-}
-
+.cs-message.red   { background: #fff5f5; border: 1px solid #fecaca; }
+.cs-message.green { background: #f0fdf4; border: 1px solid #bbf7d0; }
 .cs-message-title {
-  font-size: 14px;
-  font-weight: 800;
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  font-size: 14px; font-weight: 700;
+  margin-bottom: 5px;
+  display: flex; align-items: center; gap: 7px;
 }
+.cs-message.red   .cs-message-title { color: #dc2626; }
+.cs-message.green .cs-message-title { color: #16a34a; }
+.cs-message-text { font-size: 12px; line-height: 1.7; color: #666; }
 
-.cs-message.red .cs-message-title {
-  color: #c62828;
-}
-
-.cs-message.green .cs-message-title {
-  color: #2e7d32;
-}
-
-.cs-message-text {
-  font-size: 12px;
-  line-height: 1.5;
-  color: inherit;
-  opacity: .85;
-}
-
-/* Stats Row */
+/* Stats */
 .cs-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin: 16px 0;
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 10px;
+  margin-bottom: 14px;
 }
-
 .cs-stat {
-  background: #f8fdf4;
-  border-radius: 12px;
-  border: 1px solid #e0eed0;
-  padding: 14px 8px;
-  text-align: center;
+  background: #fff; border-radius: 16px;
+  border: 1px solid #e8e8e8;
+  padding: 16px 8px; text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
-
 .cs-stat-value {
-  font-size: 16px;
-  font-weight: 900;
-  color: #2d5a0e;
-  margin-bottom: 4px;
+  font-size: 22px; font-weight: 800;
+  color: #2d6b0a; margin-bottom: 4px;
 }
-
 .cs-stat-label {
-  font-size: 11px;
-  color: #8a9a7a;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-weight: 700;
+  font-size: 10px; color: #aaa;
+  text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600;
 }
 
 /* Actions */
-.cs-actions {
-  display: flex;
-  gap: 12px;
-}
-
+.cs-actions { display: flex; gap: 10px; }
 .cs-btn {
-  flex: 1;
-  padding: 14px 20px;
-  border-radius: 999px;
-  font-size: 14px;
-  font-weight: 800;
-  text-decoration: none;
-  text-align: center;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  border: none;
+  flex: 1; padding: 14px;
+  border-radius: 14px; font-size: 14px; font-weight: 700;
+  text-decoration: none; text-align: center;
+  cursor: pointer; border: none; transition: transform 0.15s, opacity 0.15s;
+  font-family: 'Poppins', sans-serif;
 }
-
-.cs-btn-primary {
-  background: linear-gradient(135deg, #4a7a1e, #7CB342);
-  color: #ffffff;
-  box-shadow: 0 6px 20px rgba(74,122,30,.30);
-}
-
-.cs-btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(74,122,30,.40);
-}
-
-.cs-btn-ghost {
-  background: transparent;
-  color: #4a7a1e;
-  border: 2px solid #7CB342;
-}
-
-.cs-btn-ghost:hover {
-  transform: translateY(-2px);
-  background: #f1f8e9;
-}
-
-.cs-btn:active {
-  transform: scale(0.98);
-}
-
-/* Responsive */
-@media(max-width:480px) {
-  .cs-card {
-    padding: 24px 16px;
-  }
-
-  .cs-gauge-wrap {
-    width: 240px;
-    height: 170px;
-  }
-
-  .cs-score-number {
-    font-size: 28px;
-  }
-
-  .cs-stats {
-    gap: 8px;
-  }
-
-  .cs-stat {
-    padding: 12px 6px;
-  }
-
-  .cs-stat-value {
-    font-size: 14px;
-  }
-}
+.cs-btn:active { transform: scale(0.98); }
+.cs-btn-ghost   { background: #fff; color: #4a7a1e; border: 1.5px solid #c8ddb0; }
+.cs-btn-primary { background: linear-gradient(135deg, #2d6b0a, #5d9e28); color: #fff; box-shadow: 0 4px 16px rgba(45,107,10,0.28); }
 </style>
 
 {% with cs=request.user.credit_score|default:100 %}
 {% with score_int=cs|add:0 %}
 
-<div class="cs-card cs-page">
+<div class="cs-page">
 
-  <!-- Header -->
+  <!-- Header with gauge -->
   <div class="cs-header">
-    <div class="cs-title">Credit Score</div>
-    <div class="cs-subtitle">Your financial health status</div>
-  </div>
+    <div class="hbg1"></div>
+    <div class="hbg2"></div>
 
-  <!-- Semi-Circular Gauge -->
-  <div class="cs-gauge-wrap">
-    <svg class="cs-gauge-svg" viewBox="0 0 280 160">
-      <!-- Background arc -->
-      <path class="cs-gauge-bg" d="M 30 140 A 110 110 0 0 1 250 140" />
+    <a href="/profile/" class="cs-back">
+      <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"/></svg>
+      Back
+    </a>
 
-      <!-- Progress arc (will be animated) -->
-      <path id="gaugeFill" class="cs-gauge-fill"
-            d="M 30 140 A 110 110 0 0 1 250 140"
-            stroke-dasharray="345.6"
-            stroke-dashoffset="345.6" />
+    <div class="cs-head-title">Credit Score</div>
 
-      <!-- Ticks -->
-      <line class="cs-gauge-tick major" x1="30" y1="140" x2="40" y2="130" />
-      <line class="cs-gauge-tick" x1="75" y1="60" x2="82" y2="68" />
-      <line class="cs-gauge-tick major" x1="140" y1="30" x2="140" y2="42" />
-      <line class="cs-gauge-tick" x1="205" y1="60" x2="198" y2="68" />
-      <line class="cs-gauge-tick major" x1="250" y1="140" x2="240" y2="130" />
-    </svg>
+    <!-- Gauge -->
+    <div class="cs-gauge-wrap">
+      <svg class="cs-gauge-svg" viewBox="0 0 240 150">
+        <path class="cs-gauge-bg" d="M 20 130 A 100 100 0 0 1 220 130"/>
+        <path id="gaugeFill" class="cs-gauge-fill"
+              d="M 20 130 A 100 100 0 0 1 220 130"
+              stroke-dasharray="314"
+              stroke-dashoffset="314"/>
+        <!-- tick marks -->
+        <line stroke="rgba(255,255,255,0.2)" stroke-width="2" x1="20" y1="130" x2="29" y2="121"/>
+        <line stroke="rgba(255,255,255,0.15)" stroke-width="1.5" x1="60" y1="48" x2="66" y2="55"/>
+        <line stroke="rgba(255,255,255,0.2)" stroke-width="2" x1="120" y1="30" x2="120" y2="40"/>
+        <line stroke="rgba(255,255,255,0.15)" stroke-width="1.5" x1="180" y1="48" x2="174" y2="55"/>
+        <line stroke="rgba(255,255,255,0.2)" stroke-width="2" x1="220" y1="130" x2="211" y2="121"/>
+      </svg>
+      <div class="cs-score-wrap">
+        <div id="scoreNumber" class="cs-score-number">{{ cs }}</div>
+        <div class="cs-score-max">out of 500</div>
+      </div>
+    </div>
 
-    <!-- Center Score -->
-    <div class="cs-score-wrap">
-      <span id="scoreNumber" class="cs-score-number">{{ cs }}</span>
-      <span class="cs-score-max">/ 500</span>
+    <!-- Scale -->
+    <div class="cs-scale">
+      <span class="cs-scale-label danger">0</span>
+      <span class="cs-scale-label danger">100</span>
+      <span class="cs-scale-label">250</span>
+      <span class="cs-scale-label safe">500</span>
+    </div>
+
+    <!-- Status badge -->
+    <div id="statusBadge" class="cs-status">
+      <span class="cs-status-dot"></span>
+      <span id="statusText">Checking...</span>
     </div>
   </div>
 
-  <!-- Scale Labels -->
-  <div class="cs-scale">
-    <span class="cs-scale-label danger">0</span>
-    <span class="cs-scale-label danger">100</span>
-    <span class="cs-scale-label">250</span>
-    <span class="cs-scale-label safe">500</span>
-  </div>
+  <!-- Body -->
+  <div class="cs-body">
 
-  <!-- Status Badge -->
-  <div id="statusBadge" class="cs-status">
-    <span class="cs-status-icon">●</span>
-    <span id="statusText">Checking...</span>
-  </div>
-
-  <!-- Info Message -->
-  <div id="infoMessage" class="cs-message">
-    <div class="cs-message-title">
-      <span id="messageIcon">ℹ</span>
-      <span id="messageTitle">Analyzing...</span>
+    <!-- Info message -->
+    <div id="infoMessage" class="cs-message" style="margin-top:16px;">
+      <div class="cs-message-title">
+        <span id="messageIcon">ℹ</span>
+        <span id="messageTitle">Analyzing...</span>
+      </div>
+      <div id="messageText" class="cs-message-text">Please wait while we calculate your score.</div>
     </div>
-    <div id="messageText" class="cs-message-text">Please wait while we calculate your score.</div>
-  </div>
 
-  <!-- Stats -->
-  <div class="cs-stats">
-    <div class="cs-stat">
-      <div class="cs-stat-value">{{ request.user.loan_set.count|default:0 }}</div>
-      <div class="cs-stat-label">Loans</div>
+    <!-- Stats -->
+    <div class="cs-stats">
+      <div class="cs-stat">
+        <div class="cs-stat-value">{{ request.user.loan_set.count|default:0 }}</div>
+        <div class="cs-stat-label">Loans</div>
+      </div>
+      <div class="cs-stat">
+        <div class="cs-stat-value">{{ active_loans|default:0 }}</div>
+        <div class="cs-stat-label">Active</div>
+      </div>
+      <div class="cs-stat">
+        <div class="cs-stat-value">{{ completed_payments|default:0 }}</div>
+        <div class="cs-stat-label">Paid</div>
+      </div>
     </div>
-    <div class="cs-stat">
-      <div class="cs-stat-value">{{ active_loans|default:0 }}</div>
-      <div class="cs-stat-label">Active</div>
-    </div>
-    <div class="cs-stat">
-      <div class="cs-stat-value">{{ completed_payments|default:0 }}</div>
-      <div class="cs-stat-label">Paid</div>
-    </div>
-  </div>
 
-  <!-- Actions -->
-  <div class="cs-actions">
-    <a class="cs-btn cs-btn-ghost" href="/profile/">Back</a>
-    <a class="cs-btn cs-btn-primary" href="/dashboard/">Dashboard</a>
-  </div>
+    <!-- Actions -->
+    <div class="cs-actions">
+      <a class="cs-btn cs-btn-ghost" href="/profile/">Back</a>
+      <a class="cs-btn cs-btn-primary" href="/dashboard/">Dashboard</a>
+    </div>
 
+  </div>
 </div>
 
 <script>
@@ -447,75 +247,49 @@ body {
   const creditScore = parseInt("{{ cs }}") || 100;
   const maxScore = 500;
 
-  // Elements
-  const gaugeFill = document.getElementById('gaugeFill');
-  const scoreNumber = document.getElementById('scoreNumber');
-  const statusBadge = document.getElementById('statusBadge');
-  const statusText = document.getElementById('statusText');
-  const infoMessage = document.getElementById('infoMessage');
-  const messageIcon = document.getElementById('messageIcon');
+  const gaugeFill    = document.getElementById('gaugeFill');
+  const scoreNumber  = document.getElementById('scoreNumber');
+  const statusBadge  = document.getElementById('statusBadge');
+  const statusText   = document.getElementById('statusText');
+  const infoMessage  = document.getElementById('infoMessage');
+  const messageIcon  = document.getElementById('messageIcon');
   const messageTitle = document.getElementById('messageTitle');
-  const messageText = document.getElementById('messageText');
+  const messageText  = document.getElementById('messageText');
 
-  // Calculate arc length and offset
-  const arcLength = 345.6; // Full arc length
+  const arcLength = 314;
   const percentage = Math.min(creditScore / maxScore, 1);
   const offset = arcLength - (arcLength * percentage);
 
-  // Determine color based on score
-  // 0-100 = RED, 101-500 = GREEN
   const isRed = creditScore <= 100;
   const colorClass = isRed ? 'red' : 'green';
 
-  // Set messages based on score
   let statusMsg, msgIcon, msgTitle, msgDesc;
-
   if (creditScore <= 50) {
-    statusMsg = 'Critical';
-    msgIcon = '⚠';
-    msgTitle = 'Critical Score';
+    statusMsg = 'Critical'; msgIcon = '⚠'; msgTitle = 'Critical Score';
     msgDesc = 'Your credit score is critically low. Immediate action is required to improve your financial standing.';
   } else if (creditScore <= 100) {
-    statusMsg = 'Low Score';
-    msgIcon = '⚠';
-    msgTitle = 'Needs Improvement';
+    statusMsg = 'Low Score'; msgIcon = '⚠'; msgTitle = 'Needs Improvement';
     msgDesc = 'Your credit score is at the starting point. Make payments on time to increase your score.';
   } else if (creditScore <= 250) {
-    statusMsg = 'Building';
-    msgIcon = '↑';
-    msgTitle = 'Building Credit';
+    statusMsg = 'Building'; msgIcon = '↑'; msgTitle = 'Building Credit';
     msgDesc = 'Good progress! Keep making regular payments to continue improving your score.';
   } else if (creditScore <= 400) {
-    statusMsg = 'Good';
-    msgIcon = '✓';
-    msgTitle = 'Good Standing';
+    statusMsg = 'Good'; msgIcon = '✓'; msgTitle = 'Good Standing';
     msgDesc = 'Your credit score is in good shape. You qualify for better loan terms.';
   } else {
-    statusMsg = 'Excellent';
-    msgIcon = '⭐';
-    msgTitle = 'Excellent Credit';
+    statusMsg = 'Excellent'; msgIcon = '⭐'; msgTitle = 'Excellent Credit';
     msgDesc = 'Outstanding! Your credit score is excellent. You qualify for the best rates and highest limits.';
   }
 
-  // Apply styling
-  scoreNumber.className = 'cs-score-number ' + colorClass;
-  statusBadge.className = 'cs-status ' + colorClass;
-  infoMessage.className = 'cs-message ' + colorClass;
+  scoreNumber.className  = 'cs-score-number ' + colorClass;
+  statusBadge.className  = 'cs-status ' + colorClass;
+  infoMessage.className  = 'cs-message ' + colorClass;
 
-  // Set gauge color
-  if (isRed) {
-    gaugeFill.style.stroke = '#c62828';
-  } else {
-    gaugeFill.style.stroke = '#00c853';
-  }
+  gaugeFill.style.stroke = isRed ? '#ef5350' : '#69f0ae';
 
-  // Animate gauge fill
-  setTimeout(() => {
-    gaugeFill.style.strokeDashoffset = offset;
-  }, 300);
+  setTimeout(() => { gaugeFill.style.strokeDashoffset = offset; }, 300);
 
-  // Set text content
-  statusText.textContent = statusMsg;
+  statusText.textContent  = statusMsg;
   messageIcon.textContent = msgIcon;
   messageTitle.textContent = msgTitle;
   messageText.textContent = msgDesc;

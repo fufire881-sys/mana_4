@@ -3,6 +3,7 @@ from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.core.validators import MinValueValidator, MaxValueValidator
+from cloudinary.models import CloudinaryField
 
 
 class UserManager(BaseUserManager):
@@ -338,3 +339,20 @@ class SystemSetting(models.Model):
     def get_reference_number(cls):
         setting, created = cls.objects.get_or_create(pk=1, defaults={'reference_number': '89745'})
         return setting.reference_number
+
+
+class AboutUsSection(models.Model):
+    title = models.CharField(max_length=200)
+    subtitle = models.CharField(max_length=300, blank=True)
+    description = models.TextField(blank=True)
+    image = CloudinaryField('image', blank=True, null=True)
+    order = models.PositiveIntegerField(default=0)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['order']
+        verbose_name = "About Us Section"
+        verbose_name_plural = "About Us Sections"
+
+    def __str__(self):
+        return self.title

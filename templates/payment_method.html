@@ -2,213 +2,246 @@
 {% block title %}Payment Method{% endblock %}
 
 {% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  /* ===== GreenLeaf Design System — payment_method.html ===== */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body, body * { font-family: 'Poppins', sans-serif !important; }
+.wrap { align-items: flex-start !important; padding-top: 0 !important; }
 
-  html, body {
-  }
+.pm-page {
+  width: min(520px, 100vw);
+  margin: 0 auto;
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
 
-  /* ===== Layout wrapper ===== */
-  .wrap { display: block !important; }
+/* ── Header ── */
+.pm-header {
+  background: linear-gradient(160deg, #1e4a06 0%, #2d6b0a 55%, #4a8a1e 100%);
+  padding: 52px 24px 36px;
+  position: relative;
+  overflow: hidden;
+}
+.pm-header .hbg1 {
+  position: absolute; border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  width: 200px; height: 200px; top: -70px; right: -50px; pointer-events: none;
+}
+.pm-header .hbg2 {
+  position: absolute; border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  width: 120px; height: 120px; bottom: -30px; left: -20px; pointer-events: none;
+}
 
-  .dash-wrap {
-    width: min(520px, 94vw);
-    margin: 0 auto;
-    padding: 16px 16px 100px;
-    box-sizing: border-box;
-  }
 
-  /* ===== Main card ===== */
-  .cardx {
-    position: relative;
-    background: #ffffff;
-    border-radius: 18px;
-    border-top: 4px solid #7CB342;
-    border-left: none;
-    box-shadow: 0 4px 20px rgba(74,122,30,.10);
-    padding: 24px;
-    color: #1a1a1a;
-    margin-bottom: 16px;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    overflow: visible;
-  }
-  .cardx::before, .cardx::after { display: none; }
+.pm-header-icon {
+  width: 52px; height: 52px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 12px;
+  position: relative; z-index: 1;
+}
+.pm-header-icon svg { width: 26px; height: 26px; fill: #fff; }
 
-  /* ===== Typography ===== */
-  .pm-page {
-    font-family: "Ovelion", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  }
+.pm-header h1 {
+  font-size: 22px; font-weight: 800;
+  color: #fff; margin-bottom: 4px;
+  position: relative; z-index: 1;
+}
+.pm-header p {
+  font-size: 12px; color: rgba(255,255,255,0.7);
+  font-weight: 400;
+  position: relative; z-index: 1;
+}
 
-  .muted { color: #5a6a4a; font-size: 13px; }
+/* Status badge in header */
+.pm-status-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 14px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  position: relative; z-index: 1;
+  font-size: 12px; font-weight: 700;
+}
+.pm-status-pill.saved   { background: rgba(124,179,66,0.25); color: #ccff90; border: 1px solid rgba(124,179,66,0.4); }
+.pm-status-pill.not-set { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.25); }
+.pm-status-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.pm-status-pill.saved .pm-status-dot   { background: #69f0ae; }
+.pm-status-pill.not-set .pm-status-dot { background: rgba(255,255,255,0.6); }
 
-  /* ===== Card header title ===== */
-  h2 {
-    color: #2d5a0e;
-    font-weight: 900;
-    font-size: 18px;
-    margin: 0;
-  }
+/* ── Body ── */
+.pm-body { padding: 16px 16px 0; }
 
-  /* ===== Status badge ===== */
-  .badge {
-    display: inline-flex;
-    align-items: center;
-    padding: 7px 14px;
-    border-radius: 999px;
-    font-weight: 800;
-    font-size: 12px;
-    background: #f1f8e9;
-    color: #2d5a0e;
-    border: 1px solid rgba(124,179,66,.3);
-  }
+/* ── Info banner when locked ── */
+.pm-locked-banner {
+  display: flex; align-items: center; gap: 10px;
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  border-radius: 14px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+}
+.pm-locked-banner svg { width: 18px; height: 18px; fill: #f59e0b; flex-shrink: 0; }
+.pm-locked-banner span { font-size: 12px; font-weight: 600; color: #92400e; }
 
-  /* ===== Section container ===== */
-  .pm-section {
-    margin: 14px 0;
-    padding: 14px;
-    border-radius: 14px;
-    border: 1px solid #DCEDC8;
-    background: #f8fdf4;
-  }
+/* ── Section card ── */
+.pm-section-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  margin-bottom: 14px;
+  overflow: hidden;
+}
 
-  /* ===== Section title ===== */
-  .pm-title {
-    color: #3d6b1c;
-    font-weight: 800;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: .5px;
-    margin-bottom: 8px;
-  }
+/* Section head */
+.pm-section-head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid #f5f5f5;
+}
+.pm-section-head-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #4a7a1e; flex-shrink: 0;
+}
+.pm-section-head-label {
+  font-size: 12px; font-weight: 700;
+  color: #4a7a1e;
+  text-transform: uppercase; letter-spacing: 0.7px;
+}
 
-  /* ===== Inputs ===== */
-  .pm-section input,
-  .pm-section input[type="text"],
-  .pm-section input[type="number"],
-  .pm-section input[type="tel"],
-  .pm-section input[type="email"] {
-    width: 100%;
-    padding: 12px 14px;
-    border-radius: 10px;
-    border: 1.5px solid #c8ddb0;
-    background: #f8fdf4;
-    color: #1a1a1a;
-    font-size: 14px;
-    outline: none;
-    box-sizing: border-box;
-    transition: border-color .2s, box-shadow .2s, background .2s;
-  }
-  .pm-section input::placeholder {
-    color: #a0b488;
-  }
-  .pm-section input:focus {
-    outline: none;
-    border-color: #7CB342;
-    box-shadow: 0 0 0 3px rgba(124,179,66,.18);
-    background: #fff;
-  }
+/* Section body */
+.pm-section-body { padding: 16px; display: grid; gap: 14px; }
 
-  /* ===== Locked / read-only inputs ===== */
-  .pm-locked input {
-    background: #DCEDC8;
-    border-color: transparent;
-    color: #2d5a0e;
-    pointer-events: none;
-    cursor: not-allowed;
-    opacity: 1;
-  }
+/* ── Field group ── */
+.pm-field { display: flex; flex-direction: column; gap: 6px; }
+.pm-field label {
+  font-size: 11px; font-weight: 700;
+  color: #555;
+  text-transform: uppercase; letter-spacing: 0.6px;
+}
 
-  /* ===== Bottom nav / save button ===== */
-  .bottom-nav {
-    margin-top: 18px;
-    display: flex;
-    justify-content: center;
-  }
+/* ── Input styling — override Django widget ── */
+.pm-section-body input[type="text"],
+.pm-section-body input[type="number"],
+.pm-section-body input[type="tel"],
+.pm-section-body input[type="email"],
+.pm-section-body input {
+  width: 100% !important;
+  padding: 12px 14px !important;
+  border: 1.5px solid #e8e8e8 !important;
+  border-radius: 12px !important;
+  font-size: 14px !important; font-weight: 500 !important;
+  color: #1a1a1a !important;
+  background: #fafafa !important;
+  outline: none !important;
+  font-family: 'Poppins', sans-serif !important;
+  transition: border-color 0.2s, box-shadow 0.2s !important;
+  box-sizing: border-box !important;
+}
+.pm-section-body input::placeholder { color: #ccc !important; font-weight: 400 !important; }
+.pm-section-body input:focus {
+  border-color: #4a7a1e !important;
+  box-shadow: 0 0 0 3px rgba(74,122,30,0.10) !important;
+  background: #fff !important;
+}
 
-  .nav-inner {
-    display: flex;
-    justify-content: center;
-  }
+/* Locked inputs */
+.pm-locked .pm-section-body input[type="text"],
+.pm-locked .pm-section-body input[type="number"],
+.pm-locked .pm-section-body input[type="tel"],
+.pm-locked .pm-section-body input {
+  background: #f0f0f0 !important;
+  border-color: #e0e0e0 !important;
+  color: #888 !important;
+  pointer-events: none !important;
+  cursor: not-allowed !important;
+}
 
-  .nav-btn {
-    width: 220px;
-    height: 52px;
-    border-radius: 999px;
-    border: none;
-    background: linear-gradient(135deg, #4a7a1e, #7CB342);
-    color: #fff;
-    font-weight: 800;
-    font-size: 15px;
-    letter-spacing: .04em;
-    box-shadow: 0 4px 14px rgba(74,122,30,.30);
-    cursor: pointer;
-    transition: transform .15s, opacity .2s;
-  }
-  .nav-btn:hover { transform: translateY(-1px); }
-  .nav-btn:active { transform: translateY(0); }
-  .nav-btn:disabled {
-    opacity: .55;
-    cursor: not-allowed;
-    transform: none;
-  }
-
-  .pm-page .bottom-nav {
-    background: transparent !important;
-    border: 0 !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    display: flex !important;
-    justify-content: center !important;
-  }
-  .pm-page .nav-btn {
-    width: 220px !important;
-    flex: 0 0 auto !important;
-  }
+/* ── Submit button ── */
+.pm-submit-wrap { padding: 0 16px 16px; }
+.pm-submit-btn {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(135deg, #2d6b0a, #5d9e28);
+  border: none; border-radius: 14px;
+  color: #fff; font-size: 15px; font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer; letter-spacing: 0.3px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  box-shadow: 0 6px 20px rgba(45,107,10,0.30);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.pm-submit-btn:active { transform: scale(0.98); }
+.pm-submit-btn svg { width: 18px; height: 18px; fill: #fff; }
+.pm-submit-btn:disabled {
+  background: linear-gradient(135deg, #9e9e9e, #bdbdbd);
+  box-shadow: none; cursor: not-allowed;
+}
 </style>
 
-<div class="dash-wrap pm-page">
-  <div class="cardx">
+<div class="pm-page">
 
-    <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px; margin-bottom:10px;">
-      <div>
-        <h2 style="margin:0;font-size:26px;font-weight:950;">Payment Method</h2>
-        <div class="muted">Add or update your payout details</div>
-      </div>
+  <!-- Header -->
+  <div class="pm-header">
+    <div class="hbg1"></div>
+    <div class="hbg2"></div>
 
-      <span class="badge">
-        Status: {% if saved %}Saved{% else %}Not set{% endif %}
-      </span>
+    <div class="pm-header-icon">
+      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v2h20V6c0-1.1-.9-2-2-2zm0 16H4c-1.1 0-2-.9-2-2v-8h20v8c0 1.1-.9 2-2 2zm-8-5h-4v2h4v-2zm6 0h-2v2h2v-2z"/></svg>
     </div>
+    <h1>Payment Method</h1>
+    <p>Add or update your payout details</p>
 
-    <form method="post">
+    <div class="pm-status-pill {% if saved %}saved{% else %}not-set{% endif %}">
+      <span class="pm-status-dot"></span>
+      {% if saved %}Saved{% else %}Not set{% endif %}
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="pm-body">
+
+    <form method="post" class="{% if locked %}pm-locked{% endif %}">
       {% csrf_token %}
 
-      <!-- Bank -->
-      <div class="pm-section {% if saved %}pm-locked{% endif %}">
-        <div class="pm-title">Bank</div>
-        <div style="display:grid;gap:10px;">
-          <div>
-            <div class="muted" style="font-size:12px;margin-bottom:6px;">Account name</div>
+      {% if locked %}
+      <div class="pm-locked-banner">
+        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 14H9l-2-2 1.41-1.41L9 12.17l4.59-4.58L15 9l-4 6z"/></svg>
+        <span>Details saved — contact staff to update your payment method.</span>
+      </div>
+      {% endif %}
+
+      <!-- Bank Section -->
+      <div class="pm-section-card">
+        <div class="pm-section-head">
+          <div class="pm-section-head-dot"></div>
+          <div class="pm-section-head-label">Bank Account</div>
+        </div>
+        <div class="pm-section-body">
+          <div class="pm-field">
+            <label>Account Name</label>
             {{ form.bank_name }}
           </div>
-          <div>
-            <div class="muted" style="font-size:12px;margin-bottom:6px;">Account number</div>
+          <div class="pm-field">
+            <label>Account Number</label>
             {{ form.bank_account }}
           </div>
         </div>
-      </div>
 
-      {% if locked %}
-        <div class="muted" style="margin-top:10px;">Locked: Please contact staff to update.</div>
-      {% endif %}
-
-      <div class="bottom-nav">
-        {% if locked %}
-          <button class="nav-btn" type="button" disabled>Saved</button>
-        {% else %}
-          <button class="nav-btn" type="submit">Save</button>
-        {% endif %}
+        <div class="pm-submit-wrap">
+          {% if locked %}
+            <button class="pm-submit-btn" type="button" disabled>
+              <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+              Locked
+            </button>
+          {% else %}
+            <button class="pm-submit-btn" type="submit">
+              <svg viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+              Save
+            </button>
+          {% endif %}
+        </div>
       </div>
 
     </form>

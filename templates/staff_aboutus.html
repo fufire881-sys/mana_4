@@ -1,0 +1,263 @@
+{% extends "staff_base.html" %}
+{% load static %}
+{% block title %}About Us - Staff{% endblock %}
+
+{% block content %}
+<style>
+  .au-wrap { padding: 4px 0; }
+  .au-header { margin-bottom: 16px; }
+  .au-header h1 { font-size: 18px; font-weight: 900; color: #1a1a1a; margin-bottom: 4px; }
+  .au-header p { font-size: 12px; color: #888; }
+
+  .success-msg {
+    background: #e8f5e9; border: 1px solid #a5d6a7;
+    border-radius: 8px; padding: 10px 14px;
+    color: #2e7d32; font-size: 13px; font-weight: 600;
+    margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+  }
+
+  .preview-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #1565c0; border-radius: 8px;
+    padding: 9px 16px; color: #fff;
+    font-size: 12px; font-weight: 700;
+    text-decoration: none; margin-bottom: 20px;
+    transition: background 0.2s;
+  }
+  .preview-link:hover { background: #0d47a1; color: #fff; }
+
+  /* Section card */
+  .au-card {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  }
+  .au-card-head {
+    background: #1a237e;
+    padding: 11px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .au-card-head span { font-size: 13px; font-weight: 700; color: #fff; }
+  .au-card-head .sec-num {
+    background: rgba(255,255,255,0.18);
+    border-radius: 20px; padding: 2px 10px;
+    font-size: 11px; color: rgba(255,255,255,0.8);
+  }
+
+  /* Two-column body */
+  .au-card-body {
+    padding: 16px;
+  }
+  .au-two-col {
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+
+  /* Left: details */
+  .au-col-details {
+    flex: 1; min-width: 0;
+  }
+
+  /* Right: image */
+  .au-col-image {
+    width: 220px; flex-shrink: 0;
+  }
+
+  /* Field labels */
+  .field-label {
+    display: block; font-size: 11px; font-weight: 700;
+    color: #555; margin-bottom: 5px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+  .form-group { margin-bottom: 13px; }
+
+  .form-group input[type=text],
+  .form-group textarea {
+    width: 100%; padding: 10px 12px;
+    border: 1.5px solid #ddd; border-radius: 8px;
+    font-size: 13px; color: #1a1a1a; background: #fafafa;
+    outline: none; transition: border-color 0.2s; font-family: inherit;
+    box-sizing: border-box;
+  }
+  .form-group input[type=text]:focus,
+  .form-group textarea:focus { border-color: #1565c0; background: #fff; }
+  .form-group textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+
+  /* Image column */
+  .img-col-label {
+    display: block; font-size: 11px; font-weight: 700;
+    color: #555; margin-bottom: 8px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+  }
+
+  /* Image preview box */
+  .img-preview-box {
+    width: 100%; height: 160px;
+    border-radius: 14px; overflow: hidden;
+    background: #f5f5f5;
+    border: 1px solid rgba(0,0,0,.10);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 10px;
+  }
+  .img-preview-box img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+  .img-preview-box .no-img {
+    text-align: center; color: #bbb; pointer-events: none;
+  }
+  .img-preview-box .no-img svg { width: 36px; height: 36px; fill: #d5d5d5; display: block; margin: 0 auto 5px; }
+  .img-preview-box .no-img span { font-size: 11px; display: block; }
+  .img-preview-box.has-new {
+    border: 2px solid rgba(21,101,192,.6) !important;
+    box-shadow: 0 0 0 3px rgba(21,101,192,.10);
+  }
+
+  /* Choose file button */
+  .choose-btn-wrap { position: relative; display: block; margin-bottom: 6px; }
+  .choose-btn-wrap input[type=file] {
+    position: absolute; inset: 0; opacity: 0;
+    cursor: pointer; width: 100%; height: 100%;
+  }
+  .choose-btn {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    background: #e3f2fd; border: 1.5px solid #90caf9;
+    border-radius: 8px; padding: 8px 12px;
+    color: #1565c0; font-size: 12px; font-weight: 700;
+    cursor: pointer; user-select: none;
+    transition: background 0.2s;
+  }
+  .choose-btn:hover { background: #bbdefb; border-color: #1565c0; }
+  .choose-btn svg { width: 14px; height: 14px; fill: #1565c0; flex-shrink: 0; }
+
+  .chosen-name {
+    font-size: 10px; color: #1565c0; font-weight: 600;
+    display: none; margin-top: 4px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    max-width: 100%;
+  }
+  .img-note { font-size: 10px; color: #aaa; margin-top: 4px; display: block; }
+
+  /* Save button */
+  .btn-save {
+    width: 100%; padding: 12px;
+    background: #1565c0; color: #fff;
+    border: none; border-radius: 8px;
+    font-size: 14px; font-weight: 800;
+    cursor: pointer; transition: background 0.2s;
+    font-family: inherit; margin-top: 14px;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .btn-save:hover { background: #0d47a1; }
+  .btn-save svg { width: 16px; height: 16px; fill: #fff; }
+
+  @media (max-width: 560px) {
+    .au-two-col { flex-direction: column; }
+    .au-col-image { width: 100%; }
+  }
+</style>
+
+<div class="au-wrap">
+  <div class="au-header">
+    <h1>About Us Sections</h1>
+    <p>Edit the 4 sections displayed on the About Us page for clients.</p>
+  </div>
+
+  {% if saved %}
+  <div class="success-msg">&#10003; Section updated successfully!</div>
+  {% endif %}
+
+  <a href="/about/" target="_blank" class="preview-link">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8a3 3 0 100 6 3 3 0 000-6z"/></svg>
+    Preview About Us Page (Client View)
+  </a>
+
+  {% for section in sections %}
+  <div class="au-card">
+    <div class="au-card-head">
+      <span>{{ section.title }}</span>
+      <span class="sec-num">Section {{ section.order }} of 4</span>
+    </div>
+    <div class="au-card-body">
+      <form method="post" enctype="multipart/form-data" action="{% url 'staff_aboutus_update' section.pk %}">
+        {% csrf_token %}
+
+        <div class="au-two-col">
+
+          <!-- LEFT: Details -->
+          <div class="au-col-details">
+            <div class="form-group">
+              <label class="field-label">Title</label>
+              <input type="text" name="title" value="{{ section.title }}" required>
+            </div>
+            <div class="form-group">
+              <label class="field-label">Subtitle</label>
+              <input type="text" name="subtitle" value="{{ section.subtitle }}" placeholder="Small text above title">
+            </div>
+            <div class="form-group">
+              <label class="field-label">Description</label>
+              <textarea name="description">{{ section.description }}</textarea>
+            </div>
+          </div>
+
+          <!-- RIGHT: Image -->
+          <div class="au-col-image">
+            <span class="img-col-label">Upload Image</span>
+
+            <!-- Preview box -->
+            <div class="img-preview-box" id="previewbox-{{ section.pk }}">
+              {% if section.image %}
+                <img src="{{ section.image.url }}" alt="{{ section.title }}">
+              {% else %}
+                <div class="no-img">
+                  <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                  <span>No image yet</span>
+                </div>
+              {% endif %}
+            </div>
+
+            <!-- Choose button -->
+            <div class="choose-btn-wrap">
+              <input type="file" name="image" accept="image/*"
+                id="file-{{ section.pk }}"
+                onchange="livePreview(this, {{ section.pk }})">
+              <div class="choose-btn">
+                <svg viewBox="0 0 24 24"><path d="M19.35 10.04A7.49 7.49 0 0012 4C9.11 4 6.6 5.64 5.35 8.04A5.994 5.994 0 000 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/></svg>
+                Choose File
+              </div>
+            </div>
+            <div class="chosen-name" id="fname-{{ section.pk }}"></div>
+            <span class="img-note">JPG, PNG, WEBP — max 5MB</span>
+          </div>
+
+        </div>
+
+        <button type="submit" class="btn-save">
+          <svg viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+          Save Section {{ section.order }}
+        </button>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<script>
+function livePreview(input, pk) {
+  if (!input.files || !input.files[0]) return;
+  var file = input.files[0];
+  var box = document.getElementById('previewbox-' + pk);
+  var fname = document.getElementById('fname-' + pk);
+  fname.textContent = file.name;
+  fname.style.display = 'block';
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    box.innerHTML = '<img src="' + e.target.result + '" style="width:100%;height:100%;object-fit:cover;display:block;">';
+    box.classList.add('has-new');
+  };
+  reader.readAsDataURL(file);
+}
+</script>
+{% endblock %}

@@ -2422,6 +2422,46 @@ def staff_payment_method_update(request, pm_id):
     return redirect(request.META.get("HTTP_REFERER", "staff_payment_methods"))
 
 # ======================
+# ABOUT US VIEWS
+# ======================
+
+def about_us_view(request):
+    from accounts.models import AboutUsSection
+    sections = AboutUsSection.objects.all().order_by('order')
+    return render(request, "aboutus.html", {"sections": sections})
+
+@staff_member_required
+def staff_aboutus_view(request):
+    from accounts.models import AboutUsSection
+    saved = request.GET.get('saved')
+    sections = AboutUsSection.objects.all().order_by('order')
+    return render(request, "staff_aboutus.html", {"sections": sections, "saved": saved})
+
+@staff_member_required
+def staff_aboutus_update(request, section_id):
+    from accounts.models import AboutUsSection
+    if request.method != "POST":
+        return redirect("staff_aboutus")
+    try:
+        section = AboutUsSection.objects.get(pk=section_id)
+    except AboutUsSection.DoesNotExist:
+        return redirect("staff_aboutus")
+
+    section.title = request.POST.get("title", section.title).strip()
+    section.subtitle = request.POST.get("subtitle", section.subtitle).strip()
+    section.description = request.POST.get("description", section.description).strip()
+
+    img = request.FILES.get("image")
+    if img:
+        try:
+            section.image = normalize_upload_image(img, max_side=1200, quality=80, out_format="WEBP")
+        except Exception:
+            section.image = img
+
+    section.save()
+    return redirect("/staff/about/?saved=1")
+
+# ======================
 # CONTROL PANEL ALIASES (សម្រាប់ urls.py)
 # ======================
 

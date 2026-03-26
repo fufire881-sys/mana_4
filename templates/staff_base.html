@@ -1421,6 +1421,15 @@ th{ text-align:left; font-size:12px; letter-spacing:.06em; text-transform:upperc
           </span>
           <span class="menu-arrow">→</span>
         </a>
+
+        <a href="{% url 'staff_aboutus' %}"
+           class="menu-item {% if request.resolver_match.url_name == 'staff_aboutus' or request.resolver_match.url_name == 'staff_aboutus_update' %}active{% endif %}">
+          <span class="menu-left">
+            <img src="{% static 'icons/payments.png' %}" class="menu-icon" alt="">
+            <span class="menu-text">About Us</span>
+          </span>
+          <span class="menu-arrow">→</span>
+        </a>
       </div>
 
       <!-- RIGHT CONTENT -->

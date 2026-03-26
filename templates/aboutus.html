@@ -1,0 +1,284 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}About Us - ASIASOURCE FINANCIAL INC.{% endblock %}
+
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  #pageRoot.wrap { max-width:100% !important; width:100% !important; padding:0 !important; }
+  body { padding-bottom:80px !important; overflow-x:hidden !important; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+
+  .about-page {
+    max-width: 520px;
+    margin: 0 auto;
+    background: #f4f6fb;
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  /* Header */
+  .about-header {
+    background: linear-gradient(160deg, #1e4a06 0%, #2d6b0a 60%, #3a6e10 100%);
+    padding: 28px 20px 24px;
+    text-align: center;
+    color: #fff;
+    overflow: hidden;
+  }
+  .about-header .building-bg {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    width: 100%; height: 55%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .about-header .back-btn,
+  .about-logo,
+  .about-header h1,
+  .about-header p,
+  .about-sec-badge {
+    position: relative;
+    z-index: 1;
+  }
+  .about-header .back-btn {
+    position: absolute;
+    left: 20px;
+    top: 28px;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .about-header { position: relative; }
+  .about-logo {
+    width: 64px; height: 64px;
+    border-radius: 14px;
+    object-fit: contain;
+    background: #fff;
+    padding: 5px;
+    margin: 0 auto 12px;
+    display: block;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+  }
+  .about-header h1 {
+    font-size: 17px;
+    font-weight: 800;
+    color: #fff;
+    margin-bottom: 4px;
+    letter-spacing: 0.3px;
+  }
+  .about-header p {
+    font-size: 11px;
+    color: rgba(255,255,255,0.75);
+    font-weight: 500;
+  }
+  .about-sec-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    padding: 3px 12px;
+    font-size: 10px;
+    color: rgba(255,255,255,0.8);
+    margin-top: 8px;
+    font-weight: 600;
+  }
+
+  /* Sections */
+  .sections-wrap { padding: 16px; }
+
+  .about-section-card {
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 12px rgba(45,90,14,0.08);
+  }
+
+  .section-img-wrap {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, #dcedc8, #aed581);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .section-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .section-img-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: #7CB342;
+    opacity: 0.5;
+  }
+  .section-img-placeholder svg { width: 48px; height: 48px; fill: #4a7a1e; }
+  .section-img-placeholder span { font-size: 11px; color: #4a7a1e; font-weight: 600; }
+
+  .section-order-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: #2d6b0a;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+
+  .section-body {
+    padding: 18px 18px 20px;
+  }
+  .section-subtitle {
+    font-size: 10px;
+    font-weight: 600;
+    color: #7CB342;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 5px;
+  }
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a3a0a;
+    margin-bottom: 10px;
+    line-height: 1.3;
+    letter-spacing: -0.2px;
+  }
+  .section-desc {
+    font-size: 13px;
+    font-weight: 400;
+    color: #4a5a3a;
+    line-height: 1.8;
+  }
+
+  /* Footer info */
+  .about-footer-info {
+    margin: 0 16px 16px;
+    background: #1e4a06;
+    border-radius: 16px;
+    padding: 20px 18px;
+    color: #fff;
+  }
+  .about-footer-info h3 {
+    font-size: 13px;
+    font-weight: 800;
+    color: #b8f08a;
+    margin-bottom: 12px;
+  }
+  .info-line {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 12px;
+  }
+  .info-line .lbl { color: rgba(255,255,255,0.5); min-width: 80px; flex-shrink: 0; }
+  .info-line .val { color: rgba(255,255,255,0.9); line-height: 1.5; }
+</style>
+
+<div class="about-page">
+
+  <!-- Header -->
+  <div class="about-header">
+    <a href="/dashboard/" class="back-btn">← Back</a>
+
+    <!-- Professional city skyline -->
+    <svg class="building-bg" viewBox="0 0 520 160" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="skyFade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="rgba(0,0,0,0.22)"/>
+          <stop offset="100%" stop-color="rgba(0,0,0,0.32)"/>
+        </linearGradient>
+      </defs>
+      <!-- Skyline silhouette path — professional financial district -->
+      <path fill="url(#skyFade)" d="
+        M0,160
+        L0,118
+        L18,118 L18,105 L30,105 L30,118
+        L38,118 L38,95  L44,95  L44,85  L50,85  L50,95  L56,95  L56,118
+        L66,118 L66,72  L70,72  L70,65  L74,65  L74,72  L80,72  L80,118
+        L92,118 L92,88  L104,88 L104,78 L116,78 L116,88 L128,88 L128,118
+        L136,118 L136,50 L140,50 L140,42 L144,35 L148,42 L148,50 L152,50 L152,118
+        L162,118 L162,80 L172,80 L172,68 L182,68 L182,80 L192,80 L192,118
+        L200,118 L200,30 L204,30 L204,20 L208,12 L212,20 L212,30 L216,30
+                  L216,22 L220,22 L220,30 L224,30 L224,118
+        L234,118 L234,55 L238,55 L238,48 L258,48 L258,55 L262,55 L262,118
+        L272,118 L272,25 L276,25 L276,16 L280,8  L284,16 L284,25 L288,25 L288,118
+        L298,118 L298,55 L308,55 L308,45 L318,45 L318,55 L328,55 L328,118
+        L336,118 L336,35 L340,35 L340,25 L344,18 L348,25 L348,35 L352,35 L352,118
+        L362,118 L362,72 L372,72 L372,60 L382,60 L382,72 L392,72 L392,118
+        L400,118 L400,88 L410,88 L410,78 L420,78 L420,88 L430,88 L430,118
+        L438,118 L438,95  L444,95  L444,85  L450,85  L450,95  L456,95  L456,118
+        L464,118 L464,105 L476,105 L476,118
+        L486,118 L486,108 L498,108 L498,118
+        L520,118 L520,160
+        Z
+      "/>
+    </svg>
+
+    <img src="{% static 'img/logo.png' %}" alt="Logo" class="about-logo">
+    <h1>ASIASOURCE FINANCIAL INC.</h1>
+    <p>Your trusted financial partner since 2014</p>
+    <span class="about-sec-badge">SEC Reg. No. CS201412567</span>
+  </div>
+
+  <!-- Sections -->
+  <div class="sections-wrap">
+    {% for section in sections %}
+    <div class="about-section-card">
+      <div class="section-img-wrap">
+        {% if section.image %}
+          <img src="{{ section.image.url }}" alt="{{ section.title }}">
+        {% else %}
+          <div class="section-img-placeholder">
+            <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+            <span>No image uploaded</span>
+          </div>
+        {% endif %}
+        <span class="section-order-badge">0{{ section.order }}</span>
+      </div>
+      <div class="section-body">
+        {% if section.subtitle %}<div class="section-subtitle">{{ section.subtitle }}</div>{% endif %}
+        <div class="section-title">{{ section.title }}</div>
+        <div class="section-desc">{{ section.description }}</div>
+      </div>
+    </div>
+    {% empty %}
+    <p style="text-align:center;color:#8a9a7a;padding:40px 0;">No content available.</p>
+    {% endfor %}
+  </div>
+
+  <!-- Company Info Footer -->
+  <div class="about-footer-info">
+    <h3>Company Information</h3>
+    <div class="info-line">
+      <span class="lbl">Company</span>
+      <span class="val">ASIASOURCE FINANCIAL INC.</span>
+    </div>
+    <div class="info-line">
+      <span class="lbl">SEC No.</span>
+      <span class="val">CS201412567</span>
+    </div>
+    <div class="info-line">
+      <span class="lbl">Registered</span>
+      <span class="val">August 8, 2014</span>
+    </div>
+    <div class="info-line">
+      <span class="lbl">Address</span>
+      <span class="val">10th Floor, IBP Tower, Dona Julia Vargas Ave. &amp; Jade Drive, Ortigas Center, City of Pasig, NCR</span>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

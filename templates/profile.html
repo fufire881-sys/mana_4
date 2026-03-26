@@ -3,339 +3,227 @@
 {% block title %}Profile{% endblock %}
 
 {% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  body, body * {
-    font-family: "Ovelion", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
-  }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body, body * { font-family: 'Poppins', sans-serif !important; }
+.wrap { align-items: flex-start !important; justify-content: center !important; padding-top: 0 !important; }
 
-  body {
-  }
+.p-wrap {
+  width: min(520px, 100vw);
+  margin: 0 auto;
+  padding-bottom: 100px;
+  min-height: 100vh;
+}
 
-  /* ── Wrapper ── */
-  .p-wrap {
-    width: min(520px, 94vw);
-    max-width: 520px;
-    margin: 0 auto;
-    padding: 16px 16px 100px;
-    box-sizing: border-box;
-  }
 
-  /* ── Status alert banner ── */
-  .status-alert {
-    width: 100%;
-    margin: 0 0 12px;
-    padding: 12px 16px;
-    border-radius: 999px;
-    text-align: center;
-    font-weight: 900;
-    letter-spacing: .4px;
-    box-sizing: border-box;
-  }
-  .status-danger  { background: #dc2626; color: #fff; }
-  .status-success { background: #16a34a; color: #fff; }
-  .status-warn    { background: #eab308; color: #111; }
+/* ── Header ── */
+.prof-header {
+  background: linear-gradient(160deg, #1e4a06 0%, #2d6b0a 55%, #4a8a1e 100%);
+  padding: 0 0 30px;
+  position: relative;
+  overflow: hidden;
+}
+.prof-header .header-inner {
+  padding: 50px 20px 0;
+}
+.prof-header .hbg1 {
+  position: absolute; border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  width: 200px; height: 200px;
+  top: -80px; right: -50px;
+  pointer-events: none;
+}
+.prof-header .hbg2 {
+  position: absolute; border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  width: 120px; height: 120px;
+  bottom: -30px; left: -20px;
+  pointer-events: none;
+}
+.prof-header .hbg3 {
+  position: absolute; border-radius: 50%;
+  background: rgba(255,255,255,0.03);
+  width: 80px; height: 80px;
+  top: 20px; left: 40%;
+  pointer-events: none;
+}
 
-  /* ── Hero / Diamond card ── */
-  .cardx.card-diamond {
-    background: linear-gradient(135deg, #1e4a06 0%, #2d6b0a 50%, #7CB342 100%) !important;
-    border-radius: 20px !important;
-    border: 1px solid rgba(124,179,66,.35) !important;
-    border-top: 1px solid rgba(124,179,66,.35) !important;
-    box-shadow: 0 8px 32px rgba(74,122,30,.35) !important;
-    padding: 24px 20px;
-    color: #ffffff !important;
-    margin-bottom: 20px;
-    overflow: hidden;
-    position: relative;
-  }
+.prof-back {
+  position: absolute; top: 16px; left: 16px;
+  display: inline-flex; align-items: center; gap: 4px;
+  color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 600;
+  text-decoration: none; z-index: 2;
+}
+.prof-back svg { width: 16px; height: 16px; fill: rgba(255,255,255,0.85); }
 
-  .cardx.card-diamond::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.10) 50%, transparent 100%);
-    transform: translateX(-120%);
-    animation: heroShine 4s ease-in-out infinite;
-  }
-  @keyframes heroShine {
-    0%, 55% { transform: translateX(-120%); }
-    100%     { transform: translateX(120%); }
-  }
+/* Avatar + info */
+.prof-identity {
+  display: flex; align-items: center; gap: 16px;
+  position: relative; z-index: 1; margin-bottom: 20px;
+}
+.prof-avatar {
+  width: 60px; height: 60px; flex-shrink: 0;
+  background: rgba(255,255,255,0.18);
+  border-radius: 18px;
+  border: 2px solid rgba(255,255,255,0.25);
+  display: flex; align-items: center; justify-content: center;
+}
+.prof-avatar svg { width: 30px; height: 30px; fill: #fff; }
+.prof-name {
+  font-size: 18px; font-weight: 800;
+  color: #fff; line-height: 1.2;
+}
+.prof-acct { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 3px; }
 
-  .cardx.card-diamond > * { position: relative; z-index: 2; }
+/* Status badge */
+.status-badge {
+  display: inline-flex; align-items: center;
+  padding: 5px 12px; border-radius: 999px;
+  font-weight: 700; font-size: 11px;
+  letter-spacing: 0.3px; white-space: nowrap;
+  margin-top: 6px;
+}
+.status-active { background: #7CB342; color: #fff; border: none; }
+.status-warn   { background: #eab308; color: #111; border: none; }
+.status-danger { background: #dc2626; color: #fff; border: none; }
 
-  .cardx.card-diamond,
-  .cardx.card-diamond * {
-    color: #fff !important;
-  }
+/* Balance card inside header */
+.prof-balance-card {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 16px;
+  padding: 16px 18px;
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.prof-balance-label { font-size: 11px; color: rgba(255,255,255,0.65); font-weight: 500; margin-bottom: 4px; }
+.prof-balance-amount { font-size: 26px; font-weight: 800; color: #DCEDC8; }
 
-  /* ── Card head row ── */
-  .head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 12px;
-  }
-  .h-title {
-    font-weight: 950;
-    font-size: 18px;
-    letter-spacing: .02em;
-    color: #fff !important;
-  }
-  .h-sub {
-    font-size: 12px;
-    color: rgba(255,255,255,.80) !important;
-    margin-top: 2px;
-  }
+/* ── Menu list ── */
+.prof-menu-wrap { padding: 16px 16px 0; }
+.prof-section-label {
+  font-size: 11px; font-weight: 700; color: #7a9a6a;
+  text-transform: uppercase; letter-spacing: 0.8px;
+  margin-bottom: 10px;
+}
 
-  /* Balance amount on hero card */
-  .amount {
-    font-size: 26px;
-    font-weight: 950;
-    color: #DCEDC8 !important;
-    margin-top: 4px;
-  }
+.prof-menu-card {
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  margin-bottom: 12px;
+}
 
-  /* Status badge inside hero card */
-  .status-badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 6px 14px;
-    border-radius: 999px;
-    font-weight: 800;
-    font-size: 12px;
-    letter-spacing: .3px;
-    white-space: nowrap;
-  }
-  .status-active  { background: rgba(255,255,255,.20); color: #fff !important; border: 1px solid rgba(255,255,255,.30); }
-  .status-warn    { background: rgba(234,179,8,.30);   color: #ffe082 !important; border: 1px solid rgba(234,179,8,.40); }
-  .status-danger  { background: rgba(220,38,38,.30);   color: #ffcdd2 !important; border: 1px solid rgba(220,38,38,.40); }
+.p-btn {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 14px 16px;
+  text-decoration: none; color: inherit;
+  border-bottom: 1px solid #f5f5f5;
+  transition: background 0.15s;
+  cursor: pointer;
+}
+.p-btn:last-child { border-bottom: none; }
+.p-btn:active { background: #f8fdf4; }
 
-  /* ── Section title ── */
-  .menu-label {
-    color: #2d5a0e;
-    font-weight: 900;
-    font-size: 14px;
-    letter-spacing: .5px;
-    text-transform: uppercase;
-    margin: 16px 0 8px;
-  }
+.p-btn .left { display: flex; align-items: center; gap: 12px; min-width: 0; }
 
-  /* ── Menu grid ── */
-  .menu { display: grid; gap: 0; }
+.ico {
+  width: 42px; height: 42px; flex-shrink: 0;
+  border-radius: 13px;
+  background: linear-gradient(135deg, #2d6b0a, #5d9e28);
+  box-shadow: 0 4px 12px rgba(45,107,10,0.25);
+  display: flex; align-items: center; justify-content: center;
+}
+.ico svg { width: 20px; height: 20px; fill: #fff; }
+.ico.red {
+  background: linear-gradient(135deg, #c62828, #e53935);
+  box-shadow: 0 4px 12px rgba(198,40,40,0.25);
+}
+.ico.red svg { fill: #fff; }
 
-  /* ── Menu buttons ── */
-  .p-btn {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 14px 16px;
-    text-decoration: none;
-    background: #ffffff;
-    border-radius: 14px;
-    border: 1px solid #e0eed0;
-    box-shadow: 0 2px 8px rgba(74,122,30,.06);
-    color: #1a1a1a;
-    margin-bottom: 8px;
-    cursor: pointer;
-    transition: background .15s ease, border-color .15s ease, transform .08s ease;
-    overflow: hidden;
-  }
-  .p-btn:hover {
-    background: #f1f8e9;
-    border-color: #7CB342;
-  }
-  .p-btn:active { transform: scale(.99); }
+.txt .t1 { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+.txt .t2 { font-size: 11px; color: #aaa; margin-top: 2px; font-weight: 400; }
 
-  /* ── Left cluster ── */
-  .left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    min-width: 0;
-  }
+.chev {
+  width: 28px; height: 28px; flex-shrink: 0;
+  border-radius: 999px;
+  background: #f5f5f5;
+  display: flex; align-items: center; justify-content: center;
+}
+.chev svg { width: 14px; height: 14px; fill: none; stroke: #bbb; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 
-  /* ── Icon container ── */
-  .ico {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-    background: rgba(124,179,66,.12);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 0 0 auto;
-  }
-  .ico svg {
-    width: 20px;
-    height: 20px;
-    fill: #4a7a1e;
-    opacity: .95;
-  }
-
-  /* ── Text block ── */
-  .txt { min-width: 0; }
-  .t1 {
-    font-weight: 950;
-    font-size: 14px;
-    letter-spacing: .02em;
-    color: #1a1a1a;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .t2 {
-    font-size: 12px;
-    color: #8a9a7a;
-    margin-top: 2px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  /* ── Chevron ── */
-  .chev {
-    width: 28px;
-    height: 28px;
-    border-radius: 999px;
-    background: rgba(124,179,66,.10);
-    border: 1px solid rgba(124,179,66,.20);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 0 0 auto;
-  }
-  .chev svg {
-    width: 16px;
-    height: 16px;
-    fill: none;
-    stroke: rgba(74,122,30,.60);
-    stroke-width: 2.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  /* ── Back button ── */
-  .back-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 38px;
-    padding: 0 18px;
-    border-radius: 999px;
-    background: rgba(124,179,66,.12);
-    color: #4a7a1e !important;
-    border: 1px solid rgba(124,179,66,.30);
-    font-weight: 800;
-    font-size: 14px;
-    text-decoration: none;
-    transition: background .15s ease, transform .08s ease;
-  }
-  .back-btn:hover  { background: rgba(124,179,66,.20); transform: translateY(-1px); }
-  .back-btn:active { transform: scale(.98); }
-
-  /* ── Top actions row ── */
-  .top-actions {
-    margin-top: 16px;
-    display: flex;
-    justify-content: flex-start;
-  }
-
-  /* ── Logout modal overlay ── */
-  .logout-modal {
-    position: fixed;
-    inset: 0;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0,0,0,.45);
-    z-index: 9999;
-    padding: 18px 14px;
-    box-sizing: border-box;
-  }
-  .logout-modal.show { display: flex; }
-
-  /* ── Logout modal box ── */
-  .logout-box {
-    width: min(420px, 92vw);
-    background: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 24px 60px rgba(0,0,0,.25);
-    overflow: hidden;
-    padding: 28px;
-    text-align: center;
-  }
-  .logout-title {
-    font-weight: 900;
-    font-size: 18px;
-    color: #1a1a1a !important;
-    margin-bottom: 8px;
-    letter-spacing: .2px;
-  }
-  .logout-text {
-    font-size: 14px;
-    color: #5a6a4a !important;
-    line-height: 1.5;
-    margin-bottom: 20px;
-  }
-  .logout-actions {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-  }
-  .btn-cancel {
-    height: 44px;
-    padding: 0 24px;
-    border-radius: 999px;
-    border: 2px solid #c8ddb0;
-    background: #ffffff;
-    color: #5a6a4a !important;
-    font-weight: 900;
-    font-size: 14px;
-    cursor: pointer;
-    transition: background .15s ease;
-  }
-  .btn-cancel:hover { background: #f1f8e9; }
-
-  .btn-confirm {
-    height: 44px;
-    padding: 0 24px;
-    border-radius: 999px;
-    border: 0;
-    background: linear-gradient(135deg, #c62828, #e53935);
-    color: #fff !important;
-    font-weight: 900;
-    font-size: 14px;
-    cursor: pointer;
-    box-shadow: 0 4px 16px rgba(198,40,40,.30);
-    transition: opacity .15s ease, transform .08s ease;
-  }
-  .btn-confirm:hover  { opacity: .92; }
-  .btn-confirm:active { transform: scale(.98); }
-
-  @media (max-width: 520px) {
-    .top-actions { padding: 0; }
-  }
+/* ── Logout modal ── */
+.logout-modal {
+  position: fixed; inset: 0; display: none;
+  align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.5); z-index: 9999;
+  padding: 18px;
+}
+.logout-modal.show { display: flex; }
+.logout-box {
+  width: min(400px, 92vw);
+  background: #fff; border-radius: 22px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+  padding: 32px 24px 24px;
+  text-align: center;
+}
+.logout-icon-wrap {
+  width: 60px; height: 60px; margin: 0 auto 16px;
+  background: #fdeaea; border-radius: 18px;
+  display: flex; align-items: center; justify-content: center;
+}
+.logout-icon-wrap svg { width: 28px; height: 28px; fill: #c62828; }
+.logout-title { font-size: 17px; font-weight: 800; color: #1a1a1a; margin-bottom: 8px; }
+.logout-text  { font-size: 13px; color: #888; line-height: 1.5; margin-bottom: 24px; }
+.logout-actions { display: flex; gap: 10px; }
+.btn-cancel {
+  flex: 1; height: 46px;
+  border-radius: 12px; border: 1.5px solid #e8e8e8;
+  background: #fafafa; color: #555;
+  font-weight: 700; font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer; transition: background 0.15s;
+}
+.btn-cancel:hover { background: #f0f0f0; }
+.btn-confirm {
+  flex: 1; height: 46px;
+  border-radius: 12px; border: none;
+  background: linear-gradient(135deg, #c62828, #e53935);
+  color: #fff;
+  font-weight: 700; font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(198,40,40,0.3);
+  transition: opacity 0.15s;
+}
+.btn-confirm:hover { opacity: 0.92; }
 </style>
 
 <div class="p-wrap">
-  <div id="statusAlert"
-     class="status-alert"
-     style="display:none;"
-     data-msg="{{ request.user.status_message|default:''|escapejs }}"
-     {% if request.user.status_message %}data-lock="1"{% endif %}></div>
 
-    <div class="cardx card-diamond" id="profile-currency-section">
-      <div class="head">
-        <div>
-          <div class="h-title">Profile</div>
-          <div class="h-sub">Account: {{ request.user.phone }}</div>
-        </div>
+  <!-- Header -->
+  <div class="prof-header" id="profile-currency-section">
 
+    <div class="hbg1"></div>
+    <div class="hbg2"></div>
+    <div class="hbg3"></div>
+
+    <div class="header-inner">
+    <a href="{% url 'dashboard' %}" class="prof-back">
+      <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"/></svg>
+      Back
+    </a>
+
+    <!-- Identity -->
+    <div class="prof-identity">
+      <div class="prof-avatar">
+        <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-4.42 0-8 2-8 4.5V20h16v-1.5C20 16 16.42 14 12 14z"/></svg>
+      </div>
+      <div>
+        <div class="prof-name">Profile</div>
+        <div class="prof-acct">Account: {{ request.user.phone }}</div>
         {% with color_key=request.user.account_status|default:"ACTIVE"|upper display_text=request.user.dashboard_status_label|default:request.user.account_status|default:"ACTIVE" %}
           <span id="accStatusBadge"
             class="status-badge
@@ -346,16 +234,27 @@
           </span>
         {% endwith %}
       </div>
-
-      <div style="font-size:12px; opacity:.85;">
-        <div class="amount">₱ <span data-balance>{{ request.user.balance|default:"0.00" }}</span></div>
-      </div>
     </div>
 
-    <div class="menu" id="menu">
+    <!-- Balance -->
+    <div class="prof-balance-card">
+      <div>
+        <div class="prof-balance-label">Account Balance</div>
+        <div class="prof-balance-amount">₱ <span data-balance>{{ request.user.balance|default:"0.00" }}</span></div>
+      </div>
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="rgba(255,255,255,0.25)"><path d="M4 7a2 2 0 012-2h12a2 2 0 012 2v2h-6a2 2 0 000 4h6v2a2 2 0 01-2 2H6a2 2 0 01-2-2V7zm16 4h-5a1 1 0 000 2h5v-2z"/></svg>
+    </div>
+    </div><!-- end header-inner -->
+  </div>
+
+  <!-- Menu -->
+  <div class="prof-menu-wrap">
+    <div class="prof-section-label">My Setting & Info</div>
+    <div class="prof-menu-card" id="menu">
+
       <a class="p-btn" href="/credit-score/">
         <div class="left">
-          <div class="ico" aria-hidden="true">
+          <div class="ico">
             <svg viewBox="0 0 24 24"><path d="M4 19h16v2H4zM6 17V7h3v10H6zm5 0V4h3v13h-3zm5 0v-9h3v9h-3z"/></svg>
           </div>
           <div class="txt">
@@ -363,14 +262,12 @@
             <div class="t2">View your score & level</div>
           </div>
         </div>
-        <div class="chev" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
-        </div>
+        <div class="chev"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
       </a>
 
       <a class="p-btn" href="/loan-apply/">
         <div class="left">
-          <div class="ico" aria-hidden="true">
+          <div class="ico">
             <svg viewBox="0 0 24 24"><path d="M6 2h9l3 3v17H6V2zm9 1.5V6h2.5L15 3.5zM8 9h8v2H8V9zm0 4h8v2H8v-2zm0 4h6v2H8v-2z"/></svg>
           </div>
           <div class="txt">
@@ -378,14 +275,12 @@
             <div class="t2">Apply & track your status</div>
           </div>
         </div>
-        <div class="chev" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
-        </div>
+        <div class="chev"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
       </a>
 
       <a class="p-btn" href="/transactions/">
         <div class="left">
-          <div class="ico" aria-hidden="true">
+          <div class="ico">
             <svg viewBox="0 0 24 24"><path d="M7 7h14v4H7V7zM3 6h3v6H3V6zm4 9h14v4H7v-4zM3 14h3v6H3v-6z"/></svg>
           </div>
           <div class="txt">
@@ -393,14 +288,12 @@
             <div class="t2">History of deposits & withdrawals</div>
           </div>
         </div>
-        <div class="chev" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
-        </div>
+        <div class="chev"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
       </a>
 
       <a class="p-btn" href="{% url 'payment_method' %}">
         <div class="left">
-          <div class="ico" aria-hidden="true">
+          <div class="ico">
             <svg viewBox="0 0 24 24"><path d="M3 7h18v10H3V7zm2 2v2h14V9H5zm0 4v2h6v-2H5z"/></svg>
           </div>
           <div class="txt">
@@ -408,135 +301,86 @@
             <div class="t2">Add payout details</div>
           </div>
         </div>
-        <div class="chev" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
-        </div>
+        <div class="chev"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
       </a>
 
       <a class="p-btn" href="{% url 'agreement' %}">
         <div class="left">
-          <div class="ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-              <path d="M6 2h9l3 3v17H6V2zm9 1.5V6h2.5L15 3.5zM8 9h8v2H8V9zm0 4h8v2H8v-2zm0 4h6v2H8v-2z"/>
-            </svg>
+          <div class="ico">
+            <svg viewBox="0 0 24 24"><path d="M6 2h9l3 3v17H6V2zm9 1.5V6h2.5L15 3.5zM8 9h8v2H8V9zm0 4h8v2H8v-2zm0 4h6v2H8v-2z"/></svg>
           </div>
           <div class="txt">
             <div class="t1">Agreement</div>
             <div class="t2">Terms, conditions & disclosures</div>
           </div>
         </div>
-        <div class="chev" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
-        </div>
+        <div class="chev"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
       </a>
 
       <a class="p-btn" href="/payment-schedule/">
         <div class="left">
-          <div class="ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M7 2v2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7zm14 8H3V8h18v2z"/></svg>
+          <div class="ico">
+            <svg viewBox="0 0 24 24"><path d="M7 2v2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2h-2V2h-2v2H9V2H7zm14 8H3V8h18v2z"/></svg>
           </div>
           <div class="txt">
             <div class="t1">Payment Schedule</div>
             <div class="t2">Installments & due dates</div>
           </div>
         </div>
-        <div class="chev" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
-        </div>
+        <div class="chev"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
       </a>
 
-      <!-- ✅ Logout button => open confirm modal -->
+    </div>
+
+    <!-- Logout separate card -->
+    <div class="prof-menu-card">
       <a class="p-btn" href="#" id="logoutBtn" aria-label="Logout">
         <div class="left">
-          <div class="ico" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M10 17l1.4-1.4-2.6-2.6H20v-2H8.8l2.6-2.6L10 7l-7 7 7 7zM4 4h7V2H4a2 2 0 0 0-2 2v6h2V4zm0 18h7v-2H4v-6H2v6a2 2 0 0 0 2 2z"/></svg>
+          <div class="ico red">
+            <svg viewBox="0 0 24 24"><path d="M10 17l1.4-1.4-2.6-2.6H20v-2H8.8l2.6-2.6L10 7l-7 7 7 7zM4 4h7V2H4a2 2 0 00-2 2v6h2V4zm0 18h7v-2H4v-6H2v6a2 2 0 002 2z"/></svg>
           </div>
           <div class="txt">
-            <div class="t1">Logout</div>
+            <div class="t1" style="color:#c62828;">Logout</div>
             <div class="t2">Securely exit your account</div>
           </div>
         </div>
-        <div class="chev" aria-hidden="true">
-          <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
-        </div>
+        <div class="chev"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
       </a>
     </div>
+  </div>
 
-    <!-- TOP ACTIONS -->
-    <div class="top-actions">
-      <a class="back-btn" href="{% url 'dashboard' %}">Back</a>
-    </div>
-    <div class="top-actions-line"></div>
-
-    <!-- ✅ Logout Confirm Modal -->
-    <div id="logoutModal" class="logout-modal" aria-hidden="true">
-      <div class="logout-box" role="dialog" aria-modal="true" aria-label="Confirm Logout">
-        <div class="logout-title">Confirm Logout</div>
-        <div class="logout-text">Are you sure you want to logout?</div>
-
-        <div class="logout-actions">
-          <button type="button" class="btn-cancel" id="logoutCancel">Cancel</button>
-
-          <form method="post" action="/logout/" style="margin:0;">
-            {% csrf_token %}
-            <button type="submit" class="btn-confirm" id="logoutConfirm">Logout</button>
-          </form>
-        </div>
+  <!-- Logout confirm modal -->
+  <div id="logoutModal" class="logout-modal" aria-hidden="true">
+    <div class="logout-box" role="dialog" aria-modal="true">
+      <div class="logout-icon-wrap">
+        <svg viewBox="0 0 24 24"><path d="M10 17l1.4-1.4-2.6-2.6H20v-2H8.8l2.6-2.6L10 7l-7 7 7 7z"/></svg>
+      </div>
+      <div class="logout-title">Confirm Logout</div>
+      <div class="logout-text">Are you sure you want to logout from your account?</div>
+      <div class="logout-actions">
+        <button type="button" class="btn-cancel" id="logoutCancel">Cancel</button>
+        <form method="post" action="/logout/" style="flex:1;margin:0;">
+          {% csrf_token %}
+          <button type="submit" class="btn-confirm" id="logoutConfirm" style="width:100%;">Logout</button>
+        </form>
       </div>
     </div>
   </div>
 
-  <script>
-    (function(){
-      const btn = document.getElementById("logoutBtn");
-      const modal = document.getElementById("logoutModal");
-      const cancel = document.getElementById("logoutCancel");
-      if(!btn || !modal) return;
+</div>
 
-      function openModal(e){
-        if(e) e.preventDefault();
-        modal.classList.add("show");
-        modal.setAttribute("aria-hidden","false");
-      }
-      function closeModal(){
-        modal.classList.remove("show");
-        modal.setAttribute("aria-hidden","true");
-      }
-
-      btn.addEventListener("click", openModal);
-      if(cancel) cancel.addEventListener("click", closeModal);
-
-      modal.addEventListener("click", (e) => {
-        if(e.target === modal) closeModal();
-      });
-
-      document.addEventListener("keydown", (e) => {
-        if(e.key === "Escape") closeModal();
-      });
-    })();
-  </script>
-  <script>
+<script>
 (function(){
-  const el = document.getElementById("statusAlert");
-  if(!el) return;
-
-  const msg = (el.dataset.msg || "").trim();
-  if(!msg) return;
-
-  el.textContent = msg;
-  el.style.display = "block";
-
-  // reset
-  el.classList.remove("status-danger","status-success","status-warn");
-
-  // auto color by keywords (edit if you want)
-  const m = msg.toLowerCase();
-  const isGreen  = m.includes("approved") || m.includes("success") || m.includes("active");
-  const isYellow = m.includes("maintenance") || m.includes("invalid") || m.includes("warning");
-
-  if(isGreen) el.classList.add("status-success");
-  else if(isYellow) el.classList.add("status-warn");
-  else el.classList.add("status-danger");
+  const btn = document.getElementById("logoutBtn");
+  const modal = document.getElementById("logoutModal");
+  const cancel = document.getElementById("logoutCancel");
+  if(!btn || !modal) return;
+  function openModal(e){ if(e) e.preventDefault(); modal.classList.add("show"); modal.setAttribute("aria-hidden","false"); }
+  function closeModal(){ modal.classList.remove("show"); modal.setAttribute("aria-hidden","true"); }
+  btn.addEventListener("click", openModal);
+  if(cancel) cancel.addEventListener("click", closeModal);
+  modal.addEventListener("click", (e) => { if(e.target === modal) closeModal(); });
+  document.addEventListener("keydown", (e) => { if(e.key === "Escape") closeModal(); });
 })();
 </script>
-  {% endblock %}
+{% endblock %}

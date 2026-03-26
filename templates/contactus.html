@@ -1,239 +1,278 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Contact{% endblock %}
+{% block title %}Contact Us{% endblock %}
 
 {% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+.wrap { align-items: flex-start !important; justify-content: center !important; padding-top: 0 !important; }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-}
-
-.page, .page * {
-  font-family: "Ovelion", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-}
-
-.wrap {
-  align-items: flex-start !important;
-  justify-content: center !important;
-  padding-top: 72px !important;
-}
-
-.page {
-  width: min(520px, 94vw);
+.contact-page {
+  width: min(520px, 100vw);
   margin: 0 auto;
-  padding: 16px 16px 100px;
-  box-sizing: border-box;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  padding-bottom: 90px;
 }
 
-/* Back button */
-.top-actions {
-  margin-top: 12px;
-  margin-bottom: 16px;
-  display: flex;
-  justify-content: flex-start;
-}
-
-.top-actions-line { margin: 0; }
-
-.back-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  padding: 0 22px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #4a7a1e, #7CB342);
-  color: #fff;
-  font-weight: 800;
-  font-size: 13px;
-  text-decoration: none;
-  border: none;
-  box-shadow: 0 4px 12px rgba(74,122,30,.25);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.back-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(74,122,30,.32);
-}
-
-.back-btn:active {
-  transform: scale(.98);
-}
-
-/* Page title */
-.page-title {
-  color: #2d5a0e;
-  font-weight: 900;
-  font-size: 20px;
-  margin: 0 0 14px;
-}
-
-
-.tg-text {
-  line-height: 1;
-}
-
-/* Main form card */
-.cardx {
-  background: #ffffff;
-  border-radius: 18px;
-  border-top: 4px solid #7CB342;
-  box-shadow: 0 4px 20px rgba(74,122,30,.10);
-  padding: 24px;
-  color: #1a1a1a;
-  margin-bottom: 16px;
+/* ── Header ── */
+.ct-header {
+  background: linear-gradient(160deg, #1e4a06 0%, #2d6b0a 55%, #4a8a1e 100%);
+  padding: 52px 24px 36px;
   position: relative;
   overflow: hidden;
 }
-
-.title {
-  font-weight: 900;
-  font-size: 18px;
-  letter-spacing: .04em;
-  margin: 0 0 6px;
-  color: #1a1a1a;
+.ct-header .bg-circle {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  pointer-events: none;
 }
+.ct-header .bg-circle.c1 { width: 180px; height: 180px; top: -60px; right: -40px; }
+.ct-header .bg-circle.c2 { width: 100px; height: 100px; bottom: -20px; left: 20px; }
 
-.sub {
-  font-size: 12px;
-  color: #5a6a4a;
-  margin: 0;
+.ct-back {
+  position: absolute;
+  top: 16px; left: 18px;
+  display: inline-flex; align-items: center; gap: 5px;
+  color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 600;
+  text-decoration: none; z-index: 2;
 }
+.ct-back svg { width: 16px; height: 16px; fill: rgba(255,255,255,0.85); }
 
-/* Labels */
-label {
-  display: block;
-  font-size: 13px;
-  font-weight: 700;
-  color: #3d6b1c;
-  margin: 12px 0 6px;
-}
-
-/* Inputs and textarea */
-input, textarea {
-  width: 100%;
-  box-sizing: border-box;
-  border-radius: 10px;
-  border: 1.5px solid #c8ddb0;
-  background: #f8fdf4;
-  color: #1a1a1a;
-  padding: 12px 14px;
-  outline: none;
-  font-size: 14px;
-  font-family: inherit;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-input::placeholder, textarea::placeholder {
-  color: rgba(61,107,28,.45);
-}
-
-textarea {
-  min-height: 110px;
-  resize: none;
-}
-
-input:focus, textarea:focus {
-  border-color: #7CB342;
-  box-shadow: 0 0 0 3px rgba(124,179,66,.18);
-  background: #f8fdf4;
-}
-
-/* Send button */
-.btn {
-  width: 100%;
-  margin-top: 14px;
-  border: none;
-  border-radius: 999px;
-  padding: 14px 16px;
-  font-weight: 800;
-  font-size: 14px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: #fff;
-  cursor: pointer;
-  background: linear-gradient(135deg, #4a7a1e, #7CB342);
-  box-shadow: 0 6px 20px rgba(74,122,30,.28);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(74,122,30,.36);
-}
-
-.btn:active {
-  transform: scale(.99);
-}
-
-/* Success alert */
-.alert-success {
-  background: #f1f8e9;
-  border-left: 4px solid #7CB342;
-  border-radius: 10px;
-  padding: 14px;
-  color: #2e7d32;
-  font-weight: 700;
-  font-size: 14px;
+.ct-header-icon {
+  width: 56px; height: 56px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 16px;
+  display: flex; align-items: center; justify-content: center;
   margin-bottom: 14px;
+  position: relative; z-index: 1;
+}
+.ct-header-icon svg { width: 28px; height: 28px; fill: #fff; }
+
+.ct-header h1 {
+  font-size: 22px; font-weight: 800;
+  color: #fff; margin-bottom: 6px;
+  position: relative; z-index: 1;
+}
+.ct-header p {
+  font-size: 13px; color: rgba(255,255,255,0.75);
+  font-weight: 400; line-height: 1.5;
+  position: relative; z-index: 1;
 }
 
-.muted {
-  font-size: 12px;
-  color: #8a9a7a;
-  margin-top: 10px;
+/* ── Info pills ── */
+.ct-info-row {
+  display: flex; gap: 10px;
+  padding: 16px 16px 0;
+  flex-wrap: wrap;
+}
+.ct-info-pill {
+  flex: 1; min-width: 0;
+  background: #fff;
+  border-radius: 14px;
+  padding: 12px 14px;
+  display: flex; align-items: center; gap: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.ct-info-pill .pill-icon {
+  width: 36px; height: 36px; flex-shrink: 0;
+  background: #eaf4e0;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+}
+.ct-info-pill .pill-icon svg { width: 18px; height: 18px; fill: #3d7a12; }
+.ct-info-pill .pill-label { font-size: 10px; color: #999; font-weight: 500; }
+.ct-info-pill .pill-val { font-size: 12px; color: #1a1a1a; font-weight: 700; }
+
+/* ── Success alert ── */
+.ct-success {
+  margin: 16px 16px 0;
+  background: #eaf7e4;
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex; align-items: center; gap: 10px;
+  border: 1px solid #b6e0a0;
+}
+.ct-success svg { width: 22px; height: 22px; fill: #3d7a12; flex-shrink: 0; }
+.ct-success span { font-size: 13px; font-weight: 600; color: #2d6b0a; }
+
+/* ── Form card ── */
+.ct-form-card {
+  margin: 16px 16px 0;
+  background: #fff;
+  border-radius: 20px;
+  padding: 24px 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.ct-form-card h2 {
+  font-size: 15px; font-weight: 700;
+  color: #1a1a1a; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 8px;
+}
+.ct-form-card h2 span {
+  display: inline-block; width: 4px; height: 18px;
+  background: #4a7a1e; border-radius: 4px;
 }
 
-/* Mobile adjustments */
-@media (max-width: 520px) {
-  .page { padding: 12px 12px 100px; }
+/* ── Input group ── */
+.field-group { margin-bottom: 16px; }
+.field-group label {
+  display: block; font-size: 11px; font-weight: 700;
+  color: #555; margin-bottom: 6px;
+  text-transform: uppercase; letter-spacing: 0.6px;
 }
+.field-wrap {
+  position: relative;
+  display: flex; align-items: center;
+}
+.field-wrap .f-icon {
+  position: absolute; left: 13px;
+  width: 18px; height: 18px; fill: #aaa;
+  pointer-events: none; flex-shrink: 0;
+}
+.field-wrap input,
+.field-wrap textarea {
+  width: 100%;
+  padding: 12px 14px 12px 40px;
+  border: 1.5px solid #e8e8e8;
+  border-radius: 12px;
+  font-size: 14px; font-weight: 500;
+  color: #1a1a1a;
+  background: #fafafa;
+  outline: none;
+  font-family: 'Poppins', sans-serif;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.field-wrap textarea {
+  min-height: 120px; resize: none;
+  padding-top: 13px; line-height: 1.6;
+}
+.field-wrap input::placeholder,
+.field-wrap textarea::placeholder { color: #ccc; font-weight: 400; }
+.field-wrap input:focus,
+.field-wrap textarea:focus {
+  border-color: #4a7a1e;
+  box-shadow: 0 0 0 3px rgba(74,122,30,0.10);
+  background: #fff;
+}
+.field-wrap input:focus ~ .f-icon,
+.field-wrap input:focus + .f-icon { fill: #4a7a1e; }
+
+/* optional tag */
+.opt-tag {
+  font-size: 10px; font-weight: 500;
+  color: #aaa; margin-left: 5px;
+  text-transform: none; letter-spacing: 0;
+}
+
+/* ── Submit button ── */
+.ct-submit {
+  width: 100%; margin-top: 8px;
+  padding: 15px;
+  background: linear-gradient(135deg, #2d6b0a, #5d9e28);
+  border: none; border-radius: 14px;
+  color: #fff; font-size: 15px; font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer; letter-spacing: 0.3px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  box-shadow: 0 6px 20px rgba(45,107,10,0.30);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.ct-submit:active { transform: scale(0.98); }
+.ct-submit svg { width: 18px; height: 18px; fill: #fff; }
 </style>
 
-<div class="page">
-  <!-- TOP ACTIONS -->
-  <div class="top-actions">
-    <a class="back-btn" href="javascript:history.back()">
+<div class="contact-page">
+
+  <!-- Header -->
+  <div class="ct-header">
+    <div class="bg-circle c1"></div>
+    <div class="bg-circle c2"></div>
+    <a href="javascript:history.back()" class="ct-back">
+      <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"/></svg>
       Back
     </a>
-  </div>
-  <div class="top-actions-line"></div>
-
-  <div class="cardx">
-    <div class="title">CONTACT US</div>
-    <p class="sub">Send us a message — we will contact you soon.</p>
-  </div>
-  <!-- TELEGRAM CONTACT CARD -->
-
-
-
-  {% if sent %}
-    <div class="alert-success">
-      ✅ Thank you! We will contact you soon.
+    <div class="ct-header-icon">
+      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
     </div>
+    <h1>Contact Us</h1>
+    <p>Send us a message — our team will get back to you shortly.</p>
+  </div>
+
+  <!-- Info pills -->
+  <div class="ct-info-row">
+    <div class="ct-info-pill">
+      <div class="pill-icon">
+        <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01z"/></svg>
+      </div>
+      <div>
+        <div class="pill-label">Response</div>
+        <div class="pill-val">Within 24hrs</div>
+      </div>
+    </div>
+    <div class="ct-info-pill">
+      <div class="pill-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+      </div>
+      <div>
+        <div class="pill-label">Support</div>
+        <div class="pill-val">24/7 Available</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success message -->
+  {% if sent %}
+  <div class="ct-success">
+    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14l-4-4 1.41-1.41L10 13.17l6.59-6.59L18 8l-8 8z"/></svg>
+    <span>Message sent! We will contact you soon.</span>
+  </div>
   {% endif %}
 
-  <div class="cardx">
+  <!-- Form -->
+  <div class="ct-form-card">
+    <h2><span></span> Send a Message</h2>
     <form method="POST" action="/contact/">
       {% csrf_token %}
 
-      <label>Full name</label>
-      <input type="text" name="full_name" required>
+      <div class="field-group">
+        <label>Full Name</label>
+        <div class="field-wrap">
+          <svg class="f-icon" viewBox="0 0 24 24"><path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-4.42 0-8 2-8 4.5V20h16v-1.5C20 16 16.42 14 12 14z"/></svg>
+          <input type="text" name="full_name" placeholder="Enter your full name" required>
+        </div>
+      </div>
 
-      <label>Phone / WhatsApp</label>
-      <input type="tel" name="phone" required>
+      <div class="field-group">
+        <label>Phone / WhatsApp</label>
+        <div class="field-wrap">
+          <svg class="f-icon" viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01z"/></svg>
+          <input type="tel" name="phone" placeholder="+63 9XX XXX XXXX" required>
+        </div>
+      </div>
 
-      <label>Subject (optional)</label>
-      <input type="text" name="subject">
+      <div class="field-group">
+        <label>Subject <span class="opt-tag">(optional)</span></label>
+        <div class="field-wrap">
+          <svg class="f-icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <input type="text" name="subject" placeholder="What is this about?">
+        </div>
+      </div>
 
-      <label>Message</label>
-      <textarea name="message" required></textarea>
+      <div class="field-group">
+        <label>Message</label>
+        <div class="field-wrap">
+          <svg class="f-icon" style="top:13px;align-self:flex-start;" viewBox="0 0 24 24"><path d="M4 4h16v12H7l-3 3z"/></svg>
+          <textarea name="message" placeholder="Type your message here..." required></textarea>
+        </div>
+      </div>
 
-      <button class="btn" type="submit">Send Message</button>
+      <button type="submit" class="ct-submit">
+        <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+        Send Message
+      </button>
     </form>
   </div>
 

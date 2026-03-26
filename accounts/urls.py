@@ -97,4 +97,9 @@ urlpatterns = [
     path("control/withdrawals/", staff_member_required(views.control_withdrawals, login_url="/admin/login/"), name="control_withdrawals"),
     path('staff/fix-credit-score/', views.fix_all_credit_score, name='fix_credit_score'),
     path('staff/update-reference/', views.update_reference, name='update_reference'),
+
+    # About Us
+    path('about/', views.about_us_view, name='about_us'),
+    path('staff/about/', staff_member_required(views.staff_aboutus_view, login_url='/admin/login/'), name='staff_aboutus'),
+    path('staff/about/<int:section_id>/update/', staff_member_required(views.staff_aboutus_update, login_url='/admin/login/'), name='staff_aboutus_update'),
 ]

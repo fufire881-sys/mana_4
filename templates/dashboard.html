@@ -36,23 +36,26 @@ body{
   ) !important;
   padding-left: 14px;
   padding-right: 14px;
-  padding-bottom: 24px;
+  padding-bottom: 80px;
   box-sizing: border-box;
 }
 
 /* ===== Topbar ===== */
 .topbar{
   position: fixed;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(520px, 100vw);
   z-index: 999;
   padding: var(--topbar-pad) 0 !important;
   background: #7CB342 !important;
   box-shadow: 0 2px 12px rgba(0,0,0,.12) !important;
   border-bottom: 0 !important;
-  transition: transform .22s ease;
+  transition: box-shadow .22s ease;
 }
 .topbar.hide-bar{
-  transform: translateY(-110%);
+  transform: translateX(-50%) translateY(-110%);
 }
 
 .topbar-inner{
@@ -77,56 +80,85 @@ body{
   gap: 10px;
 }
 
-/* ===== Welcome Slider ===== */
-.welcome-slider{
-  position: absolute;
-  left: 22px;
-  right: 58px;
-  top: 50%;
-  transform: translateY(-50%);
+/* ===== Topbar Info Strip ===== */
+.topbar-strip{
   display: flex;
   align-items: center;
-  justify-content: center;
-  pointer-events: none;
+  justify-content: space-between;
+  width: 100%;
+  gap: 8px;
 }
 
-.welcome-track{
+.topbar-brand{
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.topbar-brand-logo{
+  width: 30px; height: 30px;
+  border-radius: 8px;
+  object-fit: contain;
+  background: #fff;
+  padding: 3px;
+  flex-shrink: 0;
+}
+.topbar-brand-name{
+  font-size: 10px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.2;
+  letter-spacing: 0.2px;
+}
+
+.topbar-rate-pill{
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  border: none;
+  border-radius: 20px;
+  padding: 4px 6px;
+  flex-shrink: 0;
+}
+.topbar-rate-pill span{
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+}
+.rate-dot{
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #b8f08a;
+  flex-shrink: 0;
+}
+
+.topbar-actions{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.btn-aboutus{
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
+  gap: 4px;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 20px;
+  padding: 5px 11px;
   color: #fff;
-  font-weight: 900;
   font-size: 10px;
-  letter-spacing: .02em;
-  padding: 2px 10px;
-  line-height: 1;
-  border-radius: 999px;
-  background: rgba(74,122,30,.85);
-  border: 1px solid rgba(255,255,255,.3);
-  box-shadow: 0 0 6px rgba(0,0,0,.2);
-  max-width: 100%;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(6px);
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.2s;
+  white-space: nowrap;
 }
-.welcome-track.show{
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity .35s ease, transform .35s ease;
-}
-.welcome-dot{
-  width: 6px; height: 6px; border-radius: 999px;
-  background: rgba(255,255,255,.85);
-  flex: 0 0 auto;
-}
-.welcome-text{
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-@media (max-width:420px){
-  .welcome-track{ font-size: 12px; padding: 4px 8px; }
-}
+.btn-aboutus:hover{ background: rgba(255,255,255,0.28); color: #fff; }
+.btn-aboutus svg{ width: 11px; height: 11px; fill: #fff; }
 
 /* ===== Brand ===== */
 .brand-mini{
@@ -460,6 +492,142 @@ body{
   margin-top: 2px;
 }
 
+/* ===== Feature Slider ===== */
+.feat-slider-wrap{
+  margin-top: 14px;
+  overflow: hidden;
+}
+.feat-slider-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 4px 10px;
+}
+.feat-slider-title{
+  font-size: 13px;
+  font-weight: 800;
+  color: #2d5a0e;
+}
+.feat-slider-hint{
+  font-size: 10px;
+  color: #8a9a7a;
+  font-weight: 500;
+}
+.feat-track{
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+.feat-track::-webkit-scrollbar{ display: none; }
+
+.feat-slide{
+  min-width: 130px;
+  max-width: 130px;
+  border-radius: 16px;
+  background: #fff;
+  border: 1.5px solid #e0eed0;
+  scroll-snap-align: start;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
+  overflow: hidden;
+  user-select: none;
+}
+.feat-slide:active{
+  transform: scale(0.97);
+}
+.feat-slide.active-card{
+  border-color: #7CB342;
+  box-shadow: 0 4px 16px rgba(74,122,30,0.18);
+}
+.feat-slide-top{
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f1f8e9, #dcedc8);
+  position: relative;
+}
+.feat-slide-top svg{
+  width: 36px; height: 36px;
+}
+.feat-slide-body{
+  padding: 10px 10px 12px;
+  text-align: center;
+}
+.feat-slide-name{
+  font-size: 11px;
+  font-weight: 800;
+  color: #2d5a0e;
+  line-height: 1.3;
+  margin-bottom: 3px;
+}
+.feat-slide-sub{
+  font-size: 10px;
+  color: #8a9a7a;
+  line-height: 1.4;
+}
+
+/* Detail panel */
+.feat-detail-panel{
+  margin-top: 10px;
+  border-radius: 14px;
+  background: #f8fdf4;
+  border: 1.5px solid #c8e6a0;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.35s ease, opacity 0.3s ease;
+  opacity: 0;
+}
+.feat-detail-panel.open{
+  max-height: 300px;
+  opacity: 1;
+}
+.feat-detail-inner{
+  padding: 16px;
+}
+.feat-detail-header{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.feat-detail-icon{
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #4a7a1e, #7CB342);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.feat-detail-icon svg{ width: 22px; height: 22px; }
+.feat-detail-title{
+  font-size: 14px;
+  font-weight: 900;
+  color: #1a3a0a;
+}
+.feat-detail-desc{
+  font-size: 12px;
+  color: #4a5a3a;
+  line-height: 1.7;
+}
+.feat-dots{
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 0 2px;
+}
+.feat-dot{
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: #c8e6a0;
+  transition: all 0.25s;
+}
+.feat-dot.on{ background: #4a7a1e; width: 14px; border-radius: 3px; }
+
 /* ===== Apply Now button ===== */
 @keyframes applyPulse {
   0%   { box-shadow: 0 4px 16px rgba(74,122,30,.40), 0 0 0 0 rgba(124,179,66,.55); }
@@ -529,61 +697,89 @@ body{
 }
 .quick .go svg{ width: 16px; height: 16px; fill: #fff; opacity: .95; }
 
-/* ===== Bottom Nav (in-flow 2x2 grid) ===== */
+/* ===== Bottom Nav — fixed app-style bar ===== */
 .bottom-nav{
-  position: static !important;
-  width: 100% !important;
-  margin: 12px 0 16px !important;
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) translateY(0) !important;
+  width: min(520px, 100vw) !important;
+  height: 64px !important;
+  background: #fff !important;
+  border-top: 1px solid #e8e8e8 !important;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.08) !important;
+  z-index: 999 !important;
   padding: 0 !important;
-  background: transparent !important;
-  border: 0 !important;
+  margin: 0 !important;
   border-radius: 0 !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  transition: transform 0.3s ease !important;
 }
-.bottom-nav.hide-bar{ transform: none !important; }
+.bottom-nav.hide-bar{
+  transform: translateX(-50%) translateY(100%) !important;
+}
 
 .nav-grid{
-  display: grid !important;
-  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  gap: 12px !important;
+  display: flex !important;
+  align-items: stretch !important;
   width: 100% !important;
+  height: 100% !important;
 }
 
 .bottom-nav a.nav-item,
 .nav-item{
-  width: 100% !important;
-  min-height: 56px !important;
+  flex: 1 !important;
   display: flex !important;
-  flex-direction: row !important;
+  flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 10px !important;
-  padding: 14px 12px !important;
-  border-radius: 18px !important;
-  color: #fff !important;
+  gap: 3px !important;
+  padding: 8px 4px 6px !important;
+  color: #aaa !important;
   text-decoration: none !important;
-  font-weight: 950 !important;
-  letter-spacing: .06em !important;
-  text-transform: uppercase !important;
-  font-size: 12px !important;
-  background: linear-gradient(135deg, #7CB342 0%, #4a7a1e 100%) !important;
-  border: 2px solid rgba(255,255,255,.30) !important;
-  box-shadow: 0 4px 14px rgba(74,122,30,.30) !important;
+  font-weight: 600 !important;
+  font-size: 10px !important;
+  letter-spacing: 0.3px !important;
+  text-transform: capitalize !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  min-height: unset !important;
+  position: relative !important;
+  transition: color 0.2s !important;
 }
 .bottom-nav a.nav-item svg,
 .nav-item svg{
-  width: 20px !important;
-  height: 20px !important;
-  fill: #fff !important;
-  opacity: .95 !important;
+  width: 22px !important;
+  height: 22px !important;
+  fill: #aaa !important;
+  transition: fill 0.2s, transform 0.2s !important;
 }
-.nav-item:active,
-.bottom-nav a.nav-item:active{ transform: scale(.99); }
+.nav-item:active svg,
+.bottom-nav a.nav-item:active svg{
+  transform: scale(0.88) !important;
+}
+/* Active state */
 .nav-item.active,
 .bottom-nav a.nav-item.active{
-  outline: 2px solid rgba(124,179,66,.5);
+  color: #4a7a1e !important;
+  outline: none !important;
+}
+.nav-item.active svg,
+.bottom-nav a.nav-item.active svg{
+  fill: #4a7a1e !important;
+}
+/* Active dot indicator */
+.nav-item.active::before{
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 28px !important;
+  height: 3px !important;
+  background: #4a7a1e !important;
+  border-radius: 0 0 4px 4px !important;
 }
 
 /* ===== Video / Our Services card ===== */
@@ -753,16 +949,26 @@ body{
 <div class="topbar">
   <div class="topbar-inner">
 
-  <div class="topbar-left" style="gap:8px;">
-    <div class="welcome-slider" aria-hidden="true">
-      <div class="welcome-track" id="welcomeTrack">
-        <span class="welcome-dot"></span>
-        <span class="welcome-text" id="welcomeText">Secure System • Trusted Service • 24/7 Support</span>
-      </div>
-    </div>
-  </div>
+  <div class="topbar-strip">
 
-  <a class="brand-mini" href="#top" aria-label="Top"></a>
+    <!-- Brand -->
+    <a class="topbar-brand" href="#top">
+      <img src="{% static 'img/logo.png' %}" alt="Logo" class="topbar-brand-logo">
+      <span class="topbar-brand-name">ASIASOURCE<br>FINANCIAL</span>
+    </a>
+
+    <!-- Low Rate Pill -->
+    <div class="topbar-rate-pill">
+      <span class="rate-dot"></span>
+      <span>Low Interest Loans</span>
+    </div>
+
+    <!-- Actions -->
+    <div class="topbar-actions">
+      <a href="/about/" class="btn-aboutus">
+        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+        About Us
+      </a>
 
   <div class="topbar-right">
     <a class="notify-wrap dot-only {% if notif_count|default:0|add:0 > 0 %}has-unread{% endif %}"
@@ -785,10 +991,12 @@ body{
         </svg>
       </label>
     </a>
-  </div>
+  </div><!-- topbar-right -->
+  </div><!-- topbar-actions -->
+  </div><!-- topbar-strip -->
 
-</div>
-</div>
+</div><!-- topbar-inner -->
+</div><!-- topbar -->
 
 <div class="dash-wrap">
   <!-- Profile card -->
@@ -837,19 +1045,19 @@ body{
   <div class="nav-grid">
       <a class="nav-item" href="#top" data-nav="home" aria-label="Home">
         <svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
-        HOME
+        Home
       </a>
       <a class="nav-item" href="/wallet/" data-nav="wallet" aria-label="Wallet">
         <svg viewBox="0 0 24 24"><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2h-6a2 2 0 0 0 0 4h6v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M20 11h-5a1 1 0 0 0 0 2h5z" opacity=".75"/></svg>
-        WALLET
+        Wallet
       </a>
       <a class="nav-item" href="{% url 'contact' %}" data-nav="contact" aria-label="Contact">
-        <svg viewBox="0 0 24 24"><path d="M4 4h16v12H7l-3 3z"/><path d="M7 8h10M7 11h7" stroke="rgba(0,0,0,.35)" stroke-width="2" stroke-linecap="round"/></svg>
-        CONTACT
+        <svg viewBox="0 0 24 24"><path d="M4 4h16v12H7l-3 3z"/><path d="M7 8h10M7 11h7" stroke="#aaa" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+        Contact
       </a>
       <a class="nav-item" href="/profile/" data-nav="profile" aria-label="Profile">
         <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.42 0-8 2-8 4.5V21h16v-2.5C20 16 16.42 14 12 14z"/></svg>
-        PROFILE
+        Profile
       </a>
     </div>
   </nav>
@@ -861,62 +1069,108 @@ body{
     </span>
   </a>
 <!-- Security Trust Card -->
-<div class="cardx trust-card reveal from-right" style="margin-top:14px;">
-  <div class="trust-header">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" style="flex:0 0 auto;">
-      <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V6L12 2z" fill="#7CB342" opacity=".18"/>
-      <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V6L12 2z" stroke="#7CB342" stroke-width="1.5" fill="none"/>
-      <path d="M9 12l2 2 4-4" stroke="#7CB342" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <span class="trust-title">Secure &amp; Trusted Platform</span>
-  </div>
-  <div class="trust-grid">
-    <div class="trust-item">
-      <div class="trust-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-          <rect x="3" y="11" width="18" height="11" rx="2" stroke="#7CB342" stroke-width="1.8" fill="none"/>
-          <path d="M7 11V7a5 5 0 0110 0v4" stroke="#7CB342" stroke-width="1.8" stroke-linecap="round"/>
-        </svg>
+<div class="cardx reveal from-right" style="margin-top:14px;">
+  <div class="feat-slider-wrap">
+    <div class="feat-slider-header">
+      <span class="feat-slider-title">Our Services</span>
+      <span class="feat-slider-hint">Tap card for details →</span>
+    </div>
+
+    <div class="feat-track" id="featTrack">
+      <!-- Card 1 -->
+      <div class="feat-slide active-card" data-idx="0" onclick="showFeatDetail(0)">
+        <div class="feat-slide-top">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="11" width="18" height="11" rx="2" stroke="#4a7a1e" stroke-width="1.8" fill="none"/>
+            <path d="M7 11V7a5 5 0 0110 0v4" stroke="#4a7a1e" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="12" cy="16" r="1.5" fill="#7CB342"/>
+          </svg>
+        </div>
+        <div class="feat-slide-body">
+          <div class="feat-slide-name">Data Encrypted</div>
+          <div class="feat-slide-sub">256-bit SSL</div>
+        </div>
       </div>
-      <div class="trust-text">
-        <div class="trust-label">Data Encrypted</div>
-        <div class="trust-sub">256-bit SSL security</div>
+
+      <!-- Card 2 -->
+      <div class="feat-slide" data-idx="1" onclick="showFeatDetail(1)">
+        <div class="feat-slide-top">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="9" stroke="#4a7a1e" stroke-width="1.8" fill="none"/>
+            <path d="M12 7v5l3 3" stroke="#7CB342" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="feat-slide-body">
+          <div class="feat-slide-name">Fast Approval</div>
+          <div class="feat-slide-sub">Within 24-48 hrs</div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="feat-slide" data-idx="2" onclick="showFeatDetail(2)">
+        <div class="feat-slide-top">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V6L12 2z" stroke="#4a7a1e" stroke-width="1.8" fill="rgba(124,179,66,0.12)"/>
+            <path d="M9 12l2 2 4-4" stroke="#7CB342" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="feat-slide-body">
+          <div class="feat-slide-name">SEC Licensed</div>
+          <div class="feat-slide-sub">Verified &amp; legal</div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="feat-slide" data-idx="3" onclick="showFeatDetail(3)">
+        <div class="feat-slide-top">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#4a7a1e" stroke-width="1.8" stroke-linecap="round"/>
+            <circle cx="12" cy="7" r="4" stroke="#4a7a1e" stroke-width="1.8" fill="none"/>
+            <path d="M16 3.13a4 4 0 010 7.75" stroke="#7CB342" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="feat-slide-body">
+          <div class="feat-slide-name">24/7 Support</div>
+          <div class="feat-slide-sub">Always here</div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="feat-slide" data-idx="4" onclick="showFeatDetail(4)">
+        <div class="feat-slide-top">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6" stroke="#4a7a1e" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="feat-slide-body">
+          <div class="feat-slide-name">Low Interest</div>
+          <div class="feat-slide-sub">Best rates</div>
+        </div>
       </div>
     </div>
-    <div class="trust-item">
-      <div class="trust-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-          <circle cx="12" cy="12" r="9" stroke="#7CB342" stroke-width="1.8" fill="none"/>
-          <path d="M12 7v5l3 3" stroke="#7CB342" stroke-width="1.8" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <div class="trust-text">
-        <div class="trust-label">Fast Approval</div>
-        <div class="trust-sub">Response within 24 hrs</div>
-      </div>
+
+    <!-- Dots -->
+    <div class="feat-dots" id="featDots">
+      <div class="feat-dot on"></div>
+      <div class="feat-dot"></div>
+      <div class="feat-dot"></div>
+      <div class="feat-dot"></div>
+      <div class="feat-dot"></div>
     </div>
-    <div class="trust-item">
-      <div class="trust-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-          <path d="M9 12l2 2 4-4" stroke="#7CB342" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="#7CB342" stroke-width="1.8" fill="none"/>
-        </svg>
-      </div>
-      <div class="trust-text">
-        <div class="trust-label">Verified Process</div>
-        <div class="trust-sub">Transparent &amp; fair</div>
-      </div>
-    </div>
-    <div class="trust-item">
-      <div class="trust-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#7CB342" stroke-width="1.8" stroke-linecap="round"/>
-          <circle cx="12" cy="7" r="4" stroke="#7CB342" stroke-width="1.8" fill="none"/>
-        </svg>
-      </div>
-      <div class="trust-text">
-        <div class="trust-label">24/7 Support</div>
-        <div class="trust-sub">Always here for you</div>
+
+    <!-- Detail Panel -->
+    <div class="feat-detail-panel open" id="featDetail">
+      <div class="feat-detail-inner" id="featDetailInner">
+        <div class="feat-detail-header">
+          <div class="feat-detail-icon">
+            <svg viewBox="0 0 24 24" fill="none" width="22" height="22">
+              <rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="1.8" fill="none"/>
+              <path d="M7 11V7a5 5 0 0110 0v4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="feat-detail-title">Data Encrypted</div>
+        </div>
+        <div class="feat-detail-desc">Your personal and financial data is fully protected with 256-bit SSL encryption — the same security standard used by major banks worldwide. All transactions are encrypted end-to-end.</div>
       </div>
     </div>
   </div>
@@ -980,19 +1234,59 @@ body{
 
 
 <script>
-/* ===== Bottom nav active highlight ===== */
+/* ===== Bottom nav: active highlight + smart hide/show on scroll ===== */
 (function(){
+  const nav = document.querySelector('.bottom-nav');
   const items = Array.from(document.querySelectorAll(".bottom-nav .nav-item"));
-  if(!items.length) return;
+  if(!nav || !items.length) return;
 
+  /* -- Active state from URL/hash -- */
   function setActiveFromHash(){
     const h = (location.hash || "#top").toLowerCase();
+    const path = location.pathname.toLowerCase();
     items.forEach(a => a.classList.remove("active"));
-    const hit = items.find(a => (a.getAttribute("href") || "").toLowerCase() === h);
+    const hit = items.find(a => {
+      const href = (a.getAttribute("href") || "").toLowerCase();
+      return href === h || (href !== "#top" && path.startsWith(href));
+    });
     (hit || items[0]).classList.add("active");
   }
   window.addEventListener("hashchange", setActiveFromHash);
   setActiveFromHash();
+
+  /* -- Show on load immediately -- */
+  nav.classList.remove('hide-bar');
+
+  /* -- Hide on scroll down, show on scroll up / stopped -- */
+  let lastY = window.scrollY || 0;
+  let ticking = false;
+  let hideTimer = null;
+
+  window.addEventListener('scroll', function(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      const y = window.scrollY || 0;
+      const diff = y - lastY;
+
+      if(Math.abs(diff) > 4){
+        if(diff > 0){
+          nav.classList.add('hide-bar');   // scrolling down → hide
+        } else {
+          nav.classList.remove('hide-bar'); // scrolling up → show
+        }
+        lastY = y;
+      }
+
+      /* Auto show again after user stops scrolling for 600ms */
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(function(){
+        nav.classList.remove('hide-bar');
+      }, 600);
+
+      ticking = false;
+    });
+  }, { passive: true });
 })();
 </script>
 
@@ -1154,5 +1448,105 @@ body{
     show(msgs[i]);
   }, 4000);
 })();
+</script>
+
+<script>
+// Feature Slider
+var featData = [
+  {
+    title: 'Data Encrypted',
+    icon: '<rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="1.8" fill="none"/><path d="M7 11V7a5 5 0 0110 0v4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>',
+    desc: 'Your personal and financial data is fully protected with 256-bit SSL encryption — the same security standard used by major banks worldwide. All transactions are encrypted end-to-end.'
+  },
+  {
+    title: 'Fast Approval',
+    icon: '<circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.8" fill="none"/><path d="M12 7v5l3 3" stroke="#fff" stroke-width="2" stroke-linecap="round"/>',
+    desc: 'Our streamlined digital process ensures your loan application is reviewed and approved within 24 to 48 hours. No lengthy paperwork — apply online and receive funds directly to your account.'
+  },
+  {
+    title: 'SEC Licensed',
+    icon: '<path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V6L12 2z" stroke="#fff" stroke-width="1.8" fill="rgba(255,255,255,0.2)"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+    desc: 'ASIASOURCE FINANCIAL INC. is officially registered with the Securities and Exchange Commission of the Philippines (SEC No. CS201412567) since August 8, 2014. Fully compliant and transparent.'
+  },
+  {
+    title: '24/7 Support',
+    icon: '<path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="7" r="4" stroke="#fff" stroke-width="1.8" fill="none"/>',
+    desc: 'Our customer support team is available 24 hours a day, 7 days a week to assist you with any questions, concerns, or issues regarding your loan application or account.'
+  },
+  {
+    title: 'Low Interest',
+    icon: '<path d="M12 2v20M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>',
+    desc: 'We offer highly competitive low-interest rates for personal and business loans ranging from ₱80,000 to ₱5,000,000. Flexible repayment terms with no hidden fees and transparent conditions.'
+  }
+];
+
+var currentFeat = 0;
+
+function showFeatDetail(idx) {
+  currentFeat = idx;
+  // Update active card
+  document.querySelectorAll('.feat-slide').forEach(function(el, i) {
+    el.classList.toggle('active-card', i === idx);
+  });
+  // Update dots
+  document.querySelectorAll('.feat-dot').forEach(function(el, i) {
+    el.classList.toggle('on', i === idx);
+  });
+  // Update detail panel
+  var d = featData[idx];
+  var inner = document.getElementById('featDetailInner');
+  inner.innerHTML =
+    '<div class="feat-detail-header">' +
+      '<div class="feat-detail-icon"><svg viewBox="0 0 24 24" fill="none" width="22" height="22">' + d.icon + '</svg></div>' +
+      '<div class="feat-detail-title">' + d.title + '</div>' +
+    '</div>' +
+    '<div class="feat-detail-desc">' + d.desc + '</div>';
+  var panel = document.getElementById('featDetail');
+  panel.classList.remove('open');
+  setTimeout(function(){ panel.classList.add('open'); }, 20);
+  // Scroll card into view
+  var cards = document.querySelectorAll('.feat-slide');
+  if(cards[idx]) cards[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+}
+
+// Click card to show detail
+function showFeatDetail(idx) {
+  currentFeat = idx;
+  document.querySelectorAll('.feat-slide').forEach(function(el, i) {
+    el.classList.toggle('active-card', i === idx);
+  });
+  document.querySelectorAll('.feat-dot').forEach(function(el, i) {
+    el.classList.toggle('on', i === idx);
+  });
+  var d = featData[idx];
+  var inner = document.getElementById('featDetailInner');
+  inner.innerHTML =
+    '<div class="feat-detail-header">' +
+      '<div class="feat-detail-icon"><svg viewBox="0 0 24 24" fill="none" width="22" height="22">' + d.icon + '</svg></div>' +
+      '<div class="feat-detail-title">' + d.title + '</div>' +
+    '</div>' +
+    '<div class="feat-detail-desc">' + d.desc + '</div>';
+  var panel = document.getElementById('featDetail');
+  panel.classList.remove('open');
+  setTimeout(function(){ panel.classList.add('open'); }, 20);
+}
+
+// Update dot on manual swipe (no auto-advance)
+var ft = document.getElementById('featTrack');
+if (ft) {
+  ft.addEventListener('scroll', function() {
+    var cardW = ft.querySelector('.feat-slide').offsetWidth + 10;
+    var idx = Math.min(Math.round(ft.scrollLeft / cardW), featData.length - 1);
+    if (idx !== currentFeat) {
+      currentFeat = idx;
+      document.querySelectorAll('.feat-dot').forEach(function(el, i) {
+        el.classList.toggle('on', i === idx);
+      });
+      document.querySelectorAll('.feat-slide').forEach(function(el, i) {
+        el.classList.toggle('active-card', i === idx);
+      });
+    }
+  }, { passive: true });
+}
 </script>
 {% endblock %}

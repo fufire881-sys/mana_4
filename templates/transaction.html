@@ -2,207 +2,254 @@
 {% block title %}Transactions{% endblock %}
 
 {% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body, body * { font-family: 'Poppins', sans-serif !important; }
+.wrap { align-items: flex-start !important; padding-top: 0 !important; }
 
-.tx-page, .tx-page * {
-  font-family: "Ovelion", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-}
-
-body {
-}
-
-/* ── Wrapper ── */
-.tx-wrap {
-  width: min(520px, 94vw);
-  max-width: 520px;
+.tx-page {
+  width: min(520px, 100vw);
   margin: 0 auto;
-  padding: 16px 16px 100px;
-  box-sizing: border-box;
+  min-height: 100vh;
+  padding-bottom: 40px;
 }
 
-/* ── Header row ── */
-.row {
+/* ── Header ── */
+.tx-header {
+  background: linear-gradient(160deg, #1e4a06 0%, #2d6b0a 55%, #4a8a1e 100%);
+  padding: 52px 24px 36px;
+  position: relative;
+  overflow: hidden;
+}
+.tx-header .hbg1 {
+  position: absolute; border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  width: 200px; height: 200px; top: -70px; right: -50px; pointer-events: none;
+}
+.tx-header .hbg2 {
+  position: absolute; border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  width: 120px; height: 120px; bottom: -30px; left: -20px; pointer-events: none;
+}
+
+.tx-back {
+  position: absolute; top: 16px; left: 16px;
+  display: inline-flex; align-items: center; gap: 4px;
+  color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 600;
+  text-decoration: none; z-index: 2;
+}
+.tx-back svg { width: 16px; height: 16px; fill: rgba(255,255,255,0.85); }
+
+.tx-header-icon {
+  width: 52px; height: 52px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 14px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 12px;
+  position: relative; z-index: 1;
+}
+.tx-header-icon svg { width: 26px; height: 26px; fill: #fff; }
+
+.tx-header h1 {
+  font-size: 22px; font-weight: 800;
+  color: #fff; margin-bottom: 4px;
+  position: relative; z-index: 1;
+}
+.tx-header p {
+  font-size: 12px; color: rgba(255,255,255,0.7);
+  font-weight: 400;
+  position: relative; z-index: 1;
+}
+
+/* ── Balance pill ── */
+.tx-balance-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 14px;
+  background: rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.25);
+  border-radius: 999px;
+  padding: 7px 16px;
+  position: relative; z-index: 1;
+}
+.tx-balance-pill span { font-size: 13px; font-weight: 700; color: #fff; }
+.tx-balance-pill .bal-label { font-size: 11px; color: rgba(255,255,255,0.7); font-weight: 500; }
+
+/* ── Body ── */
+.tx-body { padding: 16px 16px 0; }
+
+/* ── Section header ── */
+.tx-section-label {
+  font-size: 11px; font-weight: 700; color: #888;
+  text-transform: uppercase; letter-spacing: 0.8px;
+  margin-bottom: 10px;
+}
+
+/* ── Transaction card ── */
+.tx-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+/* ── Transaction row ── */
+.tx-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid #f5f5f5;
+  transition: background 0.15s;
 }
+.tx-row:last-child { border-bottom: none; }
+.tx-row:active { background: #fafafa; }
 
-/* ── Page title ── */
-.title {
-  font-weight: 900;
-  font-size: 18px;
-  color: #2d5a0e;
+/* Icon bubble */
+.tx-icon-bubble {
+  width: 42px; height: 42px; flex-shrink: 0;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
 }
-.sub {
-  font-size: 12px;
-  color: #8a9a7a;
+.tx-icon-bubble.sent     { background: #fff8f8; }
+.tx-icon-bubble.rejected { background: #fff8f8; }
+.tx-icon-bubble svg { width: 20px; height: 20px; }
+.tx-icon-bubble.sent svg     { fill: #e53935; }
+.tx-icon-bubble.rejected svg { fill: #e53935; }
+
+/* Text */
+.tx-row-info { flex: 1; min-width: 0; }
+.tx-row-label {
+  font-size: 13px; font-weight: 700; color: #1a1a1a;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.tx-row-date {
+  font-size: 11px; color: #aaa; font-weight: 500;
   margin-top: 2px;
 }
 
-/* ── Balance badge ── */
-.badge {
-  background: #DCEDC8;
-  color: #2d5a0e;
-  border-radius: 999px;
-  padding: 6px 16px;
-  font-weight: 800;
-  font-size: 13px;
-  white-space: nowrap;
-  border: 1px solid rgba(124,179,66,.30);
+/* Right side */
+.tx-row-right { text-align: right; flex-shrink: 0; }
+.tx-amount {
+  font-size: 14px; font-weight: 800;
 }
+.tx-amount.negative { color: #e53935; }
 
-/* ── Main card ── */
-.tx-card {
-  background: #ffffff;
-  border-radius: 18px;
-  border-top: 4px solid #7CB342;
-  box-shadow: 0 4px 20px rgba(74,122,30,.10);
-  overflow: hidden;
-  padding: 18px;
-  margin-top: 12px;
-}
-
-/* ── Transaction list rows ── */
-.list-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 0;
-  border-bottom: 1px solid #f0f4ec;
-  font-size: 13px;
-  color: #1a1a1a;
-}
-.list-row:last-child {
-  border-bottom: none;
-}
-
-/* ── Amount text ── */
-.amount-positive {
-  font-weight: 800;
-  color: #2e7d32;
-}
-.amount-negative {
-  font-weight: 800;
-  color: #e53935;
-}
-
-/* ── Meta / muted text ── */
-.muted {
-  font-size: 12px;
-  color: #8a9a7a;
+/* Status pill */
+.tx-pill {
+  display: inline-block;
   margin-top: 3px;
-}
-
-/* ── Status pills ── */
-.pill {
-  padding: 4px 10px;
+  padding: 3px 9px;
   border-radius: 999px;
-  font-weight: 900;
-  font-size: 11px;
-  white-space: nowrap;
+  font-size: 10px; font-weight: 700;
 }
-.pill-success {
-  background: #f1f8e9;
-  color: #2e7d32;
-  border: 1px solid rgba(46,125,50,.25);
-}
-.pill-danger {
-  background: #ffebee;
-  color: #c62828;
-  border: 1px solid rgba(198,40,40,.25);
-}
+.tx-pill.sent     { background: #f1f8e9; color: #2e7d32; border: 1px solid rgba(46,125,50,.25); }
+.tx-pill.rejected { background: #ffebee; color: #c62828; border: 1px solid rgba(198,40,40,.25); }
 
 /* ── Empty state ── */
-.empty-state {
-  color: #8a9a7a;
+.tx-empty {
+  padding: 48px 20px;
   text-align: center;
-  padding: 40px 20px;
-  font-size: 14px;
 }
-
-/* ── Action buttons row ── */
-.btn-row {
-  margin-top: 14px;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
+.tx-empty-icon {
+  width: 64px; height: 64px;
+  background: #f5f5f5;
+  border-radius: 20px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 14px;
 }
+.tx-empty-icon svg { width: 30px; height: 30px; fill: #ccc; }
+.tx-empty-title { font-size: 14px; font-weight: 700; color: #999; margin-bottom: 4px; }
+.tx-empty-sub   { font-size: 12px; color: #bbb; }
 
-/* ── Ghost / back button ── */
-.btn-ghost {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  padding: 0 20px;
-  border-radius: 999px;
-  background: rgba(124,179,66,.12);
-  color: #4a7a1e !important;
-  border: 1px solid rgba(124,179,66,.30);
-  font-weight: 800;
-  font-size: 14px;
-  text-decoration: none;
-  transition: background .15s ease, transform .08s ease;
+/* ── Actions ── */
+.tx-actions {
+  display: flex; gap: 10px;
+  padding: 0 16px;
 }
-.btn-ghost:hover  { background: rgba(124,179,66,.22); transform: translateY(-1px); }
-.btn-ghost:active { transform: scale(.98); }
-
-/* ── Primary button ── */
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  padding: 0 20px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #4a7a1e, #7CB342) !important;
-  color: #ffffff !important;
-  border: 0 !important;
-  font-weight: 800;
-  font-size: 14px;
-  text-decoration: none;
-  box-shadow: 0 4px 14px rgba(74,122,30,.25);
-  transition: opacity .15s ease, transform .08s ease;
+.tx-btn {
+  flex: 1; padding: 14px;
+  border-radius: 14px; font-size: 14px; font-weight: 700;
+  text-decoration: none; text-align: center;
+  cursor: pointer; border: none;
+  transition: transform 0.15s, opacity 0.15s;
+  font-family: 'Poppins', sans-serif;
 }
-.btn-primary:hover  { opacity: .90; transform: translateY(-1px); }
-.btn-primary:active { transform: scale(.98); }
-
+.tx-btn:active { transform: scale(0.98); }
+.tx-btn-ghost   { background: #fff; color: #4a7a1e; border: 1.5px solid #c8ddb0; }
+.tx-btn-primary { background: linear-gradient(135deg, #2d6b0a, #5d9e28); color: #fff; box-shadow: 0 4px 16px rgba(45,107,10,0.28); }
 </style>
 
-<div class="tx-wrap tx-page">
-  <div class="tx-card">
-    <div class="row" style="margin-bottom:8px;">
-      <div>
-        <div class="title"><span class="silver-run">Transactions</span></div>
-        <div class="sub">Only Payment sent / Rejected (Latest 20)</div>
-      </div>
-      <span class="badge">Balance: PHP {{ request.user.balance|default:"0" }}</span>
-    </div>
+<div class="tx-page">
 
-    {% for w in withdrawals %}
-      <div class="list-row">
-        <div>
-          <div class="amount-negative">PHP {{ w.amount }} {{ w.currency }}</div>
-          <div class="muted">{{ w.created_at|date:"M d, Y, P" }}</div>
+  <!-- Header -->
+  <div class="tx-header">
+    <div class="hbg1"></div>
+    <div class="hbg2"></div>
+
+    <a href="/profile/" class="tx-back">
+      <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"/></svg>
+      Back
+    </a>
+
+    <div class="tx-header-icon">
+      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S14.93 14 13 14s-3.5-1.57-3.5-3.5S11.07 7 13 7zM5 18v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 13 15c.44 0 .84.02 1.23.06L11.5 18H5zm14 0h-5.5l2.5-2.94c.75.26 1.38.66 1.74.98.48.38.76.97.76 1.58V18z"/></svg>
+    </div>
+    <h1>Transactions</h1>
+    <p>Payment sent / Rejected — Latest 20</p>
+
+    <div class="tx-balance-pill">
+      <span class="bal-label">Balance</span>
+      <span>PHP {{ request.user.balance|default:"0" }}</span>
+    </div>
+  </div>
+
+  <!-- Body -->
+  <div class="tx-body">
+
+    <div class="tx-section-label" style="margin-top:4px;">Recent Activity</div>
+
+    <div class="tx-card">
+      {% for w in withdrawals %}
+        <div class="tx-row">
+          <div class="tx-icon-bubble {% if w.status == 'paid' %}sent{% else %}rejected{% endif %}">
+            {% if w.status == "paid" %}
+              <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+            {% else %}
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+            {% endif %}
+          </div>
+          <div class="tx-row-info">
+            <div class="tx-row-label">
+              {% if w.status == "paid" %}Payment Sent{% else %}Payment Rejected{% endif %}
+            </div>
+            <div class="tx-row-date">{{ w.created_at|date:"M d, Y · g:i A" }}</div>
+          </div>
+          <div class="tx-row-right">
+            <div class="tx-amount negative">- PHP {{ w.amount }} {{ w.currency }}</div>
+            <div class="tx-pill {% if w.status == 'paid' %}sent{% else %}rejected{% endif %}">
+              {% if w.status == "paid" %}Sent{% else %}Rejected{% endif %}
+            </div>
+          </div>
         </div>
-
-        {% if w.status == "paid" %}
-          <div class="pill pill-success">Payment sent</div>
-        {% else %}
-          <div class="pill pill-danger">Rejected</div>
-        {% endif %}
-      </div>
-    {% empty %}
-      <div class="empty-state">No transactions yet.</div>
-    {% endfor %}
-
-    <div style="margin-top:14px;display:flex;justify-content:center;gap:10px;flex-wrap:wrap;">
-      <a class="btn btn-ghost" href="/profile/">Back</a>
-      <a class="btn btn-primary" href="/dashboard/">Dashboard</a>
+      {% empty %}
+        <div class="tx-empty">
+          <div class="tx-empty-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm0-12l-8 5-8-5V6h16v.01z"/></svg>
+          </div>
+          <div class="tx-empty-title">No transactions yet</div>
+          <div class="tx-empty-sub">Your payment history will appear here</div>
+        </div>
+      {% endfor %}
     </div>
+
+    <!-- Actions -->
+    <div class="tx-actions">
+      <a class="tx-btn tx-btn-ghost" href="/profile/">Back</a>
+      <a class="tx-btn tx-btn-primary" href="/dashboard/">Dashboard</a>
+    </div>
+
   </div>
 </div>
 {% endblock %}
