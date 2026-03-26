@@ -1145,7 +1145,11 @@ body{
       <label class="calc-label">Loan Amount (PHP)</label>
       <div class="calc-amount-wrap">
         <span class="calc-currency-badge">₱</span>
-        <input class="calc-amount-input" id="calcAmt" type="number" placeholder="e.g. 50000" min="80000" max="5000000">
+        <input class="calc-amount-input" id="calcAmt" type="number" placeholder="e.g. 80,000" min="80000" max="5000000">
+      </div>
+      <div id="calcWarn" style="display:none;align-items:center;gap:7px;background:#fff3cd;border:1.5px solid #ffc107;border-radius:10px;padding:9px 12px;margin-bottom:10px;margin-top:-6px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b45309" flex-shrink="0"><path d="M12 2L1 21h22L12 2zm0 3.5L20.5 19h-17L12 5.5zM11 10v4h2v-4zm0 6v2h2v-2z"/></svg>
+        <span id="calcWarnTxt" style="font-size:12px;font-weight:700;color:#92400e;font-family:'Poppins',sans-serif;"></span>
       </div>
 
       <label class="calc-label">Loan Term</label>
@@ -1171,7 +1175,7 @@ body{
         </div>
       </div>
 
-      <a href="/loan-apply/" class="calc-apply-btn">
+      <a href="/loan-apply/" class="calc-apply-btn" id="calcApplyBtn">
         <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
         Apply for a Loan
       </a>
@@ -1258,26 +1262,58 @@ body{
 <script>
 /* ===== Mini Loan Calculator ===== */
 (function(){
-  var amtEl   = document.getElementById('calcAmt');
-  var termBtns= document.querySelectorAll('.calc-term-btn');
-  var monthly = document.getElementById('calcMonthly');
-  var total   = document.getElementById('calcTotal');
-  var interest= document.getElementById('calcInterest');
+  var amtEl    = document.getElementById('calcAmt');
+  var termBtns = document.querySelectorAll('.calc-term-btn');
+  var monthly  = document.getElementById('calcMonthly');
+  var total    = document.getElementById('calcTotal');
+  var interest = document.getElementById('calcInterest');
+  var warn     = document.getElementById('calcWarn');
+  var warnTxt  = document.getElementById('calcWarnTxt');
+  var applyBtn = document.getElementById('calcApplyBtn');
   var selMonths = 12;
+  var MIN = 80000, MAX = 5000000;
 
   function fmt(n){
     return '₱ ' + n.toLocaleString('en-PH', {minimumFractionDigits:2, maximumFractionDigits:2});
   }
+
+  function setWarn(msg){
+    if(msg){
+      warnTxt.textContent = msg;
+      warn.style.display = 'flex';
+      applyBtn.style.opacity = '0.4';
+      applyBtn.style.pointerEvents = 'none';
+      applyBtn.style.cursor = 'not-allowed';
+    } else {
+      warn.style.display = 'none';
+      applyBtn.style.opacity = '1';
+      applyBtn.style.pointerEvents = 'auto';
+      applyBtn.style.cursor = 'pointer';
+    }
+  }
+
   function calculate(){
     var P = parseFloat(amtEl.value);
     var n = selMonths;
-    var r = 0.005; // 0.5% simple interest — same as quick_loan & loan_apply
+    var r = 0.005;
     if(!P || P <= 0){
       monthly.textContent='₱ —';
       total.textContent='₱ —';
       interest.textContent='₱ —';
+      setWarn(null);
       return;
     }
+    if(P < MIN){
+      setWarn('Minimum loan amount is ₱80,000. Please enter a higher amount.');
+      monthly.textContent='₱ —'; total.textContent='₱ —'; interest.textContent='₱ —';
+      return;
+    }
+    if(P > MAX){
+      setWarn('Maximum loan amount is ₱5,000,000. Please enter a lower amount.');
+      monthly.textContent='₱ —'; total.textContent='₱ —'; interest.textContent='₱ —';
+      return;
+    }
+    setWarn(null);
     var T = P + (P * r * n);
     var M = Math.round(T / n);
     var I = T - P;
