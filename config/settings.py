@@ -88,6 +88,7 @@ if not DEBUG:
     if "postgresql" in db_engine:
         DATABASES["default"].setdefault("OPTIONS", {})
         DATABASES["default"]["OPTIONS"]["connect_timeout"] = 10
+        DATABASES["default"]["OPTIONS"]["sslmode"] = "require"
         # Connection pooling for PostgreSQL
         DATABASES["default"]["OPTIONS"]["options"] = "-c statement_timeout=30000"
 
