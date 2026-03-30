@@ -78,7 +78,6 @@ DATABASES = {
     "default": dj_database_url.config(
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
         conn_max_age=0,
-        ssl_require=True,
     )
 }
 
@@ -89,8 +88,6 @@ if not DEBUG:
         DATABASES["default"].setdefault("OPTIONS", {})
         DATABASES["default"]["OPTIONS"]["connect_timeout"] = 10
         DATABASES["default"]["OPTIONS"]["sslmode"] = "require"
-        # Connection pooling for PostgreSQL
-        DATABASES["default"]["OPTIONS"]["options"] = "-c statement_timeout=30000"
 
 # ✅ CACHES - SIMPLE (No complex options)
 CACHES = {
