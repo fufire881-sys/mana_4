@@ -87,7 +87,7 @@ if not DEBUG:
     if "postgresql" in db_engine:
         DATABASES["default"].setdefault("OPTIONS", {})
         DATABASES["default"]["OPTIONS"]["connect_timeout"] = 10
-        DATABASES["default"]["OPTIONS"]["sslmode"] = "require"
+        DATABASES["default"]["OPTIONS"]["sslmode"] = "prefer"
 
 # ✅ CACHES - SIMPLE (No complex options)
 CACHES = {
