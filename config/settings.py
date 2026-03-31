@@ -74,11 +74,13 @@ TEMPLATES = [
 WSGI_APPLICATION = "config.wsgi.application"
 
 # ✅ DATABASE - FIXED (No connect_timeout for SQLite)
+_db_url = (
+    os.getenv("PUBLIC_DATABASE_URL")
+    or os.getenv("DATABASE_URL")
+    or f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
+)
 DATABASES = {
-    "default": dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=0,
-    )
+    "default": dj_database_url.parse(_db_url, conn_max_age=0)
 }
 
 # PostgreSQL specific options (Production only)
