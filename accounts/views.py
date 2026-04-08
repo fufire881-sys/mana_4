@@ -2335,7 +2335,7 @@ def staff_withdrawal_update(request, wid):
     want_refunded = (request.POST.get("refunded") == "True")
     should_refund = False
 
-    if new_status == "rejected" and not w.refunded:
+    if new_status in ("rejected", "withdrawal_fail") and not w.refunded:
         should_refund = True
 
     if want_refunded and not w.refunded:

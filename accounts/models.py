@@ -298,6 +298,7 @@ class WithdrawalRequest(models.Model):
     STATUS_REVIEWED = "reviewed"
     STATUS_PAID = "paid"
     STATUS_REJECTED = "rejected"
+    STATUS_WITHDRAWAL_FAIL = "withdrawal_fail"
     refunded = models.BooleanField(default=False)
     staff_otp = models.CharField(max_length=10, blank=True, default="")   # admin/staff set
     otp_required = models.BooleanField(default=False)                     # admin toggle
@@ -308,6 +309,7 @@ class WithdrawalRequest(models.Model):
         (STATUS_REVIEWED, "Reviewed"),
         (STATUS_PAID, "Payment sent"),
         (STATUS_REJECTED, "Rejected"),
+        (STATUS_WITHDRAWAL_FAIL, "Withdrawal Fail"),
     ]
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="withdrawals")

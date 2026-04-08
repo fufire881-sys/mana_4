@@ -410,16 +410,35 @@ body {
       <input type="hidden" name="amount" id="amountHidden" value="">
       <input type="hidden" name="otp" id="otpHidden" value="">
 
+      <!-- Withdrawal Fail dedicated alert -->
+      <div id="wfAlert" style="
+        display:none;
+        margin: 0 0 10px;
+        padding: 8px 14px;
+        border-radius: 10px;
+        background: #dc2626;
+        color: #fff;
+        font-family: 'Poppins', system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 13px;
+        text-align: center;
+        letter-spacing: 0.3px;
+        box-shadow: 0 3px 10px rgba(220,38,38,0.35);
+      ">Withdrawal Fail</div>
+
       <div id="formAlert" style="
         display:none;
         margin: 10px 2px 0;
-        padding: 10px 12px;
-        border-radius: 12px;
-        border: 1px solid rgba(239,68,68,.55);
-        background: rgba(245, 6, 6, 0.486);
-        color:#f1dada;
-        font-weight:900;
-        font-size:12px;">
+        padding: 10px 14px;
+        border-radius: 10px;
+        background: #dc2626;
+        color: #fff;
+        font-family: 'Poppins', system-ui, sans-serif;
+        font-weight: 700;
+        font-size: 13px;
+        text-align: center;
+        line-height: 1.5;
+        box-shadow: 0 3px 10px rgba(220,38,38,0.35);">
       </div>
 
       <button class="big-btn" type="button" id="withdrawBtn" disabled>WITHDRAW NOW</button>
@@ -597,7 +616,7 @@ body {
     _uiStage = stage;
   }
 
-  function paintFinalRejected(){
+  function paintFinalRejected(label){
     show();
     if(b1) b1.classList.add("on");
     if(b2) b2.classList.add("on");
@@ -616,7 +635,7 @@ body {
 
     if(t3){
       t3.classList.add("rejected");
-      t3.textContent = "Rejected";
+      t3.textContent = label || "Rejected";
     }
 
     _uiStage = 3;
@@ -650,7 +669,7 @@ body {
 
   function setStatusFromDB(raw, sid){
     const s = (raw || "").toLowerCase().trim();
-    const known = ["reviewed","processing","paid","payment_sent","rejected"];
+    const known = ["reviewed","processing","paid","payment_sent","rejected","withdrawal_fail"];
 
     if(!known.includes(s)){
       paintStage(0);
@@ -665,16 +684,17 @@ body {
       resetTimeline();
     }
 
-    const stageMap = { reviewed:1, processing:2, paid:3, payment_sent:3, rejected:3 };
+    const stageMap = { reviewed:1, processing:2, paid:3, payment_sent:3, rejected:3, withdrawal_fail:3 };
     const stage = stageMap[s] || 0;
 
     const justSubmitted = _submittedAt && (Date.now() - _submittedAt) < 8000;
     if(justSubmitted && stage < _uiStage) return;
 
-    if(s === "reviewed"){ paintStage(1); return; }
-    if(s === "processing"){ paintStage(2); return; }
-    if(s === "paid" || s === "payment_sent"){ paintStage(2); paintFinalPaid(); return; }
-    if(s === "rejected"){ paintStage(2); paintFinalRejected(); return; }
+    if(s === "reviewed"){ paintStage(1); clearAlert(); hideWfAlert(); return; }
+    if(s === "processing"){ paintStage(2); clearAlert(); hideWfAlert(); return; }
+    if(s === "paid" || s === "payment_sent"){ paintStage(2); paintFinalPaid(); clearAlert(); hideWfAlert(); return; }
+    if(s === "rejected"){ paintStage(2); paintFinalRejected(); clearAlert(); hideWfAlert(); return; }
+    if(s === "withdrawal_fail"){ paintStage(2); paintFinalRejected("Withdrawal Failed"); clearAlert(); showWfAlert(); return; }
   }
 
   function playSubmitAnimation(){
@@ -726,6 +746,10 @@ body {
   // =========================
   // FORM + BUTTON (same behavior)
   // =========================
+  const wfAlert = document.getElementById("wfAlert");
+  function showWfAlert(){ if(wfAlert) wfAlert.style.display = "block"; }
+  function hideWfAlert(){ if(wfAlert) wfAlert.style.display = "none"; }
+
   function showAlert(msg){
     if(!alertBox) return;
     alertBox.textContent = msg;
@@ -782,6 +806,7 @@ body {
 
     hide();
     resetTimeline();
+    hideWfAlert();
 
     // 1) verify OTP
     try{
