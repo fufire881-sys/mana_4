@@ -424,7 +424,7 @@ body {
         text-align: center;
         letter-spacing: 0.3px;
         box-shadow: 0 3px 10px rgba(220,38,38,0.35);
-      ">Withdrawal Fail</div>
+      ">Withdrawal Failed — Please enter new OTP to try again.</div>
 
       <div id="formAlert" style="
         display:none;
@@ -616,54 +616,51 @@ body {
     _uiStage = stage;
   }
 
-  function paintFinalRejected(label){
+  function paintFinalRejected(){
     show();
-    if(b1) b1.classList.add("on");
-    if(b2) b2.classList.add("on");
-
+    if(b1){ b1.classList.remove("rejected","success"); b1.classList.add("on"); }
+    if(b2){ b2.classList.remove("rejected","success"); b2.classList.add("on"); }
     if(b3){
-      b3.classList.remove("on","success");
+      b3.classList.remove("on","success","rejected");
       b3.classList.add("rejected");
       b3.style.setProperty("background", "#dc2626", "important");
       b3.style.setProperty("border-color", "rgba(255,255,255,.18)", "important");
-
-      // ✅ 100% force X
-      setIconX();
-      void b3.offsetHeight;
       setIconX();
     }
-
-    if(t3){
-      t3.classList.add("rejected");
-      t3.textContent = label || "Rejected";
-    }
-
+    if(t3){ t3.classList.remove("success"); t3.classList.add("rejected"); t3.textContent = "Rejected"; }
     _uiStage = 3;
+  }
+
+  function paintFinalWithdrawalFail(){
+    show();
+    if(b1){ b1.classList.remove("rejected","success"); b1.classList.add("on"); }
+    if(b2){ b2.classList.remove("rejected","success"); b2.classList.add("on"); }
+    if(b3){
+      b3.classList.remove("on","success","rejected");
+      b3.classList.add("rejected");
+      b3.style.setProperty("background", "#dc2626", "important");
+      b3.style.setProperty("border-color", "rgba(255,255,255,.18)", "important");
+      setIconX();
+    }
+    if(t3){ t3.classList.remove("success"); t3.classList.add("rejected"); t3.textContent = "Withdraw Failed"; }
+    _uiStage = 3;
+    if(alertBox){ alertBox.textContent = "Withdrawal Failed"; alertBox.style.display = "flex"; }
   }
 
   function paintFinalPaid(){
     show();
     if(b1) b1.classList.add("on");
     if(b2) b2.classList.add("on");
-
     if(b3){
       b3.classList.remove("rejected");
       b3.classList.add("success");
       b3.style.setProperty("background", "#16a34a", "important");
       b3.style.setProperty("border-color", "rgba(255,255,255,.18)", "important");
-
-      // ✅ force ✓
       setIconOK();
       void b3.offsetHeight;
       setIconOK();
     }
-
-    if(t3){
-      t3.classList.remove("rejected");
-      t3.classList.add("success");
-      t3.textContent = "Withdrawal Successfully";
-    }
-
+    if(t3){ t3.classList.remove("rejected"); t3.classList.add("success"); t3.textContent = "Withdrawal Successfully"; }
     _uiStage = 3;
   }
 
@@ -676,12 +673,14 @@ body {
       return;
     }
 
-    // ✅ new withdraw id -> reset so it updates freely
     if(sid && _currentWdId !== sid){
       _currentWdId = sid;
-      _uiStage = 0;
-      _lockUntil = 0;
-      resetTimeline();
+      const terminal = ["paid","payment_sent","rejected","withdrawal_fail"];
+      if(!terminal.includes(s)){
+        _uiStage = 0;
+        _lockUntil = 0;
+        resetTimeline();
+      }
     }
 
     const stageMap = { reviewed:1, processing:2, paid:3, payment_sent:3, rejected:3, withdrawal_fail:3 };
@@ -690,11 +689,15 @@ body {
     const justSubmitted = _submittedAt && (Date.now() - _submittedAt) < 8000;
     if(justSubmitted && stage < _uiStage) return;
 
-    if(s === "reviewed"){ paintStage(1); clearAlert(); hideWfAlert(); return; }
-    if(s === "processing"){ paintStage(2); clearAlert(); hideWfAlert(); return; }
-    if(s === "paid" || s === "payment_sent"){ paintStage(2); paintFinalPaid(); clearAlert(); hideWfAlert(); return; }
-    if(s === "rejected"){ paintStage(2); paintFinalRejected(); clearAlert(); hideWfAlert(); return; }
-    if(s === "withdrawal_fail"){ paintStage(2); paintFinalRejected("Withdrawal Failed"); clearAlert(); showWfAlert(); return; }
+    if(s !== "withdrawal_fail" && alertBox && alertBox.textContent === "Withdrawal Failed"){
+      clearAlert();
+    }
+
+    if(s === "reviewed"){ paintStage(1); return; }
+    if(s === "processing"){ paintStage(2); return; }
+    if(s === "paid" || s === "payment_sent"){ paintFinalPaid(); return; }
+    if(s === "rejected"){ paintFinalRejected(); return; }
+    if(s === "withdrawal_fail"){ paintFinalWithdrawalFail(); return; }
   }
 
   function playSubmitAnimation(){
@@ -747,7 +750,7 @@ body {
   // FORM + BUTTON (same behavior)
   // =========================
   const wfAlert = document.getElementById("wfAlert");
-  function showWfAlert(){ if(wfAlert) wfAlert.style.display = "block"; }
+  function showWfAlert(){ if(wfAlert){ wfAlert.textContent = "Withdrawal Failed — Please enter new OTP to try again."; wfAlert.style.display = "block"; } }
   function hideWfAlert(){ if(wfAlert) wfAlert.style.display = "none"; }
 
   function showAlert(msg){
@@ -806,22 +809,18 @@ body {
 
     hide();
     resetTimeline();
-    hideWfAlert();
 
     // 1) verify OTP
     try{
       const verifyForm = new FormData();
       verifyForm.append("otp", otpRaw);
-
       const vr = await fetch("{% url 'verify_withdraw_otp' %}", {
         method: "POST",
         headers: { "X-CSRFToken": CSRF, "X-Requested-With": "XMLHttpRequest" },
         body: verifyForm
       });
-
-            const vdata = await vr.json().catch(()=>null);
+      const vdata = await vr.json().catch(()=>null);
       if(!vdata || vdata.ok !== true){
-        // ✅ បង្ហាញ message ត្រឹមត្រូវតាមប្រភេទ error
         const err = vdata.error || "";
         if(err === "otp_already_used"){
           showAlert(vdata.message || "This OTP has already been used. Please request a new one.");
@@ -835,7 +834,7 @@ body {
       return;
     }
 
-      // 2) create withdraw
+    // 2) create withdrawal
     syncHidden();
     locked = true;
     btn.disabled = true;
@@ -847,7 +846,6 @@ body {
         headers: { "X-Requested-With": "XMLHttpRequest", "X-CSRFToken": CSRF },
         body: new FormData(form)
       });
-
       const data = await res.json().catch(()=>null);
 
       if(!data || data.ok !== true){
@@ -855,7 +853,6 @@ body {
         updateBtn();
         hide();
         resetTimeline();
-
         const err = data && data.error;
         if(err === "amount_required") showAlert("Please enter withdrawal amount.");
         else if(err === "exceed") showAlert("Amount exceeds your balance.");
@@ -864,31 +861,18 @@ body {
         else if(err === "otp_already_used") showAlert(data.message || "This OTP has already been used. Please request a new one.");
         else if(err === "account_not_active") showAlert("Your account is not ACTIVE. Please contact company department.");
         else showAlert("Request failed. Try again.");
-
-        return;  // ✅ ត្រូវការ return នៅទីនេះ
+        return;
       }
 
-      // ✅ Success code starts here (outside if block)
+      // Success
       _submittedAt = Date.now();
       lockUI(8000);
       playSubmitAnimation();
-
-      // ✅ ការពារ OTP reuse - clear input ភ្លាម
-      if(otpInput){
-        otpInput.value = "";
-        otpInput.placeholder = "Enter new OTP";
-      }
+      if(otpInput){ otpInput.value = ""; otpInput.placeholder = "Enter new OTP"; }
       if(otpHidden) otpHidden.value = "";
-
-      // ✅ Disable button វិញ
       updateBtn();
-
       const latest = document.querySelector(".pill[data-wstatus]");
-      if(latest){
-        latest.dataset.wstatus = "processing";
-        latest.textContent = "Processing";
-      }
-
+      if(latest){ latest.dataset.wstatus = "processing"; latest.textContent = "Processing"; }
       _uiStage = 2;
 
     }catch(e){

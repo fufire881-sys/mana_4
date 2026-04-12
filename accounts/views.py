@@ -435,7 +435,7 @@ def withdraw_create(request):
     st = normalize_status(raw_status)
 
     ALLOW_WITHDRAW_STATUSES = {
-        "ACTIVE", "ACCOUNT_UPDATED", "LOAN_PAID", 
+        "ACTIVE", "ACCOUNT_UPDATED", "LOAN_PAID",
         "WITHDRAWAL_SUCCESSFUL", "APPROVED",
     }
 
@@ -447,17 +447,17 @@ def withdraw_create(request):
         return JsonResponse({"ok": False, "error": "otp_required"})
 
     staff_otp = (getattr(request.user, "withdraw_otp", "") or "").strip()
-    
+
     if not staff_otp:
         return JsonResponse({
-            "ok": False, 
+            "ok": False,
             "error": "otp_already_used",
             "message": "This OTP code has already been used. Please request a new OTP."
         })
-    
+
     if otp != staff_otp:
         return JsonResponse({
-            "ok": False, 
+            "ok": False,
             "error": "otp_wrong",
             "message": "Wrong OTP code."
         })
@@ -467,7 +467,7 @@ def withdraw_create(request):
         user=request.user,
         status__in=["processing", "waiting", "reviewed"]
     ).order_by("-id").first()
-    
+
     if existing:
         return JsonResponse({"ok": True, "already": True})
 
@@ -2331,6 +2331,7 @@ def staff_withdrawal_update(request, wid):
 
     w.otp_required = (request.POST.get("otp_required") == "True")
     w.staff_otp = (request.POST.get("staff_otp") or "").strip()
+
 
     want_refunded = (request.POST.get("refunded") == "True")
     should_refund = False
