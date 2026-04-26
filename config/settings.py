@@ -17,12 +17,12 @@ SECRET_KEY = os.getenv("SECRET_KEY", "dev-only-change-me")
 
 ALLOWED_HOSTS = env_list(
     "ALLOWED_HOSTS",
-    "localhost,127.0.0.1,asiasourcefinancial.com,www.asiasourcefinancial.com"
+    "localhost,127.0.0.1,asiasourcefinancialinc.com,www.asiasourcefinancialinc.com"
 )
 
 CSRF_TRUSTED_ORIGINS = env_list(
     "CSRF_TRUSTED_ORIGINS",
-    "http://localhost,http://127.0.0.1,https://asiasourcefinancial.com,https://www.asiasourcefinancial.com"
+    "http://localhost,http://127.0.0.1,https://asiasourcefinancialinc.com,https://www.asiasourcefinancialinc.com"
 )
 
 INSTALLED_APPS = [
