@@ -1,279 +1,414 @@
 {% extends "staff_base.html" %}
 {% load static %}
 {% block content %}
+
 <div class="card-h">
   <div>
-    <div class="h1">Overview</div>
-    <div class="muted">Quick totals</div>
+    <div class="muted" style="margin-bottom:4px;">Welcome back,</div>
+    <div class="h1" style="font-size:26px;">Dashboard Overview</div>
+    <div class="muted">Here's what's happening with your platform today.</div>
   </div>
 
-<!-- ✅ Search (stay on dashboard) -->
-<form class="dash-search" method="get" action="{% url 'staff_dashboard' %}">
-  <div class="period-buttons">
-    <button type="submit" name="period" value=""
-        class="period-btn {% if period == '' %}active{% endif %}">
-        All
-    </button>
-  
-    <button type="submit" name="period" value="today"
-        class="period-btn {% if period == 'today' %}active{% endif %}">
-        Today
-    </button>
-  
-    <button type="submit" name="period" value="yesterday"
-        class="period-btn {% if period == 'yesterday' %}active{% endif %}">
-        Yesterday
-    </button>
-  
-    <button type="submit" name="period" value="this_week"
-        class="period-btn {% if period == 'this_week' %}active{% endif %}">
-        This Week
-    </button>
-  
-    <button type="submit" name="period" value="last_week"
-        class="period-btn {% if period == 'last_week' %}active{% endif %}">
-        Last Week
-    </button>
-  
-    <button type="submit" name="period" value="this_month"
-        class="period-btn {% if period == 'this_month' %}active{% endif %}">
-        This Month
-    </button>
-  
-    <button type="submit" name="period" value="last_month"
-        class="period-btn {% if period == 'last_month' %}active{% endif %}">
-        Last Month
-    </button>
-  </div>
-</form>
+  <form class="dash-search" method="get" action="{% url 'staff_dashboard' %}">
+    <div class="period-buttons">
+      <button type="submit" name="period" value="" class="period-btn {% if period == '' %}active{% endif %}">All</button>
+      <button type="submit" name="period" value="today" class="period-btn {% if period == 'today' %}active{% endif %}">Today</button>
+      <button type="submit" name="period" value="yesterday" class="period-btn {% if period == 'yesterday' %}active{% endif %}">Yesterday</button>
+      <button type="submit" name="period" value="this_week" class="period-btn {% if period == 'this_week' %}active{% endif %}">This Week</button>
+      <button type="submit" name="period" value="last_week" class="period-btn {% if period == 'last_week' %}active{% endif %}">Last Week</button>
+      <button type="submit" name="period" value="this_month" class="period-btn {% if period == 'this_month' %}active{% endif %}">This Month</button>
+      <button type="submit" name="period" value="last_month" class="period-btn {% if period == 'last_month' %}active{% endif %}">Last Month</button>
+    </div>
+  </form>
 </div>
 
-<div class="content staffdash staff-font">
-    <div class="stats-grid">
+<div class="kpi-grid">
 
-      <!-- Total Users -->
-      <div class="stat-card stat-teal">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
-          <div>
-            <div class="muted">Total Users</div>
-            <div style="font-size:28px;font-weight:950;margin-top:6px;">{{ total_users }}</div>
-          </div>
-          <div class="stat-ico">
-            <img src="{% static 'icons/users.webp' %}" alt="Users">
-          </div>
-        </div>
-        <div style="margin-top:10px;">
-          <a class="btn btn-green" href="{% url 'staff_users' %}">Open →</a>
-        </div>
-      </div>
-
-      <!-- Loan Applications -->
-      <div class="stat-card stat-orange">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
-          <div>
-            <div class="muted">Loan Applications</div>
-            <div style="font-size:28px;font-weight:950;margin-top:6px;">{{ total_loans }}</div>
-          </div>
-          <div class="stat-ico">
-            <img src="{% static 'icons/loans.webp' %}" alt="Loans">
-          </div>
-        </div>
-        <div style="margin-top:10px;">
-          <a class="btn btn-green" href="{% url 'staff_loans' %}">Open →</a>
-        </div>
-      </div>
-
-      <!-- Withdrawals -->
-      <div class="stat-card stat-purple">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
-          <div>
-            <div class="muted">Withdrawals</div>
-            <div style="font-size:28px;font-weight:950;margin-top:6px;">{{ total_withdrawals }}</div>
-          </div>
-          <div class="stat-ico">
-            <img src="{% static 'icons/withdraw.webp' %}" alt="Withdrawals">
-          </div>
-        </div>
-        <div style="margin-top:10px;">
-          <a class="btn btn-green" href="{% url 'staff_withdrawals' %}">Open →</a>
-        </div>
-      </div>
-
-      <!-- Payment Methods -->
-      <div class="stat-card stat-dark">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px;">
-          <div>
-            <div class="muted">Payment Methods</div>
-            <div style="font-size:28px;font-weight:950;margin-top:6px;">{{ total_payment_methods }}</div>
-          </div>
-          <div class="stat-ico">
-            <img src="{% static 'icons/payment.webp' %}" alt="Payments">
-          </div>
-        </div>
-        <div style="margin-top:10px;">
-          <a class="btn btn-green" href="{% url 'staff_payment_methods' %}">Open →</a>
-        </div>
-      </div>
-
+  <div class="kpi-card kpi-blue">
+    <div class="kpi-top">
+      <div class="kpi-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="kpi-label">Total Users</div>
     </div>
-
-<!-- ===== Performance & Reference Grid ===== -->
-<div class="perf-wrap" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: stretch;">
-
-  <!-- Performance Overview -->
-  <div class="perf-card">
-    <div class="perf-head">
-      <div>
-        <div class="perf-title">Performance Overview</div>
-        <div class="perf-sub">User register activity</div>
-      </div>
-    </div>
-
-    <div class="perf-bars">
-      <div class="bar teal" style="height:{{ h_today|default:120 }}px;">
-        <i class="count" data-value="{{ reg_today }}">{{ reg_today }}</i>
-        <span>Today</span>
-      </div>
-
-      <div class="bar teal" style="height:{{ h_yesterday|default:100 }}px;">
-        <i class="count" data-value="{{ reg_yesterday }}">{{ reg_yesterday }}</i>
-        <span>Yesterday</span>
-      </div>
-
-      <div class="bar orange" style="height:{{ h_this_week|default:160 }}px;">
-        <i class="count" data-value="{{ reg_this_week }}">{{ reg_this_week }}</i>
-        <span>This Week</span>
-      </div>
-
-      <div class="bar orange" style="height:{{ h_last_week|default:140 }}px;">
-        <i class="count" data-value="{{ reg_last_week }}">{{ reg_last_week }}</i>
-        <span>Last Week</span>
-      </div>
-
-      <div class="bar purple" style="height:{{ h_this_month|default:170 }}px;">
-        <i class="count" data-value="{{ reg_this_month }}">{{ reg_this_month }}</i>
-        <span>This Month</span>
-      </div>
-
-      <div class="bar purple" style="height:{{ h_last_month|default:150 }}px;">
-        <i class="count" data-value="{{ reg_last_month }}">{{ reg_last_month }}</i>
-        <span>Last Month</span>
-      </div>
-    </div>
+    <div class="kpi-num">{{ total_users }}</div>
+    <div class="kpi-trend {% if users_trend < 0 %}down{% endif %}">{% if users_trend >= 0 %}+{% endif %}{{ users_trend }}% from last week</div>
+    <svg class="kpi-spark" viewBox="0 0 110 34" preserveAspectRatio="none"><path d="{{ spark_users.area }}" fill="currentColor" fill-opacity="0.22"/><path d="{{ spark_users.line }}" fill="none" stroke="currentColor" stroke-width="2"/><circle class="spark-live" cx="{{ spark_users.last.0 }}" cy="{{ spark_users.last.1 }}" r="2.5" fill="currentColor"/></svg>
+    <a class="kpi-link" href="{% url 'staff_users' %}">Open →</a>
   </div>
 
-  <!-- ===== Reference Number Card ===== -->
-  <div class="perf-card" style="background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); display: flex; flex-direction: column; position: relative;">
-    
-    <!-- Header: Reference No. centered, Icons on right -->
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; position: relative;">
-      <div style="flex: 1;"></div> <!-- Spacer for centering -->
-      
-      <!-- Centered Title -->
-      <div style="flex: 2; text-align: center;">
-        <div style="font-size: 18px; font-weight: 800; color: rgba(255,255,255,0.95); letter-spacing: 2px; text-transform: uppercase;">Reference No.</div>
-      </div>
-      
-      <!-- Icons: Home (Frontend) + Key -->
-      <div style="flex: 1; display: flex; justify-content: flex-end; gap: 8px;">
-        <a href="/" target="_blank" title="View Frontend" 
-           style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(255,255,255,0.15); border-radius: 10px; text-decoration: none; font-size: 18px; color: #fff; transition: all 0.2s; border: 1px solid rgba(255,255,255,0.2);"
-           onmouseover="this.style.background='rgba(255,255,255,0.25)'; this.style.transform='translateY(-2px)';" 
-           onmouseout="this.style.background='rgba(255,255,255,0.15)'; this.style.transform='none';">
-          🏠
-        </a>
-        <div style="display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; background: rgba(255,255,255,0.15); border-radius: 10px; font-size: 18px; border: 1px solid rgba(255,255,255,0.2);">
-          🔑
-        </div>
-      </div>
+  <div class="kpi-card kpi-orange">
+    <div class="kpi-top">
+      <div class="kpi-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></div>
+      <div class="kpi-label">Loan Applications</div>
     </div>
+    <div class="kpi-num">{{ total_loans }}</div>
+    <div class="kpi-trend {% if loans_trend < 0 %}down{% endif %}">{% if loans_trend >= 0 %}+{% endif %}{{ loans_trend }}% from last week</div>
+    <svg class="kpi-spark" viewBox="0 0 110 34" preserveAspectRatio="none"><path d="{{ spark_loans.area }}" fill="currentColor" fill-opacity="0.22"/><path d="{{ spark_loans.line }}" fill="none" stroke="currentColor" stroke-width="2"/><circle class="spark-live" cx="{{ spark_loans.last.0 }}" cy="{{ spark_loans.last.1 }}" r="2.5" fill="currentColor"/></svg>
+    <a class="kpi-link" href="{% url 'staff_loans' %}">Open →</a>
+  </div>
 
-    <!-- Big Number Display -->
-    <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 30px 0;">
-      <div style="font-size: 64px; font-weight: 950; color: #fff; letter-spacing: 6px; text-shadow: 0 4px 20px rgba(0,0,0,0.3); line-height: 1;">
-        {{ current_reference|default:"0000" }}
-      </div>
-      <div style="font-size: 13px; color: rgba(255,255,255,0.7); margin-top: 12px; text-align: center;">
-        Users must enter this when registering
-      </div>
+  <div class="kpi-card kpi-pink">
+    <div class="kpi-top">
+      <div class="kpi-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+      <div class="kpi-label">Withdrawals</div>
     </div>
-    
-    <!-- Update Form -->
-    <div style="margin-top: auto; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.25);">
-      <form method="post" action="{% url 'update_reference' %}" style="display: flex; gap: 12px; align-items: center;">
-        {% csrf_token %}
-        <input type="text" name="reference_number" value="{{ current_reference }}" 
-               placeholder="Enter new reference..." 
-               style="flex: 1; padding: 12px 16px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.3); background: rgba(255,255,255,0.1); color: #fff; font-weight: 700; font-size: 16px; outline: none; transition: all 0.2s; text-align: center; letter-spacing: 1px;" 
-               onfocus="this.style.background='rgba(255,255,255,0.2)'; this.style.borderColor='rgba(255,255,255,0.5)';" 
-               onblur="this.style.background='rgba(255,255,255,0.1)'; this.style.borderColor='rgba(255,255,255,0.3)';">
-        <button type="submit" 
-                style="background: #fff; color: #1e3c72; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: all 0.2s; white-space: nowrap; font-size: 14px;" 
-                onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0,0,0,0.3)';" 
-                onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.2)';">
-          Update
-        </button>
-      </form>
+    <div class="kpi-num">{{ total_withdrawals }}</div>
+    <div class="kpi-trend {% if withdrawals_trend < 0 %}down{% endif %}">{% if withdrawals_trend >= 0 %}+{% endif %}{{ withdrawals_trend }}% from last week</div>
+    <svg class="kpi-spark" viewBox="0 0 110 34" preserveAspectRatio="none"><path d="{{ spark_withdrawals.area }}" fill="currentColor" fill-opacity="0.22"/><path d="{{ spark_withdrawals.line }}" fill="none" stroke="currentColor" stroke-width="2"/><circle class="spark-live" cx="{{ spark_withdrawals.last.0 }}" cy="{{ spark_withdrawals.last.1 }}" r="2.5" fill="currentColor"/></svg>
+    <a class="kpi-link" href="{% url 'staff_withdrawals' %}">Open →</a>
+  </div>
+
+  <div class="kpi-card kpi-teal">
+    <div class="kpi-top">
+      <div class="kpi-ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+      <div class="kpi-label">Payment Methods</div>
     </div>
+    <div class="kpi-num">{{ total_payment_methods }}</div>
+    <div class="kpi-trend {% if payment_methods_trend < 0 %}down{% endif %}">{% if payment_methods_trend >= 0 %}+{% endif %}{{ payment_methods_trend }}% from last week</div>
+    <svg class="kpi-spark" viewBox="0 0 110 34" preserveAspectRatio="none"><path d="{{ spark_payment_methods.area }}" fill="currentColor" fill-opacity="0.22"/><path d="{{ spark_payment_methods.line }}" fill="none" stroke="currentColor" stroke-width="2"/><circle class="spark-live" cx="{{ spark_payment_methods.last.0 }}" cy="{{ spark_payment_methods.last.1 }}" r="2.5" fill="currentColor"/></svg>
+    <a class="kpi-link" href="{% url 'staff_payment_methods' %}">Open →</a>
   </div>
 
 </div>
 
-  <!-- RIGHT: User detail (show only when searched_user exists) -->
-  {% if searched_user %}
-  <div class="user-mini-card" style="margin-top: 20px;">
-    <div class="user-mini-head">
-      <div class="user-mini-icon">
-        <img src="{% static 'icons/users.webp' %}" alt="User">
+<div class="grid2">
+
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-head-left">
+        <div class="panel-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M7 15l4-4 3 3 5-6"/></svg></div>
+        <div>
+          <div class="panel-title">Performance Overview</div>
+          <div class="panel-sub">User registration activity</div>
+        </div>
       </div>
-      <div class="user-mini-phone">{{ searched_user.phone }}</div>
+    </div>
+
+    <svg class="line-chart" viewBox="0 0 600 200" preserveAspectRatio="none">
+      <line x1="0" y1="28" x2="600" y2="28" class="grid-line"/>
+      <line x1="0" y1="71" x2="600" y2="71" class="grid-line"/>
+      <line x1="0" y1="114" x2="600" y2="114" class="grid-line"/>
+      <line x1="0" y1="157" x2="600" y2="157" class="grid-line"/>
+      <line x1="0" y1="200" x2="600" y2="200" class="grid-line"/>
+      <defs>
+        <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#6366F1" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#6366F1" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="{{ chart_area }}" fill="url(#areaFill)"/>
+      <path d="{{ chart_line }}" fill="none" stroke="#818CF8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      {% for p in chart_points %}
+        <circle cx="{{ p.x }}" cy="{{ p.y }}" r="4" fill="#0A0F1E" stroke="#818CF8" stroke-width="2.5"/>
+        <text x="{{ p.x }}" y="{{ p.y|add:'-16' }}" text-anchor="middle" class="chart-value">{{ p.value }}</text>
+        {% if forloop.last %}
+          <circle class="chart-live-dot" cx="{{ p.x }}" cy="{{ p.y }}" r="4" fill="#818CF8"/>
+        {% endif %}
+      {% endfor %}
+    </svg>
+
+    <div class="chart-legend">
+      {% for p in chart_points %}
+      <div class="legend-item">
+        <div class="legend-label">{{ p.label }}</div>
+        <div class="legend-value">{{ p.value }}</div>
+      </div>
+      {% endfor %}
     </div>
   </div>
-  {% endif %}
 
-</div>
-    
+  <div class="panel pending-panel">
+    <div class="pt-head">
+      <div class="panel-head-left">
+        <div class="panel-ico"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></div>
+        <div class="panel-title">Pending Tasks</div>
+      </div>
+      <div class="pt-live"><span class="dotlive"></span>Live</div>
     </div>
 
-    <style>
-      /* ===== Dashboard period buttons (All / Today / ...) ===== */
-      .period-buttons{
-        display:flex;
-        gap:10px;
-        align-items:center;
-        flex-wrap:wrap;
-      }
-    
-      /* default (not active) */
-      .period-btn{
-        appearance:none;
-        border:1px solid rgba(0,65,130,.25);
-        background:rgba(255,255,255,.70);
-        color:#004182 !important;          /* ✅ blue text */
-        font-weight:900;
-        padding:10px 16px;
-        border-radius:12px;
-        cursor:pointer;
-        box-shadow: 0 10px 22px rgba(0,0,0,.10);
-        transition: .15s ease;
-      }
-    
-      .period-btn:hover{
-        background:rgba(0,65,130,.08);
-        border-color:rgba(0,65,130,.45);
-      }
-    
-      /* active button */
-      .period-btn.active{
-        background:#004182 !important;     /* ✅ blue background */
-        color:#fff !important;             /* ✅ white text */
-        border-color:rgba(0,65,130,.85);
-        box-shadow: 0 12px 26px rgba(0,0,0,.18);
-      }
-      
-      /* Placeholder color for reference input */
-      input[name="reference_number"]::placeholder {
-        color: rgba(255,255,255,0.5);
-      }
-    </style>    
+    <div class="pt-list">
+      <a href="{% url 'staff_loans' %}" class="pt-row">
+        <div class="pt-ico amber">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12h6M9 16h6M9 8h6M5 4h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"/></svg>
+        </div>
+        <div class="pt-body">
+          <div class="pt-name">Loan Applications</div>
+          <div class="pt-desc">Awaiting staff review</div>
+        </div>
+        <div class="pt-count {% if pending_loans_count == 0 %}zero{% endif %}">{{ pending_loans_count }}</div>
+        <div class="pt-cta">Review →</div>
+      </a>
+
+      <a href="{% url 'staff_withdrawals' %}" class="pt-row">
+        <div class="pt-ico pink">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="pt-body">
+          <div class="pt-name">Withdrawals</div>
+          <div class="pt-desc">{% if pending_withdrawals_count == 0 %}All caught up{% else %}Awaiting staff action{% endif %}</div>
+        </div>
+        <div class="pt-count {% if pending_withdrawals_count == 0 %}zero{% endif %}">{{ pending_withdrawals_count }}</div>
+        <div class="pt-cta">Review →</div>
+      </a>
+
+      <a href="{% url 'staff_users' %}" class="pt-row">
+        <div class="pt-ico teal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="pt-body">
+          <div class="pt-name">New Registrations</div>
+          <div class="pt-desc">Signed up today</div>
+        </div>
+        <div class="pt-count {% if reg_today == 0 %}zero{% endif %}">{{ reg_today }}</div>
+        <div class="pt-cta">View →</div>
+      </a>
+
+      <a href="{% url 'staff_payment_methods' %}" class="pt-row">
+        <div class="pt-ico indigo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>
+        </div>
+        <div class="pt-body">
+          <div class="pt-name">Payment Setup</div>
+          <div class="pt-desc">{% if pending_payment_setup_count == 0 %}All confirmed{% else %}Not yet confirmed by user{% endif %}</div>
+        </div>
+        <div class="pt-count {% if pending_payment_setup_count == 0 %}zero{% endif %}">{{ pending_payment_setup_count }}</div>
+        <div class="pt-cta">View →</div>
+      </a>
+    </div>
+
+    <a class="view-all-btn" href="{% url 'staff_loans' %}">View All Tasks →</a>
+  </div>
+
+</div>
+
+<div class="security-banner">
+  <div class="sec-left">
+    <div class="sec-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 9 8 11 4.6-2 8-6 8-11V5z"/><path d="m9 12 2 2 4-4"/></svg></div>
+    <div>
+      <div class="sec-title">Keep your platform secure and up-to-date.</div>
+      <div class="sec-sub">Regular system updates and security checks keep your data safe.</div>
+    </div>
+  </div>
+  <div class="sec-status"><span class="dotlive"></span>System Status</div>
+</div>
+
+<div class="staff-footer">
+  <div>© {% now "Y" %} Control Site Panel System. All rights reserved.</div>
+  <div>Version 2.0.0</div>
+</div>
+
+<style>
+  .kpi-grid{ display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:16px; margin-bottom: 18px; }
+  @media (max-width: 1100px){ .kpi-grid{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px){ .kpi-grid{ grid-template-columns: 1fr; } }
+
+  .kpi-card{
+    position: relative;
+    border-radius: 18px;
+    padding: 22px 22px 76px;
+    border: 1px solid var(--kpi-border, var(--border));
+    background: var(--card-2);
+    overflow: hidden;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .kpi-card:hover{ transform: translateY(-2px); box-shadow: 0 16px 34px rgba(0,0,0,.3); }
+  .kpi-card::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(160px 120px at 0% 0%, var(--tint-strong, rgba(99,102,241,.35)), transparent 70%),
+      linear-gradient(160deg, var(--tint, rgba(99,102,241,.12)), transparent 60%);
+    pointer-events:none;
+  }
+  .kpi-blue{ --tint: rgba(59,130,246,.16); --tint-strong: rgba(59,130,246,.35); --kpi-border: rgba(59,130,246,.35); }
+  .kpi-orange{ --tint: rgba(249,115,22,.16); --tint-strong: rgba(249,115,22,.35); --kpi-border: rgba(249,115,22,.35); }
+  .kpi-pink{ --tint: rgba(236,72,153,.16); --tint-strong: rgba(236,72,153,.35); --kpi-border: rgba(236,72,153,.35); }
+  .kpi-teal{ --tint: rgba(20,184,166,.16); --tint-strong: rgba(20,184,166,.35); --kpi-border: rgba(20,184,166,.35); }
+
+  .kpi-blue .kpi-ico{ background: linear-gradient(145deg, #60A5FA, #2563EB); box-shadow: 0 8px 18px rgba(37,99,235,.45), inset 0 1px 0 rgba(255,255,255,.3); }
+  .kpi-orange .kpi-ico{ background: linear-gradient(145deg, #FB923C, #EA580C); box-shadow: 0 8px 18px rgba(234,88,12,.45), inset 0 1px 0 rgba(255,255,255,.3); }
+  .kpi-pink .kpi-ico{ background: linear-gradient(145deg, #F472B6, #DB2777); box-shadow: 0 8px 18px rgba(219,39,119,.45), inset 0 1px 0 rgba(255,255,255,.3); }
+  .kpi-teal .kpi-ico{ background: linear-gradient(145deg, #2DD4BF, #0D9488); box-shadow: 0 8px 18px rgba(13,148,136,.45), inset 0 1px 0 rgba(255,255,255,.3); }
+
+  .kpi-blue .kpi-label{ color: #60A5FA; }
+  .kpi-orange .kpi-label{ color: #FB923C; }
+  .kpi-pink .kpi-label{ color: #F472B6; }
+  .kpi-teal .kpi-label{ color: #2DD4BF; }
+
+  .kpi-blue .kpi-spark{ color: #60A5FA; }
+  .kpi-orange .kpi-spark{ color: #FB923C; }
+  .kpi-pink .kpi-spark{ color: #F472B6; }
+  .kpi-teal .kpi-spark{ color: #2DD4BF; }
+
+  .kpi-blue .kpi-link{ color: var(--blue); }
+  .kpi-orange .kpi-link{ color: var(--orange); }
+  .kpi-pink .kpi-link{ color: var(--pink); }
+  .kpi-teal .kpi-link{ color: var(--teal); }
+
+  .kpi-top{ display:flex; align-items:center; gap:12px; position:relative; }
+  .kpi-label{ font-size:12.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; }
+  .kpi-ico{ width:48px; height:48px; border-radius:14px; flex:none; color:#fff; display:flex; align-items:center; justify-content:center; }
+  .kpi-num{ font-size:38px; font-weight:800; color:#fff; margin-top:16px; font-variant-numeric: tabular-nums; position:relative; line-height:1; }
+  .kpi-trend{ font-size:13px; font-weight:500; color: rgba(255,255,255,.7); margin-top:8px; position:relative; }
+  .kpi-trend.down{ color: var(--red); }
+  .kpi-spark{ position:absolute; left:0; right:0; bottom:34px; width:100%; height:32px; opacity:.85; filter: drop-shadow(0 2px 6px rgba(0,0,0,.35)); z-index: 1; }
+  .kpi-link{ position:absolute; left:22px; bottom:16px; font-size:12.5px; font-weight:700; text-decoration:none; z-index: 2; }
+  .kpi-num, .kpi-trend{ position:relative; z-index: 2; }
+
+  @keyframes livePulse{
+    0%   { r: 2.5; opacity: .9; }
+    70%  { r: 7; opacity: 0; }
+    100% { r: 7; opacity: 0; }
+  }
+  .spark-live{
+    animation: livePulse 1.8s ease-out infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .chart-live-dot{
+    animation: livePulse 1.8s ease-out infinite;
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+  .kpi-link:hover{ text-decoration: underline; }
+
+  .grid2{ display:grid; grid-template-columns: 1.5fr 1fr; gap:16px; align-items:stretch; margin-bottom: 18px; }
+  @media (max-width: 1100px){ .grid2{ grid-template-columns: 1fr; } }
+
+  .panel{ border-radius:16px; border:1px solid var(--border); background: var(--card-2); padding:18px; }
+  .panel-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+  .panel-head-left{ display:flex; align-items:center; gap:10px; }
+  .panel-ico{ width:30px; height:30px; border-radius:9px; background: var(--indigo-soft); color: var(--indigo); display:flex; align-items:center; justify-content:center; flex:none; }
+  .panel-title{ font-size:15.5px; font-weight:700; color:#fff; }
+  .panel-sub{ font-size:12px; color: var(--muted); margin-top:2px; }
+
+  .line-chart{ width:100%; height:200px; overflow: visible; }
+  .grid-line{ stroke: rgba(255,255,255,.06); stroke-width:1; }
+  .chart-value{ fill: var(--muted); font-size: 11px; font-weight: 700; font-family: inherit; }
+
+  .chart-legend{ display:flex; justify-content:space-between; gap:8px; margin-top: 18px; flex-wrap: wrap; }
+  .legend-item{ text-align:center; flex:1; min-width: 70px; }
+  .legend-label{ font-size:11px; color: var(--muted); }
+  .legend-value{ font-size:15px; font-weight:800; color:#fff; margin-top:2px; font-variant-numeric: tabular-nums; }
+
+  /* ===== Pending Tasks ===== */
+  .pending-panel{ display:flex; flex-direction:column; }
+  .pt-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+  .pt-live{ display:flex; align-items:center; gap:6px; font-size:11.5px; color: var(--muted); font-weight:600; }
+  .pt-live .dotlive, .sec-status .dotlive{ width:7px; height:7px; border-radius:999px; background: var(--green); box-shadow:0 0 10px rgba(34,197,94,.8); }
+
+  .pt-list{ display:flex; flex-direction:column; gap:10px; flex:1; }
+  .pt-row{
+    display:flex; align-items:center; gap:12px;
+    padding:12px 14px;
+    border-radius:12px;
+    background: rgba(255,255,255,.03);
+    border: 1px solid var(--border);
+    text-decoration:none;
+    transition: background .15s ease, transform .15s ease;
+  }
+  .pt-row:hover{ background: rgba(255,255,255,.06); transform: translateY(-1px); }
+
+  .pt-ico{ width:38px; height:38px; border-radius:10px; flex:none; display:flex; align-items:center; justify-content:center; color:#fff; }
+  .pt-ico.amber{ background: linear-gradient(150deg, #F59E0B, #B45309); }
+  .pt-ico.pink{ background: linear-gradient(150deg, #EC4899, #9D174D); }
+  .pt-ico.teal{ background: linear-gradient(150deg, #14B8A6, #0F766E); }
+  .pt-ico.indigo{ background: linear-gradient(150deg, #6366F1, #4338CA); }
+
+  .pt-body{ flex:1; min-width:0; }
+  .pt-name{ font-size:13.5px; font-weight:700; color:#fff; }
+  .pt-desc{ font-size:11.5px; color: var(--muted); margin-top:1px; }
+
+  .pt-count{ font-size:20px; font-weight:800; font-variant-numeric: tabular-nums; min-width:24px; text-align:right; color:#fff; }
+  .pt-count.zero{ color: var(--dim); }
+
+  .pt-cta{ display:inline-flex; align-items:center; padding:8px 12px; border-radius:9px; background: rgba(255,255,255,.06); border:1px solid var(--border); font-size:12px; font-weight:700; color:#fff; flex:none; }
+
+  .view-all-btn{
+    margin-top: 14px;
+    display:flex; align-items:center; justify-content:center;
+    padding: 12px; border-radius:12px;
+    background: var(--indigo-soft); color: var(--indigo);
+    font-weight:700; font-size:13px; text-decoration:none;
+  }
+  .view-all-btn:hover{ background: rgba(99,102,241,.24); }
+
+  /* ===== Security banner ===== */
+  /* iOS "liquid glass" style: frosted translucency + soft top highlight */
+  .security-banner{
+    display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap: wrap;
+    position: relative;
+    overflow: hidden;
+    border-radius: 22px;
+    border: 1px solid rgba(255,255,255,.14);
+    background: linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.03));
+    backdrop-filter: blur(24px) saturate(160%);
+    -webkit-backdrop-filter: blur(24px) saturate(160%);
+    box-shadow:
+      0 8px 32px rgba(0,0,0,.28),
+      inset 0 1px 0 rgba(255,255,255,.22);
+    padding: 20px 22px;
+    margin-bottom: 16px;
+  }
+  .security-banner::before{
+    content:"";
+    position:absolute; inset:0;
+    background: radial-gradient(560px 200px at 8% 0%, rgba(99,102,241,.28), transparent 60%);
+    pointer-events:none;
+  }
+  .sec-left{ display:flex; align-items:center; gap:14px; position:relative; }
+  .sec-ico{
+    width:46px; height:46px; border-radius:14px; flex:none;
+    display:flex; align-items:center; justify-content:center; color:#fff;
+    background: linear-gradient(150deg, rgba(99,102,241,.92), rgba(79,70,229,.92));
+    box-shadow: 0 6px 16px rgba(99,102,241,.4), inset 0 1px 0 rgba(255,255,255,.4);
+  }
+  .sec-title{ font-weight:700; color:#fff; font-size:14.5px; }
+  .sec-sub{ font-size:12.5px; color: var(--muted); margin-top:2px; }
+  .sec-status{
+    display:flex; align-items:center; gap:8px;
+    padding:11px 18px; border-radius:999px;
+    background: rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.18);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.22);
+    font-weight:700; font-size:13px; color:#fff;
+    position: relative;
+  }
+
+  .staff-footer{ display:flex; justify-content:space-between; font-size:12px; color: var(--dim); padding-top: 6px; }
+  @media (max-width: 560px){ .staff-footer{ flex-direction:column; gap:4px; } }
+</style>
+
+<script>
+(function(){
+  // Draw every chart line flowing left -> right on arrival, like the wave is
+  // "filling in" live. Skipped for users who asked the OS for reduced motion.
+  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var lines = document.querySelectorAll('.kpi-spark path[stroke], .line-chart path[stroke]');
+  var fills = document.querySelectorAll('.kpi-spark path[fill^="currentColor"], .line-chart path[fill^="url"]');
+
+  fills.forEach(function(p){ p.style.opacity = '0'; p.style.transition = 'opacity 900ms ease-out'; });
+
+  lines.forEach(function(path, i){
+    var length = path.getTotalLength();
+    path.style.strokeDasharray = length;
+    path.style.strokeDashoffset = length;
+    // force layout so the browser registers the starting state before animating
+    path.getBoundingClientRect();
+    path.style.transition = 'stroke-dashoffset 1300ms cubic-bezier(.22,.8,.22,1)';
+
+    var delay = 60 + i * 90;
+    setTimeout(function(){
+      path.style.strokeDashoffset = '0';
+    }, delay);
+    setTimeout(function(){
+      var fill = path.parentElement.querySelector('path[fill^="currentColor"], path[fill^="url"]');
+      if (fill) fill.style.opacity = '1';
+    }, delay + 500);
+  });
+})();
+</script>
+
 {% endblock %}

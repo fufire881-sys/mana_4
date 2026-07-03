@@ -208,10 +208,9 @@ class StaffUserForm(forms.ModelForm):
 class StaffPaymentMethodForm(forms.ModelForm):
     class Meta:
         model = PaymentMethod
+        # Frontend only collects Bank Account now (no Wallet/PayPal), so the
+        # staff edit form matches that and no longer touches those fields.
         fields = [
             "bank_name",
             "bank_account",
-            "wallet_name",
-            "wallet_phone",
-            "paypal_email",
         ]

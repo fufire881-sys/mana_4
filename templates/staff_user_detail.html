@@ -157,13 +157,6 @@
           <input type="text" name="bank_account" value="{{ pm.bank_account|default_if_none:'' }}">
         </p>
 
-        <p><label>Wallet name</label>
-          <input type="text" name="wallet_name" value="{{ pm.wallet_name|default_if_none:'' }}">
-        </p>
-        <p><label>Wallet phone</label>
-          <input type="text" name="wallet_phone" value="{{ pm.wallet_phone|default_if_none:'' }}">
-        </p>
-
         <p><label>Payment Locked</label>
           <input type="text" value="{% if pm.locked %}True{% else %}False{% endif %}" readonly>
         </p>
@@ -350,8 +343,7 @@
 .mini-link:hover{ opacity:.92; }
 
 .user-detail-form label{
-  color:#0b5fa5 !important;
-  font-weight:900;
+  color:#93C5FD !important;
 }
 .user-detail-form input, .user-detail-form select{
   width:100%;
@@ -367,7 +359,7 @@
 }
 .user-detail-form input[readonly]{ opacity:.9; }
 .sep{ border:0; border-top:1px solid rgba(0,0,0,.08); margin:12px 0; }
-.h2{ font-weight:950; color:#0b2b55; margin-bottom:10px; }
+.h2{ font-weight:950; color:#93C5FD; margin-bottom:10px; }
 
 .img-grid{
   display:grid;

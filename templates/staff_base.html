@@ -5,1435 +5,572 @@
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Admin Management</title>
   {% load static %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
 
-/* ✅ Select text = White */
-select,
-select option{
-  color:#fff !important;
-}
-@font-face {
-  font-family: 'StaffFont';
-  src: url("{% static 'fonts/arialnarrow.ttf' %}") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-.staff-font {
-  font-family: 'StaffFont', Arial, sans-serif !important;
-}
-
-/* ✅ FINAL OVERRIDE: make select text WHITE (WORKS) */
-.dashboard-card select,
-.dashboard-card select option,
-.dashboard-card .status-select,
-.dashboard-card .status-select option{
-  color:#fff !important;
-}
-
-/* keep background dark so white text visible */
-.dashboard-card select,
-.dashboard-card .status-select{
-  background: rgba(0,0,0,.70) !important;
-}
-
-/* Apply to ALL staff pages */
-body, body * {
-  font-family: "Gridova", system-ui, sans-serif !important;
-}
-/* ===============================
-   MODALS
-   =============================== */
-.logout-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.62);z-index:9999;padding:18px 14px;box-sizing:border-box}
-.logout-modal.show{display:flex}
-.logout-box{width:min(420px,92vw);background:rgba(25,25,25,.92);border:1px solid rgba(255,255,255,.14);border-radius:18px;box-shadow:0 24px 60px rgba(0,0,0,.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);padding:16px;color:#fff}
-.logout-title{font-weight:950;font-size:16px;margin-bottom:6px}
-.logout-text{font-size:13px;opacity:.9;line-height:1.45;margin-bottom:14px}
-.logout-actions{display:flex;gap:10px;justify-content:flex-end}
-.btn-cancel{height:40px;padding:0 16px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.08);color:#fff;font-weight:900;cursor:pointer}
-.btn-confirm{height:40px;padding:0 16px;border-radius:999px;border:0;font-weight:900;cursor:pointer;background:linear-gradient(90deg,#044a72,#969fac);color:#fff}
-
-/* ✅ Message Modal (ONLY ONE in base) */
-#msgModal{
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.55);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-#msgModal .modal-box{
-  width: min(720px, 94vw);
-  background: rgba(248, 248, 248, 0.979);
-  border-radius: 18px;
-  padding: 16px;
-  box-sizing: border-box;
-  border: 1px solid rgba(255, 255, 255, 0.747);
-  backdrop-filter: blur(18px);
-  box-shadow: 0 20px 60px rgba(0,0,0,.45);
-}
-#msgModal h3{
-  margin: 0 0 12px;
-  font-family: 'Ovelion', system-ui, sans-serif;
-  font-weight: 600;
-  letter-spacing: .04em;
-}
-#msgTextarea{
-  width: 100%;
-  max-width: 100%;
-  min-height: 160px;
-  resize: vertical;
-  padding: 12px 14px;
-  box-sizing: border-box;
-  border-radius: 14px;
-  border: 1px solid rgba(0,0,0,.25);
-  background: rgba(0, 0, 0, 0.856);
-  color: #fff;
-  font-family: 'Ovelion', system-ui, sans-serif;
-  font-size: 14px;
-  line-height: 1.5;
-  outline: none;
-}
-#msgTextarea:focus{
-  border-color: rgba(0, 0, 0, 0.76);
-  box-shadow: 0 0 0 1px rgba(84, 92, 87, 0.61);
-}
-#msgModal .modal-actions{
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 14px;
-}
+/* Smooth cross-fade between full page loads instead of a hard white flash
+   (Chrome/Edge only — other browsers just ignore this and navigate as before). */
+@view-transition{ navigation: auto; }
+@media (prefers-reduced-motion: reduce){ @view-transition{ navigation: none; } }
 
 /* ===============================
-   FONT
-   =============================== */
-.user-font{
-  font-family: "Ovelion", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif !important;
-  font-weight: 400 !important;
-  letter-spacing: .04em;
-}
-.u-link{ text-decoration:none; font-weight:800; display:inline-block; }
-
-/* ===============================
-   ANIMATIONS
-   =============================== */
-@keyframes slideInRightToLeft {
-  from { transform: translateX(70px); opacity: 0; }
-  to   { transform: translateX(0);    opacity: 1; }
-}
-@keyframes slideInLeftToRight {
-  from { transform: translateX(-70px); opacity: 0; }
-  to   { transform: translateX(0);     opacity: 1; }
-}
-@keyframes slideInTopToBottom{
-  from { transform: translateY(-18px); opacity: 0; }
-  to   { transform: translateY(0);     opacity: 1; }
-}
-.pill.pill-anim-top{ animation: slideInTopToBottom 1200ms ease-out both; will-change: transform, opacity; }
-.card.card-anim{ animation: slideInRightToLeft 1200ms ease-out both; }
-.card.card-anim-left{ animation: slideInLeftToRight 1200ms ease-out both; }
-
-
-/* ===============================
-   THEME
+   THEME TOKENS
    =============================== */
 :root{
-  --bg1:#061a10; --bg2:#02130a;
-  --card:rgba(213, 233, 218, 0.582);
-  --stroke:rgba(255,255,255,.10);
-  --txt:rgba(255,255,255,.98);
-  --muted:rgba(255,255,255,.84);
-  --green:#22c55e;
+  --bg: #0A0F1E;
+  --card: #121A2E;
+  --card-2: #0E1526;
+  --border: rgba(255,255,255,.08);
+  --border-strong: rgba(255,255,255,.16);
+  --text: #F1F5F9;
+  --muted: #8B93A7;
+  --dim: #64748B;
+
+  --indigo: #6366F1;
+  --indigo-dark: #4F46E5;
+  --indigo-soft: rgba(99,102,241,.16);
+
+  --blue: #3B82F6;
+  --orange: #F97316;
+  --pink: #EC4899;
+  --teal: #14B8A6;
+  --green: #22C55E;
+  --red: #EF4444;
+
+  color-scheme: dark;
 }
 
-html, body{ height:100%; }
+*{ box-sizing: border-box; }
+
+html, body{ height:100%; background-color: var(--bg); }
 body{
-  font-family: 'Ovelion', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
   background:
-    linear-gradient(rgba(6,26,16,.55), rgba(2,19,10,.75)),
-    url("{% static 'img/staff-bg.webp' %}");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+    radial-gradient(1100px 500px at 15% -10%, rgba(99,102,241,.10), transparent 60%),
+    var(--bg);
   margin: 0;
-  overflow: hidden;
-  height: 100vh;
+  color: var(--text);
+  overflow-y: auto;
+  min-height: 100vh;
 }
+
+/* Explicit dark background on <option> too — otherwise the browser's native
+   dropdown list highlights the hovered/selected row with its own light
+   background, and our forced white text becomes unreadable on it. */
+select, select option{ color:#fff; background: #0F1629; }
 
 .wrap{
-  width: calc(100vw - 20px);
-  margin: 10px auto;
+  width: calc(100vw - 24px);
+  max-width: 1600px;
+  margin: 12px auto;
   padding: 0;
   box-sizing: border-box;
-  height: calc(100vh - 20px);
-}
-
-/* ===========================
-   TOPBAR_LIGHTNING_ANIMATION
-   =========================== */
-
-   .topbar{
-  border-radius:18px;
-  padding:10px 14px;
-  display:flex; align-items:center; justify-content:space-between;
-  margin-bottom:16px;
-
-  /* ✅ CULTURE MIX (NO ANIMATION) */
-  background: linear-gradient(120deg, #c9a33aaf, #0B2B57 af);
-
-  border:2px solid rgba(201,163,58,.65);
-  box-shadow: 0 0 10px rgba(201,163,58,.18), 0 14px 10px rgba(0,0,0,.18);
-  backdrop-filter: blur(10px);
-}
-
-.topbar .btn{
-  position: relative;
-  z-index: 2;
-  background: rgba(0,0,0,.55);
-  border: 1px solid rgba(0,255,255,.25);
-  box-shadow: 0 0 12px rgba(0,200,255,.25);
-}
-
-@keyframes topbarFlow{
-  0%{ background-position: 0% 50%; }
-  50%{ background-position: 100% 50%; }
-  100%{ background-position: 0% 50%; }
-}
-
-.brand{font-family: 'Ovelion', inherit;font-weight: 400;letter-spacing: .04em;}
-.pill{
-  display:inline-flex; gap:10px; align-items:center;
-  padding:10px 14px; border-radius:14px;
-  background:rgba(0,0,0,.35); border:1px solid var(--stroke);
-  backdrop-filter:blur(14px);
-}
-.btn{
-  display:inline-flex; align-items:center; justify-content:center;
-  gap:10px;
-  padding:10px 14px; border-radius:14px;
-  color:var(--txt); text-decoration:none; font-weight:800;
-  border:1px solid var(--stroke);
-  background:rgba(0,0,0,.45);
-  font-family: 'Ovelion', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight: 500;
-  letter-spacing: .04em;
-}
-.btn:hover{ transform:translateY(-1px); }
-
-.topbar .btn{
-  position: relative;
-  z-index: 2;
-  background: rgba(0,0,0,.55);
-  border: 1px solid rgba(0,255,255,.25);
-  box-shadow: 0 0 12px rgba(0,200,255,.25);
-}
-.card{
-  background:var(--card);
-  border:1px solid var(--stroke);
-  border-radius:20px;
-  box-shadow:0 18px 50px rgba(92, 92, 92, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.801);
-  backdrop-filter:blur(18px);
-  overflow:hidden;
-  min-height: 0;
-  height: 100%;
+  min-height: calc(100vh - 24px);
   display: flex;
   flex-direction: column;
 }
-/* ✅ LEFT MENU CARD = SAME AS view/base.html */
-.card.side{
-  background: linear-gradient(120deg, #c9a33aaf, #0B2B57 af);
-  border:2px solid rgba(201,163,58,.55);
-  box-shadow: 0 18px 50px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.18);
-}
-.card.side .card-h{
-  border-bottom:1px solid rgba(201,163,58,.55);
-  background: linear-gradient(120deg, rgba(11,43,87,.35), rgba(201,163,58,.10));
-}
-.card.side .menu-item.active{
-  background: linear-gradient(135deg, #0A3D78, #C9A33A);
-  color:#fff;
-  border:1px solid rgba(242,210,122,.75);
-}
-/* ✅ Allow inner card scroll on detail pages */
-.card{ min-height:0; }        /* already ok but keep */
-.content{
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
-/* ===== MENU CARD (Vertical Shine) ===== */
-/* ===== MENU CARD (LEFT) -> SAME AS TOPBAR COLOR ===== */
-.card.side .menu-item{
-  background: rgba(0,0,0,.22) !important;
-  border: 1px solid rgba(255,255,255,.14) !important;
-}
-.card.side .menu-item:hover{
-  background: rgba(0,0,0,.30) !important;
-}
 
-
-
-.card.side::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  border-radius:20px;
-  box-shadow:
-    0 0 18px rgba(0,180,255,.18),
-    inset 0 0 26px rgba(0,150,255,.12);
-  pointer-events:none;
-}
-
-.card.side .card-h,
-.card.side .menu-item{
-  position: relative;
-  z-index: 2;
-}
-
-@keyframes menuFlow{
-  0%{ background-position: 0% 50%; }
-  50%{ background-position: 100% 50%; }
-  100%{ background-position: 0% 50%; }
-}
-
-@keyframes menuLightningMove{
-  0%{ left:-160%; }
-  100%{ left:160%; }
-}
-
-/* ✅ IMPORTANT: allow scroll inside form pages too */
-/* ✅ IMPORTANT: allow scroll inside form pages too (ONLY direct page form, not table forms) */
-.card > form{
-  display:flex;
-  flex-direction:column;
-  min-height:0;
-  height:100%;
-}
-.card > form > .content{
-  flex:1;
-  min-height:0;
-  overflow-y:auto;
-}
-.card-h{
-  padding:16px 18px;
-  display:flex; align-items:center; justify-content:space-between;
-  border-bottom:1px solid rgba(255, 255, 255, 0.856);
-}
-.h1{
-  font-family: 'Ovelion', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight: 600;
-  font-size: 18px;
-  letter-spacing: .04em;
-}
-.muted{ color:var(--muted); font-size:14px; }
-
+/* ===============================
+   LAYOUT GRID (sidebar + main)
+   =============================== */
+.topbar{ flex: none; }
 .grid{
   display:grid;
-  gap: 12px;
-  height: 100%;
+  gap: 16px;
   align-items: stretch;
+  flex: 1;
 }
 @media(min-width:900px){
-  .grid{ grid-template-columns: 300px 1fr; }
-}
-/* ✅ IMPORTANT: allow right content to shrink correctly (prevents overlap) */
-.grid > .dashboard-card{
-  min-width: 0;
+  .grid{ grid-template-columns: 260px 1fr; }
 }
 
-.dot{
-  width:10px; height:10px; border-radius:999px;
-  background:rgba(34,197,94,.9);
-  box-shadow:0 0 16px rgba(34,197,94,.55);
+/* ===============================
+   SIDEBAR
+   =============================== */
+.card.side{
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.35);
+  display:flex;
+  flex-direction:column;
+  padding: 18px 14px;
+  position: sticky;
+  top: 12px;
 }
 
-/* ===== Menu items ===== */
+.brand-block{
+  display:flex; align-items:center; gap:12px;
+  padding: 4px 8px 18px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.brand-ico{
+  width:44px; height:44px; border-radius:12px; flex:none;
+  display:flex; align-items:center; justify-content:center;
+  overflow: hidden;
+}
+.brand-ico img{ width:100%; height:100%; object-fit:contain; }
+.brand-title{ font-weight:800; font-size:16px; color:#fff; line-height:1.2; }
+.brand-sub{ font-size:11.5px; color:var(--muted); margin-top:2px; }
+
 .menu-item{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:12px;
-
-  padding:12px 14px; border-radius:14px;
-  text-decoration:none; color:var(--txt);
-  border:1px solid rgba(255,255,255,.08);
-  background:rgba(0,0,0,.22);
-  margin:10px 12px;
-
-  font-family: 'Ovelion', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight: 400;
-  letter-spacing: .02em;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+  padding:11px 12px;
+  border-radius:12px;
+  text-decoration:none;
+  color: var(--muted);
+  margin: 4px 0;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background .15s ease, color .15s ease;
 }
-.menu-left{ display:flex; align-items:center; gap:12px; }
-.menu-icon{ width:22px; height:22px; object-fit:contain; flex:0 0 22px; }
-.menu-text{ font-weight:800; }
-.menu-arrow{ opacity:.75; }
+.menu-left{ display:flex; align-items:center; gap:12px; min-width:0; }
+.menu-icon-wrap{
+  width:44px; height:44px; border-radius:11px; flex:0 0 44px;
+  display:flex; align-items:center; justify-content:center;
+  background: rgba(255,255,255,.06);
+  border: 1px solid var(--border);
+}
+.menu-icon{ width:40px; height:40px; object-fit:contain; flex:0 0 40px; }
+.menu-icon-svg{ width:22px; height:22px; }
+.menu-text{ font-weight:650; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.menu-arrow{ opacity:.6; font-size:13px; flex:none; }
 
 .menu-item:hover{
-  box-shadow:
-    0 0 0 2px rgba(0, 0, 0, 0.623),
-    0 8px 22px rgba(0,0,0,.32),
-    inset 0 1px 0 rgba(255,255,255,.18);
-  border-color:rgba(34,197,94,.26);
+  background: rgba(255,255,255,.05);
+  color: var(--text);
 }
 .menu-item.active{
-  border-color: rgba(255,255,255,.28);
-  background: linear-gradient(135deg, rgb(255, 255, 255), rgba(5, 166, 241, 0.349));
-  box-shadow:
-    0 0 0 2px rgba(0, 0, 0, 0.623),
-    0 0 22px rgba(0, 0, 0, 0.384),
-    inset 0 1px 0 rgba(255,255,255,.22);
-  color:#0b2430;
-}
-.menu-item.active .menu-arrow,
-.menu-item.active .menu-text{ color:#0b2430; }
-
-.menu-item:active{
-  background: rgba(255,255,255,.85);
-  color: #0b2430;
-  border-color: rgba(12, 11, 11, 0.65);
-  box-shadow:
-    inset 0 2px 6px rgba(0,0,0,.22),
-    0 0 0 1px rgba(255,255,255,.35);
-  transform: translateY(1px);
-}
-.menu-item:active .menu-arrow{ opacity:.8; }
-
-/* ===== Main scroll area inside card ===== */
-.content{
-  padding:14px;
-  flex: 1;
-  min-height: 0;
-  overflow-y: auto;
-  overflow-x: auto;     /* ✅ changed */
-  padding-bottom: 90px;
-  scroll-padding-bottom: 90px;
-
-  scrollbar-gutter: stable both-edges;
-  padding-right: 18px;
-
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-}
-/* ✅ Staff dashboard only: space on top 15px */
-.content.staffdash{
-  padding-top: 15px;
-}
-/* ✅ Professional scrollbar spacing */
-.content{
-  scrollbar-gutter: stable both-edges; /* Chrome/Edge */
-  padding-right: 18px;                /* space for scrollbar */
-}
-.content{
-  overscroll-behavior: contain;
-  -webkit-overflow-scrolling: touch;
-}
-/* Chrome/Edge scrollbar */
-.content::-webkit-scrollbar{ width: 10px; }
-.content::-webkit-scrollbar-track{
-  background: rgba(0,0,0,.15);
-  border-radius: 999px;
-}
-.content::-webkit-scrollbar-thumb{
-  background: rgba(255,255,255,.28);
-  border-radius: 999px;
-}
-.content::-webkit-scrollbar-thumb:hover{
-  background: rgba(255,255,255,.38);
-}
-/* ===== Table baseline (SAFE) ===== */
-table{
-  width:100%;
-  border-collapse:collapse;
-  /* ❌ DO NOT use table-layout: fixed; (it causes overlap on resize) */
-}
-
-thead tr{ border-bottom: 1px solid rgba(255, 255, 255, 0.911); }
-tbody tr{ border-bottom: 1px solid rgba(255, 255, 255, 0.911); }
-
-th,td{
-  padding:10px 10px;
-  border-bottom: 0;
-  font-weight: 400;
-  letter-spacing: .02em;
-}
-
-td{ color: rgba(255, 255, 255, 0.96); }
-th{
-  text-align:left;
-  font-size:12px;
-  letter-spacing:.06em;
-  text-transform:uppercase;
-  color:rgba(255,255,255,.90);
-}
-
-/* ✅ Horizontal scroll wrapper for wide tables */
-.table-wrap{
-  width:100%;
-  overflow-x:auto;
-  overflow-y:hidden;
-  -webkit-overflow-scrolling: touch;
-}
-
-input,select{
-  width:100%; box-sizing:border-box;
-  padding:10px 12px; border-radius:12px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(0, 0, 0, 0.829);
-  color:var(--txt);
-  outline:none;
-}
-
-.row-actions{ display:flex; gap:8px; }
-
-.savebtn{
-  padding: 14px 16px;
-  min-width: 74px;
-  border-radius:12px;
-  font-size: 13px;
-  border:1px solid rgba(255,255,255,.22);
-  background: linear-gradient(135deg, rgba(18, 122, 170, 0.89), rgba(0, 0, 0, 0.911));
-  box-shadow:
-    0 0 0 1px rgba(255,255,255,.12),
-    0 0 22px rgba(34,197,94,.14),
-    inset 0 1px 0 rgba(26, 25, 25, 0.22);
-  color:var(--txt);
-  cursor:pointer;
-  font-family: 'Ovelion', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-weight: 600;
-  letter-spacing: .04em;
-}
-.savebtn:active{
-  background: rgba(255,255,255,.85);
-  color: #0b2430;
-  box-shadow:
-    inset 0 2px 6px rgba(0,0,0,.25),
-    0 0 0 1px rgba(255,255,255,.6);
-  transform: translateY(1px);
-}
-.savebtn:focus{
-  outline: none;
-  background: rgba(255,255,255,.78);
-  color: #0b2430;
-}
-
-.pager{ display:flex; gap:10px; align-items:center; justify-content:flex-end; padding:12px 14px; }
-.pager a{ color:var(--txt); text-decoration:none; font-weight:800; opacity:.85; }
-.pager a:hover{ opacity:1; }
-
-/* ===== Status select styling ===== */
-.status-select{ background: rgba(0,0,0,.35); color:#fff; font-weight:600; border: 1px solid rgba(255,255,255,.18); }
-.status-select option.status-active{ background-color:#22c55e; color:#fff; }
-.status-select option.status-danger{ background-color:#ef4444; color:#fff; }
-.status-select:has(option:checked.status-danger){
-  background:#FF2C2C;
-  border-color:#FF2C2C;
+  background: linear-gradient(135deg, var(--indigo), var(--indigo-dark));
   color:#fff;
-  box-shadow: 0 0 0 2px rgba(255,44,44,.95), inset 0 1px 0 rgba(255,255,255,.25);
+  box-shadow: 0 10px 22px rgba(99,102,241,.35);
 }
-.status-select:has(option:checked.status-active){
-  border-color: rgba(34,197,94,.7);
-  box-shadow: 0 0 0 1px rgba(34,197,94,.35);
-}
-.inline-form{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      flex-wrap: nowrap;
-    }
-    .inline-form select{
-      width:auto !important;
-      min-width: 180px;
-      flex: 1 1 auto;
-    }
-    .inline-form .savebtn{
-      flex: 0 0 auto;
-      white-space: nowrap;
-    }
-/* ===== Staff dashboard colorful cards (paste into staff_base.html <style> ) ===== */
-  /* ===== Staff dashboard layout (4 cards row) ===== */
-.stats-grid{
-  display:grid;
-  gap:14px;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-
-/* Tablet: 2 per row */
-@media (max-width: 1100px){
-  .stats-grid{ grid-template-columns: repeat(2, 1fr); }
-}
-/* Mobile: 1 per row */
-@media (max-width: 560px){
-  .stats-grid{ grid-template-columns: 1fr; }
-}
-
-/* ===== Performance card aligns with Loan Applications right edge ===== */
-/* ===== Performance row: 2 cards (LEFT perf, RIGHT user mini) ===== */
-.perf-wrap{
-  margin-top:14px;
-  display:grid;
-  grid-template-columns: 1fr 1fr;   /* 2 cards side-by-side */
-  gap:14px;
-  align-items: stretch;
-}
-
-/* LEFT card */
-.perf-wrap .perf-card{
-  min-height: 360px;
-  height: auto;
-}
-
-/* RIGHT card */
-.perf-wrap .user-mini-card{
-  min-height: 360px;
-  height: auto;
-
-  border-radius: 22px;
-  padding: 16px;
-
-  /* paper / glass */
-  background: rgba(255,255,255,.12);
-  border: 1px solid rgba(255,255,255,.18);
-  box-shadow:
-    0 18px 50px rgba(0,0,0,.35),
-    inset 0 1px 0 rgba(255,255,255,.45);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
-
-/* inside text */
-.user-mini-phone{
-  color: rgba(255,255,255,.96);
-  font-weight: 950;
-}
-
-/* rows */
-.user-mini-body .mini-row{
-  display:flex;
-  justify-content:space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(255,255,255,.10);
-}
-.user-mini-body .mini-row span{ opacity:.75; }
-.user-mini-body .mini-row strong{ font-weight: 950; }
-
-/* Responsive: stack */
-@media (max-width: 1100px){
-  .perf-wrap{ grid-template-columns: 1fr; }
-  .perf-wrap .perf-card,
-  .perf-wrap .user-mini-card{
-    min-height: 300px;
-  }
-}
-
-/* Responsive: on tablet/mobile full width */
-@media (max-width:1100px){
-  .perf-wrap .user-mini-card{
-    grid-column: 1 / -1;
-    height: auto;
-    min-height: 260px;
-  }
-  .perf-wrap .perf-card{
-    height: auto;
-    min-height: 360px;
-  }
-}
-.stat-card{
-  border-radius:20px;
-  padding:16px 16px 14px;
-  border:1px solid rgba(255,255,255,.14);
-  box-shadow:0 18px 50px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.35);
-  color:#fff;
-  position:relative;
-  overflow:hidden;
-}
-
-.stat-card::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background: radial-gradient(900px 240px at 10% 10%, rgba(255,255,255,.22), transparent 55%);
-  pointer-events:none;
-}
-
-.stat-top{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:10px;
-}
-
-.stat-title{ font-weight:950; font-size:14px; letter-spacing:.02em; }
-.stat-sub{ font-size:11px; opacity:.85; margin-top:2px; }
-
-.stat-ico{
-  width:34px; height:34px;
-  border-radius:12px;
-  background: rgba(0,0,0,.18);
-  border:1px solid rgba(255,255,255,.18);
-  display:flex; align-items:center; justify-content:center;
-  font-size:16px;
-}
-
-.stat-num{
-  font-size:34px;
-  font-weight:950;
-  margin-top:10px;
-  letter-spacing:.02em;
-}
-
-.stat-btn{
-  margin-top:12px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding:10px 14px;
-  border-radius:14px;
-  text-decoration:none;
-  font-weight:900;
-  color:#fff;
-  border:1px solid rgba(255,255,255,.18);
-  background: rgba(0,0,0,.18);
-}
-.stat-btn:hover{ transform: translateY(-1px); }
-.stat-btn:active{ transform: translateY(0); opacity:.92; }
-
-/* Color themes */
-.stat-teal{
-  background: linear-gradient(135deg, rgba(16,185,129,.85), rgba(2,132,199,.75));
-}
-.stat-orange{
-  background: linear-gradient(135deg, rgba(249,115,22,.9), rgba(245,158,11,.75));
-}
-.stat-purple{
-  background: linear-gradient(135deg, rgba(168,85,247,.9), rgba(236,72,153,.75));
-}
-/* ===== Payment Method Bright Glass ===== */
-.stat-dark{
-  background: linear-gradient(
-    135deg,
-    rgba(255,255,255,.75),
-    rgba(220,230,240,.65)
-  );
-
-  border: 1px solid rgba(255,255,255,.6);
-
-  box-shadow:
-    0 0 25px rgba(255,255,255,.35),
-    inset 0 1px 0 rgba(255,255,255,.9);
-
-  color:#0b2430;
-}
-
-/* fix text color inside */
-.stat-dark .stat-title,
-.stat-dark .stat-num{
-  color:#0b2430;
-}
-/* ===== Stat card icon (webp) ===== */
-.stat-ico{
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+.menu-item.active .menu-icon-wrap{
   background: rgba(255,255,255,.18);
-  border: 1px solid rgba(255,255,255,.22);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
+  border-color: rgba(255,255,255,.3);
 }
-.stat-ico img{
-  width: 18px;
-  height: 18px;
-  object-fit: contain;
-  display:block;
-  filter: drop-shadow(0 2px 6px rgba(0,0,0,.25));
-}
+.menu-item.active .menu-arrow{ opacity:.9; }
 
-/* ===== Performance Overview card ===== */
-.perf-card{
-  border-radius: 22px;
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(0,0,0,.30);
-  box-shadow: 0 18px 50px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.18);
-  padding: 16px;
-}
-
-.perf-head{
+/* ===== Sidebar clock ("Server Time") ===== */
+.side-clock{
+  margin-top: 14px;
+  border-radius: 14px;
+  padding: 14px;
+  background: var(--card-2);
+  border: 1px solid var(--border);
   display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:12px;
-  margin-bottom: 12px;
+  align-items:center;
+  gap: 12px;
 }
-.perf-title{
-  font-size:18px;
-  font-weight:900;
-  color:#fff;
+.side-clock .sc-ico{
+  width:56px; height:56px; border-radius:999px; flex:none;
+  display:flex; align-items:center; justify-content:center;
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--border-strong);
+  overflow: hidden;
 }
-.perf-sub{
-  font-size:12px;
-  opacity:.75;
-  color:#eafff1;
-  margin-top:4px;
-}
-
-.perf-bars{
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  gap: 18px;                 /* ✅ space between bar */
-  min-height: 300px;
-
-  padding: 10px 22px 60px;   /* ✅ add padding right/left + bottom */
-  box-sizing: border-box;
-
-  border-radius:18px;
-  background: rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.10);
-
-  overflow: hidden;          /* ✅ do not let anything overflow the card */
-}
-
-.bar{
-  width:28px;              /* slim */
-  border-radius:12px;
-  display:flex;
-  align-items:flex-end;
-  justify-content:center;
-  position:relative;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.25);
-  flex: 1 1 0;
-  min-width: 0;
-}
-.bar span{
-  position:absolute;
-  bottom: -32px;           /* ✅ move down a little */
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 14px;         /* ✅ bigger (about +3px) */
-  font-weight: 900;
-  opacity: .90;
-  color:#eafff1;
-  white-space: nowrap;
-  padding: 0 6px;
-  max-width: 100%;
-  text-align: center;
-}
-
-.bar i{
-  position:absolute;
-  top: 10px;
-  font-style: normal;
+.side-clock .sc-ico img{ width:52px; height:52px; object-fit:contain; }
+.side-clock .sc-body{ min-width:0; }
+.side-clock .sc-label{
   font-size: 12px;
-  font-weight: 950;
-  color: rgba(255,255,255,.95);
-  text-shadow: 0 6px 20px rgba(0,0,0,.35);
+  font-weight: 700;
+  color: var(--muted);
 }
-
-.bar.teal{ background: linear-gradient(180deg, rgba(0,255,204,.95), rgba(0,110,120,.75)); }
-.bar.orange{ background: linear-gradient(180deg, rgba(255,140,60,.95), rgba(160,70,10,.75)); }
-.bar.purple{ background: linear-gradient(180deg, rgba(255,60,200,.95), rgba(120,40,140,.75)); }
-
-@media (max-width: 980px){
-  .perf-bars{ grid-template-columns: repeat(3, 1fr); height: 220px; }
-}
-/* ===== Perf animations ===== */
-.perf-bars .bar{
-  transform-origin: bottom;
-  animation: barGrow 900ms cubic-bezier(.2,.9,.2,1) both;
-}
-
-.perf-bars .bar:nth-child(1){ animation-delay: 80ms; }
-.perf-bars .bar:nth-child(2){ animation-delay: 160ms; }
-.perf-bars .bar:nth-child(3){ animation-delay: 240ms; }
-.perf-bars .bar:nth-child(4){ animation-delay: 320ms; }
-.perf-bars .bar:nth-child(5){ animation-delay: 400ms; }
-.perf-bars .bar:nth-child(6){ animation-delay: 480ms; }
-
-@keyframes barGrow{
-  from{ transform: scaleY(0.12); filter: saturate(.9); opacity: .75; }
-  to  { transform: scaleY(1);    filter: saturate(1);  opacity: 1; }
-}
-/* ===== Dashboard Search ===== */
-.dash-search{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-.dash-select{
-  height:42px;
-  padding:0 12px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.18);
-  background:rgba(0,0,0,.38);
-  color:#fff;
-  min-width:150px;
-}
-.dash-input{
-  height:42px;
-  width:240px;
-  padding:0 14px;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,.18);
-  background:rgba(0,0,0,.40);
-  color:#fff;
-}
-.dash-btn{
-  height:42px;
-  padding:0 18px;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,.18);
-  background:linear-gradient(135deg,#127aaa,#000);
-  color:#fff;
-  font-weight:900;
-  cursor:pointer;
-}
-
-/* ===== Bright White Titles ===== */
-.brand,
-.h1{
-  color: #ffffff !important;
+.side-clock .sc-time{
+  font-size: 20px;
   font-weight: 800;
-  letter-spacing: .04em;
-
-  text-shadow:
-    0 0 6px rgba(255,255,255,.6),
-    0 0 14px rgba(0,200,255,.35);
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+  margin-top: 3px;
 }
-
-/* Optional – Make subtitle slightly brighter too */
-.muted{
-  color: rgba(255,255,255,.88);
+.side-clock .sc-date{
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text);
+  margin-top: 4px;
 }
-/* ===== Neon White Glow Titles ===== */
-
-/* Topbar buttons */
-.topbar .btn{
-  color:#ffffff !important;
-  font-weight:800;
-  text-shadow:
-    0 0 6px rgba(255,255,255,.7),
-    0 0 14px rgba(0,200,255,.45);
+.side-clock .sc-country{
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+  margin-top: 1px;
 }
-
-/* Performance Overview title */
-.perf-title{
-  color:#ffffff !important;
-  font-weight:900;
-  text-shadow:
-    0 0 6px rgba(255,255,255,.7),
-    0 0 14px rgba(0,200,255,.45);
-}
-
-/* Optional – make subtitle slightly glow too */
-.perf-sub{
-  color:rgba(255,255,255,.9);
-}
-
-/* ===== User Mini Detail Card ===== */
-.user-mini-card{
-  border-radius:22px;
-  border:1px solid rgba(255,255,255,.12);
-  background: rgba(0,0,0,.45);
-  box-shadow: 0 18px 50px rgba(0,0,0,.45),
-              inset 0 1px 0 rgba(255,255,255,.15);
-  padding:18px;
-  min-height:260px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  animation: fadeInUser 400ms ease;
-}
-
-@keyframes fadeInUser{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
-.user-mini-head{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  margin-bottom:14px;
-}
-
-.user-mini-icon{
-  width:52px;
-  height:52px;
-  border-radius:16px;
-  background:rgba(255,255,255,.15);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.user-mini-icon img{
-  width:28px;
-  height:28px;
-}
-
-.user-mini-phone{
-  font-size:18px;
-  font-weight:900;
-  color:#fff;
-  text-shadow:0 0 10px rgba(0,200,255,.4);
-}
-
-.user-mini-body{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-.mini-row{
-  display:flex;
-  justify-content:space-between;
-  font-size:14px;
-  color:rgba(255,255,255,.85);
-}
-
-.mini-row strong{
-  color:#ffffff;
-  font-weight:900;
-}
-/* ===== User mini card (right side) ===== */
-.perf-wrap .user-mini-card{
-  grid-column: 3 / span 2;     /* move to the right 2 columns */
-  min-height: 360px;
-  border-radius: 22px;
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(0,0,0,.30);
-  box-shadow: 0 18px 50px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.18);
-  padding: 16px;
-}
-
-@media (max-width:1100px){
-  .perf-wrap .user-mini-card{ grid-column: 1 / -1; } /* Tablet/mobile => move down */
-}
-
-.user-mini-head{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  margin-bottom: 14px;
-}
-.user-mini-icon{
-  width:42px;height:42px;
-  border-radius:14px;
-  display:flex;align-items:center;justify-content:center;
-  background: rgba(255,255,255,.10);
-  border: 1px solid rgba(255,255,255,.14);
-}
-.user-mini-icon img{ width:20px;height:20px; }
-.user-mini-phone{
-  font-weight: 950;
-  color: rgba(255,255,255,.95);
-}
-.user-mini-body .mini-row{
-  display:flex;
-  justify-content:space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid rgba(255,255,255,.08);
-}
-.user-mini-body .mini-row span{ opacity:.75; }
-.user-mini-body .mini-row strong{ color: rgba(255,255,255,.95); }
-
-/* Make phone links white (tables/pages) */
-table a{
-  color: rgba(255,255,255,.95) !important;
-  text-decoration: none;
-}
-table a:hover{
-  text-decoration: underline;
-}
-/* ===== WELCOME ANIMATION: play ONCE per session ===== */
-body.no-welcome-anim .pill.pill-anim-top,
-body.no-welcome-anim .card.card-anim,
-body.no-welcome-anim .card.card-anim-left{
-  animation: none !important;
-  opacity: 1 !important;
-  transform: none !important;
-}
-.period-buttons{
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-}
-
-.period-btn{
-  padding:10px 22px;
-  min-height:42px;
-
-  border-radius:8px;              /* ⬅ no longer rounded */
-  border:1px solid rgba(255,255,255,.18);
-
-  background:rgba(255,255,255,.06);
-  color:#fff;
-
-  font-size:14px;                  /* ⬅ bigger than before */
-  font-weight:800;
-  letter-spacing:.3px;
-
-  cursor:pointer;
-  transition:all .2s ease;
-}
-
-.period-btn:hover{
-  background:rgba(255,255,255,.14);
-  transform:translateY(-1px);
-}
-
-.period-btn.active{
-  background:linear-gradient(90deg,#004182,#0a6ad6);
-  border:1px solid #0a6ad6;
-  box-shadow:0 6px 18px rgba(0,0,0,.45);
-}
-body, body *{
-  font-family: 'Ovelion', sans-serif !important;
-}
-/* ===== Staff responsive fix (PHONE) ===== */
-
-/* allow page scroll on phone (important) */
-body{
-  overflow: auto !important;
-  height: auto !important;
-  min-height: 100vh;
-}
-
-/* wrap height flexible on phone */
-.wrap{
-  height: auto !important;
-  min-height: calc(100vh - 20px);
-}
-
-/* topbar not overlap */
-.topbar{
-  flex-wrap: wrap;
-  gap: 10px;
-}
-.pill{
-  flex-wrap: wrap;
-}
-
-/* grid: stack menu + content on phone */
-@media (max-width: 900px){
-  .grid{
-    grid-template-columns: 1fr !important;   /* 1 column */
-    height: auto !important;
-  }
-
-  .card{
-    height: auto !important;                /* don't force full height */
-    min-height: 0;
-  }
-
-  .content{
-    padding-bottom: 40px;                   /* prevent bottom cut */
-    overflow: visible;                      /* allow normal flow */
-  }
-
-  /* table/forms avoid squeeze */
-  table{ table-layout: auto !important; }
-  input, select, textarea{ width: 100% !important; }
-}
-
-/* very small phones */
-@media (max-width: 560px){
-  .dash-search{ flex-wrap: wrap; }
-  .dash-input{ width: 100% !important; }
-  .dash-select{ width: 100% !important; }
-  .dash-btn{ width: 100% !important; }
-}
-
-/* ✅ FIX: allow scroll anywhere (whole page) */
-html, body{
-  height: auto !important;
-}
-
-body{
-  overflow-y: auto !important;
-  overflow-x: hidden !important;
-}
-
-/* remove forced full-screen height */
-.wrap{
-  height: auto !important;
-  min-height: calc(100vh - 20px) !important;
-}
-
-.grid{
-  height: auto !important;
-}
-
-.card{
-  height: auto !important;
-}
-
-/* stop inner-scroll taking over wheel */
-.content{
-  overflow: visible !important;
-}
-
-thead tr{ border-bottom: 1px solid rgba(255, 255, 255, 0.911); }
-th{ text-align:left; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:rgba(255,255,255,.90); }
 
 /* ===============================
-   STAFF TABLE HEADER BAR (ALL STAFF PAGES)
+   TOPBAR (shared header cluster)
    =============================== */
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.pill{
+  display:inline-flex; gap:10px; align-items:center;
+  padding:9px 14px; border-radius:12px;
+  background: var(--card); border:1px solid var(--border);
+  color: var(--text); font-size: 13px; font-weight:600;
+}
+.admin-pill{
+  display:flex; align-items:center; gap:10px;
+  padding: 6px 12px 6px 6px;
+  border-radius: 999px;
+  background: var(--card); border:1px solid var(--border);
+  cursor:pointer;
+}
+.admin-avatar{
+  width:36px; height:36px; border-radius:999px; flex:none;
+  display:flex; align-items:center; justify-content:center;
+  overflow: hidden;
+}
+.admin-avatar img{ width:100%; height:100%; object-fit:contain; }
+.admin-name{ font-size:13px; font-weight:700; color:var(--text); line-height:1.2; }
+.admin-role{ font-size:11px; color:var(--muted); line-height:1.2; }
+.admin-chev{ color:var(--muted); font-size:12px; margin-left:2px; }
 
-/* Only tables inside the RIGHT content card */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  gap:8px;
+  padding:9px 14px; border-radius:12px;
+  color:var(--text); text-decoration:none; font-weight:700;
+  border:1px solid var(--border);
+  background: var(--card);
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.btn:hover{ border-color: var(--border-strong); }
+
+/* ===============================
+   CONTENT CARD (per-page container)
+   =============================== */
+.card{
+  background: var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  box-shadow: 0 20px 50px rgba(0,0,0,.3);
+  overflow:hidden;
+  display: flex;
+  flex-direction: column;
+}
+.dashboard-card{ padding: 20px; min-width: 0; }
+
+.card-h{
+  padding: 0 0 18px;
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap: wrap; gap: 12px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 18px;
+}
+.h1{
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -.01em;
+  color: #fff;
+}
+.muted{ color: var(--muted); font-size:13.5px; margin-top: 2px; }
+
+.dot{
+  width:9px; height:9px; border-radius:999px;
+  background: var(--green);
+  box-shadow:0 0 10px rgba(34,197,94,.7);
+}
+
+/* ===============================
+   TABLES (shared across all staff pages)
+   =============================== */
+.table-wrap{ width:100%; overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling: touch; }
+table{ width:100%; border-collapse: separate; border-spacing: 0; }
+
 .dashboard-card table thead th{
-  background: #004182;              /* culture / brand color */
-  color: #ffffff !important;
-  font-weight: 900;
+  background: var(--card-2);
+  color: var(--muted) !important;
+  font-weight: 700;
+  font-size: 11.5px;
   letter-spacing: .06em;
   text-transform: uppercase;
-  border-bottom: 0 !important;
-}
-
-/* remove the old white border under thead */
-.dashboard-card table thead tr{
-  border-bottom: 0 !important;
-}
-
-/* make it look like one clean bar */
-.dashboard-card table thead th:first-child{
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
-}
-.dashboard-card table thead th:last-child{
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-}
-
-/* keep header visible when scroll long table */
-.dashboard-card table thead th{
+  text-align: left;
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
   z-index: 10;
 }
+.dashboard-card table thead th:first-child{ border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
+.dashboard-card table thead th:last-child{ border-top-right-radius: 10px; border-bottom-right-radius: 10px; }
 
-/* ===== ONLY change TITLE area inside RIGHT big card ===== */
-:root{ --staff-blue: #004182; }
-
-/* Users (title) */
-.dashboard-card .h1{
-  color: var(--staff-blue) !important;
-  text-shadow: none !important;
+.dashboard-card table tbody td{
+  padding: 12px 10px;
+  color: var(--text) !important;
+  font-weight: 500;
+  border-bottom: 1px solid var(--border);
 }
-
-/* "Edit status, OTP, messages" (subtitle) */
-.dashboard-card .muted{
-  color: rgba(0, 65, 130, 0.75) !important;
-  text-shadow: none !important;
-}
-/* ==================================================
-   ALL STAFF TABLE BODY TEXT -> BLUE (ALL PAGES)
-   (Only rows data / tbody. Not the header row)
-   ================================================== */
-   :root{
-  --staff-blue: #004182;
-}
-
-/* all text inside table rows */
-.dashboard-card table tbody td,
 .dashboard-card table tbody td a,
 .dashboard-card table tbody td span,
 .dashboard-card table tbody td strong,
-.dashboard-card table tbody td b{
-  color: var(--staff-blue) !important;
-  text-shadow: none !important;
-  font-weight: 700;
-}
-
-/* if some pages use <p> or <div> inside td */
+.dashboard-card table tbody td b,
 .dashboard-card table tbody td p,
 .dashboard-card table tbody td div{
-  color: var(--staff-blue) !important;
+  color: var(--text) !important;
 }
+.dashboard-card table tbody tr:hover{ background: rgba(255,255,255,.02); }
 
-/* OPTIONAL: make text inside inputs/selects also blue (for pages that use input fields) */
 .dashboard-card table tbody td input,
 .dashboard-card table tbody td select,
 .dashboard-card table tbody td textarea{
-  color: var(--staff-blue) !important;
-}
-/* =========================================
-   RIGHT BIG CARD -> CLEAN WHITE BACKGROUND
-   (ALL STAFF PAGES)
-   ========================================= */
-   .dashboard-card{
-  background: #ffffffe8 !important;
-  border: 1px solid #e5e7eb !important;
-  box-shadow: 0 10px 30px rgba(0,0,0,.08) !important;
-  backdrop-filter: none !important;
-}
-
-/* remove dark glass effect if any */
-.dashboard-card::before,
-.dashboard-card::after{
-  display: none !important;
-}
-.dashboard-card thead tr{
-  background: #004182 !important;
-}
-
-.dashboard-card thead th{
-  color: #ffffff !important;
-}
-
-/* =========================================================
-   STAFF TABLE: REMOVE BLACK BOX INPUTS + ADD VERTICAL LINES
-   (ALL STAFF PAGES inside .dashboard-card)
-   ========================================================= */
-
-/* 1) Make table look clean + allow vertical separators */
-.dashboard-card table{
-  border-collapse: separate !important;
-  border-spacing: 0 !important;
-}
-
-
-
-/* Remove line on first column */
-.dashboard-card table thead th:first-child,
-.dashboard-card table tbody td:first-child{
-  border-left: 0 !important;
-}
-
-/* Optional: keep horizontal row separators light */
-.dashboard-card table tbody tr td{
-  border-bottom: 1px solid rgba(0,0,0,.10) !important;
-}
-
-/* 3) REMOVE the black box backgrounds for inputs/select/textarea inside tables */
-.dashboard-card table tbody td input,
-.dashboard-card table tbody td select,
-.dashboard-card table tbody td textarea{
-  background: transparent !important;   /* remove black box */
-  border: 0 !important;
-  border-bottom: 2px solid rgba(0,0,0,.45) !important; /* underline style */
-  border-radius: 0 !important;
-  box-shadow: none !important;
-
-  padding: 8px 6px !important;
-  color: #004182 !important;            /* keep your blue text */
-  font-weight: 800 !important;
+  background: rgba(255,255,255,.05) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  padding: 8px 10px !important;
+  color: var(--text) !important;
+  font-weight: 600 !important;
   outline: none !important;
 }
-
-/* 4) Focus style (clean) */
 .dashboard-card table tbody td input:focus,
 .dashboard-card table tbody td select:focus,
 .dashboard-card table tbody td textarea:focus{
-  border-bottom-color: #004182 !important;
+  border-color: var(--indigo) !important;
 }
-
-/* 5) Placeholder color */
 .dashboard-card table tbody td input::placeholder,
-.dashboard-card table tbody td textarea::placeholder{
-  color: rgba(0,65,130,.55) !important;
-}
+.dashboard-card table tbody td textarea::placeholder{ color: var(--dim) !important; }
 
-/* 6) If some pages use "status-select" class, force same no-box style */
 .dashboard-card .status-select{
-  background: transparent !important;
-  border: 0 !important;
-  border-bottom: 2px solid rgba(0,0,0,.45) !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  color: #004182 !important;
+  background: rgba(255,255,255,.05) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  color: var(--text) !important;
+}
+table a{ color: var(--indigo) !important; text-decoration:none; }
+table a:hover{ text-decoration: underline; }
+
+input, select, textarea{
+  width:100%; box-sizing:border-box;
+  padding:10px 12px; border-radius:10px;
+  border:1px solid var(--border);
+  background: rgba(255,255,255,.04);
+  color:var(--text);
+  outline:none;
+  font-family: inherit;
+}
+input:focus, select:focus, textarea:focus{ border-color: var(--indigo); }
+
+.savebtn{
+  padding: 12px 18px;
+  min-width: 74px;
+  border-radius:10px;
+  font-size: 13px;
+  border: 1px solid var(--border-strong);
+  background: linear-gradient(150deg, var(--indigo), var(--indigo-dark));
+  color:#fff;
+  cursor:pointer;
+  font-family: inherit;
+  font-weight: 700;
+  box-shadow: 0 8px 18px rgba(99,102,241,.3);
+}
+.savebtn:hover{ filter: brightness(1.06); }
+.savebtn:active{ transform: translateY(1px); }
+
+.pager{ display:flex; gap:10px; align-items:center; justify-content:flex-end; padding:14px 0 0; }
+.pager a{ color:var(--indigo); text-decoration:none; font-weight:700; }
+.pager a:hover{ text-decoration: underline; }
+
+.inline-form{ display:flex; gap:10px; align-items:center; flex-wrap: nowrap; }
+.inline-form select{ width:auto !important; min-width: 180px; flex: 1 1 auto; }
+.inline-form .savebtn{ flex: 0 0 auto; white-space: nowrap; }
+
+.user-font{ font-family: inherit !important; font-weight: 600 !important; }
+
+/* ===============================
+   PERIOD FILTER PILLS
+   =============================== */
+.period-buttons{ display:flex; gap:8px; flex-wrap:wrap; }
+.period-btn{
+  padding:9px 16px;
+  border-radius:10px;
+  border:1px solid var(--border);
+  background: var(--card-2);
+  color: var(--muted);
+  font-size:13px;
+  font-weight:700;
+  cursor:pointer;
+  font-family: inherit;
+  transition: all .15s ease;
+}
+.period-btn:hover{ color: var(--text); border-color: var(--border-strong); }
+.period-btn.active{
+  background: linear-gradient(150deg, var(--indigo), var(--indigo-dark));
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(99,102,241,.35);
 }
 
-/* 7) Make sure links in table stay blue too */
-.dashboard-card table tbody td a{
-  color: #004182 !important;
-  text-decoration: none;
+/* ===============================
+   MODALS (shared)
+   =============================== */
+.logout-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.6);z-index:9999;padding:18px 14px;box-sizing:border-box}
+.logout-modal.show{display:flex}
+.logout-box{width:min(420px,92vw);background:var(--card);border:1px solid var(--border-strong);border-radius:16px;box-shadow:0 24px 60px rgba(0,0,0,.55);padding:18px;color:var(--text)}
+.logout-title{font-weight:800;font-size:16px;margin-bottom:6px}
+.logout-text{font-size:13px;color:var(--muted);line-height:1.5;margin-bottom:16px}
+.logout-actions{display:flex;gap:10px;justify-content:flex-end}
+.btn-cancel{height:40px;padding:0 16px;border-radius:10px;border:1px solid var(--border);background:transparent;color:var(--text);font-weight:700;cursor:pointer}
+.btn-confirm{height:40px;padding:0 16px;border-radius:10px;border:0;font-weight:700;cursor:pointer;background:linear-gradient(150deg, var(--red), #B91C1C);color:#fff}
+
+#msgModal{ position: fixed; inset: 0; background: rgba(0,0,0,.6); display: none; align-items: center; justify-content: center; z-index: 9999; }
+#msgModal .modal-box{ width: min(720px, 94vw); background: var(--card); border-radius: 16px; padding: 18px; box-sizing: border-box; border: 1px solid var(--border-strong); box-shadow: 0 24px 60px rgba(0,0,0,.55); }
+#msgModal h3{ margin: 0 0 12px; font-weight: 700; color:#fff; }
+#msgTextarea{ width: 100%; max-width: 100%; min-height: 160px; resize: vertical; padding: 12px 14px; box-sizing: border-box; border-radius: 12px; border: 1px solid var(--border); background: rgba(255,255,255,.04); color: var(--text); font-family: inherit; font-size: 14px; line-height: 1.5; outline: none; }
+#msgTextarea:focus{ border-color: var(--indigo); }
+#msgModal .modal-actions{ display: flex; justify-content: flex-end; gap: 10px; margin-top: 14px; }
+
+/* ===============================
+   RESPONSIVE
+   =============================== */
+@media (max-width: 900px){
+  .grid{ grid-template-columns: 1fr; }
+  .card.side{ position: static; }
+  table{ table-layout: auto; }
+  input, select, textarea{ width: 100% !important; }
 }
-.dashboard-card table tbody td a:hover{
-  text-decoration: underline;
+@media (max-width: 560px){
+  .topbar{ flex-wrap: wrap; }
+}
+
+/* ===============================
+   WELCOME ANIMATION (play once per session)
+   =============================== */
+@keyframes fadeSlideUp{
+  from{ transform: translateY(14px); opacity: 0; }
+  to  { transform: translateY(0);    opacity: 1; }
+}
+.card-anim, .card-anim-left, .pill-anim-top{
+  animation: fadeSlideUp 500ms ease-out both;
+}
+body.no-welcome-anim .card-anim,
+body.no-welcome-anim .card-anim-left,
+body.no-welcome-anim .pill-anim-top{
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
 }
 
   </style>
 </head>
 
 <body>
+  <script>
+    // Must run before the animated elements below are parsed, so the
+    // slide-in entrance animation only ever plays once per tab/session
+    // instead of replaying (and visibly flickering) on every page navigation.
+    if (sessionStorage.getItem("staffWelcomePlayed") === "1"){
+      document.body.classList.add("no-welcome-anim");
+    } else {
+      sessionStorage.setItem("staffWelcomePlayed", "1");
+    }
+  </script>
   <div class="wrap">
-    <div class="topbar">
-      <div class="pill pill-anim-top">
-        <div class="brand">Control Site / Login By</div>
-        <div class="muted">({{ request.user.phone }})</div>
-      </div>
-      <div class="pill pill-anim-top">
-        <a class="btn" href="{% url 'staff_dashboard' %}">Dashboard</a>
-        <a class="btn" href="#" id="staffLogoutBtn">Logout</a>
-      </div>
-    </div>
 
     <div class="grid">
-      <!-- LEFT MENU -->
+      <!-- LEFT SIDEBAR -->
       <div class="card side card-anim-left">
-        <div class="card-h">
-          <div class="h1">Menu</div>
-          <span class="dot"></span>
+
+        <div class="brand-block">
+          <div class="brand-ico">
+            <img src="{% static 'icons/secured.svg' %}" alt="">
+          </div>
+          <div>
+            <div class="brand-title">Control Site</div>
+            <div class="brand-sub">Panel System</div>
+          </div>
         </div>
+
+        <a href="{% url 'staff_dashboard' %}"
+           class="menu-item {% if request.resolver_match.url_name == 'staff_dashboard' %}active{% endif %}">
+          <span class="menu-left">
+            <span class="menu-icon-wrap"><img src="{% static 'icons/dashboard.svg' %}" class="menu-icon" alt=""></span>
+            <span class="menu-text">Dashboard</span>
+          </span>
+          <span class="menu-arrow">›</span>
+        </a>
 
         <a href="{% url 'staff_users' %}"
            class="menu-item {% if request.resolver_match.url_name == 'staff_users' %}active{% endif %}">
           <span class="menu-left">
-            <img src="{% static 'icons/users.png' %}" class="menu-icon" alt="">
+            <span class="menu-icon-wrap"><img src="{% static 'icons/users.svg' %}" class="menu-icon" alt=""></span>
             <span class="menu-text">Users</span>
           </span>
-          <span class="menu-arrow">→</span>
+          <span class="menu-arrow">›</span>
         </a>
 
         <a href="{% url 'staff_loans' %}"
            class="menu-item {% if request.resolver_match.url_name == 'staff_loans' %}active{% endif %}">
           <span class="menu-left">
-            <img src="{% static 'icons/loans.png' %}" class="menu-icon" alt="">
+            <span class="menu-icon-wrap"><img src="{% static 'icons/loans.svg' %}" class="menu-icon" alt=""></span>
             <span class="menu-text">Loans</span>
           </span>
-          <span class="menu-arrow">→</span>
+          <span class="menu-arrow">›</span>
         </a>
 
         <a href="{% url 'staff_withdrawals' %}"
            class="menu-item {% if request.resolver_match.url_name == 'staff_withdrawals' %}active{% endif %}">
           <span class="menu-left">
-            <img src="{% static 'icons/withdrawals.png' %}" class="menu-icon" alt="">
+            <span class="menu-icon-wrap"><img src="{% static 'icons/withdrawals.svg' %}" class="menu-icon" alt=""></span>
             <span class="menu-text">Withdrawals</span>
           </span>
-          <span class="menu-arrow">→</span>
+          <span class="menu-arrow">›</span>
         </a>
 
         <a href="{% url 'staff_payment_methods' %}"
            class="menu-item {% if request.resolver_match.url_name == 'staff_payment_methods' %}active{% endif %}">
           <span class="menu-left">
-            <img src="{% static 'icons/payments.png' %}" class="menu-icon" alt="">
+            <span class="menu-icon-wrap"><img src="{% static 'icons/payment-method.svg' %}" class="menu-icon" alt=""></span>
             <span class="menu-text">Payment Methods</span>
           </span>
-          <span class="menu-arrow">→</span>
+          <span class="menu-arrow">›</span>
         </a>
 
         <a href="{% url 'staff_aboutus' %}"
            class="menu-item {% if request.resolver_match.url_name == 'staff_aboutus' or request.resolver_match.url_name == 'staff_aboutus_update' %}active{% endif %}">
           <span class="menu-left">
-            <img src="{% static 'icons/payments.png' %}" class="menu-icon" alt="">
+            <span class="menu-icon-wrap"><img src="{% static 'icons/about-us.svg' %}" class="menu-icon" alt=""></span>
             <span class="menu-text">About Us</span>
           </span>
-          <span class="menu-arrow">→</span>
+          <span class="menu-arrow">›</span>
         </a>
+
+        <div class="side-clock">
+          <div class="sc-ico">
+            <img src="{% static 'icons/clock.svg' %}" alt="">
+          </div>
+          <div class="sc-body">
+            <div class="sc-label">Server Time</div>
+            <div class="sc-time" id="sideClockTime">00:00:00</div>
+            <div class="sc-date" id="sideClockDate">—</div>
+            <div class="sc-country" id="sideClockCountry">—</div>
+          </div>
+        </div>
       </div>
 
       <!-- RIGHT CONTENT -->
       <div class="card card-anim dashboard-card">
+        <div class="topbar pill-anim-top">
+          <div class="admin-pill" id="staffLogoutBtn" title="Logout">
+            <div class="admin-avatar"><img src="{% static 'icons/admin.svg' %}" alt=""></div>
+            <div>
+              <div class="admin-name">{{ request.user.phone }}</div>
+              <div class="admin-role">{% if request.user.is_superuser %}Super Administrator{% else %}Staff{% endif %}</div>
+            </div>
+            <span class="admin-chev">⌄</span>
+          </div>
+        </div>
         {% block content %}{% endblock %}
       </div>
     </div>
@@ -1534,29 +671,29 @@ th{ text-align:left; font-size:12px; letter-spacing:.06em; text-transform:upperc
       function animateCount(el, to, duration){
         to = Number(to || 0);
         if(!Number.isFinite(to)) to = 0;
-  
+
         const t0 = performance.now();
-  
+
         function tick(t){
           const p = Math.min(1, (t - t0) / duration);
           const eased = 1 - Math.pow(1 - p, 3); // easeOutCubic
           const val = Math.round(to * eased);
           el.textContent = val;
-  
+
           if(p < 1) requestAnimationFrame(tick);
         }
         requestAnimationFrame(tick);
       }
-  
+
       function runPerfCounters(){
-        const counters = document.querySelectorAll(".perf-card .count[data-value]");
+        const counters = document.querySelectorAll(".count[data-value]");
         counters.forEach((el) => {
           const target = el.getAttribute("data-value");
           el.textContent = "0";
           animateCount(el, target, 900);
         });
       }
-  
+
       window.addEventListener("load", () => {
         setTimeout(runPerfCounters, 250);
       });
@@ -1564,16 +701,31 @@ th{ text-align:left; font-size:12px; letter-spacing:.06em; text-transform:upperc
   </script>
   <script>
     (function(){
-      // if already played in this tab/session, disable animations
-      if (sessionStorage.getItem("staffWelcomePlayed") === "1"){
-        document.body.classList.add("no-welcome-anim");
-        return;
+      var timeEl = document.getElementById("sideClockTime");
+      var dateEl = document.getElementById("sideClockDate");
+      var countryEl = document.getElementById("sideClockCountry");
+      if (!timeEl || !dateEl) return;
+
+      // Always show real Philippines time (Asia/Manila), regardless of the
+      // viewer's own device timezone — "en-GB" avoids the "24:xx:xx" midnight
+      // bug some locales have with hour12:false.
+      var fmt = new Intl.DateTimeFormat("en-GB", {
+        timeZone: "Asia/Manila",
+        hour12: false,
+        hour: "2-digit", minute: "2-digit", second: "2-digit",
+        weekday: "short", day: "numeric", month: "long", year: "numeric"
+      });
+
+      function tick(){
+        var parts = {};
+        fmt.formatToParts(new Date()).forEach(function(p){ parts[p.type] = p.value; });
+        timeEl.textContent = parts.hour + ":" + parts.minute + ":" + parts.second;
+        dateEl.textContent = parts.weekday + ", " + parts.day + " " + parts.month + " " + parts.year;
+        if (countryEl) countryEl.textContent = "Philippines (PHT)";
       }
-      // first time: allow animations, then mark as played
-      sessionStorage.setItem("staffWelcomePlayed", "1");
+      tick();
+      setInterval(tick, 1000);
     })();
-    
-    
   </script>
 
 </body>

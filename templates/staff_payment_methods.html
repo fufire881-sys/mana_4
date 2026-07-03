@@ -3,7 +3,7 @@
   <div class="card-h">
     <div>
       <div class="h1">Payment Methods</div>
-      <div class="muted">Edit wallet/bank/paypal + lock</div>
+      <div class="muted">Edit bank account + lock</div>
     </div>
     <form method="get" style="display:flex;gap:10px;align-items:center;">
       <input name="q" value="{{ q }}" placeholder="Search phone..." style="width:260px;">
@@ -54,7 +54,7 @@
         background: rgba(0,65,130,.06) !important;
       }
 
-      /* ✅ multi cells (wallet/bank) can show 2 inputs */
+      /* ✅ multi cell (bank name/account) can show 2 inputs */
       #pmTable td.multi{
         white-space: normal !important;
       }
@@ -71,7 +71,7 @@
         text-align: center !important;
       }
 
-      /* ✅ give spacing between 2 inputs inside Wallet/Bank */
+      /* ✅ give spacing between the 2 bank inputs */
       #pmTable .gap-8{ height: 8px; }
 
       /* ✅ Locked select keep centered */
@@ -119,10 +119,10 @@
 /* ✅ Payment Methods: PHONE = same as balance/users (blue) */
 #pmTable td:nth-child(2){
   white-space: nowrap !important;
-  color: #004182 !important;
+  color: #60A5FA !important;
   font-weight: 900 !important;
 }
-#pmTable td:nth-child(2) a{ color:#004182 !important; }
+#pmTable td:nth-child(2) a{ color:#60A5FA !important; }
 /* optional hover effect (like users/loans) */
 #pmTable td:nth-child(2):hover{
   opacity: .85;
@@ -134,9 +134,7 @@
         <tr>
           <th>Name</th>
           <th>Phone</th>
-          <th>Wallet</th>
-          <th>Bank</th>
-          <th>PayPal</th>
+          <th>Bank Account</th>
           <th>Locked</th>
           <th>Save</th>
         </tr>
@@ -154,19 +152,9 @@
           <td class="user-font">{{ pm.user.phone }}</td>
 
           <td class="multi">
-            <input name="wallet_name" value="{{ pm.wallet_name }}" form="pmForm{{ pm.id }}">
+            <input name="bank_name" value="{{ pm.bank_name }}" form="pmForm{{ pm.id }}" placeholder="Account name">
             <div class="gap-8"></div>
-            <input name="wallet_phone" value="{{ pm.wallet_phone }}" form="pmForm{{ pm.id }}">
-          </td>
-
-          <td class="multi">
-            <input name="bank_name" value="{{ pm.bank_name }}" form="pmForm{{ pm.id }}">
-            <div class="gap-8"></div>
-            <input name="bank_account" value="{{ pm.bank_account }}" form="pmForm{{ pm.id }}">
-          </td>
-
-          <td>
-            <input name="paypal_email" value="{{ pm.paypal_email }}" form="pmForm{{ pm.id }}">
+            <input name="bank_account" value="{{ pm.bank_account }}" form="pmForm{{ pm.id }}" placeholder="Account number">
           </td>
 
           <td>
@@ -182,7 +170,7 @@
         </tr>
 
         {% empty %}
-        <tr><td colspan="7" class="muted">No payment methods</td></tr>
+        <tr><td colspan="5" class="muted">No payment methods</td></tr>
         {% endfor %}
       </tbody>
     </table>

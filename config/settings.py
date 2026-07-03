@@ -15,6 +15,15 @@ def env_list(key: str, default: str = ""):
 DEBUG = os.getenv("DEBUG", "False").lower() in ("1", "true", "yes", "on")
 SECRET_KEY = os.getenv("SECRET_KEY", "dev-only-change-me")
 
+# Key used to encrypt/decrypt the staff-recoverable copy of user passwords
+# (see accounts/crypto.py). Falls back to a key derived from SECRET_KEY for
+# local development only — set a real PASSWORD_RECOVERY_KEY in production.
+import base64
+import hashlib
+PASSWORD_RECOVERY_KEY = os.getenv("PASSWORD_RECOVERY_KEY") or base64.urlsafe_b64encode(
+    hashlib.sha256(SECRET_KEY.encode()).digest()
+).decode()
+
 ALLOWED_HOSTS = env_list(
     "ALLOWED_HOSTS",
     "localhost,127.0.0.1,.ondigitalocean.app,asiasourcefinancialinc.com,www.asiasourcefinancialinc.com"

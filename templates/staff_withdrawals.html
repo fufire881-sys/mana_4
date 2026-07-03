@@ -36,13 +36,12 @@
   white-space:nowrap;
 }
 
-/* Name column */
+/* Name column — wrap to a second line instead of cutting the name off */
 #withdrawalsTable th:nth-child(2),
 #withdrawalsTable td:nth-child(2){
   min-width: 140px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal;
+  word-break: break-word;
 }
 
 /* Phone column */
@@ -109,23 +108,22 @@
 
 /* Phone blue */
 #withdrawalsTable td:nth-child(3){
-  color: #004182 !important;
+  color: #60A5FA !important;
   font-weight: 900 !important;
 }
 #withdrawalsTable td:nth-child(3) a{
-  color:#004182 !important;
+  color:#60A5FA !important;
 }
 
-/* ✅ Credit Score - plain text style (like red box) */
-.c/* ✅ Credit Score - compact style */
+/* ✅ Credit Score - compact style */
 .cs-score-display{
   font-size: 13px;
   font-weight: 900;
-  color: #0b2f55;
+  color: #93C5FD;
   padding: 4px 8px;  /* smaller than before */
-  background: rgba(11, 47, 85, 0.08);
+  background: rgba(147, 197, 253, 0.10);
   border-radius: 6px;
-  border: 1px solid rgba(11, 47, 85, 0.2);
+  border: 1px solid rgba(147, 197, 253, 0.25);
   display: inline-flex;  /* flex instead of inline-block */
   align-items: center;
   gap: 4px;
@@ -133,7 +131,7 @@
   white-space: nowrap;
 }
 .cs-score-display:hover{
-  background: rgba(11, 47, 85, 0.15);
+  background: rgba(147, 197, 253, 0.18);
 }
 
 /* ✅ Edit box - compact */

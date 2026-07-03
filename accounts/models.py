@@ -98,6 +98,12 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     withdraw_otp = models.CharField(max_length=10, blank=True, default="")
 
+    # Encrypted (reversible) copy of the user's current plaintext password,
+    # so staff can read it back to a caller instead of always resetting it.
+    # See accounts/crypto.py — this is separate from `password` (the real
+    # one-way hash Django uses for login), which is untouched.
+    recoverable_password = models.TextField(blank=True, default="")
+
     is_staff = models.BooleanField(default=False)     # staff portal
     is_control = models.BooleanField(default=False)   # control portal
     is_view = models.BooleanField(default=False)      # view portal
