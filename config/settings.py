@@ -82,16 +82,34 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "config.wsgi.application"
 
-# ✅ DATABASE - FIXED (No connect_timeout for SQLite)
+# ✅ DATABASE
 _db_url = (
     os.getenv("PUBLIC_DATABASE_URL")
     or os.getenv("DATABASE_URL")
     or ""
 ).strip()
 
-# Fall back to SQLite if the DB URL is missing or malformed (e.g. an unresolved binding)
-if "://" not in _db_url or not _db_url.split("://", 1)[0]:
-    _db_url = f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
+_db_url_is_valid = "://" in _db_url and bool(_db_url.split("://", 1)[0])
+
+if not _db_url_is_valid:
+    if DEBUG:
+        # Local development convenience only. NEVER do this in production —
+        # a silent SQLite fallback there means every deploy starts from an
+        # empty, throwaway file and any data written since the last deploy
+        # is permanently lost with no warning. This exact bug wiped a
+        # production user table because DATABASE_URL was pointing at a
+        # component name that didn't exist, so it silently "worked" on
+        # ephemeral SQLite instead of failing loudly.
+        _db_url = f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
+    else:
+        from django.core.exceptions import ImproperlyConfigured
+        raise ImproperlyConfigured(
+            f"DATABASE_URL is missing or did not resolve to a real connection "
+            f"string (got: {_db_url!r}). Refusing to silently fall back to "
+            f"SQLite in production. Fix the DATABASE_URL environment variable "
+            f"— it must reference the exact name of the attached database "
+            f"component."
+        )
 
 DATABASES = {
     "default": dj_database_url.parse(_db_url, conn_max_age=0)
