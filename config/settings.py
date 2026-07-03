@@ -77,8 +77,13 @@ WSGI_APPLICATION = "config.wsgi.application"
 _db_url = (
     os.getenv("PUBLIC_DATABASE_URL")
     or os.getenv("DATABASE_URL")
-    or f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
-)
+    or ""
+).strip()
+
+# Fall back to SQLite if the DB URL is missing or malformed (e.g. an unresolved binding)
+if "://" not in _db_url or not _db_url.split("://", 1)[0]:
+    _db_url = f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
+
 DATABASES = {
     "default": dj_database_url.parse(_db_url, conn_max_age=0)
 }
