@@ -4,6 +4,7 @@ Django settings - OPTIMIZED FOR SPEED
 
 from pathlib import Path
 import os
+import sys
 import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -91,15 +92,21 @@ _db_url = (
 
 _db_url_is_valid = "://" in _db_url and bool(_db_url.split("://", 1)[0])
 
+# DigitalOcean App Platform does not inject database-binding env vars
+# (${db.DATABASE_URL}) during the BUILD phase, only at runtime — so the
+# buildpack's automatic `collectstatic` step (which never touches the
+# database) always sees an empty DATABASE_URL. Allow the harmless SQLite
+# fallback there; every other command (migrate, gunicorn/wsgi, shell, ...)
+# actually needs the real database, so it still fails loudly if misconfigured.
+_is_collectstatic = len(sys.argv) > 1 and sys.argv[1] == "collectstatic"
+
 if not _db_url_is_valid:
-    if DEBUG:
-        # Local development convenience only. NEVER do this in production —
-        # a silent SQLite fallback there means every deploy starts from an
-        # empty, throwaway file and any data written since the last deploy
-        # is permanently lost with no warning. This exact bug wiped a
-        # production user table because DATABASE_URL was pointing at a
-        # component name that didn't exist, so it silently "worked" on
-        # ephemeral SQLite instead of failing loudly.
+    if DEBUG or _is_collectstatic:
+        # Local dev convenience / build-time collectstatic only. NEVER let
+        # this silently happen for migrate or the running server — that's
+        # what wiped the production users table (DATABASE_URL pointed at a
+        # component name that didn't exist, so the app quietly ran on a
+        # throwaway SQLite file that resets on every deploy).
         _db_url = f"sqlite:///{BASE_DIR / 'db.sqlite3'}"
     else:
         from django.core.exceptions import ImproperlyConfigured
