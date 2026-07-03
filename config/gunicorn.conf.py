@@ -2,18 +2,21 @@
 import multiprocessing
 import os
 
+# Bind to the platform-provided port (DigitalOcean/Railway set $PORT; default 8080)
+bind = "0.0.0.0:" + os.getenv("PORT", "8080")
+
 # Worker configuration
 workers = 2
 threads = 4
 worker_class = "gthread"
 
 # Timeout settings - INCREASED for image processing
-timeout = 120  # ពី 30 មក 120 វិនាទី
+timeout = 120  # raised from 30 to 120 seconds
 graceful_timeout = 120
 keep_alive = 5
 
 # Memory optimization
-max_requests = 500  # កាត់បន្ថយពី 1000 មក 500
+max_requests = 500  # reduced from 1000 to 500
 max_requests_jitter = 50
 preload_app = True
 

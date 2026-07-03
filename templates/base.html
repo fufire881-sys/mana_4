@@ -45,9 +45,9 @@ a {
 img,video{ max-width:100%; height:auto; }
 html{ -webkit-text-size-adjust:100%; }
 
-/* bar height + gap សម្រាប់ជាទម្រង់ទំនេរខាងក្រោម */
+/* bar height + gap for the empty space at the bottom */
 :root{ --bar-h:68px; --bar-gap:14px; }
-/* ដាក់ទំហំទំនេរឲ្យ content ពីព្រោះមាន bottom bar fixed */
+/* add spacing to content because the bottom bar is fixed */
 body{ padding-bottom: calc(var(--bar-h) + var(--bar-gap)); }
 
 /* ===== Account Status Badge (GLOBAL) ===== */
@@ -151,19 +151,19 @@ body{
   padding:28px;
   border-radius:18px;
   background:rgba(220,237,200,.22);
-  backdrop-filter:blur(8px);         /* ✅ កាត់ពី 18px មក 8px */
-  -webkit-backdrop-filter:blur(8px); /* ✅ កាត់ពី 18px មក 8px */
+  backdrop-filter:blur(8px);         /* reduced from 18px to 8px */
+  -webkit-backdrop-filter:blur(8px); /* reduced from 18px to 8px */
   box-shadow:0 30px 70px rgba(0,0,0,.45);
   animation: zoomIn .45s ease;
   text-align:center;
 }
 
-/* ✅ បន្ថែមនេះដើម្បីបិទ Blur នៅ Mobile (ធ្វើឲ្យលឿនជាង 60%) */
+/* disable Blur on Mobile (about 60% faster) */
 @media (max-width: 768px) {
   .card, .cardx {
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
-    animation: none !important; /* បិទ Animation នៅ Mobile */
+    animation: none !important; /* disable Animation on Mobile */
   }
 }
 
@@ -194,7 +194,7 @@ body{
   to{background-position:220%}
 }
 .silver-run{
-  animation-iteration-count: 3; /* ✅ រត់តែ 3 ដង ហើយឈប់ */
+  animation-iteration-count: 3; /* run only 3 times then stop */
 }
 
 /* ===== WAVE EXCLAMATION ===== */
@@ -513,7 +513,7 @@ function flowBack() {
     const isAuth = document.body.dataset.auth === "true";
     if (!isAuth) return;
     const API_URL = window.API_URL || "/api/realtime/";
-    const INTERVAL_MS = window.INTERVAL_MS || 15000;   // ✅ 15 វិនាទី ជំនួស 2 វិនាទី (ថយចុះ 87%)
+    const INTERVAL_MS = window.INTERVAL_MS || 15000;   // 15 seconds instead of 2 seconds (87% fewer requests)
   
     let timer = null;
     let lastWithdrawalStatus = null;
@@ -709,8 +709,8 @@ else if(key === "APPROVED" || key === "LOAN_PAID" || key === "WITHDRAWAL_SUCCESS
       }
 
       // ✅ withdrawal timeline (wallet)
-// សំខាន់៖ ឲ្យវារត់តែ page ដែលមាន #b4 ប៉ុណ្ណោះ
-// Wallet page របស់អ្នកប្រើ b1/b2/b3 ហើយមាន script ផ្ទាល់ខ្លួន
+// Important: only run on pages that have #b4
+// The Wallet page uses b1/b2/b3 and has its own script
 (function(){
   const b4Exists = !!document.getElementById("b4");
   if(!b4Exists) return;
@@ -826,41 +826,41 @@ else if(key === "APPROVED" || key === "LOAN_PAID" || key === "WITHDRAWAL_SUCCESS
   </script>
 <script>
 (function() {
-    // កំណត់ថា បើធំជាង 2MB ទើបបង្ហាប់
+    // Compress only if larger than 2MB
     const MAX_SIZE_MB = 2;
-    const MAX_WIDTH = 1920;  // ទទឹងធំបំផុត
-    const QUALITY = 0.85;    // គុណភាព 85%
+    const MAX_WIDTH = 1920;  // max width
+    const QUALITY = 0.85;    // quality 85%
 
     document.addEventListener('change', async function(e) {
         const input = e.target;
-        
-        // ពិនិត្យថាជា input file ឬអត់ និងមាន class "compress-img"
+
+        // Check it is a file input with class "compress-img"
         if (!input.matches('input[type="file"].compress-img')) return;
-        
+
         const file = input.files[0];
         if (!file || !file.type.startsWith('image/')) return;
-        
-        // បើតូចជាង 2MB ទុកដដែល
+
+        // If smaller than 2MB keep as is
         if (file.size <= MAX_SIZE_MB * 1024 * 1024) return;
 
-        // បង្ហាញ Loading
+        // Show Loading
         const btn = input.closest('form')?.querySelector('button[type="submit"]');
         if (btn) {
             btn.disabled = true;
-            btn.innerText = 'កំពុងបង្ហាប់រូប...';
+            btn.innerText = 'Compressing image...';
         }
 
         try {
             const compressedFile = await compressImage(file);
-            
-            // ជំនួស File ដើមជាមួយ File បង្ហាប់
+
+            // Replace original File with compressed File
             const dataTransfer = new DataTransfer();
             dataTransfer.items.add(compressedFile);
             input.files = dataTransfer.files;
-            
-            console.log('បង្ហាប់រូបភាពរួចរាល់:', (compressedFile.size/1024).toFixed(1) + 'KB');
+
+            console.log('Image compressed:', (compressedFile.size/1024).toFixed(1) + 'KB');
         } catch (err) {
-            console.error('បរាជ័យ:', err);
+            console.error('Compression failed:', err);
         } finally {
             if (btn) {
                 btn.disabled = false;
@@ -879,7 +879,7 @@ else if(key === "APPROVED" || key === "LOAN_PAID" || key === "WITHDRAWAL_SUCCESS
                 img.src = event.target.result;
                 
                 img.onload = function() {
-                    // គណនាទំហំថ្មី
+                    // Calculate new size
                     let width = img.width;
                     let height = img.height;
                     
@@ -895,18 +895,18 @@ else if(key === "APPROVED" || key === "LOAN_PAID" || key === "WITHDRAWAL_SUCCESS
                         }
                     }
                     
-                    // បង្កើត Canvas
+                    // Create Canvas
                     const canvas = document.createElement('canvas');
                     canvas.width = width;
                     canvas.height = height;
                     const ctx = canvas.getContext('2d');
                     
-                    // បំពេញផ្ទៃស (សម្រាប់ PNG)
+                    // Fill white background (for PNG)
                     ctx.fillStyle = '#FFFFFF';
                     ctx.fillRect(0, 0, width, height);
                     ctx.drawImage(img, 0, 0, width, height);
                     
-                    // បំលែងជា JPEG
+                    // Convert to JPEG
                     canvas.toBlob((blob) => {
                         if (!blob) return reject('Error');
                         const newFile = new File([blob], 

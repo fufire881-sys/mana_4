@@ -1,0 +1,51 @@
+# DigitalOcean App Platform spec
+# Optional: use "Create App -> Import from App Spec" or `doctl apps create --spec .do/app.yaml`.
+# The web process is defined by the repo Procfile (migrate + collectstatic + gunicorn).
+name: mana-4
+region: nyc
+services:
+  - name: web
+    github:
+      repo: fufire881-sys/mana_4
+      branch: main
+      deploy_on_push: true
+    environment_slug: python
+    instance_size_slug: basic-xxs
+    instance_count: 1
+    http_port: 8080
+    health_check:
+      http_path: /login/
+    envs:
+      - key: DEBUG
+        scope: RUN_AND_BUILD_TIME
+        value: "False"
+      - key: SECRET_KEY
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+        value: "REPLACE_WITH_YOUR_SECRET_KEY"
+      - key: DATABASE_URL
+        scope: RUN_AND_BUILD_TIME
+        value: ${db.DATABASE_URL}
+      - key: ALLOWED_HOSTS
+        scope: RUN_AND_BUILD_TIME
+        value: ${APP_DOMAIN},localhost,127.0.0.1
+      - key: CSRF_TRUSTED_ORIGINS
+        scope: RUN_AND_BUILD_TIME
+        value: https://${APP_DOMAIN}
+      - key: CLOUDINARY_CLOUD_NAME
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+        value: "REPLACE_ME"
+      - key: CLOUDINARY_API_KEY
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+        value: "REPLACE_ME"
+      - key: CLOUDINARY_API_SECRET
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+        value: "REPLACE_ME"
+databases:
+  - name: db
+    engine: PG
+    version: "16"
+    production: false

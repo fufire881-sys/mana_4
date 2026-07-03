@@ -302,7 +302,7 @@ td.col-active .active-select{
   box-shadow:0 8px 18px rgba(0,0,0,.35);
   transition:opacity .2s ease;
 
-  margin-left: 6px !important;   /* ✅ រំកិល Delete ទៅស្ដាំ 6px */
+  margin-left: 6px !important;   /* ✅ shift Delete 6px to the right */
 }
 .del-user-btn:hover{
   opacity:.9;
@@ -371,14 +371,14 @@ td.col-active .active-select{
 /* ✅ DO NOT affect Delete / Save columns */
 .users-table td:nth-child(10),
 .users-table td:nth-child(11){
-  text-align: left !important; /* ឬ center បើបងចង់ */
+  text-align: left !important; /* or center if you want */
 }
 
 /* ✅ BALANCE column: allow fit long numbers */
 .users-table th:nth-child(4),
 .users-table td:nth-child(4){
   width: auto !important;
-  min-width: 160px !important;   /* បងអាចដាក់ 150/180 */
+  min-width: 160px !important;   /* you can use 150/180 */
   max-width: none !important;
 }
 
@@ -394,13 +394,13 @@ td.col-active .active-select{
   padding: 6px 6px !important;
   text-align: center !important;
 
-  font-size: 16px !important;        /* ✅ តូចបន្តិច ដើម្បី fit */
+  font-size: 16px !important;        /* ✅ slightly smaller to fit */
   font-weight: 900 !important;
   color: #0b3b66 !important;
 
-  white-space: nowrap !important;     /* ✅ មិនឲ្យចុះបន្ទាត់ */
-  overflow: visible !important;       /* ✅ មិនកាត់ចុង */
-  text-overflow: clip !important;     /* ✅ មិន ... */
+  white-space: nowrap !important;     /* ✅ do not wrap to a new line */
+  overflow: visible !important;       /* ✅ do not cut off the end */
+  text-overflow: clip !important;     /* ✅ no ... */
 }
 
 /* ✅ STATUS column (9th) wider */
@@ -583,8 +583,8 @@ td.col-active .active-select{
 }
 
 .st-box{
-  width: min(720px, 92vw);         /* ✅ តូចជាងមុន */
-  max-height: 86vh;                /* ✅ កុំឲ្យលើសអេក្រង់ */
+  width: min(720px, 92vw);         /* ✅ smaller than before */
+  max-height: 86vh;                /* ✅ do not exceed the screen */
   display: flex;                   /* ✅ header/body/footer layout */
   flex-direction: column;
 

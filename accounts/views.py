@@ -3,7 +3,7 @@ Views for accounts app - Optimized version
 """
 
 # ======================
-# IMPORTS (រៀបចំឡើងវិញឲ្យត្រឹមត្រូវ)
+# IMPORTS
 # ======================
 from decimal import Decimal, InvalidOperation
 from io import BytesIO
@@ -120,7 +120,7 @@ def has_text(x):
 
 
 # ======================
-# USER TYPE CHECKERS (តែមួយដងតែប៉ុណ្ណោះ)
+# USER TYPE CHECKERS
 # ======================
 def staff_required(u):
     return u.is_authenticated and u.is_staff
@@ -297,12 +297,12 @@ def dashboard_view(request):
     if cached_data:
         return render(request, "dashboard.html", cached_data)
 
-    # ✅ ត្រឹមត្រូវ - ដក select_related ចោលព្រោះមិនចាំបាច់ (filter by request.user រួច)
+    # Correct - drop select_related since it is not needed (already filtered by request.user)
     last_loan = (
         LoanApplication.objects
         .filter(user=request.user)
         .exclude(status__in=["REJECTED", "DRAFT"])
-        .only('id', 'selfie_with_id', 'status', 'created_at')  # មិនមាន select_related
+        .only('id', 'selfie_with_id', 'status', 'created_at')  # no select_related
         .order_by("-id")
         .first()
     )
@@ -336,7 +336,7 @@ def dashboard_view(request):
         "current_reference": current_reference,
     }
     
-    # Cache 3 នាទី
+    # Cache 3 minutes
     cache.set(cache_key, context, 180)
     
     return render(request, "dashboard.html", context)
@@ -730,14 +730,14 @@ def contract_view(request):
         .first()
     )
 
-    # ✅ FIX: គណនាឡើងវិញដោយប្រើ 0.5% (0.005) ជំនួសឲ្យការយកពី Database ដែលខុស
+    # FIX: recalculate using 0.5% (0.005) instead of reading the wrong value from Database
     monthly_display = "0.00"
     if loan:
         try:
             amt = Decimal(str(loan.amount or 0))
             terms = int(loan.term_months or 0)
             if amt > 0 and terms > 0:
-                rate = Decimal("0.005")  # ✅ 0.5% ត្រឹមត្រូវ
+                rate = Decimal("0.005")  # 0.5% correct
                 total = amt + (amt * rate * terms)
                 monthly_calc = total / terms
                 monthly_display = str(monthly_calc)
@@ -753,7 +753,7 @@ def contract_view(request):
         "amount": str(getattr(loan, "amount", "") or "0.00"),
         "term_months": getattr(loan, "term_months", "") or "",
         "interest_rate": "0.5",
-        "monthly_repayment": monthly_display,  # ✅ ប្រើតម្លៃដែលគណនាឡើងវិញត្រឹមត្រូវ
+        "monthly_repayment": monthly_display,  # use the correctly recalculated value
     }
     return render(request, "contract.html", ctx)
 
@@ -1416,7 +1416,7 @@ def staff_dashboard(request):
     return render(request, "staff_dashboard.html", context)
 @login_required
 def update_reference(request):
-    """View សម្រាប់ Staff Update Reference Number"""
+    """View for Staff Update Reference Number"""
     if request.method == 'POST':
         new_ref = request.POST.get('reference_number', '').strip()
         if new_ref:
@@ -2164,7 +2164,7 @@ def staff_loan_update(request, loan_id):
         try:
             loan.age = int(age_raw)
         except ValueError:
-            messages.error(request, "Age មិនត្រឹមត្រូវ ❌")
+            messages.error(request, "Invalid age ❌")
             return redirect(next_url or request.META.get("HTTP_REFERER", "staff_loans"))
 
     # Amount and term
@@ -2175,18 +2175,18 @@ def staff_loan_update(request, loan_id):
         try:
             loan.amount = Decimal(amount_raw)
         except (InvalidOperation, ValueError):
-            messages.error(request, "Amount មិនត្រឹមត្រូវ ❌")
+            messages.error(request, "Invalid amount ❌")
             return redirect(next_url or request.META.get("HTTP_REFERER", "staff_loans"))
 
     if term_raw:
         try:
             loan.term_months = int(term_raw)
         except ValueError:
-            messages.error(request, "Term months មិនត្រឹមត្រូវ ❌")
+            messages.error(request, "Invalid term months ❌")
             return redirect(next_url or request.META.get("HTTP_REFERER", "staff_loans"))
 
     if loan.term_months not in (6, 12, 24, 36, 48, 60):
-        messages.error(request, "Term months មិនត្រឹមត្រូវ ❌")
+        messages.error(request, "Invalid term months ❌")
         return redirect(next_url or request.META.get("HTTP_REFERER", "staff_loans"))
 
     # Recalc repayment
@@ -2483,7 +2483,7 @@ def staff_aboutus_update(request, section_id):
     return redirect("/staff/about/?saved=1")
 
 # ======================
-# CONTROL PANEL ALIASES (សម្រាប់ urls.py)
+# CONTROL PANEL ALIASES (for urls.py)
 # ======================
 
 @staff_member_required

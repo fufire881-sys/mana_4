@@ -129,13 +129,13 @@
 /* ✅ set widths (must use !important to win) */
 .dashboard-card #loanTable th:nth-child(1),
 .dashboard-card #loanTable td:nth-child(1){
-  width:40px !important;          /* ✅ ឲ្យស្គម */
+  width:40px !important;          /* ✅ make it slim */
   min-width:40px !important;
   max-width:40px !important;
   text-align:center !important;
-  padding-left:6px !important;    /* ✅ កាត់ padding */
+  padding-left:6px !important;    /* ✅ reduce padding */
   padding-right:6px !important;
-  font-size:12px !important;      /* ✅ optional ឲ្យស្គមស្អាត */
+  font-size:12px !important;      /* ✅ optional slim and clean */
 }
 
 .dashboard-card #loanTable th:nth-child(2),
@@ -211,10 +211,10 @@
 
 .dashboard-card .action-wrap button{
   width:100% !important;
-  height:32px !important;        /* 38 -> 33 (កាត់ 5px) */
-  padding:0 11px !important;     /* 12 -> 10 (កាត់បន្តិច) */
-  font-size:13px !important;     /* 13 -> 12 (កាត់បន្តិច) */
-  border-radius:11px !important; /* 12 -> 10 (កាត់បន្តិច) */
+  height:32px !important;        /* 38 -> 33 (cut 5px) */
+  padding:0 11px !important;     /* 12 -> 10 (cut a little) */
+  font-size:13px !important;     /* 13 -> 12 (cut a little) */
+  border-radius:11px !important; /* 12 -> 10 (cut a little) */
   border:0 !important;
   color:#fff !important;
   font-weight:900 !important;
@@ -281,7 +281,7 @@
   color: #004182 !important;
 
   border: 0 !important;
-  border-bottom: 0 !important;     /* ✅ លុប underline */
+  border-bottom: 0 !important;     /* ✅ remove underline */
   border-radius: 14px !important;
 
   box-shadow: none !important;
@@ -356,11 +356,11 @@
 
 .dashboard-card #loanTable th.col-amount,
 .dashboard-card #loanTable td.col-amount{
-  width:110px !important;     /* តូចជាងមុន */
+  width:110px !important;     /* smaller than before */
   min-width:110px !important;
   max-width:110px !important;
   text-align:center !important; /* ✅ amount center */
-  font-size:14px !important;    /* ✅ ស្មើ phone */
+  font-size:14px !important;    /* ✅ same as phone */
   font-weight:900 !important;
   color:#0b2b55 !important;
 }
@@ -371,7 +371,7 @@
   min-width:70px !important;
   max-width:70px !important;
   text-align:center !important; /* ✅ TERM center 100% */
-  font-size:14px !important;    /* ✅ ស្មើ phone */
+  font-size:14px !important;    /* ✅ same as phone */
   font-weight:900 !important;
   color:#0b2b55 !important;
 }
@@ -406,7 +406,7 @@
   white-space:nowrap !important;
   overflow:visible !important;
   text-overflow:clip !important;
-  padding:8px 30px 8px 10px !important; /* ✅ ទុកកន្លែងសម្រាប់ arrow */
+  padding:8px 30px 8px 10px !important; /* ✅ leave room for the arrow */
   text-align:center !important;
   border:0 !important;
   border-bottom:0 !important;
@@ -438,7 +438,7 @@
 .dashboard-card #loanTable td.col-amount,
 .dashboard-card #loanTable td.col-term,
 .dashboard-card #loanTable td.col-created{
-  font-size:16px !important;   /* ស្មើ Phone */
+  font-size:16px !important;   /* same as Phone */
   font-weight:900 !important;
   color: #004182 !important;
 }
@@ -1427,7 +1427,7 @@ if(wdSave) wdSave.addEventListener("click", saveWd);
       scoreMsg.textContent = "Cannot load ❌";
       return;
     }
-    // ប្រសិនបើ credit_score > 500 ឬ < 0 កំណត់ឲ្យត្រឹម 100
+    // if credit_score > 500 or < 0, clamp to 100
     let score = parseInt(data.credit_score) || 100;
     if (score > 500 || score < 0) score = 100;
     scoreVal.value = score;
