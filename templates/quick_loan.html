@@ -263,6 +263,25 @@ input[readonly] { opacity: .85; cursor: default; }
   color: #fff; border-color: var(--color-gold);
   box-shadow: 0 0 10px rgba(59,22,95,.40);
 }
+/* Current step gets a status color: red while under review, yellow while
+   checking, green once approved — instead of the generic purple for every
+   active step. */
+#s1.current {
+  background: linear-gradient(135deg, #b71c1c, #e53935);
+  border-color: #ef5350;
+  box-shadow: 0 0 10px rgba(198,40,40,.45);
+}
+#s2.current {
+  background: linear-gradient(135deg, #f57f17, #fbc02d);
+  border-color: #ffca28;
+  color: #3d2b00;
+  box-shadow: 0 0 10px rgba(249,168,37,.45);
+}
+#s3.current {
+  background: linear-gradient(135deg, #1b5e20, #43a047);
+  border-color: #66bb6a;
+  box-shadow: 0 0 10px rgba(46,125,50,.45);
+}
 .line { width: 3px; height: 30px; border-radius: 999px; background: var(--border-gold); margin: 3px 0; }
 .line.active { background: linear-gradient(180deg, var(--color-gold), var(--color-purple)); }
 .tl-label{ padding-top: 6px; font-weight: 700; font-size: 13.5px; color: var(--color-text); }
@@ -368,7 +387,7 @@ input[readonly] { opacity: .85; cursor: default; }
     <div class="timeline">
       <div class="tl-item">
         <div class="tl-node-wrap">
-          <div class="dot active" id="s1">1</div>
+          <div class="dot active current" id="s1">1</div>
           <div class="line" id="l1"></div>
         </div>
         <div class="tl-label">Under review</div>
@@ -513,6 +532,7 @@ function applyStep(n, label){
       const isActive = i <= n;
 
       d.classList.toggle("active", isActive);
+      d.classList.toggle("current", i === n);
 
       // ✅ Completed = ✓, and FINAL (step 3) when active also = ✓
       if(isDone || (i === 3 && n === 3)){
