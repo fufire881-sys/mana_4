@@ -585,6 +585,7 @@ if (pill) pill.classList.toggle("is-rejected", isRejected);
       const rejectAlert = document.getElementById("rejectAlert");
 
       if(isRejected){
+        if(pill) pill.textContent = "REJECTED";
         if(timelineWrap) timelineWrap.style.display = "none";
         if(rejectAlert) rejectAlert.style.display = "block";
         const t = document.getElementById("statusText");
