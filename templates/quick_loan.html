@@ -380,11 +380,11 @@ input[readonly] { opacity: .85; cursor: default; }
     </div>
 
     <div class="reject-alert" id="rejectAlert" style="display:none;">
-      <div class="ra-title">Application Rejected</div>
-      <div class="ra-text">Your application was rejected. You can submit again.</div>
+      <div class="ra-title">Application Not Approved</div>
+      <div class="ra-text">Based on a review of your background and the information you provided, you do not currently meet our eligibility requirements for this loan.</div>
     </div>
 
-    <div class="timeline">
+    <div class="timeline" id="timelineWrap">
       <div class="tl-item">
         <div class="tl-node-wrap">
           <div class="dot active current" id="s1">1</div>
@@ -581,12 +581,19 @@ function applyStep(n, label){
 const isRejected = String(j.status || "").toUpperCase() === "REJECTED";
 if (pill) pill.classList.toggle("is-rejected", isRejected);
 
-      if(String(j.status || "").toUpperCase() === "REJECTED"){
-        applyStep(1, "REJECTED");
+      const timelineWrap = document.getElementById("timelineWrap");
+      const rejectAlert = document.getElementById("rejectAlert");
+
+      if(isRejected){
+        if(timelineWrap) timelineWrap.style.display = "none";
+        if(rejectAlert) rejectAlert.style.display = "block";
         const t = document.getElementById("statusText");
-        if (t) t.textContent = "Rejected. Please contact company department.";
+        if (t) t.textContent = "Your application was not approved.";
         return;
       }
+
+      if(timelineWrap) timelineWrap.style.display = "";
+      if(rejectAlert) rejectAlert.style.display = "none";
 
       const n = stepFromStatus(j.status);
       applyStep(n, j.status_label || j.status);
