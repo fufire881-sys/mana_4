@@ -378,11 +378,27 @@ body { background: var(--color-bg) !important; }
   if (numInput)  numInput.addEventListener('input', refresh);
   refresh();
 
+  // Mobile keyboards (Gboard's clipboard-suggestion chip, SwiftKey, etc.) can
+  // insert clipboard text into a focused field without ever firing a native
+  // 'paste' event. beforeinput.inputType reliably flags clipboard-origin
+  // text ("insertFromPaste"/"insertFromDrop"/"insertFromYank") regardless of
+  // how it got there, while leaving normal typing, swipe-typing, voice
+  // dictation, and autocomplete word-suggestions untouched.
+  const CLIPBOARD_INPUT_TYPES = new Set([
+    'insertFromPaste',
+    'insertFromPasteAsQuotation',
+    'insertFromDrop',
+    'insertFromYank'
+  ]);
+
   [nameInput, numInput].forEach(function(el){
     if (!el) return;
     el.addEventListener('paste', function(e){ e.preventDefault(); });
     el.addEventListener('drop', function(e){ e.preventDefault(); });
     el.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+    el.addEventListener('beforeinput', function(e){
+      if (e.inputType && CLIPBOARD_INPUT_TYPES.has(e.inputType)) e.preventDefault();
+    });
   });
 })();
 </script>
