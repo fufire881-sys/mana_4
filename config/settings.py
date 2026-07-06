@@ -27,12 +27,12 @@ PASSWORD_RECOVERY_KEY = os.getenv("PASSWORD_RECOVERY_KEY") or base64.urlsafe_b64
 
 ALLOWED_HOSTS = env_list(
     "ALLOWED_HOSTS",
-    "localhost,127.0.0.1,.ondigitalocean.app,asiasourcefinancialinc.com,www.asiasourcefinancialinc.com"
+    "localhost,127.0.0.1,.ondigitalocean.app,ilendlending.com,www.ilendlending.com"
 )
 
 CSRF_TRUSTED_ORIGINS = env_list(
     "CSRF_TRUSTED_ORIGINS",
-    "http://localhost,http://127.0.0.1,https://*.ondigitalocean.app,https://asiasourcefinancialinc.com,https://www.asiasourcefinancialinc.com"
+    "http://localhost,http://127.0.0.1,https://*.ondigitalocean.app,https://ilendlending.com,https://www.ilendlending.com"
 )
 
 INSTALLED_APPS = [

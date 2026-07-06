@@ -3,6 +3,11 @@
 # The web process is defined by the repo Procfile (migrate + collectstatic + gunicorn).
 name: mana-4
 region: nyc
+domains:
+  - domain: ilendlending.com
+    type: PRIMARY
+  - domain: www.ilendlending.com
+    type: ALIAS
 services:
   - name: web
     github:
