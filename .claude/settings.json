@@ -137,10 +137,16 @@
       "Bash(python -m py_compile accounts/models.py accounts/views.py accounts/migrations/0048_update_loan_config_amounts.py)",
       "Bash(DATABASE_URL=\"sqlite:///c:/site_clean4/_predeploy_check.sqlite3\" python manage.py check)",
       "Bash(DATABASE_URL=\"sqlite:///c:/site_clean4/_predeploy_check.sqlite3\" python manage.py migrate)",
-      "Bash(DATABASE_URL=\"sqlite:///c:/site_clean4/_predeploy_check.sqlite3\" python manage.py makemigrations --check --dry-run)"
+      "Bash(DATABASE_URL=\"sqlite:///c:/site_clean4/_predeploy_check.sqlite3\" python manage.py makemigrations --check --dry-run)",
+      "Bash(printf 'test \\\\xe1\\\\x9e\\\\x80\\\\xe1\\\\x9e\\\\x8f khmer line\\\\n')",
+      "Read(//tmp/**)",
+      "Bash(mkdir -p \"/c/Users/pclcd/AppData/Local/Temp/claude/c--site-clean4/52574867-1278-40ab-a5f5-7ca13bb67d8e/scratchpad\")",
+      "Bash(rm -f \"/c/Users/pclcd/AppData/Local/Temp/claude/c--site-clean4/52574867-1278-40ab-a5f5-7ca13bb67d8e/scratchpad/khmer_test.txt\")",
+      "Bash(DATABASE_URL=\"sqlite:///c:/site_clean4/_predeploy_check2.sqlite3\" python manage.py check)"
     ],
     "additionalDirectories": [
-      "C:\\Users\\pclcd\\OneDrive\\Pictures\\new doc"
+      "C:\\Users\\pclcd\\OneDrive\\Pictures\\new doc",
+      "C:\\Users\\pclcd\\AppData\\Local\\Temp\\claude\\c--site-clean4\\52574867-1278-40ab-a5f5-7ca13bb67d8e\\scratchpad"
     ]
   }
 }

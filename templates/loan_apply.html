@@ -319,7 +319,18 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
 .btn.btn-primary:disabled { opacity:.6; cursor:not-allowed; transform:none; }
 .btn.btn-primary:disabled::before{ display:none; }
 
+.btn-spinner {
+  display:inline-block; width:16px; height:16px;
+  border:2.5px solid rgba(247,215,122,0.35);
+  border-top-color: var(--color-gold-light);
+  border-radius:50%;
+  vertical-align:-3px; margin-right:8px;
+  animation: btnSpin 0.7s linear infinite;
+}
+@keyframes btnSpin { to { transform: rotate(360deg); } }
+
 @media (prefers-reduced-motion: reduce){
+  .btn-spinner { animation: none; }
   .reveal{ opacity:1 !important; transform:none !important; }
   .la-header::after, .btn.btn-primary::before{ animation: none !important; }
 }
@@ -341,7 +352,7 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
   </div>
 
   <div class="la-body">
-  <form method="POST" enctype="multipart/form-data">
+  <form method="POST" enctype="multipart/form-data" id="loanApplyForm">
     {% csrf_token %}
 
     <!-- Personal Info -->
@@ -556,8 +567,8 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
             Submitted · Waiting for review
           </button>
         {% else %}
-          <button class="btn btn-primary" type="submit" name="action" value="apply_loan">
-            Confirm Apply
+          <button class="btn btn-primary" type="submit" name="action" value="apply_loan" id="confirmApplyBtn">
+            <span id="confirmApplyBtnLabel">Confirm Apply</span>
           </button>
         {% endif %}
       </div>
@@ -637,6 +648,23 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
       if(hint) hint.textContent = t+" months";
     }
     if(window.updateSummary) window.updateSummary();
+  })();
+</script>
+<script>
+  (function(){
+    const form = document.getElementById("loanApplyForm");
+    const btn  = document.getElementById("confirmApplyBtn");
+    const label = document.getElementById("confirmApplyBtnLabel");
+    if(!form || !btn || !label) return;
+    form.addEventListener("submit", function(){
+      if(!form.checkValidity()) return;
+      label.innerHTML = '<span class="btn-spinner"></span>Submitting...';
+      btn.style.pointerEvents = "none";
+      btn.style.opacity = ".7";
+      // Defer the actual `disabled` flag so the browser finishes reading this
+      // button's name/value into the submission before it's excluded.
+      setTimeout(() => { btn.disabled = true; }, 0);
+    });
   })();
 </script>
 <script>
