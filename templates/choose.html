@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Welcome - Asiasource Financial Inc.{% endblock %}
+{% block title %}Welcome - ILEND Lending Corp.{% endblock %}
 {% load static %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ── Reset ── */
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,16 +11,32 @@ body, body * { font-family: 'Poppins', sans-serif !important; }
 body {
   padding-bottom: 0 !important;
   overflow-x: hidden !important;
-  background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%) !important;
+  background: #FAF6EC !important;
 }
 #pageRoot.wrap {
   max-width: 100% !important; width: 100% !important;
   padding: 0 !important; display: block !important;
 }
 
-/* ── Brand Colors ── */
-/* Blue:  #1565C0  /  #1976D2  /  #42A5F5 */
-/* Green: #2d6b0a  /  #43A047  /  #66BB6A */
+/* ── Brand tokens ── */
+:root {
+  --color-bg: #FAF6EC;
+  --color-gold: #D6A637;
+  --color-gold-dark: #9B6A16;
+  --color-gold-light: #F7D77A;
+  --color-purple: #3B165F;
+  --color-purple-dark: #26103F;
+  --color-text: #221B2D;
+  --color-muted: #6D6474;
+  --border-gold: rgba(190, 140, 45, 0.45);
+  --shadow-soft: 0 10px 30px rgba(59, 22, 95, 0.08);
+  --shadow-gold: 0 10px 26px rgba(214, 166, 55, 0.30);
+  --radius-lg: 26px;
+  --radius-md: 16px;
+  --radius-sm: 10px;
+}
+
+.serif { font-family: 'Playfair Display', serif !important; }
 
 /* ── Keyframes ── */
 @keyframes fadeInUp {
@@ -30,17 +46,25 @@ body {
 @keyframes fadeIn {
   from { opacity: 0; } to { opacity: 1; }
 }
-@keyframes floatY {
-  0%,100% { transform: translateY(0); }
-  50%      { transform: translateY(-8px); }
+@keyframes heroTextReveal {
+  from { opacity: 0; transform: translateY(14px); filter: blur(6px); letter-spacing: 0.02em; }
+  to   { opacity: 1; transform: translateY(0);     filter: blur(0);   letter-spacing: normal; }
 }
-@keyframes swooshIn {
-  from { opacity: 0; transform: scaleX(0.6); }
+@keyframes cardRiseIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.94); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0) scale(1);       filter: blur(0); }
+}
+@keyframes badgePop {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes sectionHeaderReveal {
+  from { opacity: 0; transform: translateY(10px); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0);     filter: blur(0); }
+}
+@keyframes flourishGrow {
+  from { opacity: 0; transform: scaleX(0); }
   to   { opacity: 1; transform: scaleX(1); }
-}
-@keyframes shimmer {
-  0%   { background-position: -200% center; }
-  100% { background-position:  200% center; }
 }
 
 /* ══════════════════════════════════════════
@@ -50,6 +74,7 @@ body {
   max-width: 520px;
   margin: 0 auto;
   padding-bottom: 0;
+  background: var(--color-bg);
 }
 
 /* ══════════════════════════════════════════
@@ -59,348 +84,435 @@ body {
   position: relative;
   overflow: hidden;
   padding: 0 0 40px;
-  /* Brand gradient over building photo */
   background:
-    linear-gradient(145deg,
-      rgba(13,45,110,0.62) 0%,
-      rgba(21,101,192,0.50) 30%,
-      rgba(30,122,58,0.50) 70%,
-      rgba(45,107,10,0.62) 100%
-    ),
-    url("{% static 'img/building-bg.webp' %}") center / cover no-repeat;
+    linear-gradient(90deg, var(--color-bg) 0%, var(--color-bg) 38%, rgba(250,246,236,0.45) 55%, transparent 74%),
+    url("{% static 'img/ilend-building.webp' %}") right center / auto 100% no-repeat,
+    var(--color-bg);
 }
+.hero-arc {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  border: 1px solid rgba(214,166,55,0.30);
+}
+.hero-arc.a1 { width: 220px; height: 220px; top: -60px; right: 20px; }
+.hero-arc.a2 { width: 140px; height: 140px; top: 40px; right: 90px; border-color: rgba(214,166,55,0.20); }
+.hero-sparkle {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, rgba(214,166,55,0.9), transparent 70%);
+}
+.hero-sparkle.h1 { width: 5px; height: 5px; top: 30px; right: 60px; }
+.hero-sparkle.h2 { width: 4px; height: 4px; top: 90px; right: 150px; }
+.hero-sparkle.h3 { width: 6px; height: 6px; top: 160px; right: 30px; }
 
-/* Decorative blobs */
-.hero-blob1 {
-  position: absolute; pointer-events: none;
-  width: 300px; height: 300px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(66,165,245,0.25) 0%, transparent 70%);
-  top: -80px; right: -60px;
-}
-.hero-blob2 {
-  position: absolute; pointer-events: none;
-  width: 200px; height: 200px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(102,187,106,0.20) 0%, transparent 70%);
-  bottom: 0px; left: -40px;
-}
-.hero-blob3 {
-  position: absolute; pointer-events: none;
-  width: 140px; height: 140px; border-radius: 50%;
-  background: rgba(255,255,255,0.04);
-  top: 50%; left: 30%;
-}
-
-/* Swoosh divider at bottom */
 .hero-swoosh {
   position: absolute; bottom: -1px; left: 0; right: 0;
   line-height: 0;
 }
-.hero-swoosh svg { width: 100%; height: 40px; }
+.hero-swoosh svg { width: 100%; height: 44px; }
 
-
-/* ── Logo area ── */
-.hero-logo-wrap {
-  display: flex; justify-content: center;
-  padding-top: 44px; padding-bottom: 16px;
+/* ── Top-left logo card ── */
+.hero-topbar {
+  display: flex; align-items: center; justify-content: flex-start;
+  padding: 26px 24px 0;
   position: relative; z-index: 2;
   animation: fadeIn 0.8s ease-out forwards;
 }
-.hero-logo {
-  width: 100px; height: 100px;
-  border-radius: 24px;
-  background: rgba(255,255,255,0.12);
-  border: 2px solid rgba(255,255,255,0.25);
-  backdrop-filter: blur(8px);
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
-  animation: floatY 3.5s ease-in-out infinite;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+.hero-logo-card {
+  width: 84px;
+  background: #fff;
+  border: 1.5px solid var(--border-gold);
+  border-radius: 18px;
+  box-shadow: var(--shadow-soft);
+  padding: 10px 8px 8px;
+  text-align: center;
 }
-.hero-logo img {
-  width: 90%; height: 90%; object-fit: contain;
+.hero-logo-card img {
+  width: 48px; height: 48px; border-radius: 50%;
+  object-fit: cover; margin: 0 auto 6px; display: block;
+}
+.hero-logo-card span {
+  display: block; font-size: 10px; font-weight: 800;
+  letter-spacing: 0.5px; color: var(--color-gold-dark);
 }
 
 /* ── Company name ── */
 .hero-brand {
-  text-align: center;
+  text-align: left;
   position: relative; z-index: 2;
-  padding: 0 20px;
+  padding: 18px 24px 0;
   animation: fadeInUp 0.7s ease-out 0.15s both;
 }
-.hero-brand .brand-asia {
-  font-size: 30px; font-weight: 900; letter-spacing: 1px;
-  color: #fff;
-  /* shimmer on "Asia" */
-  background: linear-gradient(90deg,
-    #ffffff 0%, #90CAF9 30%, #ffffff 60%, #A5D6A7 85%, #ffffff 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text; background-clip: text;
-  color: transparent;
-  animation: shimmer 3s linear infinite;
+.hero-brand .brand-name {
+  font-size: 34px; font-weight: 800; letter-spacing: 1px;
 }
-.hero-brand .brand-source {
-  font-size: 30px; font-weight: 900; letter-spacing: 1px;
-  color: #A5D6A7;
-}
-.hero-brand .brand-fin {
+.hero-brand .brand-name .bn-dark { color: var(--color-purple); }
+.hero-brand .brand-name .bn-gold { color: var(--color-gold-dark); }
+.hero-brand .brand-sub {
   display: block;
-  font-size: 12px; font-weight: 600;
-  color: rgba(255,255,255,0.65);
-  letter-spacing: 4px; text-transform: uppercase;
-  margin-top: 2px;
+  font-size: 12px; font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 5px; text-transform: uppercase;
+  margin-top: 6px;
 }
 
 /* ── Tagline ── */
 .hero-tag {
-  text-align: center; color: rgba(255,255,255,0.80);
-  font-size: 13px; font-weight: 400; line-height: 1.6;
-  padding: 14px 28px 0;
+  text-align: left; color: var(--color-muted);
+  font-size: 13px; font-weight: 400; line-height: 1.7;
+  padding: 16px 24px 0;
   position: relative; z-index: 2;
-  animation: fadeInUp 0.7s ease-out 0.30s both;
 }
+.hero-tag .tag-line {
+  display: block;
+  opacity: 0;
+  animation: heroTextReveal 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-tag .tag-line:nth-child(1) { animation-delay: 0.32s; }
+.hero-tag .tag-line:nth-child(2) { animation-delay: 0.52s; }
 
 /* ── Divider line ── */
 .hero-divider {
-  width: 50px; height: 3px; border-radius: 2px;
-  background: linear-gradient(90deg, #1565C0, #42A5F5);
-  margin: 16px auto;
+  width: 56px; height: 2px;
+  background: linear-gradient(90deg, var(--color-gold), transparent);
+  margin: 20px 24px;
   position: relative; z-index: 2;
-  animation: swooshIn 0.6s ease-out 0.4s both;
 }
 
 /* ── CTA Buttons ── */
 .hero-btns {
-  padding: 0 24px;
+  padding: 0 28px;
   position: relative; z-index: 2;
   display: flex; flex-direction: column; gap: 12px;
   animation: fadeInUp 0.7s ease-out 0.45s both;
 }
 
-.btn-login {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  width: 100%; padding: 15px;
-  border-radius: 14px; border: none;
-  background: #fff;
-  color: #1565C0;
-  font-size: 15px; font-weight: 800;
+@keyframes btnShine {
+  0%, 8%   { left: -60%; }
+  55%, 100% { left: 130%; }
+}
+
+.btn-login, .btn-register {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px;
+  width: 100%; padding: 16px 22px;
+  border-radius: 999px;
+  font-size: 15px; font-weight: 700;
   text-decoration: none;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.20);
+  position: relative; overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
 }
-.btn-login svg { width: 18px; height: 18px; fill: #1565C0; }
-.btn-login:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,0.25); }
+.btn-icon-text { display: flex; align-items: center; gap: 10px; }
+.btn-arrow { flex-shrink: 0; }
+
+.btn-login::before, .btn-register::before {
+  content: '';
+  position: absolute; top: 0; left: -60%;
+  width: 45%; height: 100%;
+  background: linear-gradient(115deg, transparent, rgba(255,255,255,0.40), transparent);
+  transform: skewX(-18deg);
+  animation: btnShine 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.btn-login {
+  border: 3px solid transparent;
+  background:
+    linear-gradient(var(--color-purple), var(--color-purple)) padding-box,
+    linear-gradient(120deg, var(--color-gold-dark), var(--color-gold-light) 45%, var(--color-gold-dark) 100%) border-box;
+  color: var(--color-gold-light);
+  box-shadow: 0 10px 24px rgba(59,22,95,0.30);
+}
+.btn-login svg { width: 18px; height: 18px; }
+.btn-login .btn-icon-text svg { fill: var(--color-gold-light); }
+.btn-login .btn-arrow { stroke: var(--color-gold-light); }
+.btn-login:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(59,22,95,0.36); }
 .btn-login:active { transform: scale(0.98); }
 
 .btn-register {
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  width: 100%; padding: 15px;
-  border-radius: 14px;
-  border: 2px solid rgba(255,255,255,0.40);
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(8px);
-  color: #fff;
-  font-size: 15px; font-weight: 700;
-  text-decoration: none;
-  transition: background 0.2s, transform 0.2s;
+  border: 3px solid transparent;
+  background:
+    linear-gradient(#FFFDF6, #FFFDF6) padding-box,
+    linear-gradient(120deg, var(--color-gold-dark), var(--color-gold-light) 45%, var(--color-gold-dark) 100%) border-box;
+  color: var(--color-purple);
+  box-shadow: var(--shadow-soft);
 }
-.btn-register svg { width: 18px; height: 18px; fill: #fff; }
-.btn-register:hover { background: rgba(255,255,255,0.20); transform: translateY(-2px); }
+.btn-register svg { width: 18px; height: 18px; }
+.btn-register .btn-icon-text svg { fill: var(--color-gold-dark); }
+.btn-register .btn-arrow { stroke: var(--color-purple); }
+.btn-register:hover { transform: translateY(-2px); box-shadow: var(--shadow-gold); }
 .btn-register:active { transform: scale(0.98); }
 
 /* Trust badges row */
 .hero-trust {
-  display: flex; justify-content: center; gap: 16px;
-  padding: 18px 24px 0;
+  display: flex; justify-content: center; align-items: center;
+  margin: 22px 24px 0;
+  padding: 14px 10px;
+  background: #FFFDF6;
+  border: 3px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
   position: relative; z-index: 2;
-  animation: fadeIn 0.8s ease-out 0.6s both;
+  animation: cardRiseIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
 }
 .trust-badge {
-  display: flex; align-items: center; gap: 5px;
-  font-size: 11px; color: rgba(255,255,255,0.75); font-weight: 600;
+  display: flex; align-items: center; gap: 8px;
+  font-size: 12px; color: var(--color-text); font-weight: 700;
+  padding: 0 12px;
+  position: relative;
+  opacity: 0;
+  animation: badgePop 0.5s ease-out both;
 }
-.trust-badge svg { width: 13px; height: 13px; fill: #1565C0; }
+.trust-badge:nth-child(1) { animation-delay: 0.95s; }
+.trust-badge:nth-child(2) { animation-delay: 1.08s; }
+.trust-badge:nth-child(3) { animation-delay: 1.21s; }
+.trust-badge:not(:last-child)::after {
+  content: '';
+  position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+  width: 1px; height: 24px;
+  background: var(--border-gold);
+}
+.trust-badge svg { width: 28px; height: 28px; flex-shrink: 0; }
 
 /* ══════════════════════════════════════════
-   STATS SECTION
+   STATS / ACHIEVEMENTS SECTION
 ══════════════════════════════════════════ */
 .stats-section {
-  padding: 24px 16px 8px;
+  padding: 28px 16px 8px;
 }
 .stats-section-label {
-  font-size: 11px; font-weight: 700; color: #888;
-  text-transform: uppercase; letter-spacing: 0.8px;
+  font-size: 11px; font-weight: 700; color: var(--color-gold-dark);
+  text-transform: uppercase; letter-spacing: 1.2px;
   margin-bottom: 12px;
+  text-align: center;
 }
 .stats-grid {
   display: grid; grid-template-columns: repeat(3,1fr); gap: 10px;
 }
 .stat-box {
   background: #fff;
-  border-radius: 16px;
-  padding: 16px 10px;
+  border: 3px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  padding: 18px 10px;
   text-align: center;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  box-shadow: var(--shadow-soft);
   position: relative; overflow: hidden;
-  transition: transform 0.2s;
+  transition: transform 0.2s, box-shadow .2s;
 }
-.stat-box::before {
-  content: '';
-  position: absolute; top: 0; left: 0; right: 0; height: 3px;
-}
-.stat-box:nth-child(1)::before { background: linear-gradient(90deg, #1565C0, #42A5F5); }
-.stat-box:nth-child(2)::before { background: linear-gradient(90deg, #1565C0, #42A5F5); }
-.stat-box:nth-child(3)::before { background: linear-gradient(90deg, #0d2d6e, #1565C0); }
-.stat-box:hover { transform: translateY(-3px); }
+.stat-box:hover { transform: translateY(-3px); box-shadow: var(--shadow-gold); }
 
 .stat-icon {
-  width: 40px; height: 40px; border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 8px;
+  height: 72px;
+  margin: 0 auto 10px;
 }
-.stat-box:nth-child(1) .stat-icon { background: linear-gradient(135deg, #1565C0, #42A5F5); }
-.stat-box:nth-child(2) .stat-icon { background: linear-gradient(135deg, #1565C0, #42A5F5); }
-.stat-box:nth-child(3) .stat-icon { background: linear-gradient(135deg, #0d2d6e, #1565C0); }
-.stat-icon svg { width: 20px; height: 20px; fill: #fff; }
+.stat-icon img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
 
-.stat-box h3 { font-size: 18px; font-weight: 900; color: #1a1a1a; margin: 0; }
-.stat-box p  { font-size: 10px; color: #999; margin: 3px 0 0; font-weight: 500; }
+.stat-box h3 { font-family: 'Playfair Display', serif !important; font-size: 20px; font-weight: 800; color: var(--color-purple); margin: 0; }
+.stat-box p  { font-size: 11px; color: var(--color-muted); margin: 4px 0 0; font-weight: 600; }
+
+.stat-divider {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  margin-top: 10px;
+}
+.stat-divider .sd-line {
+  width: 26px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-gold-dark));
+}
+.stat-divider .sd-line.right {
+  background: linear-gradient(90deg, var(--color-gold-dark), transparent);
+}
+.stat-divider .sd-dot {
+  width: 6px; height: 6px; flex-shrink: 0;
+  background: var(--color-gold);
+  border: 1px solid var(--color-gold-dark);
+  transform: rotate(45deg);
+}
 
 /* ══════════════════════════════════════════
    WHY CHOOSE US
 ══════════════════════════════════════════ */
-.features-section { padding: 12px 16px; }
-.section-header { margin-bottom: 14px; }
+.features-section { padding: 20px 16px 12px; }
+.section-header { margin-bottom: 16px; text-align: center; }
 .section-header h2 {
-  font-size: 16px; font-weight: 800; color: #1a1a1a;
-  display: flex; align-items: center; gap: 8px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  font-size: 12.5px; font-weight: 800; color: var(--color-gold-dark);
+  text-transform: uppercase; letter-spacing: 1.4px;
 }
-.section-header h2::before {
-  content: '';
-  display: inline-block; width: 4px; height: 18px;
-  border-radius: 2px;
-  background: linear-gradient(180deg, #0d2d6e, #1565C0);
+.section-header h2 .sh-flourish { flex-shrink: 0; width: 24px; height: 10px; opacity: 0; }
+.section-header h2 .sh-flourish.left  { transform-origin: right center; }
+.section-header h2 .sh-flourish.right { transform-origin: left center; }
+.section-header h2 .sh-txt { white-space: normal; display: inline-block; opacity: 0; }
+
+.section-header.in-view h2 .sh-flourish {
+  animation: flourishGrow 0.6s ease-out 0.3s both;
 }
-.section-header p { font-size: 12px; color: #999; margin-top: 4px; }
+.section-header.in-view h2 .sh-txt {
+  animation: sectionHeaderReveal 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
 
 .features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 
 .feature-card {
-  background: #fff;
-  border-radius: 16px;
-  padding: 16px 14px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-  transition: transform 0.2s;
+  display: flex; align-items: center; gap: 12px;
+  background: #FFFDF6;
+  border: 3px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  padding: 14px;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.2s, box-shadow .2s;
   position: relative; overflow: hidden;
 }
-.feature-card::after {
-  content: '';
-  position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
-}
-.feature-card:nth-child(1)::after { background: linear-gradient(90deg, #1565C0, #42A5F5); }
-.feature-card:nth-child(2)::after { background: linear-gradient(90deg, #1565C0, #42A5F5); }
-.feature-card:nth-child(3)::after { background: linear-gradient(90deg, #0d2d6e, #1565C0); }
-.feature-card:nth-child(4)::after { background: linear-gradient(90deg, #1565C0, #42A5F5); }
-.feature-card:hover { transform: translateY(-3px); }
+.feature-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-gold); }
 
 .feature-icon {
-  width: 38px; height: 38px; border-radius: 10px;
+  width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  margin-bottom: 10px;
+  background: radial-gradient(circle at 35% 30%, #5B2A8A 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
+  border: 2px solid var(--color-gold);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.35), 0 3px 8px rgba(0,0,0,0.15);
 }
-.feature-card:nth-child(1) .feature-icon { background: #EFF6FF; }
-.feature-card:nth-child(1) .feature-icon svg { fill: #1565C0; }
-.feature-card:nth-child(2) .feature-icon { background: #EFF6FF; }
-.feature-card:nth-child(2) .feature-icon svg { fill: #1565C0; }
-.feature-card:nth-child(3) .feature-icon { background: #EFF6FF; }
-.feature-card:nth-child(3) .feature-icon svg { fill: #1565C0; }
-.feature-card:nth-child(4) .feature-icon { background: #EFF6FF; }
-.feature-card:nth-child(4) .feature-icon svg { fill: #1565C0; }
-.feature-icon svg { width: 20px; height: 20px; }
+.feature-icon svg { width: 22px; height: 22px; fill: #fff; }
 
-.feature-card h3 { font-size: 12px; font-weight: 700; color: #1a1a1a; margin-bottom: 5px; }
-.feature-card p  { font-size: 11px; color: #888; line-height: 1.5; }
+.feature-text h3 { font-size: 13px; font-weight: 700; color: var(--color-purple); margin-bottom: 4px; }
+.feature-text p  { font-size: 10.5px; color: var(--color-muted); line-height: 1.5; }
 
 /* ══════════════════════════════════════════
    CTA SECTION
 ══════════════════════════════════════════ */
 .cta-section {
-  margin: 16px 16px 0;
-  border-radius: 20px;
+  margin: 20px 16px 0;
+  border-radius: var(--radius-lg);
   overflow: hidden;
   position: relative;
-  background: linear-gradient(135deg, #0d2d6e 0%, #1565C0 45%, #1a5c2a 80%, #2d6b0a 100%);
-  padding: 28px 24px;
+  background: url("{% static 'img/cta-pattern.svg' %}") center / cover no-repeat, var(--color-purple-dark);
+  border: 2px solid var(--color-gold);
+  padding: 32px 24px;
   text-align: center;
+  box-shadow: 0 14px 34px rgba(38,16,63,0.35);
 }
-.cta-section .cta-blob {
+.cta-sparkle {
   position: absolute; border-radius: 50%; pointer-events: none;
-  background: rgba(255,255,255,0.07);
-  width: 160px; height: 160px; top: -60px; right: -40px;
+  background: radial-gradient(circle, rgba(247,215,122,0.95), transparent 70%);
 }
+.cta-sparkle.s1 { width: 7px; height: 7px; top: 20px; left: 28px; }
+.cta-sparkle.s2 { width: 4px; height: 4px; top: 46px; right: 34px; }
+.cta-sparkle.s3 { width: 5px; height: 5px; bottom: 24px; left: 20%; }
+.cta-sparkle.s4 { width: 4px; height: 4px; bottom: 40px; right: 22%; }
+
+.cta-coin {
+  width: 84px; height: 84px; margin: 0 auto 14px;
+  position: relative; z-index: 1;
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,0.35));
+}
+.cta-coin img { width: 100%; height: 100%; object-fit: contain; }
+
 .cta-section h2 {
-  font-size: 17px; font-weight: 800; color: #fff;
-  margin-bottom: 8px; position: relative; z-index: 1;
+  font-family: 'Playfair Display', serif !important;
+  font-size: 19px; font-weight: 700; color: var(--color-gold-light);
+  margin-bottom: 10px; position: relative; z-index: 1;
 }
 .cta-section p {
-  font-size: 12px; color: rgba(255,255,255,0.80);
-  margin-bottom: 18px; line-height: 1.6; position: relative; z-index: 1;
+  font-size: 12px; color: rgba(250,246,236,0.78);
+  margin-bottom: 20px; line-height: 1.7; position: relative; z-index: 1;
 }
 .btn-cta {
   display: inline-flex; align-items: center; gap: 7px;
-  background: #fff; color: #1565C0;
-  padding: 12px 26px; border-radius: 12px;
+  background: linear-gradient(90deg, var(--color-gold-dark), var(--color-gold), var(--color-gold-light));
+  color: var(--color-purple-dark);
+  padding: 13px 28px; border-radius: var(--radius-md);
   font-size: 14px; font-weight: 800;
   text-decoration: none;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+  box-shadow: var(--shadow-gold);
   transition: transform 0.2s;
-  position: relative; z-index: 1;
+  position: relative; z-index: 1; overflow: hidden;
 }
-.btn-cta svg { width: 16px; height: 16px; fill: #1565C0; }
+.btn-cta::before {
+  content: '';
+  position: absolute; top: 0; left: -60%; width: 45%; height: 100%;
+  background: linear-gradient(115deg, transparent, rgba(255,255,255,0.55), transparent);
+  transform: skewX(-18deg);
+  animation: btnShine 5s ease-in-out infinite;
+  pointer-events: none;
+}
+.btn-cta svg { width: 16px; height: 16px; fill: var(--color-purple-dark); }
 .btn-cta:hover { transform: translateY(-2px); }
 .btn-cta:active { transform: scale(0.98); }
 
 /* ══════════════════════════════════════════
-   FOOTER
+   FOOTER — account card
 ══════════════════════════════════════════ */
 .site-footer {
-  margin-top: 20px;
-  background: #fff;
-  border-top: 1px solid #eee;
-  padding: 20px 16px 16px;
+  margin: 24px 16px 20px;
+  background: #FFFDF6;
+  border: 3px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 16px 18px;
 }
-.footer-top {
-  display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+.footer-row {
+  display: flex; flex-direction: column; align-items: stretch;
+  gap: 14px;
+}
+.footer-brand-block {
+  display: flex; align-items: center; gap: 10px;
+  width: 100%;
 }
 .footer-logo-box {
-  width: 44px; height: 44px; border-radius: 12px; overflow: hidden; flex-shrink: 0;
-  background: linear-gradient(135deg, #0d2d6e, #1565C0);
-  display: flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; flex-shrink: 0;
+  border-radius: 50%; object-fit: cover;
+  border: 1.5px solid var(--border-gold);
 }
-.footer-logo-box img { width: 100%; height: 100%; object-fit: contain; }
-.footer-brand-name { font-size: 14px; font-weight: 800; color: #1a1a1a; }
-.footer-brand-sub  { font-size: 11px; color: #999; font-weight: 500; }
+.footer-brand-name { font-family: 'Playfair Display', serif !important; font-size: 14px; font-weight: 700; color: var(--color-purple); }
+.footer-brand-sub  { font-size: 10.5px; color: var(--color-muted); font-weight: 500; }
+
+.footer-divider { display: none; }
 
 .footer-links {
-  display: flex; gap: 10px; margin-bottom: 14px; flex-wrap: wrap;
+  display: flex; gap: 8px; width: 100%;
 }
 .footer-link {
-  display: inline-flex; align-items: center; gap: 5px;
-  padding: 7px 14px; border-radius: 999px;
-  font-size: 12px; font-weight: 600;
+  flex: 1;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 8px 15px; border-radius: 999px;
+  font-size: 12px; font-weight: 700;
+  color: var(--color-purple);
   text-decoration: none;
-  transition: background 0.2s;
+  border: 1.5px solid var(--border-gold);
+  background: #fff;
+  transition: background 0.2s, transform 0.2s;
 }
-.footer-link.blue { background: #EFF6FF; color: #1565C0; }
-.footer-link.blue:hover { background: #DBEAFE; }
-.footer-link.green { background: #EFF6FF; color: #1565C0; }
-.footer-link.green:hover { background: #DBEAFE; }
-.footer-link svg { width: 14px; height: 14px; }
-.footer-link.blue svg { fill: #1565C0; }
-.footer-link.green svg { fill: #1565C0; }
+.footer-link:hover { background: #FDF7E8; transform: translateY(-1px); }
+.footer-link svg { width: 14px; height: 14px; fill: var(--color-gold-dark); }
+
+@media (min-width: 480px) {
+  .footer-row {
+    flex-direction: row; align-items: center; justify-content: space-between; flex-wrap: wrap;
+  }
+  .footer-brand-block { width: auto; }
+  .footer-divider {
+    display: block; width: 1px; align-self: stretch;
+    background: var(--border-gold); flex-shrink: 0;
+  }
+  .footer-links { width: auto; flex-wrap: nowrap; }
+  .footer-link { flex: none; }
+}
 
 .footer-bottom {
-  padding-top: 12px; border-top: 1px solid #f0f0f0;
-  text-align: center; font-size: 11px; color: #bbb;
+  margin-top: 14px;
+  padding-top: 14px; border-top: 1px solid #F0E8D8;
+  text-align: center; font-size: 11px; color: var(--color-muted);
+}
+
+/* ── Reduced motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .gl-page * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .hero-tag .tag-line { opacity: 1; filter: none; transform: none; }
+  .hero-trust { opacity: 1; filter: none; transform: none; }
+  .trust-badge { opacity: 1; transform: none; }
+  .section-header h2 .sh-flourish,
+  .section-header h2 .sh-txt { opacity: 1 !important; filter: none !important; transform: none !important; }
 }
 </style>
 
@@ -408,90 +520,115 @@ body {
 
   <!-- ══ HERO ══ -->
   <section class="hero">
-    <div class="hero-blob1"></div>
-    <div class="hero-blob2"></div>
-    <div class="hero-blob3"></div>
+    <div class="hero-arc a1"></div>
+    <div class="hero-arc a2"></div>
+    <span class="hero-sparkle h1"></span>
+    <span class="hero-sparkle h2"></span>
+    <span class="hero-sparkle h3"></span>
 
-    <!-- Logo -->
-    <div class="hero-logo-wrap">
-      <div class="hero-logo">
-        <img src="{% static 'img/logo.webp' %}" alt="Asiasource Financial">
+    <!-- Client logo card, top-left -->
+    <div class="hero-topbar">
+      <div class="hero-logo-card">
+        <img src="{% static 'img/ilend-logo.webp' %}" alt="ILEND Lending Corp.">
+        <span>ILEND</span>
       </div>
     </div>
 
     <!-- Brand name -->
     <div class="hero-brand">
-      <div>
-        <span class="brand-asia">Asia</span><span class="brand-source">source</span>
-      </div>
-      <span class="brand-fin">Financial Inc.</span>
+      <div class="brand-name serif"><span class="bn-dark">I</span><span class="bn-gold">LEND</span></div>
+      <span class="brand-sub">Lending Corp.</span>
     </div>
 
     <!-- Tagline -->
-    <p class="hero-tag">Your trusted financial partner —<br>fast, secure &amp; available 24/7</p>
+    <p class="hero-tag">
+      <span class="tag-line">Your trusted financial partner —</span>
+      <span class="tag-line">fast, secure &amp; available 8AM–8PM daily</span>
+    </p>
 
     <div class="hero-divider"></div>
 
     <!-- Buttons -->
     <div class="hero-btns">
       <a href="/login/" class="btn-login">
-        <svg viewBox="0 0 24 24"><path d="M11 7L9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"/></svg>
-        Sign In
+        <span class="btn-icon-text">
+          <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm3 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+          Sign In
+        </span>
+        <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
       <a href="/register/" class="btn-register">
-        <svg viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-        Create Account
+        <span class="btn-icon-text">
+          <svg viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          Create Account
+        </span>
+        <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
     </div>
 
     <!-- Trust -->
     <div class="hero-trust">
       <div class="trust-badge">
-        <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+        <svg viewBox="0 0 32 32" fill="none">
+          <path d="M16 3l10 4v7c0 6.5-4.2 11.7-10 13-5.8-1.3-10-6.5-10-13V7z" stroke="#D6A637" stroke-width="1.6"/>
+          <path d="M11.5 16.3l3 3 6-6.5" stroke="#3B165F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
         Secure
       </div>
       <div class="trust-badge">
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
-        24/7 Support
+        <svg viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="13" stroke="#D6A637" stroke-width="1.6"/>
+          <path d="M10 12a7 7 0 0 1 11-2.3M22 20a7 7 0 0 1-11 2.3" stroke="#D6A637" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M20.5 8.5l1 2.7-2.8-.4z" fill="#D6A637"/>
+          <path d="M11.5 23.5l-1-2.7 2.8.4z" fill="#D6A637"/>
+        </svg>
+        8AM–8PM Support
       </div>
       <div class="trust-badge">
-        <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+        <svg viewBox="0 0 32 32" fill="none">
+          <polygon points="16.0,2.0 13.5,5.1 9.9,3.4 9.0,7.2 5.1,7.3 5.9,11.1 2.4,12.9 4.8,16.0 2.4,19.1 5.9,20.9 5.1,24.7 9.0,24.8 9.9,28.6 13.5,26.9 16.0,30.0 18.5,26.9 22.1,28.6 23.0,24.8 26.9,24.7 26.1,20.9 29.6,19.1 27.2,16.0 29.6,12.9 26.1,11.1 26.9,7.3 23.0,7.2 22.1,3.4 18.5,5.1" stroke="#D6A637" stroke-width="1.6"/>
+          <path d="M11 16.5l3.3 3.3 6.7-7" stroke="#3B165F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
         Trusted
       </div>
     </div>
 
     <!-- Swoosh -->
     <div class="hero-swoosh">
-      <svg viewBox="0 0 520 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 40 Q130 0 260 20 Q390 40 520 10 L520 40 Z" fill="#f5f5f5"/>
+      <svg viewBox="0 0 520 44" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 44 Q130 4 260 24 Q390 44 520 14 L520 44 Z" fill="#FAF6EC"/>
+        <path d="M0 40 Q130 0 260 20 Q390 40 520 10" fill="none" stroke="#D6A637" stroke-width="1" opacity="0.35"/>
       </svg>
     </div>
   </section>
 
-  <!-- ══ STATS ══ -->
+  <!-- ══ ACHIEVEMENTS ══ -->
   <section class="stats-section">
     <div class="stats-section-label">Our Achievements</div>
     <div class="stats-grid">
       <div class="stat-box">
         <div class="stat-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 2L2 7v2h20V7L12 2zm0 2.8L18.2 7H5.8L12 4.8zM4 10v10H2v2h20v-2h-2V10h-2v10h-2V10h-2v10h-2V10H4z"/></svg>
+          <img src="{% static 'icons/years-experience.svg' %}" alt="Years Experience">
         </div>
         <h3>18+</h3>
         <p>Years Experience</p>
+        <div class="stat-divider"><span class="sd-line"></span><span class="sd-dot"></span><span class="sd-line right"></span></div>
       </div>
       <div class="stat-box">
         <div class="stat-icon">
-          <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          <img src="{% static 'icons/happy-customers.svg' %}" alt="Happy Customers">
         </div>
         <h3>50K+</h3>
         <p>Happy Customers</p>
+        <div class="stat-divider"><span class="sd-line"></span><span class="sd-dot"></span><span class="sd-line right"></span></div>
       </div>
       <div class="stat-box">
         <div class="stat-icon">
-          <svg viewBox="0 0 24 24"><path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z"/></svg>
+          <img src="{% static 'icons/max-loan.svg' %}" alt="Max Loan">
         </div>
-        <h3>₱5M</h3>
+        <h3>₱2M</h3>
         <p>Max Loan</p>
+        <div class="stat-divider"><span class="sd-line"></span><span class="sd-dot"></span><span class="sd-line right"></span></div>
       </div>
     </div>
   </section>
@@ -499,74 +636,126 @@ body {
   <!-- ══ FEATURES ══ -->
   <section class="features-section">
     <div class="section-header">
-      <p style="font-size:12px;color:#999;margin-bottom:12px;">Fast approvals, competitive rates &amp; full security</p>
+      <h2>
+        <svg class="sh-flourish left" viewBox="0 0 40 16" fill="none"><line x1="38" y1="8" x2="8" y2="8" stroke="#9B6A16" stroke-width="1.5"/><path d="M13 3 L5 8 L13 13" stroke="#9B6A16" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="sh-txt">Fast Approvals, Competitive Rates &amp; Full Security</span>
+        <svg class="sh-flourish right" viewBox="0 0 40 16" fill="none"><line x1="2" y1="8" x2="32" y2="8" stroke="#9B6A16" stroke-width="1.5"/><path d="M27 3 L35 8 L27 13" stroke="#9B6A16" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </h2>
     </div>
     <div class="features-grid">
       <div class="feature-card">
         <div class="feature-icon">
-          <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-        </div>
-        <h3>Quick Loans</h3>
-        <p>₱80,000 to ₱5,000,000 with flexible terms</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">
           <svg viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
         </div>
-        <h3>Fast Approval</h3>
-        <p>Approved within 24–48 hours online</p>
+        <div class="feature-text">
+          <h3>Quick Loans</h3>
+          <p>₱75,000 to ₱2,000,000 with flexible terms</p>
+        </div>
       </div>
       <div class="feature-card">
         <div class="feature-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42A8.962 8.962 0 0012 4c-4.97 0-9 4.03-9 9s4.02 9 9 9 9-4.03 9-9c0-2.12-.74-4.07-1.97-5.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/></svg>
         </div>
-        <h3>Secure Process</h3>
-        <p>Bank-level encryption on all data</p>
+        <div class="feature-text">
+          <h3>Fast Approval</h3>
+          <p>Approved within 24–48 hours online</p>
+        </div>
       </div>
       <div class="feature-card">
         <div class="feature-icon">
-          <svg viewBox="0 0 24 24"><path d="M11.5 2C6.81 2 3 5.81 3 10.5S6.81 19 11.5 19h.5v3c4.86-2.34 8-7 8-11.5C20 5.81 16.19 2 11.5 2zm1 14.5h-2v-2h2v2zm0-4h-2c0-3.25 3-3 3-5 0-1.1-.9-2-2-2s-2 .9-2 2h-2c0-2.21 1.79-4 4-4s4 1.79 4 4c0 2.5-3 2.75-3 5z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm3 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
         </div>
-        <h3>24/7 Support</h3>
-        <p>Always here to help you anytime</p>
+        <div class="feature-text">
+          <h3>Secure Process</h3>
+          <p>Bank-level encryption on all data</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h4c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"/></svg>
+        </div>
+        <div class="feature-text">
+          <h3>8AM–8PM Support</h3>
+          <p>Here to help you every day, 8AM to 8PM</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ══ CTA ══ -->
   <section class="cta-section">
-    <div class="cta-blob"></div>
-    <h2>Ready to Get Started?</h2>
+    <span class="cta-sparkle s1"></span>
+    <span class="cta-sparkle s2"></span>
+    <span class="cta-sparkle s3"></span>
+    <span class="cta-sparkle s4"></span>
+    <div class="cta-coin">
+      <img src="{% static 'img/cta-coin.svg' %}" alt="ILEND Peso Coin">
+    </div>
+    <h2 class="serif">Ready to Get Started?</h2>
     <p>Apply for a loan today and get approved within 24–48 hours. No hidden fees.</p>
     <a href="/register/" class="btn-cta">
+      <span>Apply Now</span>
       <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
-      Apply Now
     </a>
   </section>
 
   <!-- ══ FOOTER ══ -->
   <footer class="site-footer">
-    <div class="footer-top">
-      <div class="footer-logo-box">
-        <img src="{% static 'img/logo.webp' %}" alt="logo">
+    <div class="footer-row">
+      <div class="footer-brand-block">
+        <img class="footer-logo-box" src="{% static 'img/ilend-logo.webp' %}" alt="ILEND Lending Corp.">
+        <div>
+          <div class="footer-brand-name">ILEND Lending Corp.</div>
+          <div class="footer-brand-sub">Trusted since August 8, 2014</div>
+        </div>
       </div>
-      <div>
-        <div class="footer-brand-name">Asiasource Financial Inc.</div>
-        <div class="footer-brand-sub">Trusted since August 8, 2014</div>
+      <div class="footer-divider"></div>
+      <div class="footer-links">
+        <a href="/login/" class="footer-link">
+          <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm3 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+          Login
+        </a>
+        <a href="/register/" class="footer-link">
+          <svg viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          Register
+        </a>
       </div>
     </div>
-    <div class="footer-links">
-      <a href="/login/" class="footer-link blue">
-        <svg viewBox="0 0 24 24"><path d="M11 7L9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"/></svg>
-        Login
-      </a>
-      <a href="/register/" class="footer-link green">
-        <svg viewBox="0 0 24 24"><path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-        Register
-      </a>
-    </div>
-    <div class="footer-bottom">© 2026 Asiasource Financial Inc. — All rights reserved.</div>
+    <div class="footer-bottom">© 2026 ILEND Lending Corp. — All rights reserved.</div>
   </footer>
 
 </div><!-- .gl-page -->
+
+<script>
+(function () {
+  var el = document.querySelector('.section-header');
+  if (!el) return;
+
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    el.classList.add('in-view');
+    return;
+  }
+
+  // If the whole page already fits in the viewport (e.g. a tall desktop
+  // window), this section is visible immediately and the observer fires
+  // on the very first check — same frame as page load. Without a floor
+  // delay that reads as "no animation" since it's indistinguishable from
+  // content just appearing already-rendered. Force a minimum pause so the
+  // reveal is always a noticeable, deliberate moment.
+  var firstCheck = true;
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var delay = firstCheck ? 900 : 0;
+        setTimeout(function () { entry.target.classList.add('in-view'); }, delay);
+        io.unobserve(entry.target);
+      }
+    });
+    firstCheck = false;
+  }, { threshold: 0.35 });
+
+  io.observe(el);
+})();
+</script>
 {% endblock %}

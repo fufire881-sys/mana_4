@@ -1,14 +1,34 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Profile{% endblock %}
+{% block title %}Profile — ILEND Lending Corp.{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body, body * { font-family: 'Poppins', sans-serif !important; }
-body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%) !important; }
+
+:root{
+  --color-bg: #FAF6EC;
+  --color-gold: #D6A637;
+  --color-gold-dark: #9B6A16;
+  --color-gold-light: #F7D77A;
+  --color-purple: #3B165F;
+  --color-purple-dark: #26103F;
+  --color-text: #221B2D;
+  --color-muted: #6D6474;
+  --border-gold: rgba(190, 140, 45, 0.45);
+  --shadow-soft: 0 10px 30px rgba(59, 22, 95, 0.08);
+  --shadow-gold: 0 10px 26px rgba(214, 166, 55, 0.30);
+  --radius-lg: 22px;
+  --radius-md: 16px;
+}
+.serif{ font-family:'Playfair Display', serif !important; }
+
+body { background: var(--color-bg) !important; }
 .wrap { align-items: flex-start !important; justify-content: center !important; padding-top: 0 !important; }
+
+@keyframes diamondShine{ 0%,55%{ transform: translateX(-120%); } 100%{ transform: translateX(120%); } }
 
 .p-wrap {
   width: min(520px, 100vw);
@@ -17,189 +37,211 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
   min-height: 100vh;
 }
 
+/* ── Reveal on scroll ── */
+.reveal{ opacity:0; transform: translateY(16px); will-change: transform, opacity; }
+.reveal.on{ opacity:1; transform: translateY(0); transition: opacity .5s ease, transform .5s ease; }
 
 /* ── Header ── */
 .prof-header {
-  background: linear-gradient(160deg, #0d2d6e 0%, #1565C0 40%, #1a5c2a 75%, #2d6b0a 100%);
-  padding: 0 0 30px;
-  position: relative;
-  overflow: hidden;
+  position: relative; overflow: hidden;
+  padding: 0 0 24px;
   margin: 16px 16px 0;
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-gold);
+  background: linear-gradient(120deg, var(--color-purple-dark), var(--color-purple));
+  box-shadow: var(--shadow-soft);
 }
 .prof-header .header-inner {
   padding: 50px 20px 0;
+  position: relative; z-index: 2;
 }
-.prof-header .hbg1 {
-  position: absolute; border-radius: 50%;
-  background: rgba(255,255,255,0.05);
-  width: 200px; height: 200px;
-  top: -80px; right: -50px;
-  pointer-events: none;
+.prof-header::before{
+  content:""; position:absolute; border-radius:50%; pointer-events:none;
+  width:170px; height:170px; top:-60px; right:-40px;
+  border:1px solid rgba(214,166,55,0.30);
+  z-index: 1;
 }
-.prof-header .hbg2 {
-  position: absolute; border-radius: 50%;
-  background: rgba(255,255,255,0.04);
-  width: 120px; height: 120px;
-  bottom: -30px; left: -20px;
-  pointer-events: none;
-}
-.prof-header .hbg3 {
-  position: absolute; border-radius: 50%;
-  background: rgba(255,255,255,0.03);
-  width: 80px; height: 80px;
-  top: 20px; left: 40%;
-  pointer-events: none;
+.prof-header::after{
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.16) 50%, transparent 100%);
+  transform: translateX(-120%);
+  animation: diamondShine 4.5s ease-in-out infinite;
+  pointer-events:none; z-index: 1;
 }
 
 .prof-back {
-  position: absolute; top: 16px; left: 16px;
-  display: inline-flex; align-items: center; gap: 4px;
-  color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 600;
-  text-decoration: none; z-index: 2;
+  position: absolute; top: 16px; left: 16px; z-index: 3;
+  display: inline-flex; align-items: center; gap: 5px;
+  color: var(--color-gold-light); font-size: 13px; font-weight: 700;
+  text-decoration: none;
 }
-.prof-back svg { width: 16px; height: 16px; fill: rgba(255,255,255,0.85); }
+.prof-back svg { width: 16px; height: 16px; fill: var(--color-gold-light); }
 
 /* Avatar + info */
 .prof-identity {
   display: flex; align-items: center; gap: 16px;
-  position: relative; z-index: 1; margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 .prof-avatar {
   width: 60px; height: 60px; flex-shrink: 0;
-  background: rgba(255,255,255,0.18);
-  border-radius: 18px;
-  border: 2px solid rgba(255,255,255,0.25);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--color-gold-light) 0%, var(--color-gold) 55%, var(--color-gold-dark) 100%);
+  border: 2px solid var(--color-gold-light);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.40), inset 0 -3px 6px rgba(0,0,0,0.25), 0 3px 8px rgba(0,0,0,0.25);
   display: flex; align-items: center; justify-content: center;
 }
-.prof-avatar svg { width: 30px; height: 30px; fill: #fff; }
+.prof-avatar svg { width: 30px; height: 30px; fill: var(--color-purple-dark); }
 .prof-name {
-  font-size: 18px; font-weight: 800;
+  font-family:'Playfair Display', serif !important;
+  font-size: 19px; font-weight: 800;
   color: #fff; line-height: 1.2;
 }
-.prof-acct { font-size: 12px; color: rgba(255,255,255,0.7); margin-top: 3px; }
+.prof-acct { font-size: 12px; color: rgba(255,255,255,0.72); margin-top: 3px; font-variant-numeric: tabular-nums; }
 
 /* Status badge */
 .status-badge {
   display: inline-flex; align-items: center;
-  padding: 5px 12px; border-radius: 999px;
-  font-weight: 700; font-size: 11px;
+  padding: 5px 13px; border-radius: 999px;
+  font-weight: 800; font-size: 11px;
   letter-spacing: 0.3px; white-space: nowrap;
-  margin-top: 6px;
+  margin-top: 7px;
+  border: 1px solid;
 }
-.status-active { background: linear-gradient(135deg, #1565C0, #2d6b0a); color: #fff; border: none; }
-.status-warn   { background: #eab308; color: #111; border: none; }
-.status-danger { background: #dc2626; color: #fff; border: none; }
+.status-active { background: #1A1420; color: var(--color-gold-light); border-color: var(--color-gold); }
+.status-warn   { background: #eab308; color: #111; border-color: #eab308; }
+.status-danger { background: #dc2626; color: #fff; border-color: #dc2626; }
 
 /* Balance card inside header */
 .prof-balance-card {
-  background: rgba(255,255,255,0.12);
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 16px;
+  background: rgba(214,166,55,0.14);
+  border: 1px solid var(--color-gold);
+  border-radius: var(--radius-md);
   padding: 16px 18px;
-  position: relative; z-index: 1;
   display: flex; align-items: center; justify-content: space-between;
 }
-.prof-balance-label { font-size: 11px; color: rgba(255,255,255,0.65); font-weight: 500; margin-bottom: 4px; }
-.prof-balance-amount { font-size: 26px; font-weight: 800; color: #fff; }
+.prof-balance-label { font-size: 11px; color: rgba(255,255,255,0.68); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 5px; }
+.prof-balance-amount { font-size: 26px; font-weight: 800; color: #fff; font-variant-numeric: tabular-nums; }
+.prof-balance-amount .peso{ color: var(--color-gold-light); font-weight: 700; }
 
-/* ── Menu list ── */
+/* ── Menu — a grid of icon tiles instead of one long flat list-with-chevron
+   row, reusing the same tile language as the dashboard quick-actions. ── */
 .prof-menu-wrap { padding: 16px 16px 0; }
 .prof-section-label {
-  font-size: 11px; font-weight: 700; color: #6b8fca;
+  font-size: 11px; font-weight: 800; color: var(--color-gold-dark);
   text-transform: uppercase; letter-spacing: 0.8px;
   margin-bottom: 10px;
 }
 
-.prof-menu-card {
-  background: #fff;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-  margin-bottom: 12px;
+.prof-grid{
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  margin-bottom: 16px;
 }
-
-.p-btn {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 12px; padding: 14px 16px;
+.p-tile{
+  position: relative; overflow: hidden;
+  display: block;
+  background: linear-gradient(160deg, #FFFDF6 0%, #FBF3DF 100%);
+  border: 1.5px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  padding: 16px 14px;
   text-decoration: none; color: inherit;
-  border-bottom: 1px solid #f5f5f5;
-  transition: background 0.15s;
-  cursor: pointer;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.2s, box-shadow 0.2s;
 }
-.p-btn:last-child { border-bottom: none; }
-.p-btn:active { background: #f8fdf4; }
-
-.p-btn .left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.p-tile:hover{ transform: translateY(-3px); box-shadow: var(--shadow-gold); }
+.p-tile:active{ transform: scale(0.98); }
+.p-tile::before{
+  content: "";
+  position: absolute; top: 0; left: 0; bottom: 0; width: 4px;
+  background: linear-gradient(180deg, var(--color-gold), var(--color-gold-dark));
+}
 
 .ico {
-  width: 42px; height: 42px; flex-shrink: 0;
-  border-radius: 13px;
-  background: linear-gradient(135deg, #2d6b0a, #5d9e28);
-  box-shadow: 0 4px 12px rgba(45,107,10,0.25);
+  width: 44px; height: 44px; flex-shrink: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #5B2A8A 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
+  border: 2px solid var(--color-gold);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.35), 0 3px 8px rgba(0,0,0,0.15);
   display: flex; align-items: center; justify-content: center;
+  margin-bottom: 10px;
 }
 .ico svg { width: 20px; height: 20px; fill: #fff; }
-.ico.red {
-  background: linear-gradient(135deg, #c62828, #e53935);
-  box-shadow: 0 4px 12px rgba(198,40,40,0.25);
-}
-.ico.red svg { fill: #fff; }
 
-.txt .t1 { font-size: 14px; font-weight: 600; color: #1a1a1a; }
-.txt .t2 { font-size: 11px; color: #aaa; margin-top: 2px; font-weight: 400; }
+.txt .t1 { font-size: 13px; font-weight: 700; color: var(--color-text); }
+.txt .t2 { font-size: 10.5px; color: var(--color-muted); margin-top: 3px; font-weight: 400; line-height: 1.4; }
+.p-tile-arrow{ margin-top: 8px; font-size: 13px; color: var(--color-purple); font-weight: 800; }
+
+/* ── Logout — kept as its own separate full-width danger row, distinct
+   from the informational grid above. ── */
+.logout-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 14px 16px;
+  background: #fff;
+  border: 1.5px solid rgba(220,38,38,0.30);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  text-decoration: none; color: inherit;
+  transition: background 0.15s, transform .15s;
+}
+.logout-row:hover{ background: #FFF7F7; transform: translateY(-2px); }
+.logout-row .left { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.ico.red {
+  background: linear-gradient(135deg, #f87171, #dc2626);
+  border-color: rgba(220,38,38,0.4);
+}
 
 .chev {
-  width: 28px; height: 28px; flex-shrink: 0;
+  width: 30px; height: 30px; flex-shrink: 0;
   border-radius: 999px;
-  background: #f5f5f5;
+  background: #FFFDF6;
+  border: 1px solid var(--border-gold);
   display: flex; align-items: center; justify-content: center;
 }
-.chev svg { width: 14px; height: 14px; fill: none; stroke: #bbb; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.chev svg { width: 14px; height: 14px; fill: none; stroke: var(--color-gold-dark); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
 
 /* ── Logout modal ── */
 .logout-modal {
   position: fixed; inset: 0; display: none;
   align-items: center; justify-content: center;
-  background: rgba(0,0,0,0.5); z-index: 9999;
+  background: rgba(38,16,63,0.55); z-index: 9999;
   padding: 18px;
 }
 .logout-modal.show { display: flex; }
 .logout-box {
   width: min(400px, 92vw);
-  background: #fff; border-radius: 22px;
-  box-shadow: 0 24px 60px rgba(0,0,0,0.2);
+  background: #fff; border: 2px solid var(--color-gold); border-radius: var(--radius-lg);
+  box-shadow: 0 24px 60px rgba(38,16,63,0.35);
   padding: 32px 24px 24px;
   text-align: center;
 }
 .logout-icon-wrap {
-  width: 60px; height: 60px; margin: 0 auto 16px;
-  background: linear-gradient(135deg, #0d2d6e, #1565C0 50%, #2d6b0a);
-  border-radius: 18px;
+  width: 62px; height: 62px; margin: 0 auto 16px;
+  background: radial-gradient(circle at 35% 30%, #f87171 0%, #dc2626 60%, #a51616 100%);
+  border-radius: 50%;
+  border: 2px solid rgba(220,38,38,0.4);
   display: flex; align-items: center; justify-content: center;
 }
 .logout-icon-wrap svg { width: 28px; height: 28px; fill: #fff; }
-.logout-title { font-size: 17px; font-weight: 800; color: #1a1a1a; margin-bottom: 8px; }
-.logout-text  { font-size: 13px; color: #888; line-height: 1.5; margin-bottom: 24px; }
+.logout-title { font-family:'Playfair Display', serif !important; font-size: 18px; font-weight: 800; color: var(--color-text); margin-bottom: 8px; }
+.logout-text  { font-size: 13px; color: var(--color-muted); line-height: 1.5; margin-bottom: 24px; }
 .logout-actions { display: flex; gap: 10px; }
 .btn-cancel {
-  flex: 1; height: 46px;
-  border-radius: 12px; border: 1.5px solid #e8e8e8;
-  background: #fafafa; color: #555;
+  flex: 1; height: 48px;
+  border-radius: 999px; border: 1.5px solid var(--border-gold);
+  background: #FFFDF6; color: var(--color-purple);
   font-weight: 700; font-size: 14px;
   font-family: 'Poppins', sans-serif;
   cursor: pointer; transition: background 0.15s;
 }
-.btn-cancel:hover { background: #f0f0f0; }
+.btn-cancel:hover { background: #FBF3DF; }
 .btn-confirm {
-  flex: 1; height: 46px;
-  border-radius: 12px; border: none;
-  background: linear-gradient(135deg, #0d2d6e, #1565C0 50%, #2d6b0a);
+  flex: 1; height: 48px;
+  border-radius: 999px; border: none;
+  background: linear-gradient(135deg, #dc2626, #a51616);
   color: #fff;
   font-weight: 700; font-size: 14px;
   font-family: 'Poppins', sans-serif;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(21,101,192,0.35);
+  box-shadow: 0 6px 18px rgba(220,38,38,0.35);
   transition: opacity 0.15s;
 }
 .btn-confirm:hover { opacity: 0.92; }
@@ -207,31 +249,29 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
 /* Credit bar */
 .credit-bar {
   display: flex; align-items: center; justify-content: center; gap: 10px;
-  padding: 14px 20px 20px;
-  margin-top: 8px;
+  padding: 20px 20px 4px;
+  margin-top: 4px;
 }
 .credit-bar-logo {
-  width: 30px; height: 30px; border-radius: 9px;
-  background: linear-gradient(135deg, #0d2d6e, #2d6b0a);
-  display: flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 10px;
+  border: 1.5px solid var(--border-gold);
   overflow: hidden; flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(13,45,110,0.25);
 }
-.credit-bar-logo img { width: 90%; height: 90%; object-fit: contain; }
+.credit-bar-logo img { width: 100%; height: 100%; object-fit: cover; }
 .credit-bar-text { display: flex; flex-direction: column; }
-.credit-bar-name { font-size: 10px; font-weight: 800; color: #0d2d6e; letter-spacing: 0.4px; }
-.credit-bar-sub { font-size: 9px; color: #6b7f6b; font-weight: 500; }
+.credit-bar-name { font-family:'Playfair Display', serif !important; font-size: 11px; font-weight: 700; color: var(--color-purple); letter-spacing: 0.3px; }
+.credit-bar-sub { font-size: 9.5px; color: var(--color-muted); font-weight: 500; }
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity:1 !important; transform:none !important; }
+  .prof-header::after{ animation: none !important; }
+}
 </style>
 
 <div class="p-wrap">
 
   <!-- Header -->
-  <div class="prof-header" id="profile-currency-section">
-
-    <div class="hbg1"></div>
-    <div class="hbg2"></div>
-    <div class="hbg3"></div>
-
+  <div class="prof-header reveal" id="profile-currency-section">
     <div class="header-inner">
     <a href="{% url 'dashboard' %}" class="prof-back">
       <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"/></svg>
@@ -262,112 +302,99 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
     <div class="prof-balance-card">
       <div>
         <div class="prof-balance-label">Account Balance</div>
-        <div class="prof-balance-amount">₱ <span data-balance>{{ request.user.balance|default:"0.00" }}</span></div>
+        <div class="prof-balance-amount"><span class="peso">₱</span> <span data-balance>{{ request.user.balance|default:"0.00" }}</span></div>
       </div>
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="rgba(255,255,255,0.25)"><path d="M4 7a2 2 0 012-2h12a2 2 0 012 2v2h-6a2 2 0 000 4h6v2a2 2 0 01-2 2H6a2 2 0 01-2-2V7zm16 4h-5a1 1 0 000 2h5v-2z"/></svg>
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="rgba(214,166,55,0.35)"><path d="M4 7a2 2 0 012-2h12a2 2 0 012 2v2h-6a2 2 0 000 4h6v2a2 2 0 01-2 2H6a2 2 0 01-2-2V7zm16 4h-5a1 1 0 000 2h5v-2z"/></svg>
     </div>
     </div><!-- end header-inner -->
   </div>
 
   <!-- Menu -->
   <div class="prof-menu-wrap">
-    <div class="prof-menu-card" id="menu">
+    <div class="prof-section-label">Account &amp; Loans</div>
+    <div class="prof-grid reveal">
 
-      <a class="p-btn" href="/credit-score/">
-        <div class="left">
-          <div class="ico">
-            <svg viewBox="0 0 24 24"><path d="M4 19h16v2H4zM6 17V7h3v10H6zm5 0V4h3v13h-3zm5 0v-9h3v9h-3z"/></svg>
-          </div>
-          <div class="txt">
-            <div class="t1">Credit Score</div>
-            <div class="t2">View your score & level</div>
-          </div>
+      <a class="p-tile" href="/credit-score/">
+        <div class="ico">
+          <svg viewBox="0 0 24 24"><path d="M4 19h16v2H4zM6 17V7h3v10H6zm5 0V4h3v13h-3zm5 0v-9h3v9h-3z"/></svg>
         </div>
-        <div class="chev"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+        <div class="txt">
+          <div class="t1">Credit Score</div>
+          <div class="t2">View your score &amp; level</div>
+        </div>
+        <div class="p-tile-arrow">→</div>
       </a>
 
-      <a class="p-btn" href="/loan-apply/">
-        <div class="left">
-          <div class="ico">
-            <svg viewBox="0 0 24 24"><path d="M6 2h9l3 3v17H6V2zm9 1.5V6h2.5L15 3.5zM8 9h8v2H8V9zm0 4h8v2H8v-2zm0 4h6v2H8v-2z"/></svg>
-          </div>
-          <div class="txt">
-            <div class="t1">Loan Application</div>
-            <div class="t2">Apply & track your status</div>
-          </div>
+      <a class="p-tile" href="/loan-apply/">
+        <div class="ico">
+          <svg viewBox="0 0 24 24"><path d="M6 2h9l3 3v17H6V2zm9 1.5V6h2.5L15 3.5zM8 9h8v2H8V9zm0 4h8v2H8v-2zm0 4h6v2H8v-2z"/></svg>
         </div>
-        <div class="chev"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+        <div class="txt">
+          <div class="t1">Loan Application</div>
+          <div class="t2">Apply &amp; track your status</div>
+        </div>
+        <div class="p-tile-arrow">→</div>
       </a>
 
-      <a class="p-btn" href="/transactions/">
-        <div class="left">
-          <div class="ico">
-            <svg viewBox="0 0 24 24"><path d="M7 7h14v4H7V7zM3 6h3v6H3V6zm4 9h14v4H7v-4zM3 14h3v6H3v-6z"/></svg>
-          </div>
-          <div class="txt">
-            <div class="t1">Transactions</div>
-            <div class="t2">History of deposits & withdrawals</div>
-          </div>
+      <a class="p-tile" href="/transactions/">
+        <div class="ico">
+          <svg viewBox="0 0 24 24"><path d="M7 7h14v4H7V7zM3 6h3v6H3V6zm4 9h14v4H7v-4zM3 14h3v6H3v-6z"/></svg>
         </div>
-        <div class="chev"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+        <div class="txt">
+          <div class="t1">Transactions</div>
+          <div class="t2">History of deposits &amp; withdrawals</div>
+        </div>
+        <div class="p-tile-arrow">→</div>
       </a>
 
-      <a class="p-btn" href="{% url 'payment_method' %}">
-        <div class="left">
-          <div class="ico">
-            <svg viewBox="0 0 24 24"><path d="M3 7h18v10H3V7zm2 2v2h14V9H5zm0 4v2h6v-2H5z"/></svg>
-          </div>
-          <div class="txt">
-            <div class="t1">Payment Method</div>
-            <div class="t2">Add payout details</div>
-          </div>
+      <a class="p-tile" href="{% url 'payment_method' %}">
+        <div class="ico">
+          <svg viewBox="0 0 24 24"><path d="M3 7h18v10H3V7zm2 2v2h14V9H5zm0 4v2h6v-2H5z"/></svg>
         </div>
-        <div class="chev"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+        <div class="txt">
+          <div class="t1">Payment Method</div>
+          <div class="t2">Add payout details</div>
+        </div>
+        <div class="p-tile-arrow">→</div>
       </a>
 
-      <a class="p-btn" href="{% url 'agreement' %}">
-        <div class="left">
-          <div class="ico">
-            <svg viewBox="0 0 24 24"><path d="M6 2h9l3 3v17H6V2zm9 1.5V6h2.5L15 3.5zM8 9h8v2H8V9zm0 4h8v2H8v-2zm0 4h6v2H8v-2z"/></svg>
-          </div>
-          <div class="txt">
-            <div class="t1">Agreement</div>
-            <div class="t2">Terms, conditions & disclosures</div>
-          </div>
+      <a class="p-tile" href="{% url 'agreement' %}">
+        <div class="ico">
+          <svg viewBox="0 0 24 24"><path d="M6 2h9l3 3v17H6V2zm9 1.5V6h2.5L15 3.5zM8 9h8v2H8V9zm0 4h8v2H8v-2zm0 4h6v2H8v-2z"/></svg>
         </div>
-        <div class="chev"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+        <div class="txt">
+          <div class="t1">Agreement</div>
+          <div class="t2">Terms, conditions &amp; disclosures</div>
+        </div>
+        <div class="p-tile-arrow">→</div>
       </a>
 
-      <a class="p-btn" href="/payment-schedule/">
-        <div class="left">
-          <div class="ico">
-            <svg viewBox="0 0 24 24"><path d="M7 2v2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2h-2V2h-2v2H9V2H7zm14 8H3V8h18v2z"/></svg>
-          </div>
-          <div class="txt">
-            <div class="t1">Payment Schedule</div>
-            <div class="t2">Installments & due dates</div>
-          </div>
+      <a class="p-tile" href="/payment-schedule/">
+        <div class="ico">
+          <svg viewBox="0 0 24 24"><path d="M7 2v2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V6a2 2 0 00-2-2h-2V2h-2v2H9V2H7zm14 8H3V8h18v2z"/></svg>
         </div>
-        <div class="chev"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+        <div class="txt">
+          <div class="t1">Payment Schedule</div>
+          <div class="t2">Installments &amp; due dates</div>
+        </div>
+        <div class="p-tile-arrow">→</div>
       </a>
 
     </div>
 
-    <!-- Logout separate card -->
-    <div class="prof-menu-card">
-      <a class="p-btn" href="#" id="logoutBtn" aria-label="Logout">
-        <div class="left">
-          <div class="ico red">
-            <svg viewBox="0 0 24 24"><path d="M10 17l1.4-1.4-2.6-2.6H20v-2H8.8l2.6-2.6L10 7l-7 7 7 7zM4 4h7V2H4a2 2 0 00-2 2v6h2V4zm0 18h7v-2H4v-6H2v6a2 2 0 002 2z"/></svg>
-          </div>
-          <div class="txt">
-            <div class="t1" style="color:#c62828;">Logout</div>
-            <div class="t2">Securely exit your account</div>
-          </div>
+    <!-- Logout, kept separate -->
+    <a class="logout-row reveal" href="#" id="logoutBtn" aria-label="Logout">
+      <div class="left">
+        <div class="ico red">
+          <svg viewBox="0 0 24 24"><path d="M10 17l1.4-1.4-2.6-2.6H20v-2H8.8l2.6-2.6L10 7l-7 7 7 7zM4 4h7V2H4a2 2 0 00-2 2v6h2V4zm0 18h7v-2H4v-6H2v6a2 2 0 002 2z"/></svg>
         </div>
-        <div class="chev"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
-      </a>
-    </div>
+        <div class="txt">
+          <div class="t1" style="color:#dc2626;">Logout</div>
+          <div class="t2">Securely exit your account</div>
+        </div>
+      </div>
+      <div class="chev"><svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg></div>
+    </a>
   </div>
 
   <!-- Logout confirm modal -->
@@ -391,10 +418,10 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
   <!-- Credit bar -->
   <div class="credit-bar">
     <div class="credit-bar-logo">
-      <img src="{% static 'img/logo.webp' %}" alt="Asiasource">
+      <img src="{% static 'img/ilend-logo.webp' %}" alt="ILEND Lending Corp.">
     </div>
     <div class="credit-bar-text">
-      <span class="credit-bar-name">ASIASOURCE FINANCIAL INC.</span>
+      <span class="credit-bar-name">ILEND Lending Corp.</span>
       <span class="credit-bar-sub">SEC Reg. CS201412567 · © 2026 All rights reserved</span>
     </div>
   </div>
@@ -413,6 +440,31 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
   if(cancel) cancel.addEventListener("click", closeModal);
   modal.addEventListener("click", (e) => { if(e.target === modal) closeModal(); });
   document.addEventListener("keydown", (e) => { if(e.key === "Escape") closeModal(); });
+})();
+</script>
+<script>
+/* Scroll-triggered reveal, matching the rest of the redesigned pages. */
+(function(){
+  const nodes = Array.from(document.querySelectorAll('.reveal'));
+  if(!nodes.length) return;
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    nodes.forEach(el => el.classList.add('on'));
+    return;
+  }
+  let firstBatch = true;
+  const io = new IntersectionObserver((entries) => {
+    let i = 0;
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      setTimeout(() => el.classList.add('on'), (firstBatch ? 250 : 0) + i * 90);
+      io.unobserve(el);
+      i++;
+    });
+    firstBatch = false;
+  }, { threshold: 0.1 });
+  nodes.forEach(el => io.observe(el));
 })();
 </script>
 {% endblock %}

@@ -1,13 +1,33 @@
 {% extends "base.html" %}
-{% block title %}Payment Method{% endblock %}
+{% block title %}Payment Method — ILEND Lending Corp.{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body, body * { font-family: 'Poppins', sans-serif !important; }
-body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%) !important; }
+
+:root{
+  --color-bg: #FAF6EC;
+  --color-gold: #D6A637;
+  --color-gold-dark: #9B6A16;
+  --color-gold-light: #F7D77A;
+  --color-purple: #3B165F;
+  --color-purple-dark: #26103F;
+  --color-text: #221B2D;
+  --color-muted: #6D6474;
+  --border-gold: rgba(190, 140, 45, 0.45);
+  --shadow-soft: 0 10px 30px rgba(59, 22, 95, 0.08);
+  --shadow-gold: 0 10px 26px rgba(214, 166, 55, 0.30);
+  --radius-lg: 22px;
+  --radius-md: 16px;
+}
+.serif{ font-family:'Playfair Display', serif !important; }
+
+body { background: var(--color-bg) !important; }
 .wrap { align-items: flex-start !important; padding-top: 0 !important; }
+
+@keyframes diamondShine{ 0%,55%{ transform: translateX(-120%); } 100%{ transform: translateX(120%); } }
 
 .pm-page {
   width: min(520px, 100vw);
@@ -16,181 +36,226 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
   padding-bottom: 40px;
 }
 
+.reveal{ opacity:0; transform: translateY(16px); will-change: transform, opacity; }
+.reveal.on{ opacity:1; transform: translateY(0); transition: opacity .5s ease, transform .5s ease; }
+
 /* ── Header ── */
 .pm-header {
-  background: linear-gradient(160deg, #0d2d6e 0%, #1565C0 40%, #1a5c2a 75%, #2d6b0a 100%);
-  padding: 52px 24px 36px;
-  position: relative;
-  overflow: hidden;
-
+  position: relative; overflow: hidden;
+  padding: 52px 24px 40px;
   margin: 16px 16px 0;
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-gold);
+  background: linear-gradient(120deg, var(--color-purple-dark), var(--color-purple));
+  box-shadow: var(--shadow-soft);
 }
-.pm-header .hbg1 {
-  position: absolute; border-radius: 50%;
-  background: rgba(255,255,255,0.05);
-  width: 200px; height: 200px; top: -70px; right: -50px; pointer-events: none;
+.pm-header::before{
+  content:""; position:absolute; border-radius:50%; pointer-events:none;
+  width:190px; height:190px; top:-70px; right:-40px;
+  border:1px solid rgba(214,166,55,0.30);
 }
-.pm-header .hbg2 {
-  position: absolute; border-radius: 50%;
-  background: rgba(255,255,255,0.04);
-  width: 120px; height: 120px; bottom: -30px; left: -20px; pointer-events: none;
+.pm-header::after{
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.16) 50%, transparent 100%);
+  transform: translateX(-120%);
+  animation: diamondShine 4.5s ease-in-out infinite;
+  pointer-events:none;
 }
-
+.pm-header > *{ position: relative; z-index: 2; }
 
 .pm-header-icon {
   width: 52px; height: 52px;
-  background: rgba(255,255,255,0.15);
-  border-radius: 14px;
+  background: radial-gradient(circle at 35% 30%, #5B2A8A 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
+  border: 2px solid var(--color-gold);
+  border-radius: 16px;
   display: flex; align-items: center; justify-content: center;
-  margin-bottom: 12px;
-  position: relative; z-index: 1;
+  margin-bottom: 14px;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.35);
 }
-.pm-header-icon svg { width: 26px; height: 26px; fill: #fff; }
+.pm-header-icon svg { width: 24px; height: 24px; fill: var(--color-gold-light); }
 
 .pm-header h1 {
-  font-size: 22px; font-weight: 800;
+  font-family:'Playfair Display', serif !important;
+  font-size: 24px; font-weight: 800;
   color: #fff; margin-bottom: 4px;
-  position: relative; z-index: 1;
 }
-.pm-header p {
-  font-size: 12px; color: rgba(255,255,255,0.7);
-  font-weight: 400;
-  position: relative; z-index: 1;
-}
+.pm-header p { font-size: 12.5px; color: rgba(255,255,255,0.65); font-weight: 400; }
 
-/* Status badge in header */
 .pm-status-pill {
   display: inline-flex; align-items: center; gap: 6px;
-  margin-top: 14px;
+  margin-top: 16px;
   padding: 7px 16px;
   border-radius: 999px;
-  position: relative; z-index: 1;
   font-size: 12px; font-weight: 700;
 }
-.pm-status-pill.saved   { background: rgba(124,179,66,0.25); color: #ccff90; border: 1px solid rgba(124,179,66,0.4); }
-.pm-status-pill.not-set { background: rgba(255,255,255,0.15); color: rgba(255,255,255,0.85); border: 1px solid rgba(255,255,255,0.25); }
+.pm-status-pill.saved   { background: rgba(214,166,55,0.20); color: var(--color-gold-light); border: 1px solid var(--color-gold); }
+.pm-status-pill.not-set { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.25); }
 .pm-status-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
-.pm-status-pill.saved .pm-status-dot   { background: #69f0ae; }
+.pm-status-pill.saved .pm-status-dot   { background: var(--color-gold-light); }
 .pm-status-pill.not-set .pm-status-dot { background: rgba(255,255,255,0.6); }
 
 /* ── Body ── */
 .pm-body { padding: 16px 16px 0; }
 
-/* ── Info banner when locked ── */
+/* ── Live passbook preview — a structurally different lead element:
+     a bank-card-style preview that fills in live as the user types,
+     rather than a plain stacked input list. ── */
+.pm-passbook {
+  position: relative; overflow: hidden;
+  margin: 0 4px 16px;
+  z-index: 3;
+  border-radius: var(--radius-md);
+  padding: 20px 20px 18px;
+  background: linear-gradient(135deg, #2a1044 0%, var(--color-purple) 55%, #4a1f70 100%);
+  border: 1.5px solid var(--color-gold);
+  box-shadow: var(--shadow-soft);
+  color: #fff;
+}
+.pm-passbook::after{
+  content:""; position:absolute; border-radius:50%; pointer-events:none;
+  width:130px; height:130px; bottom:-60px; right:-30px;
+  background: rgba(214,166,55,0.10);
+}
+.pm-passbook-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; position: relative; z-index: 1; }
+.pm-passbook-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--color-gold-light); }
+.pm-passbook-chip {
+  width: 34px; height: 24px; border-radius: 5px;
+  background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold-dark));
+  box-shadow: inset 0 1px 2px rgba(255,255,255,0.5);
+}
+.pm-passbook-number {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 19px; font-weight: 700; letter-spacing: 2.5px;
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 16px; position: relative; z-index: 1;
+  min-height: 24px;
+  color: #fff;
+}
+.pm-passbook-number.placeholder { color: rgba(255,255,255,0.35); letter-spacing: 3px; }
+.pm-passbook-name {
+  font-size: 13.5px; font-weight: 700; letter-spacing: 0.6px;
+  text-transform: uppercase; position: relative; z-index: 1;
+  color: #fff;
+}
+.pm-passbook-name.placeholder { color: rgba(255,255,255,0.35); text-transform: none; font-weight: 500; }
+
+/* ── Locked banner ── */
 .pm-locked-banner {
   display: flex; align-items: center; gap: 10px;
-  background: #fff8e1;
-  border: 1px solid #ffe082;
-  border-radius: 14px;
+  background: #FFFDF6;
+  border: 1.5px solid var(--color-gold);
+  border-radius: var(--radius-md);
   padding: 12px 14px;
   margin-bottom: 14px;
 }
-.pm-locked-banner svg { width: 18px; height: 18px; fill: #f59e0b; flex-shrink: 0; }
-.pm-locked-banner span { font-size: 12px; font-weight: 600; color: #92400e; }
+.pm-locked-banner svg { width: 18px; height: 18px; fill: var(--color-gold-dark); flex-shrink: 0; }
+.pm-locked-banner span { font-size: 12px; font-weight: 600; color: var(--color-purple); }
 
 /* ── Section card ── */
 .pm-section-card {
   background: #fff;
-  border-radius: 20px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  border-radius: var(--radius-lg) !important;
+  border: 1.5px solid var(--border-gold) !important;
+  box-shadow: var(--shadow-soft) !important;
   margin-bottom: 14px;
   overflow: hidden;
 }
 
-/* Section head */
 .pm-section-head {
   display: flex; align-items: center; gap: 10px;
-  padding: 14px 16px 12px;
-  border-bottom: 1px solid #f5f5f5;
+  padding: 15px 16px 13px;
+  border-bottom: 1px solid rgba(190,140,45,0.18);
 }
-.pm-section-head-dot {
-  width: 8px; height: 8px; border-radius: 50%;
-  background: #4a7a1e; flex-shrink: 0;
-}
+.pm-section-head-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-gold); flex-shrink: 0; }
 .pm-section-head-label {
-  font-size: 12px; font-weight: 700;
-  color: #4a7a1e;
+  font-size: 12px; font-weight: 800;
+  color: var(--color-purple);
   text-transform: uppercase; letter-spacing: 0.7px;
 }
 
-/* Section body */
-.pm-section-body { padding: 16px; display: grid; gap: 14px; }
+.pm-section-body { padding: 18px 16px; display: grid; gap: 16px; }
 
-/* ── Field group ── */
 .pm-field { display: flex; flex-direction: column; gap: 6px; }
 .pm-field label {
+  display: flex; align-items: center; gap: 6px;
   font-size: 11px; font-weight: 700;
-  color: #555;
+  color: var(--color-muted);
   text-transform: uppercase; letter-spacing: 0.6px;
 }
+.pm-field label svg { width: 13px; height: 13px; fill: var(--color-gold-dark); }
 
-/* ── Input styling — override Django widget ── */
 .pm-section-body input[type="text"],
 .pm-section-body input[type="number"],
 .pm-section-body input[type="tel"],
 .pm-section-body input[type="email"],
 .pm-section-body input {
   width: 100% !important;
-  padding: 12px 14px !important;
-  border: 1.5px solid #e8e8e8 !important;
+  padding: 13px 14px !important;
+  border: 1.5px solid var(--border-gold) !important;
   border-radius: 12px !important;
   font-size: 14px !important; font-weight: 500 !important;
-  color: #1a1a1a !important;
-  background: #fafafa !important;
+  color: var(--color-text) !important;
+  background: #FFFDF6 !important;
   outline: none !important;
   font-family: 'Poppins', sans-serif !important;
   transition: border-color 0.2s, box-shadow 0.2s !important;
   box-sizing: border-box !important;
 }
-.pm-section-body input::placeholder { color: #ccc !important; font-weight: 400 !important; }
+.pm-section-body input::placeholder { color: #b8afc4 !important; font-weight: 400 !important; }
 .pm-section-body input:focus {
-  border-color: #4a7a1e !important;
-  box-shadow: 0 0 0 3px rgba(74,122,30,0.10) !important;
+  border-color: var(--color-gold) !important;
+  box-shadow: 0 0 0 3px rgba(214,166,55,0.18) !important;
   background: #fff !important;
 }
 
-/* Locked inputs */
 .pm-locked .pm-section-body input[type="text"],
 .pm-locked .pm-section-body input[type="number"],
 .pm-locked .pm-section-body input[type="tel"],
 .pm-locked .pm-section-body input {
-  background: #f0f0f0 !important;
-  border-color: #e0e0e0 !important;
-  color: #888 !important;
+  background: #f2f0ee !important;
+  border-color: #ddd6c8 !important;
+  color: #948c9c !important;
   pointer-events: none !important;
   cursor: not-allowed !important;
 }
 
 /* ── Submit button ── */
-.pm-submit-wrap { padding: 0 16px 16px; }
+.pm-submit-wrap { padding: 0 16px 18px; }
 .pm-submit-btn {
   width: 100%;
   padding: 15px;
-  background: linear-gradient(135deg, #2d6b0a, #5d9e28);
-  border: none; border-radius: 14px;
-  color: #fff; font-size: 15px; font-weight: 700;
+  background:
+    linear-gradient(var(--color-purple), var(--color-purple)) padding-box,
+    linear-gradient(120deg, var(--color-gold-dark), var(--color-gold-light) 45%, var(--color-gold-dark) 100%) border-box;
+  border: 3px solid transparent; border-radius: 999px;
+  color: var(--color-gold-light); font-size: 15px; font-weight: 700;
   font-family: 'Poppins', sans-serif;
   cursor: pointer; letter-spacing: 0.3px;
   display: flex; align-items: center; justify-content: center; gap: 8px;
-  box-shadow: 0 6px 20px rgba(45,107,10,0.30);
+  box-shadow: var(--shadow-gold);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 .pm-submit-btn:active { transform: scale(0.98); }
-.pm-submit-btn svg { width: 18px; height: 18px; fill: #fff; }
+.pm-submit-btn svg { width: 18px; height: 18px; fill: var(--color-gold-light); }
 .pm-submit-btn:disabled {
-  background: linear-gradient(135deg, #9e9e9e, #bdbdbd);
+  background:
+    linear-gradient(#c9c2d1, #c9c2d1) padding-box,
+    linear-gradient(120deg, #a89fb0, #d4cedb 45%, #a89fb0 100%) border-box;
+  color: #6d6474;
   box-shadow: none; cursor: not-allowed;
+}
+.pm-submit-btn:disabled svg { fill: #6d6474; }
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity:1 !important; transform:none !important; }
+  .pm-header::after{ animation: none !important; }
 }
 </style>
 
 <div class="pm-page">
 
   <!-- Header -->
-  <div class="pm-header">
-    <div class="hbg1"></div>
-    <div class="hbg2"></div>
-
+  <div class="pm-header reveal">
     <div class="pm-header-icon">
       <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v2h20V6c0-1.1-.9-2-2-2zm0 16H4c-1.1 0-2-.9-2-2v-8h20v8c0 1.1-.9 2-2 2zm-8-5h-4v2h4v-2zm6 0h-2v2h2v-2z"/></svg>
     </div>
@@ -206,29 +271,45 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
   <!-- Body -->
   <div class="pm-body">
 
+    <!-- Live bank passbook preview -->
+    <div class="pm-passbook reveal">
+      <div class="pm-passbook-row">
+        <span class="pm-passbook-label">Bank Account</span>
+        <span class="pm-passbook-chip"></span>
+      </div>
+      <div class="pm-passbook-number placeholder" id="pbNumber">•••• •••• ••••</div>
+      <div class="pm-passbook-name placeholder" id="pbName">Account holder name</div>
+    </div>
+
     <form method="post" class="{% if locked %}pm-locked{% endif %}">
       {% csrf_token %}
 
       {% if locked %}
-      <div class="pm-locked-banner">
+      <div class="pm-locked-banner reveal">
         <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1 14H9l-2-2 1.41-1.41L9 12.17l4.59-4.58L15 9l-4 6z"/></svg>
         <span>Details saved — contact staff to update your payment method.</span>
       </div>
       {% endif %}
 
       <!-- Bank Section -->
-      <div class="pm-section-card">
+      <div class="pm-section-card reveal">
         <div class="pm-section-head">
           <div class="pm-section-head-dot"></div>
           <div class="pm-section-head-label">Bank Account</div>
         </div>
         <div class="pm-section-body">
           <div class="pm-field">
-            <label>Account Name</label>
+            <label>
+              <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              Account Name
+            </label>
             {{ form.bank_name }}
           </div>
           <div class="pm-field">
-            <label>Account Number</label>
+            <label>
+              <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v2h20V6c0-1.1-.9-2-2-2zm0 16H4c-1.1 0-2-.9-2-2v-8h20v8c0 1.1-.9 2-2 2z"/></svg>
+              Account Number
+            </label>
             {{ form.bank_account }}
           </div>
         </div>
@@ -252,5 +333,69 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
 
   </div>
 </div>
+
+<script>
+/* Live passbook preview — purely cosmetic, reads the real form fields via
+   the 'input' event so typing AND pasting both update the preview. */
+(function(){
+  const nameInput = document.getElementById('id_bank_name');
+  const numInput  = document.getElementById('id_bank_account');
+  const pbName    = document.getElementById('pbName');
+  const pbNumber  = document.getElementById('pbNumber');
+  if (!pbName || !pbNumber) return;
+
+  function groupNumber(v){
+    const digits = v.replace(/\s+/g, '');
+    if (!digits) return '';
+    return digits.replace(/(.{4})/g, '$1 ').trim();
+  }
+
+  function refresh(){
+    const nameVal = nameInput ? nameInput.value.trim() : '';
+    const numVal  = numInput ? numInput.value.trim() : '';
+
+    if (nameVal) { pbName.textContent = nameVal; pbName.classList.remove('placeholder'); }
+    else { pbName.textContent = 'Account holder name'; pbName.classList.add('placeholder'); }
+
+    if (numVal) { pbNumber.textContent = groupNumber(numVal); pbNumber.classList.remove('placeholder'); }
+    else { pbNumber.textContent = '•••• •••• ••••'; pbNumber.classList.add('placeholder'); }
+  }
+
+  if (nameInput) nameInput.addEventListener('input', refresh);
+  if (numInput)  numInput.addEventListener('input', refresh);
+  refresh();
+
+  [nameInput, numInput].forEach(function(el){
+    if (!el) return;
+    el.addEventListener('paste', function(e){ e.preventDefault(); });
+    el.addEventListener('drop', function(e){ e.preventDefault(); });
+    el.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+  });
+})();
+</script>
+<script>
+(function(){
+  const nodes = Array.from(document.querySelectorAll('.reveal'));
+  if(!nodes.length) return;
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    nodes.forEach(el => el.classList.add('on'));
+    return;
+  }
+  let firstBatch = true;
+  const io = new IntersectionObserver((entries) => {
+    let i = 0;
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      setTimeout(() => el.classList.add('on'), (firstBatch ? 250 : 0) + i * 90);
+      io.unobserve(el);
+      i++;
+    });
+    firstBatch = false;
+  }, { threshold: 0.1 });
+  nodes.forEach(el => io.observe(el));
+})();
+</script>
 
 {% endblock %}

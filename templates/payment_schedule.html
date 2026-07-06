@@ -1,13 +1,33 @@
 {% extends "base.html" %}
-{% block title %}Payment Schedule{% endblock %}
+{% block title %}Payment Schedule — ILEND Lending Corp.{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body, body * { font-family: 'Poppins', sans-serif !important; }
-body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%) !important; }
+
+:root{
+  --color-bg: #FAF6EC;
+  --color-gold: #D6A637;
+  --color-gold-dark: #9B6A16;
+  --color-gold-light: #F7D77A;
+  --color-purple: #3B165F;
+  --color-purple-dark: #26103F;
+  --color-text: #221B2D;
+  --color-muted: #6D6474;
+  --border-gold: rgba(190, 140, 45, 0.45);
+  --shadow-soft: 0 10px 30px rgba(59, 22, 95, 0.08);
+  --shadow-gold: 0 10px 26px rgba(214, 166, 55, 0.30);
+  --radius-lg: 22px;
+  --radius-md: 16px;
+}
+.serif{ font-family:'Playfair Display', serif !important; }
+
+body { background: var(--color-bg) !important; }
 .wrap { align-items: flex-start !important; padding-top: 0 !important; }
+
+@keyframes diamondShine{ 0%,55%{ transform: translateX(-120%); } 100%{ transform: translateX(120%); } }
 
 .ps-page {
   width: min(520px, 100vw);
@@ -16,166 +36,177 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
   padding-bottom: 40px;
 }
 
+/* ── Reveal on scroll ── */
+.reveal{ opacity:0; transform: translateY(16px); will-change: transform, opacity; }
+.reveal.on{ opacity:1; transform: translateY(0); transition: opacity .5s ease, transform .5s ease; }
+
 /* ── Header ── */
 .ps-header {
-  background: linear-gradient(160deg, #0d2d6e 0%, #1565C0 40%, #1a5c2a 75%, #2d6b0a 100%);
-  padding: 52px 24px 36px;
-  position: relative;
-  overflow: hidden;
-
+  position: relative; overflow: hidden;
   margin: 16px 16px 0;
-  border-radius: 20px;
+  padding: 52px 24px 30px;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-gold);
+  background: linear-gradient(120deg, var(--color-purple-dark), var(--color-purple));
+  box-shadow: var(--shadow-soft);
 }
-.ps-header .hbg1 {
-  position: absolute; border-radius: 50%;
-  background: rgba(255,255,255,0.05);
-  width: 200px; height: 200px; top: -70px; right: -50px; pointer-events: none;
+.ps-header::before{
+  content:""; position:absolute; border-radius:50%; pointer-events:none;
+  width:190px; height:190px; top:-70px; right:-40px;
+  border:1px solid rgba(214,166,55,0.30);
 }
-.ps-header .hbg2 {
-  position: absolute; border-radius: 50%;
-  background: rgba(255,255,255,0.04);
-  width: 120px; height: 120px; bottom: -30px; left: -20px; pointer-events: none;
+.ps-header::after{
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.16) 50%, transparent 100%);
+  transform: translateX(-120%);
+  animation: diamondShine 4.5s ease-in-out infinite;
+  pointer-events:none;
 }
+.ps-header > *{ position: relative; z-index: 2; }
 
 .ps-back {
-  position: absolute; top: 16px; left: 16px;
-  display: inline-flex; align-items: center; gap: 4px;
-  color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 600;
-  text-decoration: none; z-index: 2;
+  position: absolute; top: 16px; left: 16px; z-index: 3;
+  display: inline-flex; align-items: center; gap: 5px;
+  color: var(--color-gold-light); font-size: 13px; font-weight: 700;
+  text-decoration: none;
 }
-.ps-back svg { width: 16px; height: 16px; fill: rgba(255,255,255,0.85); }
+.ps-back svg { width: 16px; height: 16px; fill: var(--color-gold-light); }
 
 .ps-header-icon {
-  width: 52px; height: 52px;
-  background: rgba(255,255,255,0.15);
-  border-radius: 14px;
+  width: 54px; height: 54px; flex-shrink: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--color-gold-light) 0%, var(--color-gold) 55%, var(--color-gold-dark) 100%);
+  border: 2px solid var(--color-gold-light);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.40), inset 0 -3px 6px rgba(0,0,0,0.25), 0 3px 8px rgba(0,0,0,0.25);
   display: flex; align-items: center; justify-content: center;
-  margin-bottom: 12px;
-  position: relative; z-index: 1;
+  margin-bottom: 14px;
 }
-.ps-header-icon svg { width: 26px; height: 26px; fill: #fff; }
+.ps-header-icon svg { width: 26px; height: 26px; fill: var(--color-purple-dark); }
 
-.ps-header h1 {
-  font-size: 22px; font-weight: 800;
-  color: #fff; margin-bottom: 4px;
-  position: relative; z-index: 1;
-}
-.ps-header p {
-  font-size: 12px; color: rgba(255,255,255,0.7);
-  font-weight: 400;
-  position: relative; z-index: 1;
-}
+.ps-header h1 { font-family:'Playfair Display', serif !important; font-size: 21px; font-weight: 800; color: #fff; margin-bottom: 5px; }
+.ps-header p { font-size: 12.5px; color: rgba(255,255,255,0.75); }
 
 /* Repayment pill */
 .ps-repay-pill {
-  display: inline-flex; align-items: center; gap: 6px;
+  display: inline-flex; align-items: center; gap: 7px;
   margin-top: 14px;
-  background: rgba(255,255,255,0.18);
-  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(214,166,55,0.16);
+  border: 1px solid var(--color-gold);
   border-radius: 999px;
-  padding: 7px 16px;
-  position: relative; z-index: 1;
+  padding: 6px 14px;
 }
-.ps-repay-pill svg { width: 14px; height: 14px; fill: rgba(255,255,255,0.85); }
-.ps-repay-pill span { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.9); }
+.ps-repay-pill svg { width: 14px; height: 14px; fill: var(--color-gold-light); }
+.ps-repay-pill span { font-size: 11.5px; font-weight: 700; color: var(--color-gold-light); }
 
 /* ── Body ── */
 .ps-body { padding: 16px 16px 0; }
 
 .ps-section-label {
-  font-size: 11px; font-weight: 700; color: #888;
+  font-size: 11px; font-weight: 800; color: var(--color-gold-dark);
   text-transform: uppercase; letter-spacing: 0.8px;
   margin-bottom: 10px;
 }
 
-/* ── Schedule item card ── */
-.ps-item {
-  background: #fff;
-  border-radius: 20px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  overflow: hidden;
-  margin-bottom: 14px;
+/* ── Loan summary — shown ONCE at the top instead of being repeated inside
+   every single schedule row (the original layout duplicated the same loan
+   amount/term/rate on every one of up to 36 monthly cards). ── */
+.ps-summary-card{
+  background: #fff; border: 1.5px solid var(--border-gold);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-soft);
+  padding: 18px; margin-bottom: 16px;
 }
+.ps-stat-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.ps-stat-box{ background: #FFFDF6; border: 1.5px solid var(--border-gold); border-radius: var(--radius-md); padding: 12px 14px; }
+.ps-stat-box.highlight{
+  grid-column: 1 / -1;
+  background: linear-gradient(120deg, var(--color-purple-dark), var(--color-purple));
+  border-color: var(--color-gold);
+}
+.ps-stat-lbl{ font-size: 10px; font-weight: 700; color: var(--color-muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 5px; }
+.ps-stat-box.highlight .ps-stat-lbl{ color: rgba(255,255,255,0.65); }
+.ps-stat-val{ font-size: 17px; font-weight: 800; color: var(--color-purple); font-variant-numeric: tabular-nums; }
+.ps-stat-box.highlight .ps-stat-val{ color: var(--color-gold-light); font-size: 20px; }
 
-/* Item header — due date bar */
-.ps-item-header {
-  background: linear-gradient(135deg, #f8fdf4, #eef7e4);
-  border-bottom: 1px solid #e8f0dc;
-  padding: 12px 16px;
-  display: flex; align-items: center; gap: 8px;
+/* ── Schedule — a compact receipt-style list, not N full-size duplicate
+   cards. Scales cleanly whether the loan term is 6 months or 36. ── */
+.ps-schedule-card{
+  background: #fff; border: 1.5px solid var(--border-gold);
+  border-radius: var(--radius-lg); box-shadow: var(--shadow-soft);
+  overflow: hidden; margin-bottom: 16px;
 }
-.ps-item-header svg { width: 16px; height: 16px; fill: #4a7a1e; flex-shrink: 0; }
-.ps-item-header-label { font-size: 11px; color: #888; font-weight: 600; }
-.ps-item-header-date { font-size: 14px; font-weight: 800; color: #1a1a1a; }
-
-/* Item rows */
-.ps-item-body { padding: 14px 16px; display: grid; gap: 12px; }
-
-.ps-row {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+.ps-row-item{
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 16px;
+  border-bottom: 1px dashed var(--border-gold);
 }
-
-.ps-kv {}
-.ps-kv-label {
-  font-size: 10px; font-weight: 700; color: #aaa;
-  text-transform: uppercase; letter-spacing: 0.6px;
-  margin-bottom: 3px;
+.ps-row-item:last-child{ border-bottom: none; }
+.ps-row-num{
+  width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold));
+  color: var(--color-purple-dark); font-size: 12px; font-weight: 800;
+  border: 1.5px solid var(--color-gold-dark);
 }
-.ps-kv-value {
-  font-size: 14px; font-weight: 700; color: #1a1a1a;
-}
-.ps-kv-value.repay {
-  color: #e53935;
-  font-size: 15px;
-}
-
-/* Divider */
-.ps-item-divider {
-  height: 1px; background: #f5f5f5; margin: 0 16px;
-}
+.ps-row-mid{ flex: 1; min-width: 0; }
+.ps-row-lbl{ font-size: 10px; color: var(--color-muted); font-weight: 700; text-transform: uppercase; letter-spacing: .05em; }
+.ps-row-date{ font-size: 13.5px; font-weight: 700; color: var(--color-text); margin-top: 1px; }
+.ps-row-amount{ font-size: 14px; font-weight: 800; color: var(--color-purple); font-variant-numeric: tabular-nums; white-space: nowrap; }
 
 /* ── Empty state ── */
 .ps-empty {
   background: #fff;
-  border-radius: 20px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  border: 1.5px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
   padding: 48px 20px;
   text-align: center;
   margin-bottom: 14px;
 }
 .ps-empty-icon {
-  width: 64px; height: 64px;
-  background: #f5f5f5;
-  border-radius: 20px;
+  width: 72px; height: 72px; margin: 0 auto 16px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 30%, #5B2A8A 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
+  border: 2px solid var(--color-gold);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.35);
   display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 14px;
 }
-.ps-empty-icon svg { width: 30px; height: 30px; fill: #ccc; }
-.ps-empty-title { font-size: 14px; font-weight: 700; color: #999; margin-bottom: 4px; }
-.ps-empty-sub   { font-size: 12px; color: #bbb; }
+.ps-empty-icon svg { width: 32px; height: 32px; fill: var(--color-gold-light); }
+.ps-empty-title { font-family:'Playfair Display', serif !important; font-size: 16px; font-weight: 800; color: var(--color-purple); margin-bottom: 6px; }
+.ps-empty-sub   { font-size: 12.5px; color: var(--color-muted); line-height: 1.6; }
 
 /* ── Actions ── */
 .ps-actions { display: flex; gap: 10px; }
 .ps-btn {
   flex: 1; padding: 14px;
-  border-radius: 14px; font-size: 14px; font-weight: 700;
+  border-radius: 999px; font-size: 14px; font-weight: 700;
   text-decoration: none; text-align: center;
-  cursor: pointer; border: none;
-  transition: transform 0.15s, opacity 0.15s;
+  cursor: pointer; border: 1.5px solid var(--border-gold);
+  transition: transform 0.15s, opacity 0.15s, box-shadow .15s;
   font-family: 'Poppins', sans-serif;
 }
 .ps-btn:active { transform: scale(0.98); }
-.ps-btn-ghost   { background: #fff; color: #4a7a1e; border: 1.5px solid #c8ddb0; }
-.ps-btn-primary { background: linear-gradient(135deg, #2d6b0a, #5d9e28); color: #fff; box-shadow: 0 4px 16px rgba(45,107,10,0.28); }
+.ps-btn-ghost   { background: #fff; color: var(--color-purple); }
+.ps-btn-ghost:hover{ background: #FFFDF6; }
+.ps-btn-primary {
+  background:
+    linear-gradient(var(--color-purple), var(--color-purple)) padding-box,
+    linear-gradient(120deg, var(--color-gold-dark), var(--color-gold-light) 45%, var(--color-gold-dark) 100%) border-box;
+  border: 3px solid transparent;
+  color: var(--color-gold-light);
+  box-shadow: var(--shadow-gold);
+}
+.ps-btn-primary:hover{ box-shadow: 0 14px 30px rgba(59,22,95,0.36); }
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity:1 !important; transform:none !important; }
+  .ps-header::after{ animation: none !important; }
+}
 </style>
 
 <div class="ps-page">
 
   <!-- Header -->
-  <div class="ps-header">
-    <div class="hbg1"></div>
-    <div class="hbg2"></div>
-
+  <div class="ps-header reveal">
     <a href="/profile/" class="ps-back">
       <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"/></svg>
       Back
@@ -197,52 +228,38 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
   <div class="ps-body">
 
     {% if latest_loan %}
-      <div class="ps-section-label">Schedule Details</div>
-
-      {% for s in schedules %}
-        <div class="ps-item">
-          <div class="ps-item-header">
-            <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
-            <div>
-              <div class="ps-item-header-label">Due Date</div>
-              <div class="ps-item-header-date">{{ s.due_date }}</div>
-            </div>
-          </div>
-
-          <div class="ps-item-body">
-            <div class="ps-row">
-              <div class="ps-kv">
-                <div class="ps-kv-label">Loan Amount</div>
-                <div class="ps-kv-value">PHP {{ s.loan_amount }}</div>
-              </div>
-              <div class="ps-kv">
-                <div class="ps-kv-label">Loan Period</div>
-                <div class="ps-kv-value">{{ s.term_months }} months</div>
-              </div>
-            </div>
-
-            <div class="ps-item-divider"></div>
-
-            <div class="ps-row">
-              <div class="ps-kv">
-                <div class="ps-kv-label">Repayment</div>
-                <div class="ps-kv-value repay">PHP {{ s.repayment }}</div>
-              </div>
-              <div class="ps-kv">
-                <div class="ps-kv-label">Interest Rate</div>
-                <div class="ps-kv-value">{{ s.interest_rate }}</div>
-              </div>
-            </div>
-          </div>
+      <!-- Loan summary shown once -->
+      <div class="ps-section-label">Loan Summary</div>
+      <div class="ps-summary-card reveal">
+        <div class="ps-stat-grid">
+          <div class="ps-stat-box"><div class="ps-stat-lbl">Loan Amount</div><div class="ps-stat-val">PHP {{ latest_loan.amount }}</div></div>
+          <div class="ps-stat-box"><div class="ps-stat-lbl">Loan Period</div><div class="ps-stat-val">{{ latest_loan.term_months }} months</div></div>
+          <div class="ps-stat-box"><div class="ps-stat-lbl">Interest Rate</div><div class="ps-stat-val">{{ latest_loan.interest_rate_monthly }}</div></div>
+          <div class="ps-stat-box highlight"><div class="ps-stat-lbl">Monthly Repayment</div><div class="ps-stat-val">PHP {{ latest_loan.monthly_repayment }}</div></div>
         </div>
-      {% endfor %}
+      </div>
+
+      <!-- Schedule as a compact receipt-style list -->
+      <div class="ps-section-label">Schedule Details ({{ schedules|length }} payments)</div>
+      <div class="ps-schedule-card reveal">
+        {% for s in schedules %}
+          <div class="ps-row-item">
+            <div class="ps-row-num">{{ forloop.counter }}</div>
+            <div class="ps-row-mid">
+              <div class="ps-row-lbl">Due Date</div>
+              <div class="ps-row-date">{{ s.due_date }}</div>
+            </div>
+            <div class="ps-row-amount">PHP {{ s.repayment }}</div>
+          </div>
+        {% endfor %}
+      </div>
 
     {% else %}
-      <div class="ps-empty">
+      <div class="ps-empty reveal">
         <div class="ps-empty-icon">
           <svg viewBox="0 0 24 24"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z"/></svg>
         </div>
-        <div class="ps-empty-title">No approved loan yet</div>
+        <div class="ps-empty-title serif">No approved loan yet</div>
         <div class="ps-empty-sub">Your payment schedule will appear here once your loan is approved</div>
       </div>
     {% endif %}
@@ -256,4 +273,29 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
   </div>
 </div>
 
+<script>
+/* Scroll-triggered reveal, matching the rest of the redesigned pages. */
+(function(){
+  const nodes = Array.from(document.querySelectorAll('.reveal'));
+  if(!nodes.length) return;
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    nodes.forEach(el => el.classList.add('on'));
+    return;
+  }
+  let firstBatch = true;
+  const io = new IntersectionObserver((entries) => {
+    let i = 0;
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      setTimeout(() => el.classList.add('on'), (firstBatch ? 250 : 0) + i * 90);
+      io.unobserve(el);
+      i++;
+    });
+    firstBatch = false;
+  }, { threshold: 0.1 });
+  nodes.forEach(el => io.observe(el));
+})();
+</script>
 {% endblock %}

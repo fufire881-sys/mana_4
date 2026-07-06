@@ -837,7 +837,7 @@ def loan_apply_view(request):
         messages.error(request, "Please choose loan terms.")
         return render(request, "loan_apply.html", {"locked": False, "loan": None})
 
-    if term_months not in (6, 12, 24, 36, 48, 60):
+    if term_months not in (6, 12, 24, 36):
         messages.error(request, "Invalid loan terms.")
         return render(request, "loan_apply.html", {"locked": False, "loan": None})
 
@@ -2012,8 +2012,8 @@ def staff_loan_edit_save(request, loan_id):
     except Exception:
         return JsonResponse({"ok": False, "error": "invalid_term"})
 
-    if loan.term_months not in (6, 12, 24, 36, 48, 60):
-        return JsonResponse({"ok": False, "error": "term_must_be_6_12_24_36_48_60"})
+    if loan.term_months not in (6, 12, 24, 36):
+        return JsonResponse({"ok": False, "error": "term_must_be_6_12_24_36"})
 
     # Recalc monthly repayment
     rate = loan.interest_rate_monthly
@@ -2311,7 +2311,7 @@ def staff_loan_update(request, loan_id):
             messages.error(request, "Invalid term months ❌")
             return redirect(next_url or request.META.get("HTTP_REFERER", "staff_loans"))
 
-    if loan.term_months not in (6, 12, 24, 36, 48, 60):
+    if loan.term_months not in (6, 12, 24, 36):
         messages.error(request, "Invalid term months ❌")
         return redirect(next_url or request.META.get("HTTP_REFERER", "staff_loans"))
 

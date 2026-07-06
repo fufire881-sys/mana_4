@@ -3,32 +3,42 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-/* ===== ASIASOURCE Brand Design System — Dashboard ===== */
+/* ===== ILEND Lending Corp. Brand Design System — Dashboard ===== */
 
-/* ===== Root & Layout ===== */
 :root{
   --topbar-pad: 10px;
   --topbar-card-h: 58px;
   --topbar-gap: 14px;
-}
 
-html, body{
-  width: 100%;
-  overflow-x: hidden;
+  --color-bg: #FAF6EC;
+  --color-gold: #D6A637;
+  --color-gold-dark: #9B6A16;
+  --color-gold-light: #F7D77A;
+  --color-purple: #3B165F;
+  --color-purple-dark: #26103F;
+  --color-text: #221B2D;
+  --color-muted: #6D6474;
+  --border-gold: rgba(190, 140, 45, 0.45);
+  --shadow-soft: 0 10px 30px rgba(59, 22, 95, 0.08);
+  --shadow-gold: 0 10px 26px rgba(214, 166, 55, 0.30);
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-sm: 10px;
 }
+.serif { font-family: 'Playfair Display', serif !important; }
+
+html, body{ width: 100%; overflow-x: hidden; }
 
 body{
   margin: 0;
   min-height: 100vh;
   font-family: 'Poppins', system-ui, -apple-system, sans-serif;
-  background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%) !important;
+  background: var(--color-bg) !important;
 }
 
-.wrap{
-  padding-top: 0 !important;
-}
+.wrap{ padding-top: 0 !important; }
 
 .dash-wrap{
   width: min(520px, 94vw);
@@ -38,32 +48,29 @@ body{
   ) !important;
   padding-left: 14px;
   padding-right: 14px;
-  padding-bottom: 96px;
+  padding-bottom: 110px;
   box-sizing: border-box;
 }
+
+@keyframes btnShine { 0%, 8% { left: -60%; } 55%, 100% { left: 130%; } }
 
 /* ===== Topbar ===== */
 .topbar{
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  top: 0; left: 0; right: 0;
   width: 100%;
-  transform: translateY(0);
   z-index: 999;
   padding: var(--topbar-pad) 0 !important;
-  background: linear-gradient(135deg, #0d2d6e 0%, #1565C0 50%, #1a5c2a 80%, #2d6b0a 100%) !important;
-  box-shadow: 0 2px 12px rgba(0,0,0,.25) !important;
-  border-bottom: 0 !important;
+  background: var(--color-bg) !important;
+  border-bottom: 1.5px solid var(--border-gold) !important;
+  box-shadow: 0 2px 12px rgba(59,22,95,.06) !important;
   transition: transform .22s ease, box-shadow .22s ease;
 }
-.topbar.hide-bar{
-  transform: translateY(-110%);
-}
+.topbar.hide-bar{ transform: translateY(-110%); }
 
 .topbar-inner{
   height: var(--topbar-card-h) !important;
-  width: min(520px, 96vw) !important;
+  width: min(520px, 94vw) !important;
   margin: 0 auto !important;
   padding: 0 14px !important;
   box-sizing: border-box !important;
@@ -76,829 +83,520 @@ body{
   justify-content: space-between !important;
 }
 
-.topbar-left,
-.topbar-right{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* ===== Topbar Info Strip ===== */
 .topbar-strip{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  gap: 8px;
+  display: flex; align-items: center; justify-content: space-between;
+  width: 100%; gap: 8px;
 }
 
 .topbar-brand{
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  text-decoration: none;
-  flex-shrink: 0;
+  display: flex; align-items: center; gap: 8px;
+  text-decoration: none; flex-shrink: 0;
 }
 .topbar-brand-logo{
-  width: 30px; height: 30px;
-  border-radius: 8px;
-  object-fit: contain;
-  background: #fff;
-  padding: 3px;
+  width: 42px; height: 42px;
+  border-radius: 999px;
+  object-fit: cover;
+  border: 1.5px solid var(--border-gold);
   flex-shrink: 0;
 }
 .topbar-brand-name{
-  font-size: 10px;
-  font-weight: 900;
-  color: #fff;
+  font-size: 15px; font-weight: 800;
   line-height: 1.2;
   letter-spacing: 0.2px;
 }
+.topbar-brand-name .bn-gold{ color: var(--color-gold-dark); }
+.topbar-brand-name .bn-sub{ display:block; font-size:9.5px; font-weight:700; color: var(--color-text); letter-spacing: 1px; }
 
-.topbar-rate-pill{
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  background: transparent;
-  border: none;
-  border-radius: 20px;
-  padding: 4px 6px;
-  flex-shrink: 0;
-}
-.topbar-rate-pill span{
-  font-size: 10px;
-  font-weight: 700;
-  color: #fff;
-  white-space: nowrap;
-}
-.rate-dot{
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: #b8f08a;
-  flex-shrink: 0;
-}
-
-.topbar-actions{
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
-}
+.topbar-actions{ display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 
 .btn-aboutus{
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  background: rgba(255,255,255,0.18);
-  border: 1px solid rgba(255,255,255,0.35);
-  border-radius: 20px;
-  padding: 5px 11px;
-  color: #fff;
-  font-size: 10px;
-  font-weight: 700;
+  display: inline-flex; align-items: center; gap: 5px;
+  background: #fff;
+  border: 1.5px solid var(--border-gold);
+  border-radius: 999px;
+  padding: 7px 12px;
+  color: var(--color-purple);
+  font-size: 11px; font-weight: 700;
   text-decoration: none;
   transition: background 0.2s;
   white-space: nowrap;
 }
-.btn-aboutus:hover{ background: rgba(255,255,255,0.28); color: #fff; }
-.btn-aboutus svg{ width: 11px; height: 11px; fill: #fff; }
-
-/* ===== Brand ===== */
-.brand-mini{
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 900;
-}
-.brand-mini .logo{
-  width: 34px; height: 34px;
-  border-radius: 10px;
-  background: rgba(0,0,0,.18);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px;
-}
-
-.info-btn{
-  width: 34px; height: 34px; border-radius: 12px;
-  border: 0;
-  background: rgba(0,0,0,.18);
-  color: #fff;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-}
+.btn-aboutus:hover{ background: #FFFDF6; color: var(--color-purple); }
+.btn-aboutus svg{ width: 13px; height: 13px; fill: var(--color-gold-dark); }
 
 /* ===== Notification Bell ===== */
 .notify-wrap{
-  width: 34px; height: 34px;
-  border-radius: 12px;
-  background: rgba(0,0,0,.18);
+  width: 36px; height: 36px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1.5px solid var(--border-gold);
   display: flex; align-items: center; justify-content: center;
   flex: 0 0 auto;
   text-decoration: none;
   position: relative;
 }
 .notify-badge{
-  position: absolute;
-  top: -6px; right: -6px;
-  min-width: 18px; height: 18px;
-  padding: 0 6px;
+  position: absolute; top: -4px; right: -4px;
+  min-width: 16px; height: 16px; padding: 0 5px;
   border-radius: 999px;
   display: flex; align-items: center; justify-content: center;
-  font-size: 11px; font-weight: 950; color: #fff;
+  font-size: 10px; font-weight: 800; color: #fff;
   background: #ef4444;
-  box-shadow: 0 6px 14px rgba(0,0,0,.35);
-  border: 2px solid rgba(0,0,0,.25);
+  box-shadow: 0 4px 10px rgba(0,0,0,.25);
+  border: 2px solid var(--color-bg);
 }
-.notify-wrap.has-unread{
-  animation: notifPulse 1.35s ease-in-out infinite;
-}
+.notify-wrap.has-unread{ animation: notifPulse 1.35s ease-in-out infinite; }
 @keyframes notifPulse{
   0%   { box-shadow: 0 0 0 0 rgba(239,68,68,.45); }
   70%  { box-shadow: 0 0 0 10px rgba(239,68,68,0); }
   100% { box-shadow: 0 0 0 0 rgba(239,68,68,0); }
 }
 .notify-wrap.dot-only .notify-badge{
-  min-width: 10px; width: 10px; height: 10px;
+  min-width: 9px; width: 9px; height: 9px;
   padding: 0; border-radius: 999px;
   font-size: 0; line-height: 0;
-  top: -4px; right: -4px;
+  top: -2px; right: -2px;
 }
-
-/* Bell icon */
 .bell-container{
-  --color: #ffffff;
-  --size: 22px;
   position: relative;
   display: flex; align-items: center; justify-content: center;
   cursor: pointer;
-  font-size: var(--size);
-  fill: var(--color);
-  text-decoration: none;
-  color: inherit;
+  fill: var(--color-purple);
+  text-decoration: none; color: inherit;
 }
 .bell-container input{ display: none; }
-.bell-regular,
-.bell-solid{
-  width: 22px; height: 22px;
+.bell-regular, .bell-solid{
+  width: 18px; height: 18px;
   position: absolute;
   transition: transform .3s ease, opacity .3s ease;
 }
 .bell-solid{ opacity: 0; }
 .bell-container input:checked ~ .bell-regular{ transform: rotate(-15deg); opacity: 0; }
 .bell-container input:checked ~ .bell-solid{ opacity: 1; animation: ring .5s ease; }
-.notify-wrap.has-unread .bell-regular{
-  animation: bellShake 1.2s ease-in-out infinite;
-  transform-origin: 50% 10%;
-}
+.notify-wrap.has-unread .bell-regular{ animation: bellShake 1.2s ease-in-out infinite; transform-origin: 50% 10%; }
 @keyframes bellShake{
-  0%{ transform: rotate(0); }
-  10%{ transform: rotate(-12deg); }
-  20%{ transform: rotate(12deg); }
-  30%{ transform: rotate(-9deg); }
-  40%{ transform: rotate(9deg); }
-  50%{ transform: rotate(-6deg); }
-  60%{ transform: rotate(6deg); }
-  70%{ transform: rotate(-3deg); }
-  80%{ transform: rotate(3deg); }
-  100%{ transform: rotate(0); }
+  0%{ transform: rotate(0); } 10%{ transform: rotate(-12deg); } 20%{ transform: rotate(12deg); }
+  30%{ transform: rotate(-9deg); } 40%{ transform: rotate(9deg); } 50%{ transform: rotate(-6deg); }
+  60%{ transform: rotate(6deg); } 70%{ transform: rotate(-3deg); } 80%{ transform: rotate(3deg); } 100%{ transform: rotate(0); }
 }
-@keyframes pop{ from{ transform: scale(.92); } to{ transform: scale(1); } }
-@keyframes ring{
-  0%{ transform: rotate(0); }
-  25%{ transform: rotate(-15deg); }
-  50%{ transform: rotate(15deg); }
-  75%{ transform: rotate(-10deg); }
-  100%{ transform: rotate(0); }
-}
+@keyframes ring{ 0%{ transform: rotate(0); } 25%{ transform: rotate(-15deg); } 50%{ transform: rotate(15deg); } 75%{ transform: rotate(-10deg); } 100%{ transform: rotate(0); } }
 
 /* ===== Account Status Badge ===== */
 .status-badge{
-  display: inline-block;
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-weight: 700;
-  font-size: 13px;
-  letter-spacing: .5px;
+  display: inline-block; padding: 6px 16px; border-radius: 999px;
+  font-weight: 800; font-size: 12px; letter-spacing: .8px;
+  border: 1.5px solid var(--color-gold);
+  text-transform: uppercase;
 }
-.status-active{
-  background: linear-gradient(135deg, #1565C0, #2d6b0a) !important;
-  color: #fff !important;
-}
-.status-danger{
-  background: #dc2626;
-  color: #fff;
-}
-.status-warn{
-  background: #eab308;
-  color: #111;
-}
-#accStatusBadge.status-active { background: linear-gradient(135deg, #1565C0, #2d6b0a) !important; color: #fff !important; }
+.status-active{ background: #1A1420 !important; color: var(--color-gold-light) !important; border-color: var(--color-gold) !important; }
+.status-danger{ background: #dc2626 !important; color: #fff !important; }
+.status-warn{ background: #eab308 !important; color: #111 !important; }
+#accStatusBadge.status-active { background: #1A1420 !important; color: var(--color-gold-light) !important; border-color: var(--color-gold) !important; }
 #accStatusBadge.status-warn   { background: #eab308 !important; color: #111 !important; }
 #accStatusBadge.status-danger { background: #dc2626 !important; color: #fff !important; }
 
 /* ===== Cards — Base ===== */
 .cardx{
   position: relative;
-  background: #ffffff;
-  border-radius: 18px;
-  border: none;
-  border-left: 4px solid #1565C0;
-  box-shadow: 0 2px 16px rgba(21,101,192,.10), 0 6px 24px rgba(0,0,0,.05);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--border-gold);
+  box-shadow: var(--shadow-soft);
   overflow: hidden;
   margin-bottom: 16px;
   padding: 20px;
-  color: #1a1a1a !important;
+  color: var(--color-text) !important;
 }
 
-/* ===== Card Diamond (Profile card) ===== */
+/* ===== Profile / balance card ===== */
+/* base.html defines a global ".cardx { background: ... !important }" (its
+   "make cards not transparent" rule) that would otherwise win over this —
+   every property here needs !important to actually take effect. */
 .cardx.card-diamond{
-  background: linear-gradient(135deg, #0d2d6e 0%, #1565C0 45%, #1a5c2a 80%, #2d6b0a 100%) !important;
-  color: #fff !important;
-  border-radius: 20px !important;
-  border: 1px solid rgba(21,101,192,.4) !important;
-  border-left: none !important;
-  box-shadow: 0 8px 32px rgba(13,45,110,.45) !important;
-}
-.cardx.card-diamond *{
-  color: #fff !important;
-}
-
-/* Subtle radial glow overlay — no stripes */
-.cardx.card-diamond::before{
-  content: "";
-  position: absolute;
-  inset: 0;
   background:
-    radial-gradient(ellipse at 30% 30%, rgba(255,255,255,.18) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 80%, rgba(45,107,10,.25) 0%, transparent 55%);
-  opacity: 1;
-  pointer-events: none;
+    linear-gradient(100deg, rgba(38,16,63,0.90) 0%, rgba(59,22,95,0.72) 45%, rgba(59,22,95,0.35) 100%),
+    url("{% static 'img/profile-bg.webp' %}") right center / cover no-repeat,
+    var(--color-purple-dark) !important;
+  color: #fff !important;
+  border: 2px solid var(--color-gold) !important;
+  box-shadow: 0 14px 34px rgba(38,16,63,0.30) !important;
 }
-
-/* Shine sweep */
+.cardx.card-diamond *{ color: #fff !important; }
+.cardx.card-diamond > *{ position: relative; z-index: 2; }
 .cardx.card-diamond::after{
   content: "";
   position: absolute; inset: 0;
-  background: linear-gradient(120deg,
-    transparent 0%,
-    rgba(255,255,255,.18) 50%,
-    transparent 100%);
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.16) 50%, transparent 100%);
   transform: translateX(-120%);
-  animation: diamondShine 3.6s ease-in-out infinite;
+  animation: diamondShine 4.5s ease-in-out infinite;
   pointer-events: none;
-  opacity: .45;
+  z-index: 1;
 }
 @keyframes diamondShine{
   0%, 55%{ transform: translateX(-120%); }
   100%{ transform: translateX(120%); }
 }
-.cardx.card-diamond > *{
-  position: relative;
-  z-index: 2;
-}
 
-/* Android no-blur fallback */
-.android-no-blur .cardx{
-  background: #ffffff !important;
-}
-.android-no-blur .cardx.card-diamond{
-  background: linear-gradient(135deg, #0d2d6e 0%, #1565C0 45%, #1a5c2a 80%, #2d6b0a 100%) !important;
-}
-
-/* ===== Reveal animation ===== */
-.reveal{
-  opacity: 0;
-  transform: translateX(0);
-  will-change: transform, opacity;
-}
+/* Reveal animation on load */
+.reveal{ opacity: 0; transform: translateX(0); will-change: transform, opacity; }
 .from-left{ transform: translateX(-18px); }
 .from-right{ transform: translateX(18px); }
-.reveal.on{
-  opacity: 1;
-  transform: translateX(0);
-  transition: opacity .45s ease, transform .45s ease;
-}
+.from-bottom{ transform: translateY(14px); }
+.reveal.on{ opacity: 1; transform: translateX(0) translateY(0); transition: opacity .45s ease, transform .45s ease; }
 
 /* ===== Profile Card Contents ===== */
 .profile-card{ display: flex; flex-direction: column; gap: 0; padding: 20px 20px 18px; }
 
-/* ── Top row: avatar + brand + member pill ── */
-.cd-top{ display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.cd-top{ display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
 .cd-brand{ display: flex; align-items: center; gap: 10px; }
 .avatar{
-  width: 40px; height: 40px; border-radius: 12px;
-  background: rgba(255,255,255,.20);
+  width: 44px; height: 44px; border-radius: 999px;
+  background: rgba(255,255,255,.14);
   display: flex; align-items: center; justify-content: center;
   flex: 0 0 auto;
-  border: 1px solid rgba(255,255,255,.25);
+  border: 2px solid var(--color-gold);
   overflow: hidden;
 }
-.avatar svg{ width: 22px; height: 22px; fill: #fff; opacity: .9; }
+.avatar svg{ width: 22px; height: 22px; fill: var(--color-gold-light); opacity: .95; }
 .avatar img{ width:100%; height:100%; object-fit:cover; }
-.cd-brand-name{ font-size: 11px; font-weight: 800; color: #fff; letter-spacing: .06em; text-transform: uppercase; }
-.cd-brand-sub{ font-size: 10px; color: rgba(255,255,255,.60); font-weight: 500; margin-top: 1px; }
+.cd-brand-name{ font-size: 13px; font-weight: 600; color: rgba(255,255,255,.85); }
+.cd-brand-name .cd-hi{ font-weight: 800; color: var(--color-gold-light); }
 
-/* ── Divider ── */
-.cd-divider{ height: 1px; background: rgba(255,255,255,.15); margin-bottom: 14px; }
+.pill-member{
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 6px 12px; border-radius: 999px;
+  background: rgba(214,166,55,0.20);
+  border: 1px solid var(--color-gold);
+  color: var(--color-gold-light); font-weight: 800; font-size: 11px;
+}
+.pill-member svg{ width: 12px; height: 12px; fill: var(--color-gold-light); }
 
-/* ── Account row ── */
-.cd-acct-row{ display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-.cd-acct-lbl{ font-size: 10px; color: rgba(255,255,255,.55); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+.cd-divider{ height: 1px; background: rgba(255,255,255,.18); margin-bottom: 14px; }
+
+.cd-acct-row{ display: flex; flex-direction: column; gap: 3px; margin-bottom: 12px; }
+.cd-acct-lbl{ font-size: 10px; color: rgba(255,255,255,.60); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
 .cd-acct-num{ font-size: 14px; font-weight: 800; color: #fff; letter-spacing: .04em; }
 
-/* ── Balance ── */
 .cd-balance-wrap{ margin-bottom: 6px; }
-.cd-balance-lbl{ font-size: 10px; color: rgba(255,255,255,.55); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
+.cd-balance-lbl{ font-size: 10px; color: rgba(255,255,255,.60); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
 .cd-balance-amount{ display: flex; align-items: baseline; gap: 5px; }
-.cd-balance-sign{ font-size: 18px; font-weight: 700; color: rgba(255,255,255,.80); }
-.cd-balance-num{ font-size: 32px; font-weight: 950; color: #fff; letter-spacing: .01em; line-height: 1; }
+.cd-balance-sign{ font-size: 18px; font-weight: 700; color: var(--color-gold-light); }
+.cd-balance-num{ font-family: 'Playfair Display', serif !important; font-size: 32px; font-weight: 800; color: #fff; letter-spacing: .01em; line-height: 1; }
 
-/* ── Status row ── */
 .cd-status-row{ margin-top: 14px; display: flex; align-items: center; justify-content: flex-end; }
-
-.pill{
-  padding: 5px 12px; border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.22);
-  background: rgba(255,255,255,.14);
-  color: #fff; font-weight: 800; font-size: 11px; white-space: nowrap;
-}
-/* keep old classes working */
-.title{ color:#fff; font-weight:900; font-size:18px; }
-.subline{ color:rgba(255,255,255,.72); font-size:12px; }
-.amount{ font-size:26px; font-weight:950; color:#fff; margin-top:10px; }
-.status{ margin-top:6px; font-size:12px; font-weight:900; color:#d5ffe7; }
 
 /* ===== Section Titles ===== */
 .section-title{
   margin: 14px 2px 10px;
-  color: #1565C0;
-  font-weight: 900;
-  font-size: 12px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  opacity: 1;
+  color: var(--color-gold-dark);
+  font-weight: 800; font-size: 12px;
+  letter-spacing: .08em; text-transform: uppercase;
   display: inline-block;
-  padding-bottom: 4px;
-  border-bottom: 2px solid rgba(21,101,192,.45);
-  background: none !important;
-  -webkit-background-clip: unset !important;
-  background-clip: unset !important;
-  -webkit-text-fill-color: unset !important;
-  text-shadow: none !important;
-  animation: none !important;
 }
 
-/* ===== Trust Card ===== */
-.trust-card{
-  padding: 18px !important;
-  overflow: hidden;
-}
-.trust-header{
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 14px;
-  padding-bottom: 12px;
-  border-bottom: 1.5px solid #DBEAFE;
-}
-.trust-title{
-  color: #1565C0;
-  font-weight: 900;
-  font-size: 14px;
-  letter-spacing: .02em;
-}
-.trust-grid{
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-.trust-item{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: #EFF6FF;
-  border-radius: 12px;
-  border: 1px solid #DBEAFE;
-  padding: 12px 10px;
-}
-.trust-icon{
-  width: 36px; height: 36px;
-  border-radius: 10px;
-  background: rgba(21,101,192,.12);
-  display: flex; align-items: center; justify-content: center;
-  flex: 0 0 auto;
-}
-.trust-label{
-  color: #1a1a1a;
-  font-weight: 800;
-  font-size: 12px;
-  line-height: 1.3;
-}
-.trust-sub{
-  color: #7a8a9a;
-  font-size: 10px;
-  margin-top: 2px;
-}
-
-/* ===== Feature Slider ===== */
-.feat-slider-wrap{
+/* ===== Scrolling trust ticker (real aggregate stats only — no fabricated
+   per-user activity, which would be deceptive social proof on a lending
+   platform) ===== */
+.dash-ticker{
   margin-top: 14px;
   overflow: hidden;
-}
-.feat-slider-header{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 4px 10px;
-}
-.feat-slider-title{
-  font-size: 13px;
-  font-weight: 800;
-  color: #1565C0;
-}
-.feat-slider-hint{
-  font-size: 10px;
-  color: #7a8a9a;
-  font-weight: 500;
-}
-.feat-track{
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  padding-bottom: 4px;
-}
-.feat-track::-webkit-scrollbar{ display: none; }
-
-.feat-slide{
-  min-width: 130px;
-  max-width: 130px;
-  border-radius: 16px;
-  background: #fff;
-  border: 1.5px solid #DBEAFE;
-  scroll-snap-align: start;
-  flex-shrink: 0;
-  cursor: pointer;
-  transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
-  overflow: hidden;
-  user-select: none;
-}
-.feat-slide:active{
-  transform: scale(0.97);
-}
-.feat-slide.active-card{
-  border-color: #1565C0;
-  box-shadow: 0 4px 16px rgba(21,101,192,0.22);
-}
-.feat-slide-top{
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
-  position: relative;
-}
-.feat-slide-top svg{
-  width: 36px; height: 36px;
-}
-.feat-slide-body{
-  padding: 10px 10px 12px;
-  text-align: center;
-}
-.feat-slide-name{
-  font-size: 11px;
-  font-weight: 800;
-  color: #1565C0;
-  line-height: 1.3;
-  margin-bottom: 3px;
-}
-.feat-slide-sub{
-  font-size: 10px;
-  color: #7a8a9a;
-  line-height: 1.4;
-}
-
-/* Detail panel */
-.feat-detail-panel{
-  margin-top: 10px;
-  border-radius: 14px;
-  background: #EFF6FF;
-  border: 1.5px solid #BFDBFE;
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.35s ease, opacity 0.3s ease;
-  opacity: 0;
-}
-.feat-detail-panel.open{
-  max-height: 300px;
-  opacity: 1;
-}
-.feat-detail-inner{
-  padding: 16px;
-}
-.feat-detail-header{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-.feat-detail-icon{
-  width: 40px; height: 40px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #0d2d6e, #1565C0 50%, #2d6b0a);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-}
-.feat-detail-icon svg{ width: 22px; height: 22px; }
-.feat-detail-title{
-  font-size: 14px;
-  font-weight: 900;
-  color: #0d2d6e;
-}
-.feat-detail-desc{
-  font-size: 12px;
-  color: #1e3a5f;
-  line-height: 1.7;
-}
-.feat-dots{
-  display: flex;
-  justify-content: center;
-  gap: 5px;
-  padding: 8px 0 2px;
-}
-.feat-dot{
-  width: 5px; height: 5px;
-  border-radius: 50%;
-  background: #BFDBFE;
-  transition: all 0.25s;
-}
-.feat-dot.on{ background: #1565C0; width: 14px; border-radius: 3px; }
-
-/* ===== Apply Now button ===== */
-@keyframes applyPulse {
-  0%   { box-shadow: 0 4px 16px rgba(21,101,192,.50), 0 0 0 0 rgba(21,101,192,.55); }
-  50%  { box-shadow: 0 6px 24px rgba(21,101,192,.65), 0 0 0 10px rgba(21,101,192,.0); }
-  100% { box-shadow: 0 4px 16px rgba(21,101,192,.50), 0 0 0 0 rgba(21,101,192,.0); }
-}
-@keyframes applyShimmer {
-  0%   { left: -75%; }
-  100% { left: 125%; }
-}
-@keyframes applyBounce {
-  0%, 100% { transform: translateX(0); }
-  30%       { transform: translateX(4px); }
-  60%       { transform: translateX(-2px); }
-}
-.quick{
-  margin-top: 14px;
-  width: 100%;
-  border: 0;
-  padding: 16px 18px;
+  background: linear-gradient(90deg, var(--color-purple-dark), var(--color-purple));
+  border: 1.5px solid var(--color-gold);
   border-radius: 999px;
-  background: linear-gradient(135deg, #0d2d6e 0%, #1565C0 45%, #1a5c2a 80%, #2d6b0a 100%);
-  color: #fff;
-  font-weight: 950;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  font-size: 15px;
-  box-shadow: 0 4px 16px rgba(21,101,192,.50);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  border: 2px solid rgba(255,255,255,.35);
-  text-decoration: none !important;
-  animation: applyPulse 2s ease-in-out infinite;
-  transition: transform 0.2s ease, filter 0.2s ease;
+  padding: 11px 0;
 }
-/* Shimmer sweep */
-.quick::before {
-  content: '';
-  position: absolute;
-  top: 0; left: -75%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.30), transparent);
-  transform: skewX(-20deg);
-  animation: applyShimmer 2.4s ease-in-out infinite;
+.dash-ticker-track{
+  display: flex;
+  width: max-content;
+  animation: tickerScroll 24s linear infinite;
+}
+.dash-ticker-item{
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 0 22px;
+  font-size: 12px; font-weight: 700; color: var(--color-gold-light);
+  white-space: nowrap;
+  border-right: 1px solid rgba(255,255,255,0.18);
+}
+.dash-ticker-item svg{ width: 13px; height: 13px; fill: var(--color-gold-light); flex-shrink: 0; }
+@keyframes tickerScroll{
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ===== Quick action grid ===== */
+.quick-grid{
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  margin-top: 14px;
+}
+.quick-card{
+  position: relative;
+  display: block;
+  background: linear-gradient(160deg, #FFFDF6 0%, #FBF3DF 100%);
+  border: 1.5px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  padding: 16px 14px;
+  text-decoration: none;
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+/* thin gold accent bar down the left edge */
+.quick-card::before{
+  content: "";
+  position: absolute; top: 0; left: 0; bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--color-gold), var(--color-gold-dark));
+}
+/* big faint watermark version of the icon in the corner */
+.quick-card .qc-watermark{
+  position: absolute; right: -14px; bottom: -18px;
+  width: 96px; height: 96px;
+  opacity: 0.06;
   pointer-events: none;
 }
-.quick::after{
-  display: none !important;
-  content: none !important;
-}
-.quick:hover {
-  transform: translateY(-3px) scale(1.02);
-  filter: brightness(1.08);
-}
-.quick .go{
-  width: 30px; height: 30px; border-radius: 999px;
-  background: rgba(0,0,0,.20);
-  display: flex; align-items: center; justify-content: center;
-  border: 1px solid rgba(255,255,255,.25);
-  animation: applyBounce 2s ease-in-out infinite;
-}
-.quick .go svg{ width: 16px; height: 16px; fill: #fff; opacity: .95; }
+.quick-card .qc-watermark svg{ width: 100%; height: 100%; fill: var(--color-purple); }
+.quick-card > *{ position: relative; z-index: 1; }
+.quick-card:hover{ transform: translateY(-3px); box-shadow: var(--shadow-gold); }
+.quick-card:hover .quick-card-icon{ transform: scale(1.06) rotate(-4deg); }
+.quick-card:hover .qc-arrow{ transform: translateX(4px); }
 
-/* ===== Bottom Nav — floating fixed pill above bottom ===== */
+.quick-card-icon{
+  width: 46px; height: 46px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 10px;
+  background: radial-gradient(circle at 35% 30%, #5B2A8A 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
+  border: 2px solid var(--color-gold);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.35), 0 3px 8px rgba(0,0,0,0.15);
+  transition: transform 0.25s ease;
+}
+.quick-card-icon svg{ width: 21px; height: 21px; fill: #fff; }
+.quick-card h3{ font-size: 13px; font-weight: 700; color: var(--color-text); margin-bottom: 3px; }
+.quick-card p{ font-size: 10.5px; color: var(--color-muted); line-height: 1.4; margin-bottom: 6px; }
+.quick-card .qc-arrow{ display: inline-block; font-size: 13px; color: var(--color-purple); font-weight: 800; transition: transform 0.2s ease; }
+
+/* ===== Trust badges — same "modern card" language as the quick-action
+   grid: individual mini-cards with a 3D icon badge, not one flat outline
+   box (that read as plain/inconsistent next to everything else). ===== */
+.trust-row{
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  margin-top: 14px;
+}
+.trust-cell{
+  position: relative;
+  display: flex; align-items: center; gap: 10px;
+  background: linear-gradient(160deg, #FFFDF6 0%, #FBF3DF 100%);
+  border: 1.5px solid var(--border-gold);
+  border-radius: var(--radius-md);
+  padding: 12px 12px;
+  font-size: 11.5px; color: var(--color-text); font-weight: 700;
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.trust-cell:hover{ transform: translateY(-2px); box-shadow: var(--shadow-gold); }
+.trust-icon-badge{
+  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(circle at 35% 30%, #5B2A8A 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
+  border: 2px solid var(--color-gold);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.15);
+}
+.trust-icon-badge svg{ width: 18px; height: 18px; fill: #fff; }
+.trust-cell-sub{ display:block; font-size: 9.5px; color: var(--color-muted); font-weight: 500; margin-top: 1px; }
+
+/* ===== Loan Calculator Card ===== */
+.calc-card{ background:#fff; border-radius:var(--radius-lg); border: 1.5px solid var(--border-gold); box-shadow: var(--shadow-soft); overflow:hidden; margin-bottom:16px; }
+.calc-head{ background: linear-gradient(120deg, var(--color-purple-dark), var(--color-purple)); padding:24px 18px; display:flex; align-items:center; justify-content: space-between; gap:12px; }
+.calc-head-left{ display:flex; align-items:center; gap:12px; }
+.calc-head-icon{
+  width:46px; height:46px; border-radius:50%; flex-shrink:0;
+  background: radial-gradient(circle at 35% 30%, var(--color-gold-light) 0%, var(--color-gold) 55%, var(--color-gold-dark) 100%);
+  border: 2px solid var(--color-gold-light);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.40), inset 0 -3px 6px rgba(0,0,0,0.25), 0 3px 8px rgba(0,0,0,0.25);
+  display:flex; align-items:center; justify-content:center;
+}
+.calc-head-icon svg{ width:22px; height:22px; fill: var(--color-purple-dark); }
+.calc-head-title{ font-family: 'Playfair Display', serif !important; font-size:17px; font-weight:800; color:#fff; letter-spacing:.03em; }
+.calc-head-sub{ font-size:11.5px; color:rgba(255,255,255,.70); margin-top:2px; }
+.calc-head-video{
+  width: 84px; height: 88px; flex-shrink: 0;
+  display:flex; align-items:center; justify-content:center;
+  background: rgba(255,255,255,0.14);
+  border-radius: 16px;
+  padding: 6px;
+}
+.calc-head-video img{ width:100%; height:100%; object-fit:contain; display:block; }
+.calc-body{ padding:16px; }
+.calc-label{ font-size:11px; font-weight:700; color: var(--color-text); text-transform:uppercase; letter-spacing:.06em; margin-bottom:7px; display:block; }
+.calc-amount-wrap{ display:flex; align-items:center; border: 1.5px solid var(--border-gold); border-radius:14px; background:#FFFDF6; overflow:hidden; margin-bottom:14px; transition:border-color .2s; }
+.calc-amount-wrap:focus-within{ border-color: var(--color-gold-dark); box-shadow: 0 0 0 3px rgba(214,166,55,.16); background:#fff; }
+.calc-currency-badge{
+  width: 40px; height: 40px; margin: 6px; border-radius: 50%; flex-shrink: 0;
+  font-size:15px; font-weight:800; color: #fff;
+  background: radial-gradient(circle at 35% 30%, #5B2A8A 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
+  border: 2px solid var(--color-gold);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.15);
+  display:flex; align-items:center; justify-content: center;
+}
+.calc-amount-input{ flex:1; border:none; outline:none; background:transparent; padding:13px 12px; font-size:16px; font-weight:700; color: var(--color-text); font-family:'Poppins',sans-serif; }
+.calc-amount-input::placeholder{ color:#b6aebf; font-weight:400; font-size:14px; }
+.calc-terms{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:14px; }
+.calc-term-btn{ border: 1.5px solid var(--border-gold); border-radius:10px; padding:9px 0; font-size:13px; font-weight:700; color: var(--color-text); background:#FFFDF6; cursor:pointer; text-align:center; transition:all .2s; font-family:'Poppins',sans-serif; }
+.calc-term-btn:hover{ border-color: var(--color-gold-dark); color: var(--color-gold-dark); }
+.calc-term-btn.active{ background: linear-gradient(135deg, var(--color-purple-dark), var(--color-purple)); border-color: var(--color-gold); color:#fff; box-shadow: 0 3px 10px rgba(59,22,95,.30); }
+.calc-result{ background: #FFFDF6; border: 1.5px solid var(--border-gold); border-radius:14px; padding:14px 16px; margin-bottom:14px; }
+.calc-result-row{ display:flex; justify-content:space-between; align-items:center; padding:6px 0; }
+.calc-result-row+.calc-result-row{ border-top:1px solid rgba(190,140,45,.25); }
+.calc-result-lbl{ font-size:12px; color: var(--color-muted); font-weight:500; }
+.calc-result-val{ font-size:13px; font-weight:800; color: var(--color-purple); }
+.calc-result-val.monthly{ font-size:20px; color: var(--color-gold-dark); font-family: 'Playfair Display', serif !important; }
+.calc-result-val.interest{ color: var(--color-purple); }
+.calc-rate-badge{ display:flex; align-items:center; gap:6px; margin-bottom:14px; }
+.calc-rate-dot{ width:8px; height:8px; border-radius:50%; background: var(--color-gold); flex-shrink:0; animation: ratePulse 1.8s ease-in-out infinite; }
+@keyframes ratePulse{ 0%,100%{ opacity: 1; transform: scale(1); } 50%{ opacity: .45; transform: scale(0.8); } }
+.calc-rate-text{ font-size:11px; color: var(--color-muted); font-weight:600; }
+.calc-rate-pct{ font-weight:800; color: var(--color-gold-dark); }
+.calc-apply-btn{
+  display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; padding:14px 20px;
+  border-radius:999px; border: 3px solid transparent;
+  background:
+    linear-gradient(var(--color-purple), var(--color-purple)) padding-box,
+    linear-gradient(120deg, var(--color-gold-dark), var(--color-gold-light) 45%, var(--color-gold-dark) 100%) border-box;
+  color: var(--color-gold-light); font-size:14px; font-weight:800; font-family:'Poppins',sans-serif;
+  cursor:pointer; text-decoration:none;
+  box-shadow: 0 10px 24px rgba(59,22,95,0.30);
+  position: relative; overflow: hidden;
+  transition:transform .15s, box-shadow .15s; letter-spacing:.03em;
+}
+.calc-apply-btn::before{
+  content: ''; position: absolute; top: 0; left: -60%; width: 45%; height: 100%;
+  background: linear-gradient(115deg, transparent, rgba(255,255,255,0.40), transparent);
+  transform: skewX(-18deg); animation: btnShine 5s ease-in-out infinite; pointer-events: none;
+}
+.calc-apply-btn .cab-icon-text{ display:flex; align-items:center; gap:8px; }
+.calc-apply-btn svg{ width:18px; height:18px; }
+.calc-apply-btn .cab-icon-text svg{ fill: var(--color-gold-light); }
+.calc-apply-btn .cab-arrow{ fill:none; stroke: var(--color-gold-light); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
+.calc-apply-btn:hover{ transform:translateY(-2px); box-shadow: 0 14px 30px rgba(59,22,95,0.36); }
+.calc-apply-btn:active{ transform:scale(.98); }
+
+/* ===== CTA banner ===== */
+/* The banner image already has "Get the best loan", the description, and
+   an "Apply Now" button drawn into it — no live text/icon overlay needed
+   (that was causing duplicated, overlapping copy). The whole card is just
+   a clickable image sized to its own intrinsic aspect ratio, so it always
+   fills edge-to-edge with no letterboxing gaps. */
+.dash-cta{
+  position: relative;
+  display: block;
+  margin-top: 14px;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-gold);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.dash-cta:hover{ transform: translateY(-2px); box-shadow: var(--shadow-gold); }
+.dash-cta img{ width: 100%; height: auto; display: block; }
+.dash-cta::after{
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.22) 50%, transparent 70%);
+  transform: translateX(-120%);
+  animation: diamondShine 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ===== Dashboard status message boxes ===== */
+.dash-status-msg{ margin-top: 10px; padding: 10px 12px; border-radius: 14px; font-weight: 800; font-size: 12px; line-height: 1.35; border: 1px solid var(--border-gold); }
+.dash-status-green{ background: #FDF7E8; color: var(--color-gold-dark); border-color: var(--color-gold); }
+.dash-status-red{ background: #ffebee; color: #c62828; border-color: #e53935; }
+
+.muted{ color: var(--color-muted); font-size: 13px; line-height: 1.45; }
+.card-diamond .muted{ color: rgba(255,255,255,.75) !important; }
+
+/* ===== Bottom Nav — floating pill, 5 items, raised center Apply FAB ===== */
 .bottom-nav{
   position: fixed !important;
-  bottom: 16px !important;
+  /* env(safe-area-inset-bottom) keeps this clear of the iPhone home-indicator
+     / gesture bar area instead of sitting flush against the unsafe edge. */
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px)) !important;
   left: 50% !important;
   transform: translateX(-50%) !important;
   width: min(488px, calc(100vw - 32px)) !important;
-  height: 62px !important;
+  height: 68px !important;
   background: #fff !important;
-  border: 1px solid rgba(0,0,0,0.07) !important;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.20), 0 2px 8px rgba(0,0,0,0.10) !important;
-  border-radius: 20px !important;
-  margin: 0 !important;
-  padding: 0 !important;
+  border: 1.5px solid var(--border-gold) !important;
+  box-shadow: 0 8px 32px rgba(59,22,95,0.18), 0 2px 8px rgba(0,0,0,0.06) !important;
+  border-radius: 999px !important;
+  margin: 0 !important; padding: 0 !important;
   z-index: 999 !important;
-  overflow: hidden !important;
+  overflow: visible !important;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
-/* nav always visible — no hide state */
-
-.nav-grid{
-  display: flex !important;
-  align-items: stretch !important;
-  width: 100% !important;
-  height: 100% !important;
+/* Hidden while the on-screen keyboard is up (see script below) — a fixed
+   bar pinned to the visual viewport can otherwise end up floating over the
+   keyboard or getting clipped by it on real phones (mainly iOS Safari). */
+.bottom-nav.kb-hidden{
+  transform: translateX(-50%) translateY(140%) !important;
+  opacity: 0;
+  pointer-events: none;
 }
+.nav-grid{ display: flex !important; align-items: stretch !important; width: 100% !important; height: 100% !important; }
 
 .bottom-nav a.nav-item,
 .nav-item{
   flex: 1 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 3px !important;
-  padding: 8px 4px 6px !important;
-  color: #aaa !important;
-  text-decoration: none !important;
-  font-weight: 600 !important;
-  font-size: 10px !important;
-  letter-spacing: 0.3px !important;
-  text-transform: capitalize !important;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-  min-height: unset !important;
-  position: relative !important;
-  transition: color 0.2s, background 0.2s !important;
+  display: flex !important; flex-direction: column !important;
+  align-items: center !important; justify-content: center !important;
+  gap: 3px !important; padding: 8px 4px 6px !important;
+  color: var(--color-muted) !important;
+  text-decoration: none !important; font-weight: 600 !important;
+  font-size: 9.5px !important; letter-spacing: 0.2px !important;
+  background: transparent !important; border: none !important;
+  min-height: unset !important; position: relative !important;
+  transition: color 0.2s !important;
 }
-.bottom-nav a.nav-item.active { background: #F0F7FF !important; }
-.bottom-nav a.nav-item svg,
-.nav-item svg{
-  width: 22px !important;
-  height: 22px !important;
-  fill: #aaa !important;
-  transition: fill 0.2s, transform 0.2s !important;
-}
-.nav-item:active svg,
-.bottom-nav a.nav-item:active svg{
-  transform: scale(0.88) !important;
-}
-/* Active state */
-.nav-item.active,
-.bottom-nav a.nav-item.active{
-  color: #1565C0 !important;
-  outline: none !important;
-}
-.nav-item.active svg,
-.bottom-nav a.nav-item.active svg{
-  fill: #1565C0 !important;
-}
-/* Active dot indicator */
-.nav-item.active::before{
-  content: '' !important;
-  position: absolute !important;
-  top: 0 !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  width: 28px !important;
-  height: 3px !important;
-  background: linear-gradient(90deg, #1565C0, #2d6b0a) !important;
-  border-radius: 0 0 4px 4px !important;
-}
+.bottom-nav a.nav-item svg, .nav-item svg{ width: 21px !important; height: 21px !important; fill: var(--color-muted) !important; transition: fill 0.2s, transform 0.2s !important; }
+.nav-item:active svg{ transform: scale(0.88) !important; }
+.nav-item.active, .bottom-nav a.nav-item.active{ color: var(--color-purple) !important; }
+.nav-item.active svg, .bottom-nav a.nav-item.active svg{ fill: var(--color-purple) !important; }
 
-/* ===== Video / Our Services card ===== */
-.cardx.video-card{
-  background: #ffffff !important;
-  border: none !important;
-  border-left: 4px solid #1565C0 !important;
-  border-radius: 18px !important;
-  box-shadow: 0 2px 16px rgba(21,101,192,.10), 0 6px 24px rgba(0,0,0,.05) !important;
-  overflow: hidden !important;
-  height: 160px;
-  padding: 14px !important;
-}
-.cardx.video-card video{
-  border-radius: 14px !important;
+.nav-item.nav-fab{
   position: relative;
-  z-index: 2;
 }
-.cardx.video-card::before{ display: none !important; }
+.nav-item.nav-fab .fab-circle{
+  position: absolute; top: -20px;
+  width: 52px; height: 52px; border-radius: 999px;
+  background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold));
+  border: 3px solid #fff;
+  box-shadow: 0 8px 20px rgba(155,106,22,0.45);
+  display: flex; align-items: center; justify-content: center;
+  animation: fabPulse 2.4s ease-in-out infinite;
+}
+@keyframes fabPulse{
+  0%   { box-shadow: 0 8px 20px rgba(155,106,22,0.45), 0 0 0 0 rgba(214,166,55,.55); }
+  70%  { box-shadow: 0 8px 20px rgba(155,106,22,0.45), 0 0 0 10px rgba(214,166,55,0); }
+  100% { box-shadow: 0 8px 20px rgba(155,106,22,0.45), 0 0 0 0 rgba(214,166,55,0); }
+}
+.nav-item.nav-fab .fab-circle svg{ width: 24px !important; height: 24px !important; fill: var(--color-purple-dark) !important; }
+.nav-item.nav-fab span{ margin-top: 30px; font-weight: 800 !important; color: var(--color-gold-dark) !important; }
 
-/* Our Services section title */
-.section-title#status{
-  font-size: 14px !important;
-  font-weight: 1000 !important;
-  letter-spacing: .18em !important;
-  margin-top: 16px !important;
-  margin-bottom: 10px !important;
-  color: #1565C0 !important;
-  background: none !important;
-  -webkit-background-clip: unset !important;
-  background-clip: unset !important;
-  -webkit-text-fill-color: #1565C0 !important;
-  text-shadow: none !important;
-  animation: none !important;
-}
-
-/* ===== Loan Calculator Card ===== */
-.calc-card{ background:#fff; border-radius:18px; border-left:4px solid #1565C0; box-shadow:0 2px 16px rgba(21,101,192,.10),0 6px 24px rgba(0,0,0,.05); overflow:hidden; margin-bottom:16px; }
-.calc-head{ background:linear-gradient(135deg,#0d2d6e,#1565C0 50%,#2d6b0a); padding:14px 16px; display:flex; align-items:center; gap:10px; }
-.calc-head-icon{ width:36px; height:36px; border-radius:10px; background:rgba(255,255,255,.15); display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-.calc-head-icon svg{ width:20px; height:20px; fill:#fff; }
-.calc-head-title{ font-size:14px; font-weight:800; color:#fff; letter-spacing:.12em; text-transform:uppercase; }
-.calc-head-sub{ font-size:11px; color:rgba(255,255,255,.65); margin-top:1px; }
-.calc-body{ padding:16px; }
-.calc-label{ font-size:11px; font-weight:700; color:#555; text-transform:uppercase; letter-spacing:.06em; margin-bottom:7px; display:block; }
-.calc-amount-wrap{ display:flex; align-items:center; border:1.5px solid #e0e8ff; border-radius:12px; background:#f8f9ff; overflow:hidden; margin-bottom:14px; transition:border-color .2s; }
-.calc-amount-wrap:focus-within{ border-color:#1565C0; box-shadow:0 0 0 3px rgba(21,101,192,.10); background:#fff; }
-.calc-currency-badge{ padding:0 12px; font-size:13px; font-weight:800; color:#1565C0; background:rgba(21,101,192,.08); align-self:stretch; display:flex; align-items:center; border-right:1.5px solid #e0e8ff; }
-.calc-amount-input{ flex:1; border:none; outline:none; background:transparent; padding:13px 12px; font-size:16px; font-weight:700; color:#1a1a1a; font-family:'Poppins',sans-serif; }
-.calc-amount-input::placeholder{ color:#ccc; font-weight:400; font-size:14px; }
-.calc-terms{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:14px; }
-.calc-term-btn{ border:1.5px solid #e0e8ff; border-radius:10px; padding:9px 0; font-size:13px; font-weight:700; color:#555; background:#f8f9ff; cursor:pointer; text-align:center; transition:all .2s; font-family:'Poppins',sans-serif; }
-.calc-term-btn:hover{ border-color:#1565C0; color:#1565C0; background:#EFF6FF; }
-.calc-term-btn.active{ background:linear-gradient(135deg,#0d2d6e,#1565C0); border-color:transparent; color:#fff; box-shadow:0 3px 10px rgba(21,101,192,.30); }
-.calc-result{ background:linear-gradient(135deg,#f0f7ff,#f0fff4); border:1.5px solid #BFDBFE; border-radius:14px; padding:14px 16px; margin-bottom:14px; }
-.calc-result-row{ display:flex; justify-content:space-between; align-items:center; padding:6px 0; }
-.calc-result-row+.calc-result-row{ border-top:1px solid rgba(21,101,192,.10); }
-.calc-result-lbl{ font-size:12px; color:#555; font-weight:500; }
-.calc-result-val{ font-size:13px; font-weight:800; color:#0d2d6e; }
-.calc-result-val.monthly{ font-size:20px; color:#1565C0; }
-.calc-result-val.interest{ color:#1565C0; }
-.calc-rate-badge{ display:flex; align-items:center; gap:6px; margin-bottom:14px; }
-.calc-rate-dot{ width:8px; height:8px; border-radius:50%; background:#1565C0; flex-shrink:0; }
-.calc-rate-text{ font-size:11px; color:#555; font-weight:600; }
-.calc-rate-pct{ font-weight:800; color:#1565C0; }
-.calc-apply-btn{ display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:13px; border-radius:12px; border:none; background:linear-gradient(135deg,#0d2d6e,#1565C0 50%,#2d6b0a); color:#fff; font-size:14px; font-weight:800; font-family:'Poppins',sans-serif; cursor:pointer; text-decoration:none; box-shadow:0 4px 16px rgba(21,101,192,.25); transition:transform .15s,box-shadow .15s; letter-spacing:.03em; }
-.calc-apply-btn svg{ width:18px; height:18px; fill:#fff; }
-.calc-apply-btn:hover{ transform:translateY(-1px); box-shadow:0 8px 24px rgba(21,101,192,.35); }
-.calc-apply-btn:active{ transform:scale(.98); }
-
-/* ===== Dashboard status message boxes ===== */
-.dash-status-msg{
-  margin-top: 10px;
-  padding: 10px 12px;
-  border-radius: 14px;
-  font-weight: 900;
-  font-size: 12px;
-  line-height: 1.35;
-  border: 1px solid rgba(21,101,192,.3);
-}
-.dash-status-green{
-  background: #EFF6FF;
-  color: #0d2d6e;
-  border-color: #1565C0;
-}
-.dash-status-red{
-  background: #ffebee;
-  color: #c62828;
-  border-color: #e53935;
-}
-
-/* ===== Muted text ===== */
-.muted{
-  color: rgba(26,26,26,.72);
-  font-size: 13px;
-  line-height: 1.45;
-}
-/* Inside card-diamond (dark gradient bg), muted is white */
-.card-diamond .muted{
-  color: rgba(255,255,255,.75) !important;
-}
-
-/* ===== Mobile ===== */
 @media (max-width:768px){
   .cardx{ backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+}
+@media (prefers-reduced-motion: reduce){
+  .bottom-nav{ transition: none !important; }
+  .cardx.card-diamond::after,
+  .dash-cta::after,
+  .calc-rate-dot,
+  .nav-item.nav-fab .fab-circle,
+  .notify-wrap.has-unread,
+  .notify-wrap.has-unread .bell-regular,
+  .dash-ticker-track{
+    animation: none !important;
+  }
+  .dash-ticker{ overflow-x: auto; }
 }
 </style>
 
@@ -906,20 +604,13 @@ body{
 
 <div class="topbar">
   <div class="topbar-inner">
-
   <div class="topbar-strip">
 
     <!-- Brand -->
     <a class="topbar-brand" href="#top">
-      <img src="{% static 'img/logo.png' %}" alt="Logo" class="topbar-brand-logo">
-      <span class="topbar-brand-name">ASIASOURCE<br>FINANCIAL</span>
+      <img src="{% static 'img/ilend-logo.webp' %}" alt="ILEND Lending Corp." class="topbar-brand-logo">
+      <span class="topbar-brand-name"><span class="bn-gold">ILEND</span><span class="bn-sub">LENDING CORP.</span></span>
     </a>
-
-    <!-- Low Rate Pill -->
-    <div class="topbar-rate-pill">
-      <span class="rate-dot"></span>
-      <span>Low Interest Loans</span>
-    </div>
 
     <!-- Actions -->
     <div class="topbar-actions">
@@ -928,39 +619,35 @@ body{
         About Us
       </a>
 
-  <div class="topbar-right">
-    <a class="notify-wrap dot-only {% if notif_count|default:0|add:0 > 0 %}has-unread{% endif %}"
-      href="{% url 'notifications' %}"
-      aria-label="Notifications">
+      <a class="notify-wrap dot-only {% if notif_count|default:0|add:0 > 0 %}has-unread{% endif %}"
+        href="{% url 'notifications' %}"
+        aria-label="Notifications">
 
-      {% if notif_count|default:0|add:0 > 0 %}
-        <span class="notify-badge">
-          {% if notif_count > 99 %}99+{% else %}{{ notif_count }}{% endif %}
-        </span>
-      {% endif %}
+        {% if notif_count|default:0|add:0 > 0 %}
+          <span class="notify-badge">
+            {% if notif_count > 99 %}99+{% else %}{{ notif_count }}{% endif %}
+          </span>
+        {% endif %}
 
-      <label class="bell-container">
-        <input type="checkbox" {% if notif_count|default:0|add:0 > 0 %}checked{% endif %}>
-        <svg class="bell-regular" viewBox="0 0 24 24">
-          <path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2zm6-6V11a6 6 0 1 0-12 0v5L4 18v1h16v-1l-2-2z"/>
-        </svg>
-        <svg class="bell-solid" viewBox="0 0 24 24">
-          <path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2zm6-6V11a6 6 0 1 0-12 0v5L4 18v1h16v-1l-2-2z"/>
-        </svg>
-      </label>
-    </a>
-  </div><!-- topbar-right -->
-  </div><!-- topbar-actions -->
+        <label class="bell-container">
+          <input type="checkbox" {% if notif_count|default:0|add:0 > 0 %}checked{% endif %}>
+          <svg class="bell-regular" viewBox="0 0 24 24">
+            <path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2zm6-6V11a6 6 0 1 0-12 0v5L4 18v1h16v-1l-2-2z"/>
+          </svg>
+          <svg class="bell-solid" viewBox="0 0 24 24">
+            <path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2zm6-6V11a6 6 0 1 0-12 0v5L4 18v1h16v-1l-2-2z"/>
+          </svg>
+        </label>
+      </a>
+    </div><!-- topbar-actions -->
   </div><!-- topbar-strip -->
-
-</div><!-- topbar-inner -->
+  </div><!-- topbar-inner -->
 </div><!-- topbar -->
 
 <div class="dash-wrap">
   <!-- Profile card -->
-  <div class="cardx profile-card metal reveal from-left card-diamond">
+  <div class="cardx profile-card reveal from-left card-diamond">
 
-    <!-- Top: avatar + brand + member pill -->
     <div class="cd-top">
       <div class="cd-brand">
         <div class="avatar" aria-hidden="true">
@@ -970,24 +657,21 @@ body{
             <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.42 0-8 2-8 4.5V21h16v-2.5C20 16 16.42 14 12 14z"/></svg>
           {% endif %}
         </div>
-        <div>
-          <div class="cd-brand-name">Asiasource</div>
-          <div class="cd-brand-sub">Financial Inc.</div>
-        </div>
+        <div class="cd-brand-name">Welcome back,<br><span class="cd-hi">ILEND Member</span></div>
       </div>
-      <div class="pill ovelion">Member</div>
+      <div class="pill-member">
+        <svg viewBox="0 0 24 24"><path d="M5 16L3 6l5.5 4L12 4l3.5 6L21 6l-2 10H5zm0 2h14v2H5v-2z"/></svg>
+        Member
+      </div>
     </div>
 
-    <!-- Divider -->
     <div class="cd-divider"></div>
 
-    <!-- Account number row -->
     <div class="cd-acct-row">
       <span class="cd-acct-lbl">Account No.</span>
-      <span class="cd-acct-num ovelion">{{ request.user.phone }}</span>
+      <span class="cd-acct-num">{{ request.user.phone }}</span>
     </div>
 
-    <!-- Balance -->
     <div class="cd-balance-wrap">
       <div class="cd-balance-lbl">Available Balance</div>
       <div class="cd-balance-amount">
@@ -996,7 +680,6 @@ body{
       </div>
     </div>
 
-    <!-- Status badge -->
     <div class="cd-status-row">
       {% with color_key=request.user.account_status|default:"ACTIVE"|upper display_text=request.user.dashboard_status_label|default:request.user.account_status|default:"ACTIVE" %}
         <span id="accStatusBadge" class="status-badge
@@ -1007,25 +690,88 @@ body{
         </span>
       {% endwith %}
     </div>
-
   </div>
-<!-- ✅ Apply Now button (previously named Quick Loan) above Our Services -->
-  <a href="{% url 'quick_loan' %}" class="quick reveal from-left ovelion-head">
-    APPLY NOW
-    <span class="go" aria-hidden="true">
-      <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
-    </span>
-  </a>
-<!-- Security Trust Card -->
-<!-- SWAPPED: Loan Calculator now first -->
-  <div class="calc-card reveal from-left" style="margin-top:14px;">
+
+  <!-- Scrolling trust ticker -->
+  <div class="dash-ticker reveal from-bottom">
+    <div class="dash-ticker-track">
+      {% for i in "12" %}
+      <span class="dash-ticker-item"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>18+ Years Experience</span>
+      <span class="dash-ticker-item"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>50,000+ Happy Customers</span>
+      <span class="dash-ticker-item"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>Fast Approval in 24–48 Hours</span>
+      <span class="dash-ticker-item"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>Bank-level Security</span>
+      <span class="dash-ticker-item"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>SEC-Registered Lender</span>
+      <span class="dash-ticker-item"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>8AM–8PM Support</span>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Quick action grid -->
+  <div class="quick-grid">
+    <a href="{% url 'quick_loan' %}" class="quick-card reveal from-bottom">
+      <div class="quick-card-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg></div>
+      <h3>Apply Now</h3>
+      <p>Get started in minutes</p>
+      <span class="qc-arrow">→</span>
+      <div class="qc-watermark"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg></div>
+    </a>
+    <a href="{% url 'transactions' %}" class="quick-card reveal from-bottom">
+      <div class="quick-card-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></div>
+      <h3>My Transaction</h3>
+      <p>View your transaction history</p>
+      <span class="qc-arrow">→</span>
+      <div class="qc-watermark"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></div>
+    </a>
+    <a href="{% url 'payment_schedule' %}" class="quick-card reveal from-bottom">
+      <div class="quick-card-icon"><svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg></div>
+      <h3>Payment Date</h3>
+      <p>Check your repayment schedule</p>
+      <span class="qc-arrow">→</span>
+      <div class="qc-watermark"><svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg></div>
+    </a>
+    <a href="/loan-apply/" class="quick-card reveal from-bottom">
+      <div class="quick-card-icon"><svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>
+      <h3>Application</h3>
+      <p>Apply for a new loan</p>
+      <span class="qc-arrow">→</span>
+      <div class="qc-watermark"><svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>
+    </a>
+  </div>
+
+  <!-- Trust row -->
+  <div class="trust-row">
+    <div class="trust-cell reveal from-bottom">
+      <div class="trust-icon-badge"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1.4 14L7 11.4l1.4-1.4 2.2 2.2L15.6 7l1.4 1.4L10.6 15z"/></svg></div>
+      <span>Secure<span class="trust-cell-sub">Bank-level security</span></span>
+    </div>
+    <div class="trust-cell reveal from-bottom">
+      <div class="trust-icon-badge"><svg viewBox="0 0 24 24"><path d="M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h4c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"/></svg></div>
+      <span>8AM–8PM Support<span class="trust-cell-sub">We're here to help</span></span>
+    </div>
+    <div class="trust-cell reveal from-bottom">
+      <div class="trust-icon-badge"><svg viewBox="0 0 24 24"><path d="M23 12l-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.7l-3.61.81.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.81 1.89 3.2L12 21.04l3.4 1.46 1.89-3.2 3.61-.81-.34-3.69L23 12zM10 17l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></div>
+      <span>Trusted<span class="trust-cell-sub">Trusted by thousands</span></span>
+    </div>
+    <div class="trust-cell reveal from-bottom">
+      <div class="trust-icon-badge"><svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.66-.32-.51-.66.15-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C13.96 17.55 11 21 11 21z"/></svg></div>
+      <span>Fast Approval<span class="trust-cell-sub">Get approved quickly</span></span>
+    </div>
+  </div>
+
+  <!-- Loan Calculator -->
+  <div class="calc-card reveal from-left" id="calcCard" style="margin-top:14px;">
     <div class="calc-head">
-      <div class="calc-head-icon">
-        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+      <div class="calc-head-left">
+        <div class="calc-head-icon">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+        </div>
+        <div>
+          <div class="calc-head-title">Loan Calculator</div>
+          <div class="calc-head-sub">Estimate your monthly payment instantly</div>
+        </div>
       </div>
-      <div>
-        <div class="calc-head-title">Loan Calculator</div>
-        <div class="calc-head-sub">Estimate your monthly payment instantly</div>
+      <div class="calc-head-video">
+        <img src="{% static 'img/calculator-anim.svg' %}" alt="">
       </div>
     </div>
     <div class="calc-body">
@@ -1038,11 +784,11 @@ body{
       <label class="calc-label">Loan Amount (PHP)</label>
       <div class="calc-amount-wrap">
         <span class="calc-currency-badge">₱</span>
-        <input class="calc-amount-input" id="calcAmt" type="number" placeholder="e.g. 80,000" min="80000" max="5000000">
+        <input class="calc-amount-input" id="calcAmt" type="number" placeholder="e.g. 75,000" min="75000" max="2000000">
       </div>
-      <div id="calcWarn" style="display:none;align-items:center;gap:7px;background:#fff3cd;border:1.5px solid #ffc107;border-radius:10px;padding:9px 12px;margin-bottom:10px;margin-top:-6px;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#b45309" flex-shrink="0"><path d="M12 2L1 21h22L12 2zm0 3.5L20.5 19h-17L12 5.5zM11 10v4h2v-4zm0 6v2h2v-2z"/></svg>
-        <span id="calcWarnTxt" style="font-size:12px;font-weight:700;color:#92400e;font-family:'Poppins',sans-serif;"></span>
+      <div id="calcWarn" style="display:none;align-items:center;gap:7px;background:#FFF7E0;border:1.5px solid #D6A637;border-radius:10px;padding:9px 12px;margin-bottom:10px;margin-top:-6px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#9B6A16" flex-shrink="0"><path d="M12 2L1 21h22L12 2zm0 3.5L20.5 19h-17L12 5.5zM11 10v4h2v-4zm0 6v2h2v-2z"/></svg>
+        <span id="calcWarnTxt" style="font-size:12px;font-weight:700;color:#9B6A16;font-family:'Poppins',sans-serif;"></span>
       </div>
 
       <label class="calc-label">Loan Term</label>
@@ -1069,138 +815,43 @@ body{
       </div>
 
       <a href="/loan-apply/" class="calc-apply-btn" id="calcApplyBtn">
-        <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
-        Apply for a Loan
+        <span class="cab-icon-text">
+          <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+          Apply for a Loan
+        </span>
+        <svg class="cab-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
 
     </div>
   </div>
 
-<!-- SWAPPED: Our Services now second -->
-<div class="cardx reveal from-right" style="margin-top:14px;">
-  <div class="feat-slider-wrap">
-    <div class="feat-slider-header">
-      <span class="feat-slider-title">Our Services</span>
-      <span class="feat-slider-hint">Tap card for details →</span>
-    </div>
-
-    <div class="feat-track" id="featTrack">
-      <!-- Card 1 -->
-      <div class="feat-slide active-card" data-idx="0" onclick="showFeatDetail(0)">
-        <div class="feat-slide-top">
-          <svg viewBox="0 0 24 24" fill="none">
-            <rect x="3" y="11" width="18" height="11" rx="2" stroke="#1565C0" stroke-width="1.8" fill="none"/>
-            <path d="M7 11V7a5 5 0 0110 0v4" stroke="#1565C0" stroke-width="1.8" stroke-linecap="round"/>
-            <circle cx="12" cy="16" r="1.5" fill="#1565C0"/>
-          </svg>
-        </div>
-        <div class="feat-slide-body">
-          <div class="feat-slide-name">Data Encrypted</div>
-          <div class="feat-slide-sub">256-bit SSL</div>
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="feat-slide" data-idx="1" onclick="showFeatDetail(1)">
-        <div class="feat-slide-top">
-          <svg viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="9" stroke="#1565C0" stroke-width="1.8" fill="none"/>
-            <path d="M12 7v5l3 3" stroke="#1565C0" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="feat-slide-body">
-          <div class="feat-slide-name">Fast Approval</div>
-          <div class="feat-slide-sub">Within 24-48 hrs</div>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="feat-slide" data-idx="2" onclick="showFeatDetail(2)">
-        <div class="feat-slide-top">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V6L12 2z" stroke="#1565C0" stroke-width="1.8" fill="rgba(21,101,192,0.12)"/>
-            <path d="M9 12l2 2 4-4" stroke="#1565C0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="feat-slide-body">
-          <div class="feat-slide-name">SEC Licensed</div>
-          <div class="feat-slide-sub">Verified &amp; legal</div>
-        </div>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="feat-slide" data-idx="3" onclick="showFeatDetail(3)">
-        <div class="feat-slide-top">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#1565C0" stroke-width="1.8" stroke-linecap="round"/>
-            <circle cx="12" cy="7" r="4" stroke="#1565C0" stroke-width="1.8" fill="none"/>
-            <path d="M16 3.13a4 4 0 010 7.75" stroke="#1565C0" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="feat-slide-body">
-          <div class="feat-slide-name">24/7 Support</div>
-          <div class="feat-slide-sub">Always here</div>
-        </div>
-      </div>
-
-      <!-- Card 5 -->
-      <div class="feat-slide" data-idx="4" onclick="showFeatDetail(4)">
-        <div class="feat-slide-top">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6" stroke="#1565C0" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="feat-slide-body">
-          <div class="feat-slide-name">Low Interest</div>
-          <div class="feat-slide-sub">Best rates</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Dots -->
-    <div class="feat-dots" id="featDots">
-      <div class="feat-dot on"></div>
-      <div class="feat-dot"></div>
-      <div class="feat-dot"></div>
-      <div class="feat-dot"></div>
-      <div class="feat-dot"></div>
-    </div>
-
-    <!-- Detail Panel -->
-    <div class="feat-detail-panel open" id="featDetail">
-      <div class="feat-detail-inner" id="featDetailInner">
-        <div class="feat-detail-header">
-          <div class="feat-detail-icon">
-            <svg viewBox="0 0 24 24" fill="none" width="22" height="22">
-              <rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="1.8" fill="none"/>
-              <path d="M7 11V7a5 5 0 0110 0v4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="feat-detail-title">Data Encrypted</div>
-        </div>
-        <div class="feat-detail-desc">Your personal and financial data is fully protected with 256-bit SSL encryption — the same security standard used by major banks worldwide. All transactions are encrypted end-to-end.</div>
-      </div>
-    </div>
-  </div>
-</div>
-
+  <!-- CTA banner -->
+  <a href="{% url 'quick_loan' %}" class="dash-cta reveal from-right">
+    <img src="{% static 'img/dash-cta-bg.webp' %}?v=2" alt="Get the best loan — Quick approval, low rates and full security. Apply Now.">
+  </a>
 
 </div>
 
-<!-- ✅ Bottom nav (4 buttons: HOME / WALLET / CONTACT / PROFILE) -->
+<!-- Bottom nav: Home / My Loans / Apply (raised) / Payments / Profile -->
 <nav class="bottom-nav" role="navigation" aria-label="Bottom Navigation">
   <div class="nav-grid">
     <a class="nav-item" href="#top" data-nav="home" aria-label="Home">
       <svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
       Home
     </a>
-    <a class="nav-item" href="/wallet/" data-nav="wallet" aria-label="Wallet">
-      <svg viewBox="0 0 24 24"><path d="M4 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v2h-6a2 2 0 0 0 0 4h6v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/><path d="M20 11h-5a1 1 0 0 0 0 2h5z" opacity=".75"/></svg>
-      Wallet
+    <a class="nav-item" href="{% url 'payment_schedule' %}" data-nav="my-loans" aria-label="My Loans">
+      <svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
+      My Loans
     </a>
-    <a class="nav-item" href="{% url 'contact' %}" data-nav="contact" aria-label="Contact">
-      <svg viewBox="0 0 24 24"><path d="M4 4h16v12H7l-3 3z"/><path d="M7 8h10M7 11h7" stroke="#aaa" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
-      Contact
+    <a class="nav-item nav-fab" href="{% url 'quick_loan' %}" data-nav="apply" aria-label="Apply">
+      <span class="fab-circle">
+        <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"/></svg>
+      </span>
+      <span>Apply</span>
+    </a>
+    <a class="nav-item" href="{% url 'wallet' %}" data-nav="wallet" aria-label="My Wallet">
+      <svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+      My Wallet
     </a>
     <a class="nav-item" href="/profile/" data-nav="profile" aria-label="Profile">
       <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.42 0-8 2-8 4.5V21h16v-2.5C20 16 16.42 14 12 14z"/></svg>
@@ -1210,36 +861,70 @@ body{
 </nav>
 
 <script>
-/* ===== Reveal animation on load (swipe left/right) ===== */
+/* ===== Reveal animation, scroll-triggered =====
+   A plain "animate everything shortly after page load" timer looks like no
+   animation happened at all whenever the page (or this section) already
+   fits inside the viewport — the reveal finishes before the user's eye (or
+   a screenshot) gets there. Using IntersectionObserver instead means each
+   card only starts its reveal once it actually scrolls into view; elements
+   already visible on the very first check still get a floor delay so that
+   case reads as a deliberate reveal rather than an instant flash. */
 (function(){
   const nodes = Array.from(document.querySelectorAll('.reveal'));
   if(!nodes.length) return;
-  requestAnimationFrame(() => nodes.forEach((el, i) => setTimeout(() => el.classList.add('on'), 60 + i*70)));
+
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    nodes.forEach(el => el.classList.add('on'));
+    return;
+  }
+
+  let firstBatch = true;
+  const io = new IntersectionObserver((entries) => {
+    let i = 0;
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const delay = (firstBatch ? 500 : 0) + i * 70;
+      setTimeout(() => el.classList.add('on'), delay);
+      io.unobserve(el);
+      i++;
+    });
+    firstBatch = false;
+  }, { threshold: 0.15 });
+
+  nodes.forEach(el => io.observe(el));
 })();
 </script>
 
 <script>
-/* ===== Make video show/play from first load ===== */
+/* ===== Balance count-up on load ===== */
 (function(){
-  const v = document.getElementById('statusVideo');
-  if(!v) return;
+  const el = document.querySelector('.cd-balance-num[data-balance]');
+  if(!el) return;
 
-  const tryPlay = () => {
-    const p = v.play();
-    if(p && typeof p.catch === "function") p.catch(()=>{});
-  };
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const target = parseFloat((el.textContent || '0').replace(/,/g, '')) || 0;
 
-  if(document.readyState === "complete" || document.readyState === "interactive"){
-    setTimeout(tryPlay, 50);
-  }else{
-    document.addEventListener("DOMContentLoaded", () => setTimeout(tryPlay, 50));
+  function fmt(n){
+    return n.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
-  document.addEventListener("visibilitychange", () => {
-    if(!document.hidden) setTimeout(tryPlay, 50);
-  });
+  if (reduceMotion) { el.textContent = fmt(target); return; }
+
+  const duration = 1100;
+  const start = performance.now();
+  el.textContent = fmt(0);
+
+  function tick(now){
+    const t = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = fmt(target * eased);
+    if (t < 1) requestAnimationFrame(tick);
+    else el.textContent = fmt(target);
+  }
+  requestAnimationFrame(tick);
 })();
 </script>
-
 
 <script>
 /* ===== Bottom nav: active highlight only — always visible ===== */
@@ -1273,7 +958,7 @@ body{
   var warnTxt  = document.getElementById('calcWarnTxt');
   var applyBtn = document.getElementById('calcApplyBtn');
   var selMonths = 12;
-  var MIN = 80000, MAX = 5000000;
+  var MIN = 75000, MAX = 2000000;
 
   function fmt(n){
     return '₱ ' + n.toLocaleString('en-PH', {minimumFractionDigits:2, maximumFractionDigits:2});
@@ -1306,12 +991,12 @@ body{
       return;
     }
     if(P < MIN){
-      setWarn('Minimum loan amount is ₱80,000. Please enter a higher amount.');
+      setWarn('Minimum loan amount is ₱75,000. Please enter a higher amount.');
       monthly.textContent='₱ —'; total.textContent='₱ —'; interest.textContent='₱ —';
       return;
     }
     if(P > MAX){
-      setWarn('Maximum loan amount is ₱5,000,000. Please enter a lower amount.');
+      setWarn('Maximum loan amount is ₱2,000,000. Please enter a lower amount.');
       monthly.textContent='₱ —'; total.textContent='₱ —'; interest.textContent='₱ —';
       return;
     }
@@ -1345,158 +1030,71 @@ body{
   })();
 </script>
 <script>
-  /* ✅ Auto-clear dot/badge immediately when user opens notifications */
+  /* Hide the floating bottom nav while the on-screen keyboard is up.
+     Two layers, the way production mobile-web apps handle this:
+
+     1) focus/blur on form fields — fires the instant a field is tapped,
+        before the keyboard animation even starts, so the nav ducks away
+        with no visible lag.
+     2) window.visualViewport 'resize' — the actual web-platform signal for
+        "the keyboard opened/closed". This is the layer that matters: some
+        Android keyboards get dismissed via the back button or an autofill
+        panel without ever firing 'blur', so relying on focus/blur alone
+        leaves the nav stuck hidden (or lets it reappear under the keyboard)
+        in exactly the real-device cases the user is worried about. Tracking
+        the tallest viewport height seen and comparing against the current
+        one detects a keyboard-sized shrink regardless of why it happened. */
+  (function(){
+    const nav = document.querySelector('.bottom-nav');
+    if(!nav) return;
+
+    let hideTimer = null;
+    function hideNav(){
+      clearTimeout(hideTimer);
+      nav.classList.add('kb-hidden');
+    }
+    function showNavSoon(){
+      // Small delay so tabbing between two fields doesn't flash the nav
+      // back in and out between one field's blur and the next one's focus.
+      hideTimer = setTimeout(function(){ nav.classList.remove('kb-hidden'); }, 150);
+    }
+
+    document.querySelectorAll('input, textarea, select').forEach(function(el){
+      el.addEventListener('focus', hideNav);
+      el.addEventListener('blur', showNavSoon);
+    });
+
+    if (window.visualViewport) {
+      let maxHeight = window.visualViewport.height;
+      window.visualViewport.addEventListener('resize', function(){
+        const vh = window.visualViewport.height;
+        if (vh > maxHeight) maxHeight = vh;
+        const shrunkByKeyboard = (maxHeight - vh) > 120;
+        if (shrunkByKeyboard) hideNav();
+        else showNavSoon();
+      });
+    }
+  })();
+</script>
+<script>
+  /* Auto-clear dot/badge immediately when user opens notifications */
   (function(){
     const a = document.querySelector('.notify-wrap');
     if(!a) return;
-
     a.addEventListener('click', function(){
       a.classList.remove('has-unread');
       const b = a.querySelector('.notify-badge');
       if(b) b.style.display = 'none';
     }, {passive:true});
   })();
-  </script>
+</script>
 <script>
-  /* ===== STEP 2: Detect Android and add class ===== */
+  /* Detect Android and add class (disables backdrop-filter fallback path) */
   (function(){
     var ua = (navigator.userAgent || "").toLowerCase();
     if(ua.includes("android")){
       document.documentElement.classList.add("android-no-blur");
     }
   })();
-
-  </script>
-
-<script>
-/* ===== Topbar Welcome rotate ===== */
-(function(){
-  const track = document.getElementById("welcomeTrack");
-  const textEl = document.getElementById("welcomeText");
-  if(!track || !textEl) return;
-
-  const msgs = [
-    "Secure System • Trusted Service • 24/7 Support",
-    "Fast Approval • Simple Steps • Transparent Policy",
-    "Your data is protected • Verified process • Safe service"
-  ];
-
-  let i = 0;
-
-  function show(msg){
-    track.classList.remove("show");
-    setTimeout(() => {
-      textEl.textContent = msg;
-      track.classList.add("show");
-    }, 180);
-  }
-
-  show(msgs[0]);
-
-  setInterval(() => {
-    i = (i + 1) % msgs.length;
-    show(msgs[i]);
-  }, 4000);
-})();
-</script>
-
-<script>
-// Feature Slider
-var featData = [
-  {
-    title: 'Data Encrypted',
-    icon: '<rect x="3" y="11" width="18" height="11" rx="2" stroke="#fff" stroke-width="1.8" fill="none"/><path d="M7 11V7a5 5 0 0110 0v4" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>',
-    desc: 'Your personal and financial data is fully protected with 256-bit SSL encryption — the same security standard used by major banks worldwide. All transactions are encrypted end-to-end.'
-  },
-  {
-    title: 'Fast Approval',
-    icon: '<circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.8" fill="none"/><path d="M12 7v5l3 3" stroke="#fff" stroke-width="2" stroke-linecap="round"/>',
-    desc: 'Our streamlined digital process ensures your loan application is reviewed and approved within 24 to 48 hours. No lengthy paperwork — apply online and receive funds directly to your account.'
-  },
-  {
-    title: 'SEC Licensed',
-    icon: '<path d="M12 2L3 6v6c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V6L12 2z" stroke="#fff" stroke-width="1.8" fill="rgba(255,255,255,0.2)"/><path d="M9 12l2 2 4-4" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
-    desc: 'ASIASOURCE FINANCIAL INC. is officially registered with the Securities and Exchange Commission of the Philippines (SEC No. CS201412567) since August 8, 2014. Fully compliant and transparent.'
-  },
-  {
-    title: '24/7 Support',
-    icon: '<path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><circle cx="12" cy="7" r="4" stroke="#fff" stroke-width="1.8" fill="none"/>',
-    desc: 'Our customer support team is available 24 hours a day, 7 days a week to assist you with any questions, concerns, or issues regarding your loan application or account.'
-  },
-  {
-    title: 'Low Interest',
-    icon: '<path d="M12 2v20M17 5H9.5a3.5 3.5 0 100 7h5a3.5 3.5 0 110 7H6" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>',
-    desc: 'We offer highly competitive low-interest rates for personal and business loans ranging from ₱80,000 to ₱5,000,000. Flexible repayment terms with no hidden fees and transparent conditions.'
-  }
-];
-
-var currentFeat = 0;
-
-function showFeatDetail(idx) {
-  currentFeat = idx;
-  // Update active card
-  document.querySelectorAll('.feat-slide').forEach(function(el, i) {
-    el.classList.toggle('active-card', i === idx);
-  });
-  // Update dots
-  document.querySelectorAll('.feat-dot').forEach(function(el, i) {
-    el.classList.toggle('on', i === idx);
-  });
-  // Update detail panel
-  var d = featData[idx];
-  var inner = document.getElementById('featDetailInner');
-  inner.innerHTML =
-    '<div class="feat-detail-header">' +
-      '<div class="feat-detail-icon"><svg viewBox="0 0 24 24" fill="none" width="22" height="22">' + d.icon + '</svg></div>' +
-      '<div class="feat-detail-title">' + d.title + '</div>' +
-    '</div>' +
-    '<div class="feat-detail-desc">' + d.desc + '</div>';
-  var panel = document.getElementById('featDetail');
-  panel.classList.remove('open');
-  setTimeout(function(){ panel.classList.add('open'); }, 20);
-  // Scroll card into view
-  var cards = document.querySelectorAll('.feat-slide');
-  if(cards[idx]) cards[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-}
-
-// Click card to show detail
-function showFeatDetail(idx) {
-  currentFeat = idx;
-  document.querySelectorAll('.feat-slide').forEach(function(el, i) {
-    el.classList.toggle('active-card', i === idx);
-  });
-  document.querySelectorAll('.feat-dot').forEach(function(el, i) {
-    el.classList.toggle('on', i === idx);
-  });
-  var d = featData[idx];
-  var inner = document.getElementById('featDetailInner');
-  inner.innerHTML =
-    '<div class="feat-detail-header">' +
-      '<div class="feat-detail-icon"><svg viewBox="0 0 24 24" fill="none" width="22" height="22">' + d.icon + '</svg></div>' +
-      '<div class="feat-detail-title">' + d.title + '</div>' +
-    '</div>' +
-    '<div class="feat-detail-desc">' + d.desc + '</div>';
-  var panel = document.getElementById('featDetail');
-  panel.classList.remove('open');
-  setTimeout(function(){ panel.classList.add('open'); }, 20);
-}
-
-// Update dot on manual swipe (no auto-advance)
-var ft = document.getElementById('featTrack');
-if (ft) {
-  ft.addEventListener('scroll', function() {
-    var cardW = ft.querySelector('.feat-slide').offsetWidth + 10;
-    var idx = Math.min(Math.round(ft.scrollLeft / cardW), featData.length - 1);
-    if (idx !== currentFeat) {
-      currentFeat = idx;
-      document.querySelectorAll('.feat-dot').forEach(function(el, i) {
-        el.classList.toggle('on', i === idx);
-      });
-      document.querySelectorAll('.feat-slide').forEach(function(el, i) {
-        el.classList.toggle('active-card', i === idx);
-      });
-    }
-  }, { passive: true });
-}
 </script>
 {% endblock %}

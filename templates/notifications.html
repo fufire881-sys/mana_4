@@ -1,227 +1,263 @@
 {% extends "base.html" %}
-{% block title %}Notifications{% endblock %}
+{% block title %}Notifications — ILEND Lending Corp.{% endblock %}
 
 {% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-/* ===== GreenLeaf Design System — Notifications ===== */
+* { box-sizing:border-box; margin:0; padding:0; }
+body, body * { font-family: 'Poppins', sans-serif; }
 
-body{
+:root{
+  --color-bg: #FAF6EC;
+  --color-gold: #D6A637;
+  --color-gold-dark: #9B6A16;
+  --color-gold-light: #F7D77A;
+  --color-purple: #3B165F;
+  --color-purple-dark: #26103F;
+  --color-text: #221B2D;
+  --color-muted: #6D6474;
+  --border-gold: rgba(190, 140, 45, 0.45);
+  --shadow-soft: 0 10px 30px rgba(59, 22, 95, 0.08);
+  --shadow-gold: 0 10px 26px rgba(214, 166, 55, 0.30);
+  --ok: #2e9c53;
+  --danger: #dc2626;
+  --radius-lg: 22px;
+  --radius-md: 16px;
 }
+.serif{ font-family:'Playfair Display', serif !important; }
 
-/* ===== Page wrapper ===== */
-.dash-wrap{
-  width: min(520px, 94vw);
-  max-width: 520px;
-  margin: 0 auto;
-  padding: 80px 16px 100px;
-  box-sizing: border-box;
-}
+#pageRoot.wrap { max-width:100% !important; width:100% !important; padding:0 !important; }
+body { padding-bottom:40px !important; overflow-x:hidden !important; background: var(--color-bg) !important; }
 
-/* ===== Back button ===== */
-.back-btn{
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  padding: 0 18px;
-  border-radius: 999px;
-  background: rgba(124,179,66,.12);
-  color: #4a7a1e;
-  font-weight: 700;
-  font-size: 14px;
-  text-decoration: none;
-  border: 1px solid rgba(124,179,66,.3);
-  transition: background .18s ease, transform .14s ease;
+.notif-page{ max-width: 520px; margin: 0 auto; min-height: 100vh; padding: 16px 16px 40px; }
+
+@keyframes diamondShine{ 0%,55%{ transform: translateX(-120%); } 100%{ transform: translateX(120%); } }
+
+/* ===== Reveal on scroll ===== */
+.reveal{ opacity:0; transform: translateY(16px); will-change: transform, opacity; }
+.reveal.on{ opacity:1; transform: translateY(0); transition: opacity .5s ease, transform .5s ease; }
+
+/* ===== Header banner — same purple + gold + shine language as every
+   other page (About Us, Dashboard profile card), so this page doesn't
+   read as a plain utility screen bolted onto the rest of the brand ===== */
+.notif-header{
+  position: relative;
+  overflow: hidden;
   margin-bottom: 16px;
-  position: relative;
+  padding: 20px 20px 22px;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-gold);
+  color: #fff;
+  background: linear-gradient(120deg, var(--color-purple-dark), var(--color-purple));
+  box-shadow: var(--shadow-soft);
 }
-.back-btn:hover{ background: rgba(124,179,66,.20); transform: translateY(-1px); }
-.back-btn:active{ transform: translateY(0); opacity: .9; }
-
-@media (max-width:520px){
-  .back-btn{ height: 38px; padding: 0 16px; font-size: 13px; }
+.notif-header::before{
+  content:""; position:absolute; border-radius:50%; pointer-events:none;
+  width:150px; height:150px; top:-60px; right:-30px;
+  border:1px solid rgba(214,166,55,0.30);
 }
+.notif-header::after{
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.16) 50%, transparent 100%);
+  transform: translateX(-120%);
+  animation: diamondShine 4.5s ease-in-out infinite;
+  pointer-events:none;
+}
+.notif-header > *{ position: relative; z-index: 2; }
+.notif-top{ display: flex; align-items: center; gap: 12px; }
+.notif-back{
+  width: 40px; height: 40px; border-radius: 999px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.14); border: 1.5px solid var(--color-gold);
+  text-decoration: none;
+  transition: background .2s, transform .2s;
+}
+.notif-back:hover{ background: rgba(255,255,255,0.22); transform: translateY(-1px); }
+.notif-back svg{ width: 18px; height: 18px; fill: var(--color-gold-light); }
+.notif-heading h1{
+  font-family:'Playfair Display', serif !important;
+  font-size: 21px; font-weight: 800; color: var(--color-gold-light); line-height: 1.1;
+}
+.notif-heading p{ font-size: 12px; color: rgba(255,255,255,0.75); margin-top: 3px; }
+.notif-heading .cnt{ color: #fff; font-weight: 800; }
 
-/* ===== Main card ===== */
-.cardx{
+/* ===== Notification feed ===== */
+.notif-feed{ display: flex; flex-direction: column; gap: 12px; }
+
+.notif-card{
   position: relative;
-  background: #ffffff;
-  border-radius: 18px;
-  border: none;
-  border-top: 4px solid #7CB342;
-  box-shadow: 0 4px 20px rgba(74,122,30,.10);
+  display: flex; gap: 14px;
+  background: linear-gradient(160deg, #FFFDF6 0%, #FBF3DF 100%);
+  border: 1.5px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  padding: 16px 16px 16px 18px;
+  box-shadow: var(--shadow-soft);
   overflow: hidden;
-  padding: 20px;
-  color: #1a1a1a;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
+.notif-card:hover{ transform: translateY(-2px); box-shadow: var(--shadow-gold); }
+/* colored accent bar down the left edge — semantic (approved/action-needed),
+   kept as the one non-brand color since it carries real meaning */
+.notif-card::before{
+  content:""; position:absolute; top:0; left:0; bottom:0; width:5px;
+}
+.notif-card.success::before{ background: linear-gradient(180deg, #49c477, var(--ok)); }
+.notif-card.alert::before{ background: linear-gradient(180deg, #f87171, var(--danger)); }
 
-/* ===== Page title ===== */
-.notif-title{
-  color: #2d5a0e;
-  font-weight: 900;
-  font-size: 18px;
-  margin: 0 0 16px;
+/* circular status avatar, gold-ringed like every other avatar on the site */
+.notif-avatar{
+  width: 46px; height: 46px; border-radius: 999px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--color-gold);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.35), 0 3px 8px rgba(0,0,0,0.15);
 }
+.notif-card.success .notif-avatar{ background: linear-gradient(135deg, #49c477, var(--ok)); }
+.notif-card.alert .notif-avatar{ background: linear-gradient(135deg, #f87171, var(--danger)); }
+.notif-avatar svg{ width: 24px; height: 24px; fill: #fff; }
 
-/* ===== Muted text ===== */
-.muted{
-  color: #3d3d3d;
-  font-size: 13px;
-  line-height: 1.45;
+.notif-content{ flex: 1; min-width: 0; }
+.notif-row1{ display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 5px; }
+.notif-card-title{ font-family:'Playfair Display', serif !important; font-size: 15px; font-weight: 800; color: var(--color-purple); }
+.notif-pill{
+  font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px;
+  padding: 3px 9px; border-radius: 999px; flex-shrink: 0; white-space: nowrap;
+  border: 1px solid;
 }
-
-/* ===== Message boxes ===== */
-.msg-box{
-  background: #f8fdf4;
-  border-radius: 12px;
-  border-left: 4px solid #c8ddb0;
-  padding: 14px;
-  margin-bottom: 10px;
-  margin-top: 0;
-  position: relative;
-  color: #1a1a1a;
-  box-shadow: none;
+.notif-card.success .notif-pill{ background: rgba(46,156,83,0.12); color: var(--ok); border-color: rgba(46,156,83,0.35); }
+.notif-card.alert .notif-pill{ background: rgba(220,38,38,0.10); color: var(--danger); border-color: rgba(220,38,38,0.30); }
+.notif-msg{ font-size: 13px; color: var(--color-text); line-height: 1.55; word-break: break-word; }
+.notif-meta{
+  margin-top: 9px; padding-top: 9px; border-top: 1px dashed var(--border-gold);
+  display: flex; align-items: center; gap: 5px;
+  font-size: 11px; color: var(--color-muted); font-weight: 600;
 }
-
-.msg-box.success{
-  border-left-color: #7CB342;
-  background: #f1f8e9;
-}
-
-.msg-box.info{
-  border-left-color: #7CB342;
-  background: #f1f8e9;
-}
-
-.msg-box.danger{
-  border-left-color: #e53935;
-  background: #ffebee;
-  color: #c62828;
-}
-
-/* ===== Message icon ===== */
-.msg-ico{
-  width: 32px;
-  height: 32px;
-  border-radius: 999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  float: left;
-  margin-right: 12px;
-  margin-top: 2px;
-  flex-shrink: 0;
-  background: rgba(124,179,66,.15);
-  border: 1px solid rgba(124,179,66,.25);
-}
-.msg-box.danger .msg-ico{
-  background: rgba(229,57,53,.12);
-  border-color: rgba(229,57,53,.25);
-}
-.msg-ico svg{ width: 16px; height: 16px; }
-.msg-box.danger .msg-ico svg{ fill: #e53935; }
-.msg-box:not(.danger) .msg-ico svg{ fill: #4a7a1e; }
-
-/* ===== Message body ===== */
-.msg-body{
-  text-align: left;
-  padding: 0;
-  overflow: hidden;
-}
-.msg-head{
-  font-weight: 800;
-  font-size: 15px;
-  color: #2d5a0e;
-  letter-spacing: .01em;
-  margin: 0 0 4px;
-  text-align: left;
-}
-.msg-box.danger .msg-head{
-  color: #c62828;
-}
-
-.msg-text{
-  margin: 0;
-  white-space: normal;
-  word-break: break-word;
-  line-height: 1.45;
-  text-align: left;
-  padding: 0;
-  color: #3d3d3d;
-  font-size: 13px;
-}
-.msg-box.danger .msg-text{
-  color: #b71c1c;
-}
-
-.msg-meta{
-  margin-top: 8px;
-  font-size: 11px;
-  color: #8a9a7a;
-  text-align: left;
-}
-.msg-box.danger .msg-meta{
-  color: #c17070;
-}
+.notif-meta svg{ width: 12px; height: 12px; fill: var(--color-gold-dark); }
 
 /* ===== Empty state ===== */
-.empty-note{
-  margin-top: 14px;
-  padding: 40px 20px;
-  border-radius: 12px;
-  background: transparent;
-  border: none;
-  color: #8a9a7a;
-  text-align: center;
-  font-size: 14px;
+.notif-empty{
+  text-align: center; padding: 48px 24px;
+  background: #fff;
+  border: 2px solid var(--color-gold);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+.notif-empty-icon{
+  width: 76px; height: 76px; border-radius: 999px; margin: 0 auto 16px;
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(circle at 35% 30%, #5B2A8A 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
+  border: 2px solid var(--color-gold);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.35);
+}
+.notif-empty-icon svg{ width: 34px; height: 34px; fill: var(--color-gold-light); }
+.notif-empty h3{ font-family:'Playfair Display', serif !important; font-size: 18px; font-weight: 800; color: var(--color-purple); margin-bottom: 6px; }
+.notif-empty p{ font-size: 12.5px; color: var(--color-muted); line-height: 1.6; }
+.notif-empty .ne-divider{ width: 40px; height: 2px; margin: 14px auto; background: linear-gradient(90deg, transparent, var(--color-gold), transparent); }
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity:1 !important; transform:none !important; }
+  .notif-header::after{ animation: none !important; }
 }
 </style>
 
-<div class="dash-wrap">
-  <div class="cardx">
+<div class="notif-page">
 
-    {% if items %}
-      {% for n in items %}
-        {% if n.kind == "success" %}
-          <div class="msg-box success">
-            <div class="msg-body">
-              <div class="msg-head">{{ n.title }}</div>
-              <div class="muted msg-text">{{ n.msg }}</div>
-              {% if n.at %}
-                <div class="muted msg-meta">Updated: {{ n.at }}</div>
-              {% endif %}
-            </div>
-          </div>
+  <!-- Header banner -->
+  <div class="notif-header reveal">
+    <div class="notif-top">
+      <a class="notif-back" href="{% url 'dashboard' %}" aria-label="Back">
+        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"/></svg>
+      </a>
+      <div class="notif-heading">
+        <h1>Notifications</h1>
+        {% if items %}
+          <p><span class="cnt">{{ items|length }}</span> message{{ items|length|pluralize }} for you</p>
         {% else %}
-          <div class="msg-box danger">
-            <div class="msg-ico" aria-hidden="true">
-              <svg viewBox="0 0 24 24">
-                <path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V9h2v4z"/>
-              </svg>
-            </div>
-
-            <div class="msg-body">
-              <div class="msg-head">{{ n.title }}</div>
-              <div class="muted msg-text">{{ n.msg }}</div>
-              {% if n.at %}
-                <div class="muted msg-meta">Updated: {{ n.at }}</div>
-              {% endif %}
-            </div>
-          </div>
+          <p>You're all caught up</p>
         {% endif %}
-      {% endfor %}
-    {% else %}
-      <div class="empty-note">
-        <div class="muted" style="font-weight:900; color:#2d5a0e;">No notifications</div>
-        <div class="muted" style="margin-top:4px;">You don't have any new messages right now.</div>
       </div>
-    {% endif %}
-
+    </div>
   </div>
 
-  <div class="top-actions">
-    <a class="back-btn" href="{% url 'dashboard' %}">Back</a>
+  {% if items %}
+  <div class="notif-feed">
+    {% for n in items %}
+      {% if n.kind == "success" %}
+      <div class="notif-card success reveal">
+        <div class="notif-avatar">
+          <svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
+        </div>
+        <div class="notif-content">
+          <div class="notif-row1">
+            <span class="notif-card-title">{{ n.title }}</span>
+            <span class="notif-pill">Approved</span>
+          </div>
+          <div class="notif-msg">{{ n.msg }}</div>
+          {% if n.at %}
+          <div class="notif-meta">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 11h-4v-2h2V7h2v6z"/></svg>
+            {{ n.at }}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% else %}
+      <div class="notif-card alert reveal">
+        <div class="notif-avatar">
+          <svg viewBox="0 0 24 24"><path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V9h2v4z"/></svg>
+        </div>
+        <div class="notif-content">
+          <div class="notif-row1">
+            <span class="notif-card-title">{{ n.title }}</span>
+            <span class="notif-pill">Action Needed</span>
+          </div>
+          <div class="notif-msg">{{ n.msg }}</div>
+          {% if n.at %}
+          <div class="notif-meta">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 11h-4v-2h2V7h2v6z"/></svg>
+            {{ n.at }}
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+    {% endfor %}
   </div>
-  <div class="top-actions-line"></div>
+  {% else %}
+  <div class="notif-empty reveal">
+    <div class="notif-empty-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2zm6-6V11a6 6 0 1 0-12 0v5L4 18v1h16v-1l-2-2z"/></svg>
+    </div>
+    <h3 class="serif">No notifications</h3>
+    <div class="ne-divider"></div>
+    <p>You don't have any new messages right now.<br>We'll let you know when something arrives.</p>
+  </div>
+  {% endif %}
+
 </div>
+
+<script>
+/* Scroll-triggered reveal, staggered — matches the dashboard/about pages. */
+(function(){
+  const nodes = Array.from(document.querySelectorAll('.reveal'));
+  if(!nodes.length) return;
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    nodes.forEach(el => el.classList.add('on'));
+    return;
+  }
+  let firstBatch = true;
+  const io = new IntersectionObserver((entries) => {
+    let i = 0;
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      setTimeout(() => el.classList.add('on'), (firstBatch ? 250 : 0) + i * 90);
+      io.unobserve(el);
+      i++;
+    });
+    firstBatch = false;
+  }, { threshold: 0.12 });
+  nodes.forEach(el => io.observe(el));
+})();
+</script>
 {% endblock %}

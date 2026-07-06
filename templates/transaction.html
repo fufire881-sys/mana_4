@@ -1,13 +1,35 @@
 {% extends "base.html" %}
-{% block title %}Transactions{% endblock %}
+{% block title %}Transactions — ILEND Lending Corp.{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body, body * { font-family: 'Poppins', sans-serif !important; }
-body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%) !important; }
+
+:root{
+  --color-bg: #FAF6EC;
+  --color-gold: #D6A637;
+  --color-gold-dark: #9B6A16;
+  --color-gold-light: #F7D77A;
+  --color-purple: #3B165F;
+  --color-purple-dark: #26103F;
+  --color-text: #221B2D;
+  --color-muted: #6D6474;
+  --border-gold: rgba(190, 140, 45, 0.45);
+  --shadow-soft: 0 10px 30px rgba(59, 22, 95, 0.08);
+  --shadow-gold: 0 10px 26px rgba(214, 166, 55, 0.30);
+  --ok: #2e9c53;
+  --danger: #dc2626;
+  --radius-lg: 22px;
+  --radius-md: 16px;
+}
+.serif{ font-family:'Playfair Display', serif !important; }
+
+body { background: var(--color-bg) !important; }
 .wrap { align-items: flex-start !important; padding-top: 0 !important; }
+
+@keyframes diamondShine{ 0%,55%{ transform: translateX(-120%); } 100%{ transform: translateX(120%); } }
 
 .tx-page {
   width: min(520px, 100vw);
@@ -16,140 +38,121 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
   padding-bottom: 40px;
 }
 
+/* ── Reveal on scroll ── */
+.reveal{ opacity:0; transform: translateY(16px); will-change: transform, opacity; }
+.reveal.on{ opacity:1; transform: translateY(0); transition: opacity .5s ease, transform .5s ease; }
+
 /* ── Header ── */
 .tx-header {
-  background: linear-gradient(160deg, #0d2d6e 0%, #1565C0 40%, #1a5c2a 75%, #2d6b0a 100%);
-  padding: 52px 24px 36px;
-  position: relative;
-  overflow: hidden;
-
+  position: relative; overflow: hidden;
   margin: 16px 16px 0;
-  border-radius: 20px;
+  padding: 52px 24px 30px;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-gold);
+  background: linear-gradient(120deg, var(--color-purple-dark), var(--color-purple));
+  box-shadow: var(--shadow-soft);
 }
-.tx-header .hbg1 {
-  position: absolute; border-radius: 50%;
-  background: rgba(255,255,255,0.05);
-  width: 200px; height: 200px; top: -70px; right: -50px; pointer-events: none;
+.tx-header::before{
+  content:""; position:absolute; border-radius:50%; pointer-events:none;
+  width:190px; height:190px; top:-70px; right:-40px;
+  border:1px solid rgba(214,166,55,0.30);
 }
-.tx-header .hbg2 {
-  position: absolute; border-radius: 50%;
-  background: rgba(255,255,255,0.04);
-  width: 120px; height: 120px; bottom: -30px; left: -20px; pointer-events: none;
+.tx-header::after{
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.16) 50%, transparent 100%);
+  transform: translateX(-120%);
+  animation: diamondShine 4.5s ease-in-out infinite;
+  pointer-events:none;
 }
+.tx-header > *{ position: relative; z-index: 2; }
 
 .tx-back {
-  position: absolute; top: 16px; left: 16px;
-  display: inline-flex; align-items: center; gap: 4px;
-  color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 600;
-  text-decoration: none; z-index: 2;
+  position: absolute; top: 16px; left: 16px; z-index: 3;
+  display: inline-flex; align-items: center; gap: 5px;
+  color: var(--color-gold-light); font-size: 13px; font-weight: 700;
+  text-decoration: none;
 }
-.tx-back svg { width: 16px; height: 16px; fill: rgba(255,255,255,0.85); }
+.tx-back svg { width: 16px; height: 16px; fill: var(--color-gold-light); }
 
 .tx-header-icon {
-  width: 52px; height: 52px;
-  background: rgba(255,255,255,0.15);
-  border-radius: 14px;
+  width: 54px; height: 54px; flex-shrink: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--color-gold-light) 0%, var(--color-gold) 55%, var(--color-gold-dark) 100%);
+  border: 2px solid var(--color-gold-light);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.40), inset 0 -3px 6px rgba(0,0,0,0.25), 0 3px 8px rgba(0,0,0,0.25);
   display: flex; align-items: center; justify-content: center;
-  margin-bottom: 12px;
-  position: relative; z-index: 1;
+  margin-bottom: 14px;
 }
-.tx-header-icon svg { width: 26px; height: 26px; fill: #fff; }
+.tx-header-icon svg { width: 26px; height: 26px; fill: var(--color-purple-dark); }
 
-.tx-header h1 {
-  font-size: 22px; font-weight: 800;
-  color: #fff; margin-bottom: 4px;
-  position: relative; z-index: 1;
-}
-.tx-header p {
-  font-size: 12px; color: rgba(255,255,255,0.7);
-  font-weight: 400;
-  position: relative; z-index: 1;
-}
+.tx-header h1 { font-family:'Playfair Display', serif !important; font-size: 21px; font-weight: 800; color: #fff; margin-bottom: 5px; }
+.tx-header p { font-size: 12.5px; color: rgba(255,255,255,0.75); }
 
 /* ── Balance pill ── */
 .tx-balance-pill {
-  display: inline-flex; align-items: center; gap: 6px;
+  display: inline-flex; align-items: center; gap: 8px;
   margin-top: 14px;
-  background: rgba(255,255,255,0.18);
-  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(214,166,55,0.16);
+  border: 1px solid var(--color-gold);
   border-radius: 999px;
-  padding: 7px 16px;
-  position: relative; z-index: 1;
+  padding: 6px 14px;
 }
-.tx-balance-pill span { font-size: 13px; font-weight: 700; color: #fff; }
-.tx-balance-pill .bal-label { font-size: 11px; color: rgba(255,255,255,0.7); font-weight: 500; }
+.tx-balance-pill span { font-size: 13px; font-weight: 800; color: var(--color-gold-light); }
+.tx-balance-pill .bal-label { font-size: 11px; color: rgba(255,255,255,0.65); font-weight: 600; }
 
 /* ── Body ── */
 .tx-body { padding: 16px 16px 0; }
 
-/* ── Section header ── */
 .tx-section-label {
-  font-size: 11px; font-weight: 700; color: #888;
+  font-size: 11px; font-weight: 800; color: var(--color-gold-dark);
   text-transform: uppercase; letter-spacing: 0.8px;
   margin-bottom: 10px;
 }
 
-/* ── Transaction card ── */
+/* ── Timeline card — replaces the flat divided-row list with a connected
+   activity feed (colored node + line running down between entries), so
+   this reads as a genuinely different structure, not a re-skinned list. ── */
 .tx-card {
   background: #fff;
-  border-radius: 20px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-  overflow: hidden;
+  border: 1.5px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 18px 18px 4px;
   margin-bottom: 16px;
 }
 
-/* ── Transaction row ── */
-.tx-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  border-bottom: 1px solid #f5f5f5;
-  transition: background 0.15s;
-}
-.tx-row:last-child { border-bottom: none; }
-.tx-row:active { background: #fafafa; }
-
-/* Icon bubble */
-.tx-icon-bubble {
-  width: 42px; height: 42px; flex-shrink: 0;
-  border-radius: 12px;
+.tx-node{ display: flex; gap: 14px; }
+.tx-node-track{ display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+.tx-dot{
+  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
+  border: 2px solid #fff;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
 }
-.tx-icon-bubble.sent     { background: #fff8f8; }
-.tx-icon-bubble.rejected { background: #fff8f8; }
-.tx-icon-bubble svg { width: 20px; height: 20px; }
-.tx-icon-bubble.sent svg     { fill: #e53935; }
-.tx-icon-bubble.rejected svg { fill: #e53935; }
+.tx-dot.sent{ background: linear-gradient(135deg, #49c477, var(--ok)); }
+.tx-dot.rejected{ background: linear-gradient(135deg, #f87171, var(--danger)); }
+.tx-dot svg{ width: 18px; height: 18px; fill: #fff; }
+.tx-node-line{ width: 3px; flex: 1; min-height: 24px; border-radius: 999px; margin: 4px 0; }
+.tx-node-line.sent{ background: linear-gradient(180deg, var(--ok), transparent); }
+.tx-node-line.rejected{ background: linear-gradient(180deg, var(--danger), transparent); }
 
-/* Text */
-.tx-row-info { flex: 1; min-width: 0; }
-.tx-row-label {
-  font-size: 13px; font-weight: 700; color: #1a1a1a;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.tx-row-date {
-  font-size: 11px; color: #aaa; font-weight: 500;
-  margin-top: 2px;
-}
-
-/* Right side */
-.tx-row-right { text-align: right; flex-shrink: 0; }
-.tx-amount {
-  font-size: 14px; font-weight: 800;
-}
-.tx-amount.negative { color: #e53935; }
+.tx-node-body{ flex: 1; min-width: 0; padding-bottom: 18px; }
+.tx-node-top{ display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.tx-node-label{ font-size: 13.5px; font-weight: 800; color: var(--color-text); }
+.tx-node-date{ font-size: 11px; color: var(--color-muted); font-weight: 500; margin-top: 2px; }
+.tx-node-amount{ font-size: 14px; font-weight: 800; margin-top: 6px; font-variant-numeric: tabular-nums; }
+.tx-node-amount.negative{ color: var(--danger); }
 
 /* Status pill */
 .tx-pill {
   display: inline-block;
-  margin-top: 3px;
-  padding: 3px 9px;
+  padding: 3px 10px;
   border-radius: 999px;
-  font-size: 10px; font-weight: 700;
+  font-size: 10px; font-weight: 800;
+  flex-shrink: 0; white-space: nowrap;
 }
-.tx-pill.sent     { background: #f1f8e9; color: #2e7d32; border: 1px solid rgba(46,125,50,.25); }
-.tx-pill.rejected { background: #ffebee; color: #c62828; border: 1px solid rgba(198,40,40,.25); }
+.tx-pill.sent     { background: rgba(46,156,83,0.12); color: var(--ok); border: 1px solid rgba(46,156,83,0.35); }
+.tx-pill.rejected { background: rgba(220,38,38,0.10); color: var(--danger); border: 1px solid rgba(220,38,38,0.30); }
 
 /* ── Empty state ── */
 .tx-empty {
@@ -157,15 +160,16 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
   text-align: center;
 }
 .tx-empty-icon {
-  width: 64px; height: 64px;
-  background: #f5f5f5;
-  border-radius: 20px;
+  width: 72px; height: 72px; margin: 0 auto 16px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 35% 30%, #5B2A8A 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
+  border: 2px solid var(--color-gold);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.35);
   display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 14px;
 }
-.tx-empty-icon svg { width: 30px; height: 30px; fill: #ccc; }
-.tx-empty-title { font-size: 14px; font-weight: 700; color: #999; margin-bottom: 4px; }
-.tx-empty-sub   { font-size: 12px; color: #bbb; }
+.tx-empty-icon svg { width: 32px; height: 32px; fill: var(--color-gold-light); }
+.tx-empty-title { font-family:'Playfair Display', serif !important; font-size: 16px; font-weight: 800; color: var(--color-purple); margin-bottom: 6px; }
+.tx-empty-sub   { font-size: 12.5px; color: var(--color-muted); }
 
 /* ── Actions ── */
 .tx-actions {
@@ -174,24 +178,35 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
 }
 .tx-btn {
   flex: 1; padding: 14px;
-  border-radius: 14px; font-size: 14px; font-weight: 700;
+  border-radius: 999px; font-size: 14px; font-weight: 700;
   text-decoration: none; text-align: center;
-  cursor: pointer; border: none;
-  transition: transform 0.15s, opacity 0.15s;
+  cursor: pointer; border: 1.5px solid var(--border-gold);
+  transition: transform 0.15s, opacity 0.15s, box-shadow .15s;
   font-family: 'Poppins', sans-serif;
 }
 .tx-btn:active { transform: scale(0.98); }
-.tx-btn-ghost   { background: #fff; color: #4a7a1e; border: 1.5px solid #c8ddb0; }
-.tx-btn-primary { background: linear-gradient(135deg, #2d6b0a, #5d9e28); color: #fff; box-shadow: 0 4px 16px rgba(45,107,10,0.28); }
+.tx-btn-ghost   { background: #fff; color: var(--color-purple); }
+.tx-btn-ghost:hover{ background: #FFFDF6; }
+.tx-btn-primary {
+  background:
+    linear-gradient(var(--color-purple), var(--color-purple)) padding-box,
+    linear-gradient(120deg, var(--color-gold-dark), var(--color-gold-light) 45%, var(--color-gold-dark) 100%) border-box;
+  border: 3px solid transparent;
+  color: var(--color-gold-light);
+  box-shadow: var(--shadow-gold);
+}
+.tx-btn-primary:hover{ box-shadow: 0 14px 30px rgba(59,22,95,0.36); }
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity:1 !important; transform:none !important; }
+  .tx-header::after{ animation: none !important; }
+}
 </style>
 
 <div class="tx-page">
 
   <!-- Header -->
-  <div class="tx-header">
-    <div class="hbg1"></div>
-    <div class="hbg2"></div>
-
+  <div class="tx-header reveal">
     <a href="/profile/" class="tx-back">
       <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"/></svg>
       Back
@@ -214,27 +229,32 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
 
     <div class="tx-section-label" style="margin-top:4px;">Recent Activity</div>
 
-    <div class="tx-card">
+    <div class="tx-card reveal">
       {% for w in withdrawals %}
-        <div class="tx-row">
-          <div class="tx-icon-bubble {% if w.status == 'paid' %}sent{% else %}rejected{% endif %}">
-            {% if w.status == "paid" %}
-              <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
-            {% else %}
-              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+        <div class="tx-node">
+          <div class="tx-node-track">
+            <div class="tx-dot {% if w.status == 'paid' %}sent{% else %}rejected{% endif %}">
+              {% if w.status == "paid" %}
+                <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+              {% else %}
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+              {% endif %}
+            </div>
+            {% if not forloop.last %}
+              <div class="tx-node-line {% if w.status == 'paid' %}sent{% else %}rejected{% endif %}"></div>
             {% endif %}
           </div>
-          <div class="tx-row-info">
-            <div class="tx-row-label">
-              {% if w.status == "paid" %}Payment Sent{% else %}Payment Rejected{% endif %}
+          <div class="tx-node-body">
+            <div class="tx-node-top">
+              <span class="tx-node-label">
+                {% if w.status == "paid" %}Payment Sent{% else %}Payment Rejected{% endif %}
+              </span>
+              <span class="tx-pill {% if w.status == 'paid' %}sent{% else %}rejected{% endif %}">
+                {% if w.status == "paid" %}Sent{% else %}Rejected{% endif %}
+              </span>
             </div>
-            <div class="tx-row-date">{{ w.created_at|date:"M d, Y · g:i A" }}</div>
-          </div>
-          <div class="tx-row-right">
-            <div class="tx-amount negative">- PHP {{ w.amount }} {{ w.currency }}</div>
-            <div class="tx-pill {% if w.status == 'paid' %}sent{% else %}rejected{% endif %}">
-              {% if w.status == "paid" %}Sent{% else %}Rejected{% endif %}
-            </div>
+            <div class="tx-node-date">{{ w.created_at|date:"M d, Y · g:i A" }}</div>
+            <div class="tx-node-amount negative">- PHP {{ w.amount }} {{ w.currency }}</div>
           </div>
         </div>
       {% empty %}
@@ -242,7 +262,7 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
           <div class="tx-empty-icon">
             <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm0-12l-8 5-8-5V6h16v.01z"/></svg>
           </div>
-          <div class="tx-empty-title">No transactions yet</div>
+          <div class="tx-empty-title serif">No transactions yet</div>
           <div class="tx-empty-sub">Your payment history will appear here</div>
         </div>
       {% endfor %}
@@ -256,4 +276,30 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
 
   </div>
 </div>
+
+<script>
+/* Scroll-triggered reveal, matching the rest of the redesigned pages. */
+(function(){
+  const nodes = Array.from(document.querySelectorAll('.reveal'));
+  if(!nodes.length) return;
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    nodes.forEach(el => el.classList.add('on'));
+    return;
+  }
+  let firstBatch = true;
+  const io = new IntersectionObserver((entries) => {
+    let i = 0;
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      setTimeout(() => el.classList.add('on'), (firstBatch ? 250 : 0) + i * 90);
+      io.unobserve(el);
+      i++;
+    });
+    firstBatch = false;
+  }, { threshold: 0.1 });
+  nodes.forEach(el => io.observe(el));
+})();
+</script>
 {% endblock %}

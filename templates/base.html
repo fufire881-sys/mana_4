@@ -472,6 +472,11 @@ function flowBack() {
     if (target && target !== '_self') return;
     if (href.startsWith('#') || href.startsWith('javascript:')) return;
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    // Pages that opt into the native cross-document View Transition (e.g.
+    // login <-> register) navigate immediately instead of going through this
+    // fade, so the browser's own transition drives the swap without a
+    // redundant double-fade on top of it.
+    if (a.hasAttribute('data-native-nav')) return;
 
     e.preventDefault();
     saveScroll();

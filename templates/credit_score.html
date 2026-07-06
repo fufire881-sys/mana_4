@@ -1,13 +1,33 @@
 {% extends "base.html" %}
-{% block title %}Credit Score{% endblock %}
+{% block title %}Credit Score — ILEND Lending Corp.{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body, body * { font-family: 'Poppins', sans-serif !important; }
-body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%) !important; }
+
+:root{
+  --color-bg: #FAF6EC;
+  --color-gold: #D6A637;
+  --color-gold-dark: #9B6A16;
+  --color-gold-light: #F7D77A;
+  --color-purple: #3B165F;
+  --color-purple-dark: #26103F;
+  --color-text: #221B2D;
+  --color-muted: #6D6474;
+  --border-gold: rgba(190, 140, 45, 0.45);
+  --shadow-soft: 0 10px 30px rgba(59, 22, 95, 0.08);
+  --shadow-gold: 0 10px 26px rgba(214, 166, 55, 0.30);
+  --radius-lg: 22px;
+  --radius-md: 16px;
+}
+.serif{ font-family:'Playfair Display', serif !important; }
+
+body { background: var(--color-bg) !important; }
 .wrap { align-items: flex-start !important; padding-top: 0 !important; }
+
+@keyframes diamondShine{ 0%,55%{ transform: translateX(-120%); } 100%{ transform: translateX(120%); } }
 
 .cs-page {
   width: min(520px, 100vw);
@@ -16,41 +36,48 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
   padding-bottom: 40px;
 }
 
-/* ── Header ── */
-.cs-header {
-  background: linear-gradient(160deg, #0d2d6e 0%, #1565C0 40%, #1a5c2a 75%, #2d6b0a 100%);
-  padding: 52px 24px 40px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
+/* ── Reveal on scroll ── */
+.reveal{ opacity:0; transform: translateY(16px); will-change: transform, opacity; }
+.reveal.on{ opacity:1; transform: translateY(0); transition: opacity .5s ease, transform .5s ease; }
 
+/* ── Header with gauge ── */
+.cs-header {
+  position: relative; overflow: hidden;
+  text-align: center;
+  padding: 52px 24px 46px;
   margin: 16px 16px 0;
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-gold);
+  background: linear-gradient(120deg, var(--color-purple-dark), var(--color-purple));
+  box-shadow: var(--shadow-soft);
 }
-.cs-header .hbg1 {
-  position: absolute; border-radius: 50%;
-  background: rgba(255,255,255,0.05);
-  width: 220px; height: 220px; top: -80px; right: -60px; pointer-events: none;
+.cs-header::before{
+  content:""; position:absolute; border-radius:50%; pointer-events:none;
+  width:190px; height:190px; top:-70px; right:-40px;
+  border:1px solid rgba(214,166,55,0.30);
 }
-.cs-header .hbg2 {
-  position: absolute; border-radius: 50%;
-  background: rgba(255,255,255,0.04);
-  width: 130px; height: 130px; bottom: -40px; left: -20px; pointer-events: none;
+.cs-header::after{
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.16) 50%, transparent 100%);
+  transform: translateX(-120%);
+  animation: diamondShine 4.5s ease-in-out infinite;
+  pointer-events:none;
 }
+.cs-header > *{ position: relative; z-index: 2; }
 
 .cs-back {
-  position: absolute; top: 16px; left: 16px;
-  display: inline-flex; align-items: center; gap: 4px;
-  color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 600;
-  text-decoration: none; z-index: 2;
+  position: absolute; top: 16px; left: 16px; z-index: 3;
+  display: inline-flex; align-items: center; gap: 5px;
+  color: var(--color-gold-light); font-size: 13px; font-weight: 700;
+  text-decoration: none;
 }
-.cs-back svg { width: 16px; height: 16px; fill: rgba(255,255,255,0.85); }
+.cs-back svg { width: 16px; height: 16px; fill: var(--color-gold-light); }
 
 .cs-head-title {
-  font-size: 14px; font-weight: 600;
-  color: rgba(255,255,255,0.7);
-  text-transform: uppercase; letter-spacing: 1px;
-  margin-bottom: 24px; position: relative; z-index: 1;
+  font-size: 12.5px; font-weight: 800;
+  color: var(--color-gold-light);
+  text-transform: uppercase; letter-spacing: 1.5px;
+  margin-bottom: 24px;
 }
 
 /* ── Gauge ── */
@@ -58,102 +85,134 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
   position: relative;
   width: 240px; height: 160px;
   margin: 0 auto 10px;
-  z-index: 1;
 }
 .cs-gauge-svg { width: 100%; height: 100%; overflow: visible; }
-.cs-gauge-bg  { fill: none; stroke: rgba(255,255,255,0.12); stroke-width: 20; stroke-linecap: round; }
+.cs-gauge-bg  { fill: none; stroke: rgba(255,255,255,0.14); stroke-width: 20; stroke-linecap: round; }
 .cs-gauge-fill { fill: none; stroke-width: 20; stroke-linecap: round; transition: stroke-dashoffset 1.2s cubic-bezier(.4,0,.2,1), stroke 0.5s ease; }
 .cs-gauge-fill.red   { filter: drop-shadow(0 0 8px rgba(220,38,38,0.6)); }
-.cs-gauge-fill.green { filter: drop-shadow(0 0 8px rgba(124,179,66,0.6)); }
+.cs-gauge-fill.green { filter: drop-shadow(0 0 8px rgba(214,166,55,0.55)); }
 
 .cs-score-wrap {
   position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
-  text-align: center; z-index: 2;
+  text-align: center;
 }
 .cs-score-number {
-  font-size: 38px; font-weight: 800; line-height: 1;
+  font-family:'Playfair Display', serif !important;
+  font-size: 40px; font-weight: 800; line-height: 1;
   transition: color 0.5s ease;
+  font-variant-numeric: tabular-nums;
 }
-.cs-score-number.red   { color: #ff5252; }
-.cs-score-number.green { color: #b9f6ca; }
-.cs-score-max { font-size: 13px; color: rgba(255,255,255,0.55); font-weight: 500; }
+.cs-score-number.red   { color: #ff8a80; }
+.cs-score-number.green { color: var(--color-gold-light); }
+.cs-score-max { font-size: 13px; color: rgba(255,255,255,0.60); font-weight: 500; }
 
 /* Scale */
 .cs-scale {
   display: flex; justify-content: space-between;
   padding: 0 14px; margin-bottom: 16px;
-  position: relative; z-index: 1;
 }
-.cs-scale-label { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.45); }
-.cs-scale-label.danger { color: rgba(255,130,130,0.7); }
-.cs-scale-label.safe   { color: rgba(185,246,202,0.7); }
+.cs-scale-label { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.45); }
+.cs-scale-label.danger { color: rgba(255,130,130,0.75); }
+.cs-scale-label.safe   { color: var(--color-gold-light); opacity: .85; }
 
 /* Status badge */
 .cs-status {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 7px 18px; border-radius: 999px;
-  font-size: 13px; font-weight: 700;
+  font-size: 13px; font-weight: 800;
+  border: 1px solid;
   transition: all 0.5s ease;
-  position: relative; z-index: 1;
 }
-.cs-status.red   { background: rgba(220,38,38,0.25); color: #ff8a80; border: 1px solid rgba(220,38,38,0.4); }
-.cs-status.green { background: rgba(124,179,66,0.25); color: #ccff90; border: 1px solid rgba(124,179,66,0.4); }
+.cs-status.red   { background: rgba(220,38,38,0.20); color: #ff8a80; border-color: rgba(220,38,38,0.4); }
+.cs-status.green { background: rgba(214,166,55,0.20); color: var(--color-gold-light); border-color: var(--color-gold); }
 .cs-status-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
 .cs-status.red   .cs-status-dot { background: #ff5252; }
-.cs-status.green .cs-status-dot { background: #69f0ae; }
+.cs-status.green .cs-status-dot { background: var(--color-gold-light); }
 
 /* ── Body ── */
 .cs-body { padding: 16px 16px 0; }
 
-/* Info message */
+/* Info message — pulled up to overlap/dock under the header instead of
+   sitting as a plain separate box below it, so the score and the verdict
+   read as one connected piece rather than two stacked cards. */
 .cs-message {
-  border-radius: 16px; padding: 16px;
-  margin-bottom: 14px;
+  position: relative; z-index: 3;
+  margin: -20px 4px 16px;
+  border-radius: var(--radius-md); padding: 16px 18px;
+  box-shadow: var(--shadow-soft);
   transition: all 0.5s ease;
 }
-.cs-message.red   { background: #fff5f5; border: 1px solid #fecaca; }
-.cs-message.green { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.cs-message.red   { background: #fff5f5; border: 1.5px solid #fecaca; }
+.cs-message.green { background: #FFFDF6; border: 1.5px solid var(--color-gold); }
 .cs-message-title {
-  font-size: 14px; font-weight: 700;
-  margin-bottom: 5px;
+  font-family:'Playfair Display', serif !important;
+  font-size: 15px; font-weight: 800;
+  margin-bottom: 6px;
   display: flex; align-items: center; gap: 7px;
 }
 .cs-message.red   .cs-message-title { color: #dc2626; }
-.cs-message.green .cs-message-title { color: #16a34a; }
-.cs-message-text { font-size: 12px; line-height: 1.7; color: #666; }
+.cs-message.green .cs-message-title { color: var(--color-purple); }
+.cs-message-text { font-size: 12.5px; line-height: 1.7; color: var(--color-muted); }
 
-/* Stats */
+/* Stats — icon tiles, matching the language used across the redesigned
+   pages, instead of plain bordered number boxes. */
 .cs-stats {
   display: grid; grid-template-columns: repeat(3,1fr); gap: 10px;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 .cs-stat {
-  background: #fff; border-radius: 16px;
-  border: 1px solid #e8e8e8;
-  padding: 16px 8px; text-align: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  background: linear-gradient(160deg, #FFFDF6 0%, #FBF3DF 100%);
+  border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-gold);
+  padding: 14px 8px; text-align: center;
+  box-shadow: var(--shadow-soft);
 }
+.cs-stat-icon{
+  width: 34px; height: 34px; margin: 0 auto 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #5B2A8A 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
+  border: 1.5px solid var(--color-gold);
+  display: flex; align-items: center; justify-content: center;
+}
+.cs-stat-icon svg{ width: 16px; height: 16px; fill: #fff; }
 .cs-stat-value {
-  font-size: 22px; font-weight: 800;
-  color: #2d6b0a; margin-bottom: 4px;
+  font-family:'Playfair Display', serif !important;
+  font-size: 21px; font-weight: 800;
+  color: var(--color-purple); margin-bottom: 3px;
+  font-variant-numeric: tabular-nums;
 }
 .cs-stat-label {
-  font-size: 10px; color: #aaa;
-  text-transform: uppercase; letter-spacing: 0.6px; font-weight: 600;
+  font-size: 9.5px; color: var(--color-muted);
+  text-transform: uppercase; letter-spacing: 0.6px; font-weight: 700;
 }
 
 /* Actions */
 .cs-actions { display: flex; gap: 10px; }
 .cs-btn {
   flex: 1; padding: 14px;
-  border-radius: 14px; font-size: 14px; font-weight: 700;
+  border-radius: 999px; font-size: 14px; font-weight: 700;
   text-decoration: none; text-align: center;
-  cursor: pointer; border: none; transition: transform 0.15s, opacity 0.15s;
+  cursor: pointer; border: 1.5px solid var(--border-gold);
+  transition: transform 0.15s, opacity 0.15s, box-shadow .15s;
   font-family: 'Poppins', sans-serif;
 }
 .cs-btn:active { transform: scale(0.98); }
-.cs-btn-ghost   { background: #fff; color: #4a7a1e; border: 1.5px solid #c8ddb0; }
-.cs-btn-primary { background: linear-gradient(135deg, #2d6b0a, #5d9e28); color: #fff; box-shadow: 0 4px 16px rgba(45,107,10,0.28); }
+.cs-btn-ghost   { background: #fff; color: var(--color-purple); }
+.cs-btn-ghost:hover{ background: #FFFDF6; }
+.cs-btn-primary {
+  background:
+    linear-gradient(var(--color-purple), var(--color-purple)) padding-box,
+    linear-gradient(120deg, var(--color-gold-dark), var(--color-gold-light) 45%, var(--color-gold-dark) 100%) border-box;
+  border: 3px solid transparent;
+  color: var(--color-gold-light);
+  box-shadow: var(--shadow-gold);
+}
+.cs-btn-primary:hover{ box-shadow: 0 14px 30px rgba(59,22,95,0.36); }
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity:1 !important; transform:none !important; }
+  .cs-header::after{ animation: none !important; }
+}
 </style>
 
 {% with cs=request.user.credit_score|default:100 %}
@@ -162,10 +221,7 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
 <div class="cs-page">
 
   <!-- Header with gauge -->
-  <div class="cs-header">
-    <div class="hbg1"></div>
-    <div class="hbg2"></div>
-
+  <div class="cs-header reveal">
     <a href="/profile/" class="cs-back">
       <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"/></svg>
       Back
@@ -182,11 +238,11 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
               stroke-dasharray="314"
               stroke-dashoffset="314"/>
         <!-- tick marks -->
-        <line stroke="rgba(255,255,255,0.2)" stroke-width="2" x1="20" y1="130" x2="29" y2="121"/>
-        <line stroke="rgba(255,255,255,0.15)" stroke-width="1.5" x1="60" y1="48" x2="66" y2="55"/>
-        <line stroke="rgba(255,255,255,0.2)" stroke-width="2" x1="120" y1="30" x2="120" y2="40"/>
-        <line stroke="rgba(255,255,255,0.15)" stroke-width="1.5" x1="180" y1="48" x2="174" y2="55"/>
-        <line stroke="rgba(255,255,255,0.2)" stroke-width="2" x1="220" y1="130" x2="211" y2="121"/>
+        <line stroke="rgba(214,166,55,0.35)" stroke-width="2" x1="20" y1="130" x2="29" y2="121"/>
+        <line stroke="rgba(214,166,55,0.25)" stroke-width="1.5" x1="60" y1="48" x2="66" y2="55"/>
+        <line stroke="rgba(214,166,55,0.35)" stroke-width="2" x1="120" y1="30" x2="120" y2="40"/>
+        <line stroke="rgba(214,166,55,0.25)" stroke-width="1.5" x1="180" y1="48" x2="174" y2="55"/>
+        <line stroke="rgba(214,166,55,0.35)" stroke-width="2" x1="220" y1="130" x2="211" y2="121"/>
       </svg>
       <div class="cs-score-wrap">
         <div id="scoreNumber" class="cs-score-number">{{ cs }}</div>
@@ -209,29 +265,32 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
     </div>
   </div>
 
-  <!-- Body -->
-  <div class="cs-body">
-
-    <!-- Info message -->
-    <div id="infoMessage" class="cs-message" style="margin-top:16px;">
-      <div class="cs-message-title">
-        <span id="messageIcon">ℹ</span>
-        <span id="messageTitle">Analyzing...</span>
-      </div>
-      <div id="messageText" class="cs-message-text">Please wait while we calculate your score.</div>
+  <!-- Info message — docked under the header -->
+  <div id="infoMessage" class="cs-message reveal">
+    <div class="cs-message-title">
+      <span id="messageIcon">ℹ</span>
+      <span id="messageTitle">Analyzing...</span>
     </div>
+    <div id="messageText" class="cs-message-text">Please wait while we calculate your score.</div>
+  </div>
+
+  <!-- Body -->
+  <div class="cs-body" style="padding-top:0;">
 
     <!-- Stats -->
-    <div class="cs-stats">
+    <div class="cs-stats reveal">
       <div class="cs-stat">
+        <div class="cs-stat-icon"><svg viewBox="0 0 24 24"><path d="M6 2h9l3 3v17H6V2zm9 1.5V6h2.5L15 3.5zM8 9h8v2H8V9zm0 4h8v2H8v-2zm0 4h6v2H8v-2z"/></svg></div>
         <div class="cs-stat-value">{{ request.user.loan_set.count|default:0 }}</div>
         <div class="cs-stat-label">Loans</div>
       </div>
       <div class="cs-stat">
+        <div class="cs-stat-icon"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 11h-4v-2h2V7h2v6z"/></svg></div>
         <div class="cs-stat-value">{{ active_loans|default:0 }}</div>
         <div class="cs-stat-label">Active</div>
       </div>
       <div class="cs-stat">
+        <div class="cs-stat-icon"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg></div>
         <div class="cs-stat-value">{{ completed_payments|default:0 }}</div>
         <div class="cs-stat-label">Paid</div>
       </div>
@@ -289,7 +348,7 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
   statusBadge.className  = 'cs-status ' + colorClass;
   infoMessage.className  = 'cs-message ' + colorClass;
 
-  gaugeFill.style.stroke = isRed ? '#ef5350' : '#69f0ae';
+  gaugeFill.style.stroke = isRed ? '#ef5350' : '#D6A637';
 
   setTimeout(() => { gaugeFill.style.strokeDashoffset = offset; }, 300);
 
@@ -297,6 +356,31 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
   messageIcon.textContent = msgIcon;
   messageTitle.textContent = msgTitle;
   messageText.textContent = msgDesc;
+})();
+</script>
+<script>
+/* Scroll-triggered reveal, matching the rest of the redesigned pages. */
+(function(){
+  const nodes = Array.from(document.querySelectorAll('.reveal'));
+  if(!nodes.length) return;
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    nodes.forEach(el => el.classList.add('on'));
+    return;
+  }
+  let firstBatch = true;
+  const io = new IntersectionObserver((entries) => {
+    let i = 0;
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      setTimeout(() => el.classList.add('on'), (firstBatch ? 250 : 0) + i * 90);
+      io.unobserve(el);
+      i++;
+    });
+    firstBatch = false;
+  }, { threshold: 0.1 });
+  nodes.forEach(el => io.observe(el));
 })();
 </script>
 

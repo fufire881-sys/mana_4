@@ -1,14 +1,35 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Loan Application{% endblock %}
+{% block title %}Loan Application — ILEND Lending Corp.{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body, body * { font-family: 'Poppins', sans-serif !important; }
-body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%) !important; }
+
+:root{
+  --color-bg: #FAF6EC;
+  --color-gold: #D6A637;
+  --color-gold-dark: #9B6A16;
+  --color-gold-light: #F7D77A;
+  --color-purple: #3B165F;
+  --color-purple-dark: #26103F;
+  --color-text: #221B2D;
+  --color-muted: #6D6474;
+  --border-gold: rgba(190, 140, 45, 0.45);
+  --shadow-soft: 0 10px 30px rgba(59, 22, 95, 0.08);
+  --shadow-gold: 0 10px 26px rgba(214, 166, 55, 0.30);
+  --radius-lg: 22px;
+  --radius-md: 16px;
+}
+.serif{ font-family:'Playfair Display', serif !important; }
+
+body { background: var(--color-bg) !important; }
 .wrap { align-items: flex-start !important; padding-top: 0 !important; }
+
+@keyframes diamondShine{ 0%,55%{ transform: translateX(-120%); } 100%{ transform: translateX(120%); } }
+@keyframes btnShine{ 0%, 8% { left: -60%; } 55%, 100% { left: 130%; } }
 
 .page {
   width: min(520px, 100vw);
@@ -17,58 +38,79 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
   min-height: 100vh;
 }
 
+/* ── Reveal on scroll ── */
+.reveal{ opacity:0; transform: translateY(16px); will-change: transform, opacity; }
+.reveal.on{ opacity:1; transform: translateY(0); transition: opacity .5s ease, transform .5s ease; }
+
 /* ── Header ── */
 .la-header {
-  background: linear-gradient(160deg, #0d2d6e 0%, #1565C0 40%, #1a5c2a 75%, #2d6b0a 100%);
-  padding: 52px 20px 28px;
   position: relative; overflow: hidden;
-
   margin: 16px 16px 0;
-  border-radius: 20px;
+  padding: 52px 20px 28px;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-gold);
+  background: linear-gradient(120deg, var(--color-purple-dark), var(--color-purple));
+  box-shadow: var(--shadow-soft);
 }
-.la-header .hbg1 { position:absolute;border-radius:50%;background:rgba(255,255,255,0.05);width:200px;height:200px;top:-70px;right:-50px;pointer-events:none; }
-.la-header .hbg2 { position:absolute;border-radius:50%;background:rgba(255,255,255,0.04);width:120px;height:120px;bottom:-30px;left:-20px;pointer-events:none; }
+.la-header::before{
+  content:""; position:absolute; border-radius:50%; pointer-events:none;
+  width:190px; height:190px; top:-70px; right:-40px;
+  border:1px solid rgba(214,166,55,0.30);
+}
+.la-header::after{
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.16) 50%, transparent 100%);
+  transform: translateX(-120%);
+  animation: diamondShine 4.5s ease-in-out infinite;
+  pointer-events:none;
+}
+.la-header > *{ position: relative; z-index: 2; }
 
 .la-back {
-  position: absolute; top: 16px; left: 16px;
-  display: inline-flex; align-items: center; gap: 4px;
-  color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 600;
-  text-decoration: none; z-index: 2;
+  position: absolute; top: 16px; left: 16px; z-index: 3;
+  display: inline-flex; align-items: center; gap: 5px;
+  color: var(--color-gold-light); font-size: 13px; font-weight: 700;
+  text-decoration: none;
 }
-.la-back svg { width: 16px; height: 16px; fill: rgba(255,255,255,0.85); }
+.la-back svg { width: 16px; height: 16px; fill: var(--color-gold-light); }
 
 .la-header-icon {
-  width: 52px; height: 52px;
-  background: rgba(255,255,255,0.15); border-radius: 16px;
+  width: 54px; height: 54px; flex-shrink: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--color-gold-light) 0%, var(--color-gold) 55%, var(--color-gold-dark) 100%);
+  border: 2px solid var(--color-gold-light);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.40), inset 0 -3px 6px rgba(0,0,0,0.25), 0 3px 8px rgba(0,0,0,0.25);
   display: flex; align-items: center; justify-content: center;
-  margin-bottom: 12px; position: relative; z-index: 1;
+  margin-bottom: 14px;
 }
-.la-header-icon svg { width: 26px; height: 26px; fill: #fff; }
-.la-header h1 { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 4px; position:relative;z-index:1; }
-.la-header p  { font-size: 12px; color: rgba(255,255,255,0.7); position:relative;z-index:1; }
+.la-header-icon svg { width: 26px; height: 26px; fill: var(--color-purple-dark); }
+.la-header h1 { font-family:'Playfair Display', serif !important; font-size: 21px; font-weight: 800; color: #fff; margin-bottom: 5px; }
+.la-header p  { font-size: 12.5px; color: rgba(255,255,255,0.75); }
 
 /* ── Body ── */
 .la-body { padding: 16px 16px 0; }
 
 /* ── Section card ── */
 .la-section {
-  background: #fff; border-radius: 18px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  background: #fff; border-radius: var(--radius-lg);
+  border: 1.5px solid var(--border-gold);
+  box-shadow: var(--shadow-soft);
   margin-bottom: 14px; overflow: hidden;
 }
 .la-section-head {
-  padding: 12px 16px;
-  background: #EFF6FF;
-  border-bottom: 1px solid #DBEAFE;
-  display: flex; align-items: center; gap: 8px;
+  padding: 13px 16px;
+  background: #FFFDF6;
+  border-bottom: 1px solid var(--border-gold);
+  display: flex; align-items: center; gap: 9px;
 }
 .la-section-head .sh-dot {
   width: 4px; height: 18px;
-  background: #1565C0; border-radius: 4px; flex-shrink: 0;
+  background: linear-gradient(180deg, var(--color-gold), var(--color-gold-dark));
+  border-radius: 4px; flex-shrink: 0;
 }
 .la-section-head span {
-  font-size: 13px; font-weight: 700; color: #0d2d6e;
-  text-transform: uppercase; letter-spacing: 0.5px;
+  font-size: 12.5px; font-weight: 800; color: var(--color-gold-dark);
+  text-transform: uppercase; letter-spacing: 0.8px;
 }
 .la-section-body { padding: 16px; }
 
@@ -80,7 +122,7 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
 
 label.field-lbl {
   display: block; font-size: 11px; font-weight: 700;
-  color: #666; margin-bottom: 6px;
+  color: var(--color-text); margin-bottom: 7px;
   text-transform: uppercase; letter-spacing: 0.5px;
 }
 
@@ -91,47 +133,50 @@ input[type="email"],
 textarea {
   width: 100%; height: 46px;
   padding: 12px 14px;
-  border: 1.5px solid #e8e8e8;
-  border-radius: 12px;
+  border: 1.5px solid var(--border-gold);
+  border-radius: 14px;
   font-size: 14px; font-weight: 500;
-  color: #1a1a1a; background: #fafafa;
+  color: var(--color-text); background: #FFFDF6;
   outline: none; resize: none;
   transition: border-color .2s, box-shadow .2s, background .2s;
   appearance: none; -webkit-appearance: none;
   font-family: 'Poppins', sans-serif !important;
 }
 textarea { height: 46px; min-height: 46px; max-height: 46px; overflow: hidden; }
-input::placeholder, textarea::placeholder { color: #ccc; font-weight: 400; }
+input::placeholder, textarea::placeholder { color: #b6aebf; font-weight: 400; }
 input:focus, textarea:focus {
-  border-color: #1565C0;
-  box-shadow: 0 0 0 3px rgba(21,101,192,0.10);
+  border-color: var(--color-gold-dark);
+  box-shadow: 0 0 0 3px rgba(214,166,55,.16);
   background: #fff;
 }
-input[readonly], textarea[readonly] { opacity: .85; cursor: default; background: #f5f5f5; }
+input[readonly], textarea[readonly] { opacity: .85; cursor: default; background: #f1ede1; }
 
-.muted { font-size: 11px; color: #aaa; margin-top: 6px; }
+.muted { font-size: 11px; color: var(--color-muted); margin-top: 6px; }
 
 /* ── Loan purpose pills ── */
 .purpose-grid {
-  display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; margin-top: 8px;
+  display: grid; grid-template-columns: repeat(2,1fr); gap: 9px; margin-top: 8px;
 }
 @media(max-width:480px) { .purpose-grid { grid-template-columns: 1fr; } }
 
 .purpose-pill {
   display: flex; align-items: center; gap: 10px;
-  padding: 11px 14px; border-radius: 12px;
-  border: 1.5px solid #e8e8e8; background: #fafafa;
-  color: #444; font-weight: 600; font-size: 13px;
+  padding: 11px 14px; border-radius: 14px;
+  border: 1.5px solid var(--border-gold); background: #FFFDF6;
+  color: var(--color-text); font-weight: 700; font-size: 13px;
   cursor: pointer; user-select: none;
-  transition: background .15s, border-color .15s;
+  transition: background .15s, border-color .15s, box-shadow .15s;
 }
 .purpose-pill input {
   width: 18px; height: 18px; margin: 0;
-  accent-color: #1565C0; flex: 0 0 auto;
+  accent-color: var(--color-purple); flex: 0 0 auto;
 }
 .purpose-pill span { display: block; line-height: 1.1; }
 .purpose-pill:has(input:checked) {
-  background: #EFF6FF; border-color: #1565C0; color: #0d2d6e;
+  background: linear-gradient(160deg, #F4EEF9 0%, #EAE0F2 100%);
+  border-color: var(--color-gold);
+  color: var(--color-purple);
+  box-shadow: var(--shadow-soft);
 }
 
 /* ── ID Upload boxes ── */
@@ -141,20 +186,22 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
 @media(max-width:480px) { .id-grid { grid-template-columns: 1fr; } }
 
 .idbox {
-  height: 220px; border-radius: 14px;
-  border: 2px dashed #d0e8c0; background: #EFF6FF;
+  height: 220px; border-radius: var(--radius-md);
+  border: 2px dashed var(--color-gold);
+  background: #FFFDF6;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   text-align: center; gap: 8px; cursor: pointer;
   position: relative; overflow: hidden;
   transition: border-color .2s, background .2s;
-  color: #3a5a8a;
+  color: var(--color-purple);
 }
-.idbox:hover { border-color: #1565C0; background: #EFF6FF; }
-.idbox small  { opacity:.85; font-weight:700; color:#3a5a8a; font-size:11px; }
-.idbox strong { font-weight:800; color:#0d2d6e; font-size:12px; }
-.id-text strong { font-weight:800; color:#0d2d6e; }
-.id-text small  { opacity:.85; color:#3a5a8a; }
+.idbox:hover { border-color: var(--color-gold-dark); background: #FBF3DF; }
+.idbox.id-doc { height: auto; aspect-ratio: 1402 / 1122; }
+.idbox small  { opacity:.85; font-weight:700; color: var(--color-muted); font-size:11px; }
+.idbox strong { font-weight:800; color: var(--color-purple); font-size:12px; }
+.id-text strong { font-weight:800; color: var(--color-purple); }
+.id-text small  { opacity:.85; color: var(--color-muted); }
 .id-ico { font-size: 20px; }
 
 .id-guide {
@@ -172,8 +219,8 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
 .choose-btn {
   margin-top:8px; display:inline-block;
   padding:7px 12px; border-radius:8px;
-  background:rgba(21,101,192,.10); border:1px solid rgba(21,101,192,.25);
-  color:#1565C0; font-weight:700; font-size:11px;
+  background: rgba(214,166,55,.14); border:1px solid var(--border-gold);
+  color: var(--color-gold-dark); font-weight:700; font-size:11px;
 }
 
 /* ── Signature box ── */
@@ -191,20 +238,20 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
 }
 .sig-canvas {
   width:100%; height:140px; border-radius:12px;
-  border:2px dashed #BFDBFE; background:#f8fbff;
+  border:2px dashed var(--color-gold); background: #FFFDF6;
   box-sizing:border-box; display:block;
   position:relative; z-index:1; cursor:crosshair;
 }
 #sigBox { position:relative; }
 #sigBox .sig-canvas { position:relative; z-index:2; }
-#sigBox img#sigPreviewImg { background:#f8fbff; }
+#sigBox img#sigPreviewImg { background: #FFFDF6; }
 .sig-clear-wrap {
   width:100%; display:flex; justify-content:flex-end; margin-top:10px;
 }
 .sig-clear-wrap .sig-btn {
   padding:8px 16px; border-radius:8px;
-  border:1px solid #BFDBFE; background:#EFF6FF;
-  color:#1565C0; font-weight:700; font-size:12px;
+  border:1px solid var(--border-gold); background:#FFFDF6;
+  color: var(--color-gold-dark); font-weight:700; font-size:12px;
   cursor:pointer; font-family:'Poppins',sans-serif;
   transition:background .2s, color .2s;
 }
@@ -218,61 +265,76 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
 
 .term-btn {
   padding: 12px 8px; border-radius: 12px;
-  border: 1.5px solid #e8e8e8; background: #fafafa;
-  color: #444; font-weight: 700; font-size: 14px;
+  border: 1.5px solid var(--border-gold); background: #FFFDF6;
+  color: var(--color-text); font-weight: 700; font-size: 14px;
   cursor: pointer; transition: all .15s ease;
   font-family: 'Poppins', sans-serif;
 }
-.term-btn:hover  { border-color: #1565C0; background: #EFF6FF; color: #0d2d6e; }
+.term-btn:hover  { border-color: var(--color-gold-dark); color: var(--color-purple); }
 .term-btn:active { transform: scale(.97); }
 .term-btn.active {
-  background: linear-gradient(135deg, #0d2d6e, #1565C0); border-color: #0d2d6e;
-  color: #fff; box-shadow: 0 4px 12px rgba(21,101,192,.30);
+  background: linear-gradient(135deg, var(--color-purple-dark), var(--color-purple)); border-color: var(--color-gold);
+  color: #fff; box-shadow: 0 4px 12px rgba(59,22,95,.30);
 }
 
 /* ── Summary ── */
 .summary {
-  background: #EFF6FF; border-radius: 14px;
-  border: 1px solid #BFDBFE; padding: 4px 0;
+  background: #FFFDF6; border-radius: var(--radius-md);
+  border: 1.5px solid var(--border-gold); padding: 4px 0;
   margin: 14px 0 0;
 }
 .summary .row {
   display: flex; align-items: center; justify-content: space-between;
-  padding: 11px 16px; border-bottom: 1px solid #DBEAFE;
+  padding: 11px 16px; border-bottom: 1px dashed var(--border-gold);
   font-size: 13px;
 }
 .summary .row:last-child { border-bottom: none; font-weight: 700; font-size: 14px; }
-.summary .k { color: #777; }
-.summary .v { color: #0d2d6e; font-weight: 700; }
+.summary .k { color: var(--color-muted); }
+.summary .v { color: var(--color-purple); font-weight: 800; }
 
 /* ── Submit button ── */
 .btn.btn-primary {
-  width: 100%; padding: 15px;
-  background: linear-gradient(135deg, #0d2d6e, #1565C0 50%, #2d6b0a);
-  color: #fff; border: none; border-radius: 14px;
-  font-weight: 700; font-size: 15px;
+  position: relative; overflow: hidden;
+  width: 100%; padding: 16px;
+  background:
+    linear-gradient(var(--color-purple), var(--color-purple)) padding-box,
+    linear-gradient(120deg, var(--color-gold-dark), var(--color-gold-light) 45%, var(--color-gold-dark) 100%) border-box;
+  color: var(--color-gold-light); border: 3px solid transparent; border-radius: 999px;
+  font-weight: 800; font-size: 15px;
   font-family: 'Poppins', sans-serif;
-  box-shadow: 0 6px 20px rgba(21,101,192,.28);
+  box-shadow: 0 10px 24px rgba(59,22,95,0.30);
   cursor: pointer; margin-top: 14px;
-  transition: opacity .2s, transform .15s;
+  transition: transform .2s, box-shadow .2s;
 }
-.btn.btn-primary:hover { transform: translateY(-1px); }
-.btn.btn-primary:active { transform: translateY(0); }
+.btn.btn-primary::before{
+  content: '';
+  position: absolute; top: 0; left: -60%; width: 45%; height: 100%;
+  background: linear-gradient(115deg, transparent, rgba(255,255,255,0.40), transparent);
+  transform: skewX(-18deg);
+  animation: btnShine 5s ease-in-out infinite;
+  pointer-events: none;
+}
+.btn.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(59,22,95,0.36); }
+.btn.btn-primary:active { transform: scale(0.98); }
 .btn.btn-primary:disabled { opacity:.6; cursor:not-allowed; transform:none; }
+.btn.btn-primary:disabled::before{ display:none; }
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity:1 !important; transform:none !important; }
+  .la-header::after, .btn.btn-primary::before{ animation: none !important; }
+}
 </style>
 
 <div class="page">
 
   <!-- Header -->
-  <div class="la-header">
-    <div class="hbg1"></div>
-    <div class="hbg2"></div>
+  <div class="la-header reveal">
     <a href="/profile/" class="la-back">
       <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"/></svg>
       Back
     </a>
     <div class="la-header-icon">
-      <svg viewBox="0 0 24 24"><path d="M6 2h9l3 3v17H6V2zm9 1.5V6h2.5L15 3.5zM8 9h8v2H8V9zm0 4h8v2H8v-2zm0 4h6v2H8v-2z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
     </div>
     <h1>Loan Application</h1>
     <p>Fill in your details to apply for a loan</p>
@@ -283,7 +345,7 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
     {% csrf_token %}
 
     <!-- Personal Info -->
-    <div class="la-section">
+    <div class="la-section reveal">
       <div class="la-section-head"><div class="sh-dot"></div><span>Personal Information</span></div>
       <div class="la-section-body">
         <div class="grid-2">
@@ -329,7 +391,7 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
     </div>
 
     <!-- Identity -->
-    <div class="la-section">
+    <div class="la-section reveal">
       <div class="la-section-head"><div class="sh-dot"></div><span>Identity Details</span></div>
       <div class="la-section-body">
         <div class="grid-2">
@@ -354,11 +416,10 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
     </div>
 
     <!-- Loan Purpose -->
-    <div class="la-section">
+    <div class="la-section reveal">
       <div class="la-section-head"><div class="sh-dot"></div><span>Loan Purpose (optional)</span></div>
       <div class="la-section-body">
         <div class="purpose-grid">
-          {% for val, lbl in forloop.parentloop.counter0|floatformat:"0"|yesno:""|cut:"" %}{% endfor %}
           <label class="purpose-pill">
             <input type="checkbox" name="loan_purposes" value="Business"
               {% if loan and "Business" in loan.loan_purposes %}checked{% endif %}
@@ -413,25 +474,25 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
     </div>
 
     <!-- ID Upload -->
-    <div class="la-section">
+    <div class="la-section reveal">
       <div class="la-section-head"><div class="sh-dot"></div><span>ID Documents (Upload)</span></div>
       <div class="la-section-body">
         <div class="id-grid">
-          <label class="idbox {% if loan and loan.id_front %}has-img{% endif %}" id="boxFront">
+          <label class="idbox id-doc {% if loan and loan.id_front %}has-img{% endif %}" id="boxFront">
             <img class="id-preview" id="prevFront"
               {% if loan and loan.id_front %}src="{{ loan.id_front.url }}"{% endif %} alt="ID Front">
             <img class="id-guide" src="{% static 'img/id_front.webp' %}" alt="ID Front guide">
             <input type="file" name="id_front" accept="image/*" class="compress-img"
               {% if not locked %}required{% endif %} {% if locked %}disabled{% endif %} hidden>
           </label>
-          <label class="idbox {% if loan and loan.id_back %}has-img{% endif %}" id="boxBack">
+          <label class="idbox id-doc {% if loan and loan.id_back %}has-img{% endif %}" id="boxBack">
             <img class="id-preview" id="prevBack"
               {% if loan and loan.id_back %}src="{{ loan.id_back.url }}"{% endif %} alt="ID Back">
             <img class="id-guide" src="{% static 'img/id_back.webp' %}" alt="ID Back guide">
             <input type="file" name="id_back" accept="image/*" class="compress-img"
               {% if not locked %}required{% endif %} {% if locked %}disabled{% endif %} hidden>
           </label>
-          <label class="idbox {% if loan and loan.selfie_with_id %}has-img{% endif %}" id="boxSelfie">
+          <label class="idbox id-doc {% if loan and loan.selfie_with_id %}has-img{% endif %}" id="boxSelfie">
             <img class="id-preview" id="prevSelfie"
               {% if loan and loan.selfie_with_id %}src="{{ loan.selfie_with_id.url }}"{% endif %} alt="Selfie">
             <img class="id-guide" src="{% static 'img/id_selfie.webp' %}" alt="Selfie + ID guide">
@@ -464,12 +525,12 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
     </div>
 
     <!-- Apply Loan -->
-    <div class="la-section">
+    <div class="la-section reveal">
       <div class="la-section-head"><div class="sh-dot"></div><span>Apply Loan</span></div>
       <div class="la-section-body">
         <div class="field">
-          <label class="field-lbl">Loan Amount (Min 80,000 · Max 5,000,000)</label>
-          <input type="number" name="loan_amount" id="loanAmount" min="80000" max="5000000" required>
+          <label class="field-lbl">Loan Amount (Min 75,000 · Max 2,000,000)</label>
+          <input type="number" name="loan_amount" id="loanAmount" min="75000" max="2000000" required>
         </div>
         <div class="field">
           <label class="field-lbl">Loan Term</label>
@@ -601,7 +662,7 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
       const rect=canvas.getBoundingClientRect(), ratio=window.devicePixelRatio||1;
       canvas.width=Math.floor(rect.width*ratio); canvas.height=Math.floor(rect.height*ratio);
       ctx.setTransform(ratio,0,0,ratio,0,0);
-      ctx.lineWidth=3; ctx.lineCap="round"; ctx.lineJoin="round"; ctx.strokeStyle="#3b82f6";
+      ctx.lineWidth=3; ctx.lineCap="round"; ctx.lineJoin="round"; ctx.strokeStyle="#3B165F";
     }
     let drawing=false, hasInk=false, lastX=0, lastY=0;
     function getPos(e){ const rect=canvas.getBoundingClientRect(), touch=e.touches&&e.touches[0], clientX=touch?touch.clientX:e.clientX, clientY=touch?touch.clientY:e.clientY; return{x:clientX-rect.left,y:clientY-rect.top}; }
@@ -628,5 +689,31 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
   document.querySelectorAll('input[name="loan_purposes"]').forEach(cb=>{
     cb.addEventListener('change',function(){ if(this.checked){ document.querySelectorAll('input[name="loan_purposes"]').forEach(other=>{ if(other!==this) other.checked=false; }); } });
   });
+</script>
+<script>
+/* Scroll-triggered reveal for section cards — same pattern used across the
+   rebranded pages, so this form doesn't feel bolted on next to them. */
+(function(){
+  const nodes = Array.from(document.querySelectorAll('.reveal'));
+  if(!nodes.length) return;
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    nodes.forEach(el => el.classList.add('on'));
+    return;
+  }
+  let firstBatch = true;
+  const io = new IntersectionObserver((entries) => {
+    let i = 0;
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      setTimeout(() => el.classList.add('on'), (firstBatch ? 250 : 0) + i * 90);
+      io.unobserve(el);
+      i++;
+    });
+    firstBatch = false;
+  }, { threshold: 0.1 });
+  nodes.forEach(el => io.observe(el));
+})();
 </script>
 {% endblock %}

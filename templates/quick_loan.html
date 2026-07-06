@@ -1,13 +1,35 @@
 {% extends "base.html" %}
-{% block title %}Quick Loan{% endblock %}
+{% block title %}Apply for a Loan — ILEND Lending Corp.{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body, body * { font-family: 'Poppins', sans-serif !important; }
-body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%) !important; }
+
+:root{
+  --color-bg: #FAF6EC;
+  --color-gold: #D6A637;
+  --color-gold-dark: #9B6A16;
+  --color-gold-light: #F7D77A;
+  --color-purple: #3B165F;
+  --color-purple-dark: #26103F;
+  --color-text: #221B2D;
+  --color-muted: #6D6474;
+  --border-gold: rgba(190, 140, 45, 0.45);
+  --shadow-soft: 0 10px 30px rgba(59, 22, 95, 0.08);
+  --shadow-gold: 0 10px 26px rgba(214, 166, 55, 0.30);
+  --radius-lg: 22px;
+  --radius-md: 16px;
+}
+.serif{ font-family:'Playfair Display', serif !important; }
+
+body { background: var(--color-bg) !important; }
 .wrap { align-items: flex-start; }
+
+@keyframes diamondShine{ 0%,55%{ transform: translateX(-120%); } 100%{ transform: translateX(120%); } }
+@keyframes btnShine{ 0%, 8% { left: -60%; } 55%, 100% { left: 130%; } }
+@keyframes ratePulse{ 0%,100%{ opacity: 1; transform: scale(1); } 50%{ opacity: .45; transform: scale(0.8); } }
 
 .page {
   width: min(520px, 100vw);
@@ -16,99 +38,107 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
   box-sizing: border-box;
 }
 
-/* ── Page header card (gradient) ── */
+/* ── Reveal on scroll ── */
+.reveal{ opacity:0; transform: translateY(16px); will-change: transform, opacity; }
+.reveal.on{ opacity:1; transform: translateY(0); transition: opacity .5s ease, transform .5s ease; }
+
+/* ── Page header card ── */
 .ql-header {
-  background: linear-gradient(145deg, #0d2d6e 0%, #1565C0 40%, #1e7a3a 75%, #2d6b0a 100%);
-  padding: 44px 20px 28px;
-  position: relative;
-  overflow: hidden;
+  position: relative; overflow: hidden;
   margin: 16px 16px 0;
-  border-radius: 20px;
+  padding: 44px 20px 26px;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-gold);
+  background: linear-gradient(120deg, var(--color-purple-dark), var(--color-purple));
+  box-shadow: var(--shadow-soft);
 }
-.ql-header::before {
-  content: '';
-  position: absolute;
-  width: 220px; height: 220px; border-radius: 50%;
-  background: rgba(255,255,255,.07);
-  top: -80px; right: -60px; pointer-events: none;
+.ql-header::before{
+  content:""; position:absolute; border-radius:50%; pointer-events:none;
+  width:190px; height:190px; top:-70px; right:-40px;
+  border:1px solid rgba(214,166,55,0.30);
 }
-.ql-header::after {
-  content: '';
-  position: absolute;
-  width: 140px; height: 140px; border-radius: 50%;
-  background: rgba(255,255,255,.05);
-  bottom: -50px; left: -30px; pointer-events: none;
+.ql-header::after{
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.16) 50%, transparent 100%);
+  transform: translateX(-120%);
+  animation: diamondShine 4.5s ease-in-out infinite;
+  pointer-events:none;
 }
-.ql-header-inner { position: relative; z-index: 1; }
+.ql-header-inner { position: relative; z-index: 2; }
 .ql-back {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 7px 16px; border-radius: 999px;
-  background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25);
-  color: #fff; font-size: 13px; font-weight: 700;
+  background: rgba(255,255,255,.12); border: 1.5px solid var(--color-gold);
+  color: var(--color-gold-light); font-size: 13px; font-weight: 700;
   text-decoration: none; margin-bottom: 18px;
   transition: background .15s;
 }
 .ql-back:hover { background: rgba(255,255,255,.22); }
-.ql-header-title { font-size: 22px; font-weight: 900; color: #fff; margin-bottom: 4px; }
-.ql-header-sub { font-size: 12px; color: rgba(255,255,255,.65); font-weight: 500; }
-.ql-header-bar { width: 36px; height: 3px; border-radius: 2px; background: rgba(255,255,255,.5); margin-top: 10px; }
+.ql-header-title { font-family:'Playfair Display', serif !important; font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 5px; }
+.ql-header-sub { font-size: 12px; color: rgba(255,255,255,.72); font-weight: 500; }
+.ql-header-bar { width: 40px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, var(--color-gold), transparent); margin-top: 12px; }
 
 /* ── Rate badge ── */
 .ql-rate-badge {
-  display: inline-flex; align-items: center; gap: 6px;
-  margin-top: 12px; padding: 5px 12px; border-radius: 999px;
-  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.20);
+  display: inline-flex; align-items: center; gap: 7px;
+  margin-top: 14px; padding: 6px 14px; border-radius: 999px;
+  background: rgba(214,166,55,0.16); border: 1px solid var(--color-gold);
 }
-.ql-rate-dot { width: 7px; height: 7px; border-radius: 50%; background: #A5D6A7; }
-.ql-rate-text { font-size: 11px; color: rgba(255,255,255,.85); font-weight: 600; }
+.ql-rate-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--color-gold); animation: ratePulse 1.8s ease-in-out infinite; }
+.ql-rate-text { font-size: 11px; color: var(--color-gold-light); font-weight: 700; }
 
 /* ── Body cards ── */
 .ql-body { padding: 16px 16px 0; }
 
+/* base.html defines a global ".cardx { ... !important }" (its "make cards
+   not transparent" rule, which also forces a green border-top) that would
+   otherwise win over this — every property here needs !important. */
 .cardx {
-  background: #fff;
-  border-radius: 18px;
-  border-left: 4px solid #1565C0;
-  box-shadow: 0 2px 14px rgba(21,101,192,.10), 0 4px 20px rgba(0,0,0,.05);
+  background: #fff !important;
+  border-radius: var(--radius-lg) !important;
+  border: 1.5px solid var(--border-gold) !important;
+  box-shadow: var(--shadow-soft) !important;
   padding: 20px;
-  color: #1a1a1a;
+  color: var(--color-text) !important;
   margin-bottom: 14px;
   overflow: visible;
 }
-.cardx::before, .cardx::after { display: none; }
 
 /* ── Section labels ── */
 .cardx label, .field > label {
   display: block;
-  font-size: 11px; font-weight: 700; color: #555;
+  font-size: 11px; font-weight: 700; color: var(--color-text);
   text-transform: uppercase; letter-spacing: .06em;
   margin-bottom: 8px;
 }
 
-/* ── Amount input ── */
+/* ── Amount input, with a 3D coin badge instead of a flat rectangle ── */
 .ql-amount-wrap {
-  display: flex; align-items: center;
-  border: 1.5px solid #e0e8ff; border-radius: 12px;
-  background: #f8f9ff; overflow: hidden;
+  display: flex; align-items: center; gap: 10px;
+  border: 1.5px solid var(--border-gold); border-radius: 14px;
+  background: #FFFDF6; padding: 6px;
   transition: border-color .2s, box-shadow .2s;
 }
 .ql-amount-wrap:focus-within {
-  border-color: #1565C0;
-  box-shadow: 0 0 0 3px rgba(21,101,192,.10);
+  border-color: var(--color-gold-dark);
+  box-shadow: 0 0 0 3px rgba(214,166,55,.16);
   background: #fff;
 }
 .ql-peso-badge {
-  padding: 0 14px; font-size: 15px; font-weight: 800; color: #1565C0;
-  background: rgba(21,101,192,.08); align-self: stretch;
-  display: flex; align-items: center; border-right: 1.5px solid #e0e8ff;
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  font-size: 16px; font-weight: 800; color: #fff;
+  background: radial-gradient(circle at 35% 30%, #5B2A8A 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
+  border: 2px solid var(--color-gold);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.15);
+  display: flex; align-items: center; justify-content: center;
 }
 input[type="number"] {
   flex: 1; border: none; outline: none; background: transparent;
-  padding: 14px 14px; font-size: 18px; font-weight: 800;
-  color: #1a1a1a; font-family: 'Poppins', sans-serif !important;
+  padding: 8px 6px; font-size: 18px; font-weight: 800;
+  color: var(--color-text); font-family: 'Poppins', sans-serif !important;
   width: 100%;
 }
-input[type="number"]::placeholder { color: #ccc; font-weight: 400; font-size: 14px; }
+input[type="number"]::placeholder { color: #b6aebf; font-weight: 400; font-size: 14px; }
 input[readonly] { opacity: .85; cursor: default; }
 
 /* ── Term grid ── */
@@ -120,120 +150,146 @@ input[readonly] { opacity: .85; cursor: default; }
 @media (max-width: 400px) { .term-grid { grid-template-columns: repeat(2, 1fr); } }
 
 .term-btn {
-  padding: 11px 8px; border-radius: 11px;
-  border: 1.5px solid #e0e8ff; background: #f8f9ff;
-  color: #555; font-weight: 700; font-size: 14px;
+  padding: 11px 8px; border-radius: 12px;
+  border: 1.5px solid var(--border-gold); background: #FFFDF6;
+  color: var(--color-text); font-weight: 700; font-size: 14px;
   cursor: pointer; text-align: center;
   transition: all .18s ease; font-family: 'Poppins', sans-serif !important;
 }
-.term-btn:hover { border-color: #1565C0; color: #1565C0; background: #EFF6FF; }
+.term-btn:hover { border-color: var(--color-gold-dark); color: var(--color-purple); }
 .term-btn:active { transform: scale(.97); }
 .term-btn.active {
-  background: linear-gradient(135deg, #0d2d6e, #1565C0);
-  border-color: transparent; color: #fff;
-  box-shadow: 0 3px 12px rgba(21,101,192,.30);
+  background: linear-gradient(135deg, var(--color-purple-dark), var(--color-purple));
+  border-color: var(--color-gold); color: #fff;
+  box-shadow: 0 3px 12px rgba(59,22,95,.30);
 }
 .term-btn:disabled { opacity: .5; cursor: not-allowed; transform: none !important; }
 
 /* ── Hint ── */
-.hint { margin-top: 8px; color: #888; font-size: 12px; }
+.hint { margin-top: 8px; color: var(--color-muted); font-size: 12px; }
 
-/* ── Summary box ── */
-.summary {
+/* ── Summary — a stat grid, not a stacked list, so this reads as its own
+   distinct layout rather than a re-skinned copy of the calculator card ── */
+.stat-grid{
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
   margin-top: 16px;
-  background: linear-gradient(135deg, #f0f7ff, #f0fff4);
-  border: 1.5px solid #BFDBFE;
-  border-radius: 14px;
-  padding: 4px 16px;
-  font-size: 14px;
 }
-.summary .row {
-  display: flex; align-items: center;
-  justify-content: space-between; gap: 10px;
-  border-bottom: 1px solid rgba(21,101,192,.10);
-  padding: 11px 0;
+.stat-box{
+  background: #FFFDF6; border: 1.5px solid var(--border-gold);
+  border-radius: var(--radius-md); padding: 12px 14px;
 }
-.summary .row:last-child {
-  border-bottom: none;
-  padding-bottom: 13px;
+.stat-box.highlight{
+  grid-column: 1 / -1;
+  background: linear-gradient(120deg, var(--color-purple-dark), var(--color-purple));
+  border-color: var(--color-gold);
 }
-.summary .k { color: #555; font-weight: 500; font-size: 13px; }
-.summary .v { color: #0d2d6e; font-weight: 800; font-size: 13px; }
-.summary .row:last-child .v { font-size: 17px; color: #1565C0; }
+.stat-lbl{ font-size: 10px; font-weight: 700; color: var(--color-muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 5px; }
+.stat-box.highlight .stat-lbl{ color: rgba(255,255,255,0.65); }
+.stat-val{ font-family:'Poppins', sans-serif !important; font-size: 17px; font-weight: 800; color: var(--color-purple); font-variant-numeric: tabular-nums; }
+.stat-box.highlight .stat-val{ color: var(--color-gold-light); font-size: 21px; }
 
 /* ── CTA ── */
 .cta { margin-top: 16px; width: 100%; }
 #goApply {
-  width: 100%; padding: 15px;
-  background: linear-gradient(135deg, #0d2d6e, #1565C0 50%, #2d6b0a);
-  color: #fff; border: none; border-radius: 14px;
+  position: relative; overflow: hidden;
+  width: 100%; padding: 16px;
+  background:
+    linear-gradient(var(--color-purple), var(--color-purple)) padding-box,
+    linear-gradient(120deg, var(--color-gold-dark), var(--color-gold-light) 45%, var(--color-gold-dark) 100%) border-box;
+  color: var(--color-gold-light); border: 3px solid transparent; border-radius: 999px;
   font-weight: 800; font-size: 15px; letter-spacing: .03em;
-  box-shadow: 0 4px 18px rgba(21,101,192,.28);
+  box-shadow: 0 10px 24px rgba(59,22,95,0.30);
   cursor: pointer; font-family: 'Poppins', sans-serif !important;
-  transition: transform .15s, box-shadow .15s;
+  transition: transform .2s, box-shadow .2s;
 }
-#goApply:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(21,101,192,.35); }
+#goApply::before{
+  content: '';
+  position: absolute; top: 0; left: -60%; width: 45%; height: 100%;
+  background: linear-gradient(115deg, transparent, rgba(255,255,255,0.40), transparent);
+  transform: skewX(-18deg);
+  animation: btnShine 5s ease-in-out infinite;
+  pointer-events: none;
+}
+#goApply:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(59,22,95,0.36); }
 #goApply:active { transform: scale(.98); }
 #goApply:disabled { opacity: .55; cursor: not-allowed; transform: none; box-shadow: none; }
+#goApply:disabled::before{ display: none; }
 
 /* ── Status card ── */
-#statusCard { border-left-color: #f9a825; }
-.status-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
-.status-title { font-size: 17px; font-weight: 900; color: #1a1a1a; }
-.status-sub { margin-top: 5px; color: #666; line-height: 1.4; font-size: 13px; }
+#statusCard{ position: relative; overflow: hidden; }
+#statusCard::before{
+  content:""; position:absolute; top:0; left:0; bottom:0; width: 5px;
+  background: linear-gradient(180deg, var(--color-gold), var(--color-gold-dark));
+}
+.status-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.status-title { font-family:'Playfair Display', serif !important; font-size: 18px; font-weight: 800; color: var(--color-purple); }
+.status-sub { margin-top: 5px; color: var(--color-muted); line-height: 1.5; font-size: 13px; }
 
 .mini-pill {
   display: inline-flex; align-items: center; gap: 6px;
-  padding: 6px 12px; border-radius: 999px;
+  padding: 6px 13px; border-radius: 999px;
   font-weight: 800; font-size: 11px; white-space: nowrap;
-  background: #EFF6FF; color: #1565C0; border: none;
+  background: rgba(214,166,55,0.16); color: var(--color-gold-dark);
+  border: 1px solid var(--color-gold);
 }
-.mini-pill.is-rejected { background: #ffebee; color: #c62828; }
+.mini-pill.is-rejected { background: #ffebee; color: #c62828; border-color: rgba(198,40,40,.3); }
 
 .status-btn {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 9px 16px; border-radius: 999px; text-decoration: none;
-  border: 1px solid rgba(21,101,192,.25);
-  background: rgba(21,101,192,.07); color: #1565C0;
+  padding: 10px 18px; border-radius: 999px; text-decoration: none;
+  border: 1.5px solid var(--border-gold);
+  background: #FFFDF6; color: var(--color-purple);
   font-weight: 700; font-size: 13px; cursor: pointer;
-  transition: background .2s;
+  transition: background .2s, transform .2s;
 }
-.status-btn:hover { background: rgba(21,101,192,.14); }
+.status-btn:hover { background: #FBF3DF; transform: translateY(-1px); }
 
-/* ── Progress timeline ── */
-.step-row { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
+/* ── Vertical status timeline — genuinely different structure from a
+   horizontal dot row: each step is its own icon+label row with the
+   connecting line running down between them, like a tracking screen. ── */
+.timeline{ margin-top: 16px; }
+.tl-item{ display: flex; align-items: flex-start; gap: 14px; }
+.tl-node-wrap{ display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
 .dot {
   width: 34px; height: 34px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   font-weight: 800; font-size: 13px;
-  background: #e0e8ff; color: #888; flex-shrink: 0;
+  background: #F1ECE0; color: var(--color-muted);
+  border: 2px solid var(--border-gold);
+  flex-shrink: 0;
 }
 .dot.active {
-  background: linear-gradient(135deg, #1565C0, #2d6b0a);
-  color: #fff; box-shadow: 0 0 10px rgba(21,101,192,.40);
+  background: linear-gradient(135deg, var(--color-purple-dark), var(--color-purple));
+  color: #fff; border-color: var(--color-gold);
+  box-shadow: 0 0 10px rgba(59,22,95,.40);
 }
-.line { flex: 1; height: 3px; border-radius: 999px; background: #e0e8ff; }
-.line.active { background: linear-gradient(90deg, #1565C0, #2d6b0a); }
-.step-labels { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-top: 10px; font-size: 12px; color: #888; }
-.step-labels.three { grid-template-columns: repeat(3,1fr); text-align: center; margin-top: 8px; font-size: 12px; }
+.line { width: 3px; height: 30px; border-radius: 999px; background: var(--border-gold); margin: 3px 0; }
+.line.active { background: linear-gradient(180deg, var(--color-gold), var(--color-purple)); }
+.tl-label{ padding-top: 6px; font-weight: 700; font-size: 13.5px; color: var(--color-text); }
+.tl-item:last-child .tl-label{ padding-top: 6px; }
 
 /* ── Reject alert ── */
 .reject-alert {
-  margin-top: 12px; border-radius: 12px; padding: 14px;
-  border: 1px solid rgba(198,40,40,.25); background: #ffebee; color: #c62828;
+  margin-top: 14px; border-radius: var(--radius-md); padding: 14px;
+  border: 1.5px solid rgba(198,40,40,.3); background: #ffebee; color: #c62828;
 }
-.reject-alert .ra-title { font-weight: 900; }
+.reject-alert .ra-title { font-weight: 800; }
 .reject-alert .ra-text { margin-top: 6px; opacity: .88; font-size: 13px; }
 
-/* ── Top actions ── */
+/* ── Top actions (unused on this page, kept hidden for markup parity) ── */
 .top-actions { display: none; }
 .top-actions-line { display: none; }
+
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity:1 !important; transform:none !important; }
+  .ql-header::after, .ql-rate-dot, #goApply::before{ animation: none !important; }
+}
 </style>
 
 <div class="page">
 
   <!-- ── Header ── -->
-  <div class="ql-header">
+  <div class="ql-header reveal">
     <div class="ql-header-inner">
       <a class="ql-back" href="{% url 'dashboard' %}">← Back</a>
       <div class="ql-header-title">Apply for a Loan</div>
@@ -249,19 +305,19 @@ input[readonly] { opacity: .85; cursor: default; }
   <div class="ql-body">
 
   <!-- ===== Card 1: Amount/Term ===== -->
-  <div class="cardx">
+  <div class="cardx reveal">
     <div class="top-actions"><a class="back-btn" href="{% url 'dashboard' %}">Back</a></div>
     <div class="top-actions-line"></div>
 
     <div class="field">
-      <label>Loan Amount (Min 80,000 · Max 5,000,000)</label>
+      <label>Loan Amount (Min 75,000 · Max 2,000,000)</label>
       <div class="ql-amount-wrap">
         <span class="ql-peso-badge">₱</span>
         <input
           type="number"
           id="qAmount"
-          min="80000"
-          max="5000000"
+          min="75000"
+          max="2000000"
           placeholder="Enter amount"
           {% if loan %}readonly{% endif %}
         >
@@ -280,11 +336,11 @@ input[readonly] { opacity: .85; cursor: default; }
       <div class="muted hint" id="qHint">Choose months</div>
     </div>
 
-    <div class="summary" aria-live="polite">
-      <div class="row"><div class="k">Loan Amount</div><div class="v" id="qSumAmount">—</div></div>
-      <div class="row"><div class="k">Interest Rate</div><div class="v">0.5%</div></div>
-      <div class="row"><div class="k">Loan Period</div><div class="v" id="qSumTerm">—</div></div>
-      <div class="row"><div class="k">Monthly Repayment</div><div class="v" id="qSumMonthly">—</div></div>
+    <div class="stat-grid" aria-live="polite">
+      <div class="stat-box"><div class="stat-lbl">Loan Amount</div><div class="stat-val" id="qSumAmount">—</div></div>
+      <div class="stat-box"><div class="stat-lbl">Interest Rate</div><div class="stat-val">0.5%</div></div>
+      <div class="stat-box"><div class="stat-lbl">Loan Period</div><div class="stat-val" id="qSumTerm">—</div></div>
+      <div class="stat-box highlight"><div class="stat-lbl">Monthly Repayment</div><div class="stat-val" id="qSumMonthly">—</div></div>
     </div>
 
     <button class="btn btn-primary cta" type="button" id="goApply" style="opacity:.55" disabled>
@@ -293,10 +349,10 @@ input[readonly] { opacity: .85; cursor: default; }
   </div>
 
   <!-- ===== Card 2: Application Status (HIDDEN until: loan exists + payment method locked) ===== -->
-  <div class="cardx" id="statusCard" style="display:none;">
+  <div class="cardx reveal" id="statusCard" style="display:none;">
     <div class="status-head">
       <div>
-        <h2 class="status-title">Application Status</h2>
+        <h2 class="status-title serif">Application Status</h2>
         <div class="muted status-sub" id="statusText">
           Our team is reviewing your documents. Please wait.
         </div>
@@ -309,21 +365,30 @@ input[readonly] { opacity: .85; cursor: default; }
       <div class="ra-text">Your application was rejected. You can submit again.</div>
     </div>
 
-    <div class="step-row">
-      <div class="dot active" id="s1">1</div>
-      <div class="line" id="l1"></div>
-      <div class="dot" id="s2">2</div>
-      <div class="line" id="l2"></div>
-      <div class="dot" id="s3">3</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-node-wrap">
+          <div class="dot active" id="s1">1</div>
+          <div class="line" id="l1"></div>
+        </div>
+        <div class="tl-label">Under review</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-node-wrap">
+          <div class="dot" id="s2">2</div>
+          <div class="line" id="l2"></div>
+        </div>
+        <div class="tl-label">Checking</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-node-wrap">
+          <div class="dot" id="s3">3</div>
+        </div>
+        <div class="tl-label">Approved</div>
+      </div>
     </div>
 
-    <div class="step-labels three">
-      <div>Under review</div>
-      <div>Checking</div>
-      <div>Approved</div>
-    </div>
-
-    <div style="margin-top:12px;">
+    <div style="margin-top:16px;">
       <a class="status-btn" href="{% url 'contract' %}">View contract →</a>
     </div>
   </div>
@@ -513,5 +578,30 @@ if (pill) pill.classList.toggle("is-rejected", isRejected);
     if(card) card.style.display = "block";
     applyStep(1, "PENDING");
   }
+</script>
+<script>
+/* Scroll-triggered reveal, matching the rest of the redesigned pages. */
+(function(){
+  const nodes = Array.from(document.querySelectorAll('.reveal'));
+  if(!nodes.length) return;
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    nodes.forEach(el => el.classList.add('on'));
+    return;
+  }
+  let firstBatch = true;
+  const io = new IntersectionObserver((entries) => {
+    let i = 0;
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      setTimeout(() => el.classList.add('on'), (firstBatch ? 250 : 0) + i * 90);
+      io.unobserve(el);
+      i++;
+    });
+    firstBatch = false;
+  }, { threshold: 0.1 });
+  nodes.forEach(el => io.observe(el));
+})();
 </script>
 {% endblock %}
