@@ -1,227 +1,237 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Contract{% endblock %}
+{% block title %}Loan Contract — ILEND Lending Corp.{% endblock %}
 
 {% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-@font-face {
-  font-family: 'ArialNarrowCustom';
-  src: url("{% static 'fonts/arialnarrow.ttf' %}") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
+* { box-sizing: border-box; }
+.ct-wrap, .ct-wrap * { font-family: 'Poppins', sans-serif !important; }
 
-body {
-  background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%) !important;
+:root{
+  --color-bg: #FAF6EC;
+  --color-gold: #D6A637;
+  --color-gold-dark: #9B6A16;
+  --color-gold-light: #F7D77A;
+  --color-purple: #3B165F;
+  --color-purple-dark: #26103F;
+  --color-text: #221B2D;
+  --color-muted: #6D6474;
+  --border-gold: rgba(190, 140, 45, 0.45);
+  --shadow-soft: 0 10px 30px rgba(59, 22, 95, 0.08);
+  --shadow-gold: 0 10px 26px rgba(214, 166, 55, 0.30);
+  --radius-lg: 22px;
+  --radius-md: 16px;
 }
+.ct-wrap .serif{ font-family:'Playfair Display', serif !important; }
+
+body { background: var(--color-bg) !important; }
+.wrap { align-items: flex-start !important; padding-top: 0 !important; }
+
+@keyframes diamondShine{ 0%,55%{ transform: translateX(-120%); } 100%{ transform: translateX(120%); } }
 
 .ct-wrap {
   width: min(540px, 94vw);
   margin: 0 auto;
-  padding: 14px 0 40px;
+  padding: 16px 0 40px;
   box-sizing: border-box;
-  font-family: 'ArialNarrowCustom', Arial, sans-serif;
 }
-.ct-wrap * { font-family: 'ArialNarrowCustom', Arial, sans-serif !important; }
+
+.reveal{ opacity:0; transform: translateY(16px); will-change: transform, opacity; }
+.reveal.on{ opacity:1; transform: translateY(0); transition: opacity .5s ease, transform .5s ease; }
 
 /* ── Back button ── */
 .ct-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 9px 18px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #0d2d6e, #1565C0 55%, #2d6b0a);
-  color: #fff;
-  font-size: 13px;
-  font-weight: 800;
-  text-decoration: none;
-  margin-bottom: 14px;
-  box-shadow: 0 3px 10px rgba(21,101,192,.25);
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 9px 20px; border-radius: 999px;
+  background: #fff;
+  border: 1.5px solid var(--border-gold);
+  color: var(--color-purple); font-size: 13px; font-weight: 700;
+  text-decoration: none; margin-bottom: 14px;
+  box-shadow: var(--shadow-soft);
   transition: transform .15s, box-shadow .15s;
 }
-.ct-back:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(21,101,192,.35); }
-.ct-back svg { width: 16px; height: 16px; fill: #fff; }
+.ct-back:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(59,22,95,.14); }
+.ct-back svg { width: 15px; height: 15px; fill: var(--color-gold-dark); }
 
 /* ── Paper card ── */
 .ct-paper {
   background: #fff;
-  border-radius: 22px;
-  box-shadow: 0 8px 32px rgba(13,45,110,.12), 0 2px 8px rgba(0,0,0,.06);
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-gold);
+  box-shadow: var(--shadow-soft);
   overflow: hidden;
 }
 
 /* ── Header ── */
 .ct-head {
-  background: linear-gradient(135deg, #0d2d6e 0%, #1565C0 55%, #2d6b0a 100%);
-  padding: 20px 20px 18px;
-  position: relative;
-  overflow: hidden;
+  position: relative; overflow: hidden;
+  background: linear-gradient(120deg, var(--color-purple-dark), var(--color-purple));
+  padding: 22px 20px 18px;
 }
 .ct-head::before {
-  content: "CONTRACT";
-  position: absolute;
-  right: -10px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 64px;
-  font-weight: 900;
-  color: rgba(255,255,255,.06);
-  letter-spacing: .15em;
-  pointer-events: none;
-  white-space: nowrap;
+  content:""; position:absolute; border-radius:50%; pointer-events:none;
+  width:170px; height:170px; top:-70px; right:-40px;
+  border:1px solid rgba(214,166,55,0.30);
 }
+.ct-head::after{
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.16) 50%, transparent 100%);
+  transform: translateX(-120%);
+  animation: diamondShine 4.5s ease-in-out infinite;
+  pointer-events:none;
+}
+.ct-head > * { position: relative; z-index: 2; }
 .ct-head-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
 }
 .ct-logo-box {
-  width: 56px; height: 56px;
+  width: 56px; height: 56px; flex-shrink: 0;
   border-radius: 16px;
-  background: rgba(255,255,255,.18);
-  border: 1.5px solid rgba(255,255,255,.28);
+  background: radial-gradient(circle at 35% 30%, #5B2A8A 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
+  border: 2px solid var(--color-gold);
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.35);
   display: flex; align-items: center; justify-content: center;
-  overflow: hidden; flex-shrink: 0;
+  overflow: hidden;
 }
-.ct-logo-box img { width: 100%; height: 100%; object-fit: cover; }
+.ct-logo-box img { width: 76%; height: 76%; object-fit: contain; }
 .ct-head-info { flex: 1; padding-left: 12px; }
 .ct-head-title {
-  font-size: 20px; font-weight: 950; color: #fff;
-  letter-spacing: .06em; text-transform: uppercase; line-height: 1.1;
+  font-family: 'Playfair Display', serif !important;
+  font-size: 19px; font-weight: 800; color: #fff;
+  letter-spacing: .02em; line-height: 1.1;
 }
-.ct-head-sub {
-  font-size: 11px; color: rgba(255,255,255,.70); margin-top: 3px; font-weight: 600;
-}
-.ct-head-support {
-  text-align: right; font-size: 11px; color: rgba(255,255,255,.75); line-height: 1.5;
-}
-.ct-head-support b { color: #fff; font-weight: 800; }
+.ct-head-sub { font-size: 11px; color: var(--color-gold-light); margin-top: 4px; font-weight: 700; letter-spacing: .04em; }
+.ct-head-support { text-align: right; font-size: 11px; color: rgba(255,255,255,.65); line-height: 1.5; }
+.ct-head-support b { color: var(--color-gold-light); font-weight: 800; }
 
-/* ── Contract number badge ── */
+/* ── Ref band ── */
 .ct-ref-band {
-  background: rgba(255,255,255,.10);
-  border-top: 1px solid rgba(255,255,255,.12);
-  padding: 8px 20px;
+  background: #FFFDF6;
+  border-top: 1px solid rgba(190,140,45,0.25);
+  border-bottom: 1px solid rgba(190,140,45,0.25);
+  padding: 9px 20px;
   display: flex; align-items: center; justify-content: space-between;
 }
-.ct-ref-lbl { font-size: 10px; color: rgba(255,255,255,.55); letter-spacing: .08em; text-transform: uppercase; }
-.ct-ref-val { font-size: 11px; color: rgba(255,255,255,.85); font-weight: 700; }
+.ct-ref-lbl { font-size: 10px; color: var(--color-muted); letter-spacing: .08em; text-transform: uppercase; font-weight: 700; }
+.ct-ref-val { font-size: 11.5px; color: var(--color-purple); font-weight: 800; }
 
 /* ── Body ── */
 .ct-body { padding: 20px; }
 
-/* ── TO card ── */
+/* ── Borrower details card ── */
 .ct-to-card {
-  background: linear-gradient(135deg, #f0f7ff, #f0fff4);
-  border: 1.5px solid #BFDBFE;
-  border-radius: 16px;
+  background: linear-gradient(160deg, #FFFDF6 0%, #FBF3DF 100%);
+  border: 1.5px solid var(--border-gold);
+  border-radius: var(--radius-md);
   overflow: hidden;
   margin-bottom: 18px;
 }
 .ct-to-head {
-  background: linear-gradient(90deg, #0d2d6e, #1565C0);
-  padding: 9px 16px;
+  background: linear-gradient(90deg, var(--color-purple-dark), var(--color-purple));
+  padding: 10px 16px;
   display: flex; align-items: center; gap: 8px;
 }
-.ct-to-head svg { width: 14px; height: 14px; fill: rgba(255,255,255,.7); }
-.ct-to-label {
-  font-size: 10px; font-weight: 900; color: #fff;
-  letter-spacing: .14em; text-transform: uppercase;
-}
-.ct-kv { padding: 4px 0; }
+.ct-to-head svg { width: 14px; height: 14px; fill: var(--color-gold-light); }
+.ct-to-label { font-size: 10.5px; font-weight: 800; color: var(--color-gold-light); letter-spacing: .12em; text-transform: uppercase; }
+.ct-kv { padding: 2px 0; }
 .ct-row {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: 8px 16px;
-  padding: 10px 16px;
-  border-bottom: 1px solid rgba(21,101,192,.08);
+  display: grid; grid-template-columns: 1fr auto;
+  align-items: center; gap: 8px 16px;
+  padding: 11px 16px;
+  border-bottom: 1px solid rgba(190,140,45,0.16);
 }
 .ct-row:last-child { border-bottom: none; }
-.ct-row.highlight { background: rgba(21,101,192,.04); }
-.ct-k { font-size: 12px; color: #1565C0; font-weight: 800; }
+.ct-row.highlight { background: rgba(214,166,55,0.10); }
+.ct-k { font-size: 12px; color: var(--color-purple); font-weight: 700; }
 .ct-v {
-  font-size: 13px; color: #0d2d6e; font-weight: 900;
-  text-align: right;
-  position: relative;
-  padding-bottom: 3px;
+  font-size: 13px; color: var(--color-text); font-weight: 800;
+  text-align: right; font-variant-numeric: tabular-nums;
 }
-.ct-v::after {
-  content: "";
-  position: absolute; left: 0; right: 0; bottom: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #0d2d6e, #1565C0);
-  border-radius: 99px; opacity: .5;
-}
-.ct-row.monthly .ct-v {
-  font-size: 15px; color: #0d2d6e;
-}
+.ct-row.monthly .ct-v { font-size: 16px; color: var(--color-purple); }
 
 /* ── Divider ── */
 .ct-sep {
-  height: 2px;
-  background: linear-gradient(90deg, #0d2d6e, #1565C0 50%, #2d6b0a);
-  border-radius: 99px;
+  height: 2px; border-radius: 99px; opacity: .5;
+  background: linear-gradient(90deg, var(--color-purple), var(--color-gold) 50%, var(--color-purple));
   margin: 6px 0 18px;
-  opacity: .6;
 }
 
 /* ── Subject ── */
 .ct-subject {
-  font-size: 12px; font-weight: 950;
-  letter-spacing: .08em; text-transform: uppercase;
-  color: #0d2d6e; margin-bottom: 12px;
-  display: flex; align-items: center; gap: 8px;
+  font-family: 'Playfair Display', serif !important;
+  font-size: 15px; font-weight: 800; letter-spacing: .01em;
+  color: var(--color-purple); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 9px;
 }
 .ct-subject::before {
-  content: "";
-  display: inline-block; width: 4px; height: 16px;
-  background: linear-gradient(180deg, #0d2d6e, #1565C0);
-  border-radius: 99px; flex-shrink: 0;
+  content: ""; display: inline-block; width: 4px; height: 17px;
+  background: var(--color-gold); border-radius: 99px; flex-shrink: 0;
 }
 
 /* ── Paragraphs ── */
-.ct-greeting { font-size: 13px; color: #111827; margin-bottom: 10px; }
-.ct-para {
-  font-size: 12.5px; line-height: 1.75; color: #374151;
-  margin-bottom: 10px;
+.ct-greeting { font-size: 13.5px; color: var(--color-text); margin-bottom: 12px; }
+.ct-greeting b { color: var(--color-purple); }
+.ct-para { font-size: 12.5px; line-height: 1.75; color: #3d3748; margin-bottom: 10px; }
+.ct-para.muted { color: var(--color-muted); }
+
+/* ── Numbered clause list ── */
+.ct-clauses { display: flex; flex-direction: column; gap: 8px; margin: 4px 0 14px; }
+.ct-clause {
+  display: flex; gap: 12px;
+  border: 1.5px solid var(--border-gold);
+  border-radius: 12px;
+  background: #FFFDF6;
+  padding: 12px 14px;
 }
-.ct-para b { color: #0d2d6e; }
-.ct-para.muted { color: #6b7280; }
+.ct-clause-num {
+  width: 22px; height: 22px; flex-shrink: 0; margin-top: 1px;
+  border-radius: 50%; background: var(--color-gold); color: #fff;
+  font-size: 10.5px; font-weight: 800;
+  display: flex; align-items: center; justify-content: center;
+}
+.ct-clause-body { font-size: 12.5px; line-height: 1.7; color: #3d3748; }
+.ct-clause-body b { color: var(--color-purple); }
 
 /* ── Signature ── */
 .ct-sig { margin-top: 22px; }
-.ct-sig-label { font-size: 13px; font-weight: 950; color: #0d2d6e; margin-bottom: 16px; }
-.ct-sig-line {
-  height: 2px;
-  background: linear-gradient(90deg, #0d2d6e, #1565C0 60%, #2d6b0a);
-  border-radius: 99px; width: 60%; margin-bottom: 6px;
+.ct-sig-label {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 14px; font-weight: 800; color: var(--color-purple); margin-bottom: 18px;
 }
-.ct-sig-sub { font-size: 11px; color: #9ca3af; font-weight: 600; }
+.ct-sig-line {
+  height: 2px; border-radius: 99px; width: 60%; margin-bottom: 6px;
+  background: linear-gradient(90deg, var(--color-purple), var(--color-gold) 70%);
+}
+.ct-sig-sub { font-size: 11px; color: var(--color-muted); font-weight: 600; }
 
 /* ── Footer ── */
 .ct-foot {
-  background: linear-gradient(90deg, #EFF6FF, #f0fff4);
-  border-top: 1.5px solid #BFDBFE;
-  padding: 12px 20px;
+  background: #FFFDF6;
+  border-top: 1.5px solid var(--border-gold);
+  padding: 13px 20px;
   display: flex; align-items: center; justify-content: space-between;
   flex-wrap: wrap; gap: 8px;
 }
 .ct-foot-badge {
-  background: linear-gradient(135deg, #0d2d6e, #1565C0);
-  color: #fff; font-size: 11px; font-weight: 800;
-  padding: 6px 16px; border-radius: 999px;
-  letter-spacing: .04em;
+  background:
+    linear-gradient(var(--color-purple), var(--color-purple)) padding-box,
+    linear-gradient(120deg, var(--color-gold-dark), var(--color-gold-light) 45%, var(--color-gold-dark) 100%) border-box;
+  border: 2px solid transparent;
+  color: var(--color-gold-light); font-size: 11px; font-weight: 800;
+  padding: 6px 16px; border-radius: 999px; letter-spacing: .03em;
 }
-.ct-foot-hours { font-size: 11px; color: #1565C0; font-weight: 700; }
+.ct-foot-hours { font-size: 11.5px; color: var(--color-purple); font-weight: 700; }
 
 @media (max-width: 480px) {
-  .ct-head-title { font-size: 17px; }
+  .ct-head-title { font-size: 16.5px; }
   .ct-logo-box { width: 46px; height: 46px; }
   .ct-body { padding: 14px; }
   .ct-row { padding: 9px 12px; }
+}
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity:1 !important; transform:none !important; }
+  .ct-head::after{ animation: none !important; }
 }
 </style>
 
@@ -233,17 +243,17 @@ body {
     Back
   </a>
 
-  <div class="ct-paper">
+  <div class="ct-paper reveal">
 
     <!-- Header -->
     <div class="ct-head">
       <div class="ct-head-row">
         <div class="ct-logo-box">
-          <img src="{% static 'img/logo.webp' %}" alt="Logo">
+          <img src="{% static 'img/ilend-logo.webp' %}" alt="ILEND Logo">
         </div>
         <div class="ct-head-info">
           <div class="ct-head-title">Loan Contract</div>
-          <div class="ct-head-sub">ASIASOURCE FINANCIAL INC.</div>
+          <div class="ct-head-sub">ILEND LENDING CORP.</div>
         </div>
         <div class="ct-head-support">
           <b>Support</b><br>Company Department
@@ -258,7 +268,7 @@ body {
     <!-- Body -->
     <div class="ct-body">
 
-      <!-- TO card -->
+      <!-- Borrower Details card -->
       <div class="ct-to-card">
         <div class="ct-to-head">
           <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.42 0-8 2-8 4.5V21h16v-2.5C20 16 16.42 14 12 14z"/></svg>
@@ -287,7 +297,7 @@ body {
           </div>
           <div class="ct-row">
             <span class="ct-k">Interest Rate</span>
-            <span class="ct-v">0.5%</span>
+            <span class="ct-v">{{ interest_rate|default:"0.5" }}%</span>
           </div>
           <div class="ct-row monthly highlight">
             <span class="ct-k">Monthly Repayment</span>
@@ -308,20 +318,23 @@ body {
         This contract confirms the loan request and repayment responsibilities under the company policy. By continuing to use this service, you agree to the terms below.
       </div>
 
-      <div class="ct-para">
-        <b>1) Loan Details:</b> The borrower requests the loan amount and term shown above. The monthly repayment shown is a calculated estimate based on the current interest rate.
-      </div>
-
-      <div class="ct-para">
-        <b>2) Repayment:</b> The borrower must repay on time according to the repayment schedule provided in the system. Late payments may result in account restrictions or additional verification.
-      </div>
-
-      <div class="ct-para">
-        <b>3) Verification:</b> The company may request additional documents at any time for security, risk checks, or compliance purposes.
-      </div>
-
-      <div class="ct-para">
-        <b>4) Communication:</b> Important notices can be sent to your notifications section. Please check regularly.
+      <div class="ct-clauses">
+        <div class="ct-clause">
+          <div class="ct-clause-num">1</div>
+          <div class="ct-clause-body"><b>Loan Details:</b> The borrower requests the loan amount and term shown above. The monthly repayment shown is a calculated estimate based on the current interest rate.</div>
+        </div>
+        <div class="ct-clause">
+          <div class="ct-clause-num">2</div>
+          <div class="ct-clause-body"><b>Repayment:</b> The borrower must repay on time according to the repayment schedule provided in the system. Late payments may result in account restrictions or additional verification.</div>
+        </div>
+        <div class="ct-clause">
+          <div class="ct-clause-num">3</div>
+          <div class="ct-clause-body"><b>Verification:</b> The company may request additional documents at any time for security, risk checks, or compliance purposes.</div>
+        </div>
+        <div class="ct-clause">
+          <div class="ct-clause-num">4</div>
+          <div class="ct-clause-body"><b>Communication:</b> Important notices can be sent to your notifications section. Please check regularly.</div>
+        </div>
       </div>
 
       <div class="ct-para">Thank you for using our service.</div>
@@ -343,4 +356,29 @@ body {
 
   </div>
 </div>
+
+<script>
+(function(){
+  const nodes = Array.from(document.querySelectorAll('.reveal'));
+  if(!nodes.length) return;
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion || !('IntersectionObserver' in window)) {
+    nodes.forEach(el => el.classList.add('on'));
+    return;
+  }
+  let firstBatch = true;
+  const io = new IntersectionObserver((entries) => {
+    let i = 0;
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      setTimeout(() => el.classList.add('on'), (firstBatch ? 250 : 0) + i * 90);
+      io.unobserve(el);
+      i++;
+    });
+    firstBatch = false;
+  }, { threshold: 0.1 });
+  nodes.forEach(el => io.observe(el));
+})();
+</script>
 {% endblock %}

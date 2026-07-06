@@ -245,8 +245,19 @@ body { background: var(--color-bg) !important; }
   box-shadow: none; cursor: not-allowed;
 }
 .pm-submit-btn:disabled svg { fill: #6d6474; }
+#pmSubmitBtnLabel { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+
+.pm-btn-spinner {
+  display:inline-block; width:16px; height:16px;
+  border:2.5px solid rgba(247,215,122,0.35);
+  border-top-color: var(--color-gold-light);
+  border-radius:50%;
+  animation: pmBtnSpin 0.7s linear infinite;
+}
+@keyframes pmBtnSpin { to { transform: rotate(360deg); } }
 
 @media (prefers-reduced-motion: reduce){
+  .pm-btn-spinner { animation: none; }
   .reveal{ opacity:1 !important; transform:none !important; }
   .pm-header::after{ animation: none !important; }
 }
@@ -281,7 +292,7 @@ body { background: var(--color-bg) !important; }
       <div class="pm-passbook-name placeholder" id="pbName">Account holder name</div>
     </div>
 
-    <form method="post" class="{% if locked %}pm-locked{% endif %}">
+    <form method="post" class="{% if locked %}pm-locked{% endif %}" id="pmForm">
       {% csrf_token %}
 
       {% if locked %}
@@ -321,9 +332,11 @@ body { background: var(--color-bg) !important; }
               Locked
             </button>
           {% else %}
-            <button class="pm-submit-btn" type="submit">
-              <svg viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
-              Save
+            <button class="pm-submit-btn" type="submit" id="pmSubmitBtn">
+              <span id="pmSubmitBtnLabel">
+                <svg viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+                Save
+              </span>
             </button>
           {% endif %}
         </div>
@@ -395,6 +408,21 @@ body { background: var(--color-bg) !important; }
     firstBatch = false;
   }, { threshold: 0.1 });
   nodes.forEach(el => io.observe(el));
+})();
+</script>
+<script>
+(function(){
+  const form = document.getElementById("pmForm");
+  const btn  = document.getElementById("pmSubmitBtn");
+  const label = document.getElementById("pmSubmitBtnLabel");
+  if(!form || !btn || !label) return;
+  form.addEventListener("submit", function(){
+    if(!form.checkValidity()) return;
+    label.innerHTML = '<span class="pm-btn-spinner"></span>Saving...';
+    btn.style.pointerEvents = "none";
+    btn.style.opacity = ".7";
+    setTimeout(() => { btn.disabled = true; }, 0);
+  });
 })();
 </script>
 
