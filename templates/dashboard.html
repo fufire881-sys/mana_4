@@ -494,10 +494,17 @@ body{
   border: 2px solid var(--color-gold);
   overflow: hidden;
   box-shadow: var(--shadow-soft);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, height 0.4s ease;
 }
 .dash-cta:hover{ transform: translateY(-2px); box-shadow: var(--shadow-gold); }
-.dash-cta img{ width: 100%; height: auto; display: block; }
+.dash-cta img{
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: auto; display: block;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+.dash-cta img.on{ opacity: 1; }
 .dash-cta::after{
   content: "";
   position: absolute; inset: 0;
@@ -505,7 +512,18 @@ body{
   transform: translateX(-120%);
   animation: diamondShine 5s ease-in-out infinite;
   pointer-events: none;
+  z-index: 2;
 }
+.dash-cta-dots{
+  position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%);
+  display: flex; gap: 6px; z-index: 3;
+}
+.dash-cta-dot{
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(255,255,255,.45);
+  transition: background 0.3s ease, width 0.3s ease;
+}
+.dash-cta-dot.on{ background: var(--color-gold-light); width: 16px; border-radius: 999px; }
 
 /* ===== Dashboard status message boxes ===== */
 .dash-status-msg{ margin-top: 10px; padding: 10px 12px; border-radius: 14px; font-weight: 800; font-size: 12px; line-height: 1.35; border: 1px solid var(--border-gold); }
@@ -825,9 +843,16 @@ body{
     </div>
   </div>
 
-  <!-- CTA banner -->
-  <a href="{% url 'quick_loan' %}" class="dash-cta reveal from-right">
-    <img src="{% static 'img/dash-cta-bg.webp' %}?v=2" alt="Get the best loan — Quick approval, low rates and full security. Apply Now.">
+  <!-- CTA banner (auto-advancing carousel, each slide already has its own text/button drawn in) -->
+  <a href="{% url 'quick_loan' %}" class="dash-cta reveal from-right" id="dashCta">
+    <img class="on" src="{% static 'img/dash-cta-bg.webp' %}?v=2" alt="Get the best loan — Quick approval, low rates and full security. Apply Now." data-ratio="2069 / 458">
+    <img src="{% static 'img/dash-cta-bg-2.webp' %}" alt="Quick funds when it matters — Fast approval, flexible repayments and secure service. Get Started." data-ratio="2172 / 724">
+    <img src="{% static 'img/dash-cta-bg-3.webp' %}" alt="Smart loans, zero stress — Instant checks, simple terms and trusted protection. Apply Today." data-ratio="2172 / 724">
+    <div class="dash-cta-dots">
+      <span class="dash-cta-dot on"></span>
+      <span class="dash-cta-dot"></span>
+      <span class="dash-cta-dot"></span>
+    </div>
   </a>
 
 </div>
@@ -1094,6 +1119,42 @@ body{
     var ua = (navigator.userAgent || "").toLowerCase();
     if(ua.includes("android")){
       document.documentElement.classList.add("android-no-blur");
+    }
+  })();
+</script>
+<script>
+  /* CTA banner carousel — crossfades between slides and resizes the
+     container to each slide's own intrinsic aspect ratio, so every image
+     (even ones with a different shape) always shows uncropped/undistorted. */
+  (function(){
+    const cta = document.getElementById('dashCta');
+    if(!cta) return;
+    const imgs = Array.from(cta.querySelectorAll('img'));
+    const dots = Array.from(cta.querySelectorAll('.dash-cta-dot'));
+    if(imgs.length < 2) return;
+
+    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let i = 0;
+    function setRatio(img){
+      const r = img.dataset.ratio;
+      if(r) cta.style.aspectRatio = r;
+    }
+    setRatio(imgs[0]);
+
+    function show(next){
+      imgs[i].classList.remove('on');
+      if(dots[i]) dots[i].classList.remove('on');
+      i = next;
+      setRatio(imgs[i]);
+      imgs[i].classList.add('on');
+      if(dots[i]) dots[i].classList.add('on');
+    }
+
+    if(!reduceMotion){
+      setInterval(function(){
+        show((i + 1) % imgs.length);
+      }, 5000);
     }
   })();
 </script>
