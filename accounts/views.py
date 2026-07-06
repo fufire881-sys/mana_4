@@ -705,8 +705,8 @@ def loan_status_api(request):
             ui_status = "REVIEW"
 
     label_map = {
-        "PENDING": "Pending",
-        "REVIEW": "In Review",
+        "PENDING": "Under review",
+        "REVIEW": "Checking",
         "APPROVED": "Approved",
         "REJECTED": "Rejected",
         "PAID": "Paid",

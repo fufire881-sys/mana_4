@@ -554,7 +554,7 @@ function applyStep(n, label){
   const text = document.getElementById("statusText");
   const s = String(label || "").toUpperCase().trim();
   if(text){
-    if(s === "REVIEW") text.textContent = "Initial approval in progress. Please wait.";
+    if(s === "CHECKING") text.textContent = "Initial approval in progress. Please wait.";
     else if(s === "APPROVED") text.textContent = "Final approval. Almost done.";
     else if(s === "PAID") text.textContent = "Success Paid. Your loan has been completed.";
     else text.textContent = "Our team is reviewing your documents. Please wait.";
