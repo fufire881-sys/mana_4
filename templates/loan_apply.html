@@ -636,7 +636,15 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
 <script>
   (function(){
     const qs = new URLSearchParams(window.location.search);
-    const a  = qs.get("amount"), t = qs.get("term");
+    let a = qs.get("amount"), t = qs.get("term");
+    // Fall back to the last amount/term entered on the Quick Loan calculator,
+    // so arriving here from Dashboard/Profile (not just "Apply Now") still auto-fills.
+    if(!a || !t){
+      try {
+        if(!a) a = localStorage.getItem('ilend_qa');
+        if(!t) t = localStorage.getItem('ilend_qt');
+      } catch(e){}
+    }
     const amountEl   = document.getElementById("loanAmount");
     const termHidden = document.getElementById("loanTerms");
     const hint       = document.getElementById("termHint");

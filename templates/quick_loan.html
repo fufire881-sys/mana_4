@@ -426,6 +426,13 @@ input[readonly] { opacity: .85; cursor: default; }
       const monthly = total / term;
       if (outMonthly) outMonthly.textContent = "PHP " + fmt(Math.round(monthly));
 
+      // Remember the last valid amount/term so the loan application page can
+      // auto-fill even when reached from somewhere other than "Apply Now" below.
+      try {
+        localStorage.setItem('ilend_qa', String(amount));
+        localStorage.setItem('ilend_qt', String(term));
+      } catch(e){}
+
       {% if not loan %}
         goBtn.disabled = false;
         goBtn.style.opacity = "1";
