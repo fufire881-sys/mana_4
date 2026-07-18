@@ -283,6 +283,7 @@ class PaymentMethod(models.Model):
 
     # Bank
     bank_name = models.CharField(max_length=120, blank=True)
+    account_name = models.CharField(max_length=120, blank=True)
     bank_account = models.CharField(max_length=80, blank=True)
 
     # PayPal

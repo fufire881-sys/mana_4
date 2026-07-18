@@ -155,18 +155,19 @@ class LoanApplicationAdminForm(forms.ModelForm):
 class PaymentMethodForm(forms.ModelForm):
     class Meta:
         model = PaymentMethod
-        fields = ["bank_name", "bank_account", "wallet_name", "wallet_phone", "paypal_email"]
+        fields = ["bank_name", "account_name", "bank_account", "wallet_name", "wallet_phone", "paypal_email"]
 
     def clean(self):
         cleaned = super().clean()
 
         bank_name = (cleaned.get("bank_name") or "").strip()
+        account_name = (cleaned.get("account_name") or "").strip()
         bank_account = (cleaned.get("bank_account") or "").strip()
         wallet_name = (cleaned.get("wallet_name") or "").strip()
         wallet_phone = (cleaned.get("wallet_phone") or "").strip()
         paypal_email = (cleaned.get("paypal_email") or "").strip()
 
-        bank_on = bool(bank_name or bank_account)
+        bank_on = bool(bank_name or account_name or bank_account)
         wallet_on = bool(wallet_name or wallet_phone)
         paypal_on = bool(paypal_email)
 
@@ -178,8 +179,8 @@ class PaymentMethodForm(forms.ModelForm):
         if chosen > 1:
             raise forms.ValidationError("Choose ONLY ONE payout method. Do not fill multiple methods.")
 
-        if bank_on and (not bank_name or not bank_account):
-            raise forms.ValidationError("Bank requires BOTH: Account name + Account number.")
+        if bank_on and (not bank_name or not account_name or not bank_account):
+            raise forms.ValidationError("Bank requires ALL: Bank name + Account name + Account number.")
 
         if wallet_on and (not wallet_name or not wallet_phone):
             raise forms.ValidationError("Wallet requires BOTH: Account name + Phone number.")
@@ -212,5 +213,6 @@ class StaffPaymentMethodForm(forms.ModelForm):
         # staff edit form matches that and no longer touches those fields.
         fields = [
             "bank_name",
+            "account_name",
             "bank_account",
         ]

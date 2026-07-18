@@ -173,6 +173,6 @@ class WithdrawalRequestAdmin(admin.ModelAdmin):
 
 @admin.register(PaymentMethod)
 class PaymentMethodAdmin(admin.ModelAdmin):
-    list_display = ("user", "locked", "wallet_phone", "bank_account", "paypal_email", "updated_at")
-    search_fields = ("user__phone", "wallet_phone", "bank_account", "paypal_email")
+    list_display = ("user", "locked", "wallet_phone", "bank_name", "account_name", "bank_account", "paypal_email", "updated_at")
+    search_fields = ("user__phone", "wallet_phone", "bank_name", "account_name", "bank_account", "paypal_email")
     list_filter = ("locked",)    

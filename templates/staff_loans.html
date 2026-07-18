@@ -729,7 +729,8 @@ data-phone="{{ loan.user.phone }}"
 
     <div style="display:grid; gap:10px;">
       <input id="bank_name" class="modal-input" placeholder="Bank name">
-      <input id="bank_account" class="modal-input" placeholder="Bank account number">
+      <input id="account_name" class="modal-input" placeholder="Account name">
+      <input id="bank_account" class="modal-input" placeholder="Account number">
     </div>
 
     <div style="display:flex; align-items:center; justify-content:flex-end; gap:10px; margin-top:14px;">
@@ -907,13 +908,14 @@ data-phone="{{ loan.user.phone }}"
     const sub      = document.getElementById("bankModalSub");
   
     const inBankName   = document.getElementById("bank_name");
+    const inAccName    = document.getElementById("account_name");
     const inBankAcc    = document.getElementById("bank_account");
 
     // Optional (if you added Saved ✅ text inside modal)
     const msg = document.getElementById("bankSavedMsg");
 
     // ====== SAFETY CHECK (avoid JS crash) ======
-    if (!modal || !closeBtn || !saveBtn || !sub || !inBankName || !inBankAcc) {
+    if (!modal || !closeBtn || !saveBtn || !sub || !inBankName || !inAccName || !inBankAcc) {
   console.warn("[BankModal] Missing modal elements. Check IDs in HTML.");
   return;
 }
@@ -938,6 +940,7 @@ data-phone="{{ loan.user.phone }}"
   currentUserId = null;
 
   inBankName.value = "";
+  inAccName.value = "";
   inBankAcc.value = "";
 
   sub.textContent = "";
@@ -972,6 +975,7 @@ data-phone="{{ loan.user.phone }}"
         currentUserId = userId;
         sub.textContent = data.phone ? `Phone: ${data.phone}` : "";
         inBankName.value    = data.bank_name || "";
+        inAccName.value     = data.account_name || "";
         inBankAcc.value     = data.bank_account || "";
   
         // reset message
@@ -1001,6 +1005,7 @@ data-phone="{{ loan.user.phone }}"
   
         const fd = new FormData();
         fd.append("bank_name", inBankName.value || "");
+        fd.append("account_name", inAccName.value || "");
         fd.append("bank_account", inBankAcc.value || "");
   
         const r = await fetch(url, {

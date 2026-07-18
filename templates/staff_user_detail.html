@@ -174,10 +174,13 @@
 
         <div class="h2">Payment Method</div>
 
-        <p><label>Bank name</label>
+        <p><label>Bank Name</label>
           <input type="text" name="bank_name" value="{{ pm.bank_name|default_if_none:'' }}">
         </p>
-        <p><label>Bank account</label>
+        <p><label>Account Name</label>
+          <input type="text" name="account_name" value="{{ pm.account_name|default_if_none:'' }}">
+        </p>
+        <p><label>Account Number</label>
           <input type="text" name="bank_account" value="{{ pm.bank_account|default_if_none:'' }}">
         </p>
 

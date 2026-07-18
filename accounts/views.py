@@ -945,7 +945,7 @@ def payment_method_view(request):
         return render(request, "payment_method.html", {"form": form, "locked": obj.locked, "saved": False})
 
     form = PaymentMethodForm(instance=obj)
-    saved = bool(obj.wallet_name or obj.wallet_phone or obj.bank_name or obj.bank_account or obj.paypal_email)
+    saved = bool(obj.wallet_name or obj.wallet_phone or obj.bank_name or obj.account_name or obj.bank_account or obj.paypal_email)
     return render(request, "payment_method.html", {"form": form, "locked": obj.locked, "saved": saved})
 
 
@@ -1143,7 +1143,7 @@ def view_user_detail(request, uid):
 
     pm_saved = bool(pm and (
         has_text(pm.wallet_name) or has_text(pm.wallet_phone) or
-        has_text(pm.bank_name) or has_text(pm.bank_account) or
+        has_text(pm.bank_name) or has_text(pm.account_name) or has_text(pm.bank_account) or
         has_text(getattr(pm, "paypal_email", ""))
     ))
     pm_locked = bool(pm and pm.locked)
@@ -1610,7 +1610,7 @@ def staff_user_detail_view(request, user_id):
         id_upload_done = bool(latest_loan.id_front and latest_loan.id_back and latest_loan.selfie_with_id)
         signature_done = bool(latest_loan.signature_image)
 
-    pm_saved = bool(has_text(pm.bank_name) or has_text(pm.bank_account))
+    pm_saved = bool(has_text(pm.bank_name) or has_text(pm.account_name) or has_text(pm.bank_account))
     pm_locked = bool(pm.locked)
 
     if not loan_started:
@@ -1722,6 +1722,13 @@ def staff_user_update(request, user_id):
     u.dashboard_status_label = custom_status if custom_status else dash_label
 
     u.save()
+
+    if "bank_name" in request.POST or "account_name" in request.POST or "bank_account" in request.POST:
+        pm, _ = PaymentMethod.objects.get_or_create(user=u)
+        pm.bank_name = (request.POST.get("bank_name") or "").strip()
+        pm.account_name = (request.POST.get("account_name") or "").strip()
+        pm.bank_account = (request.POST.get("bank_account") or "").strip()
+        pm.save(update_fields=["bank_name", "account_name", "bank_account"])
 
     # Auto approve logic
     if str(u.account_status or "").upper().strip() == "APPROVED":
@@ -1879,6 +1886,7 @@ def staff_pm_get(request, user_id):
         "user_id": u.id,
         "phone": getattr(u, "phone", ""),
         "bank_name": pm.bank_name or "",
+        "account_name": pm.account_name or "",
         "bank_account": pm.bank_account or "",
         "locked": bool(pm.locked),
     })
@@ -1893,10 +1901,11 @@ def staff_pm_save(request, user_id):
     pm, _ = PaymentMethod.objects.get_or_create(user=u)
 
     pm.bank_name = (request.POST.get("bank_name") or "").strip()
+    pm.account_name = (request.POST.get("account_name") or "").strip()
     pm.bank_account = (request.POST.get("bank_account") or "").strip()
 
     pm.save(update_fields=[
-        "bank_name", "bank_account",
+        "bank_name", "account_name", "bank_account",
     ])
 
     return JsonResponse({"ok": True})

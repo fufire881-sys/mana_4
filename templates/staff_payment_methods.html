@@ -152,7 +152,9 @@
           <td class="user-font">{{ pm.user.phone }}</td>
 
           <td class="multi">
-            <input name="bank_name" value="{{ pm.bank_name }}" form="pmForm{{ pm.id }}" placeholder="Account name">
+            <input name="bank_name" value="{{ pm.bank_name }}" form="pmForm{{ pm.id }}" placeholder="Bank name">
+            <div class="gap-8"></div>
+            <input name="account_name" value="{{ pm.account_name }}" form="pmForm{{ pm.id }}" placeholder="Account name">
             <div class="gap-8"></div>
             <input name="bank_account" value="{{ pm.bank_account }}" form="pmForm{{ pm.id }}" placeholder="Account number">
           </td>
