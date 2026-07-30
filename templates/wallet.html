@@ -254,6 +254,51 @@ body { background: var(--color-bg) !important; }
   text-align: center;
 }
 
+/* ── Withdrawal "Processing" popup ── */
+#wdProcessingModal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  box-sizing: border-box;
+  background: rgba(20,10,32,.6);
+}
+.wd-modal-card {
+  width: min(340px, 92vw);
+  background: #fff;
+  border-radius: var(--radius-lg);
+  border: 1.5px solid var(--border-gold);
+  box-shadow: var(--shadow-soft);
+  padding: 30px 24px 24px;
+  text-align: center;
+}
+.wd-modal-icon {
+  width: 60px; height: 60px;
+  margin: 0 auto 16px;
+  border-radius: 50%;
+  background: rgba(22,163,74,.10);
+  display: flex; align-items: center; justify-content: center;
+}
+.wd-modal-icon svg { width: 30px; height: 30px; }
+.wd-modal-title {
+  font-family: 'Playfair Display', serif !important;
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--color-text);
+  margin-bottom: 8px;
+}
+.wd-modal-text {
+  font-size: 13.5px;
+  color: var(--color-muted);
+  line-height: 1.55;
+  margin-bottom: 22px;
+}
+.wd-modal-card .big-btn { height: 48px; font-size: 13px; }
+#wdProcessingCountdown { opacity: .75; margin-left: 6px; font-weight: 700; }
+
 /* ── List rows — each with a status icon bubble instead of a bare text
    row, matching the icon language used across the redesigned pages. ── */
 .list-row {
@@ -546,6 +591,21 @@ body { background: var(--color-bg) !important; }
     </div>
   </div> <!-- ✅ close withdraw card -->
 
+  <!-- Withdrawal "Processing" popup -->
+  <div id="wdProcessingModal">
+    <div class="wd-modal-card">
+      <div class="wd-modal-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="1.6">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M8 12.3 10.6 15 16 9.3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </div>
+      <div class="wd-modal-title">Processing!</div>
+      <div class="wd-modal-text">Your withdrawal is processing, please waiting for approval.</div>
+      <button type="button" id="wdProcessingOk" class="big-btn">OK<span id="wdProcessingCountdown">(10)</span></button>
+    </div>
+  </div>
+
   <!-- List -->
   <div class="cardx currency-style reveal">
     <div class="row" style="margin-bottom:8px;">
@@ -604,6 +664,10 @@ body { background: var(--color-bg) !important; }
   const b3 = document.getElementById("b3");
   const t3 = document.getElementById("t3");
 
+  const wdModal = document.getElementById("wdProcessingModal");
+  const wdModalOk = document.getElementById("wdProcessingOk");
+  const wdModalCountdown = document.getElementById("wdProcessingCountdown");
+
   const alertBox = document.getElementById("formAlert");
 
   function getCookie(name){
@@ -634,6 +698,8 @@ body { background: var(--color-bg) !important; }
   let _lockUntil = 0;
   let _currentWdId = null;
   let _submittedAt = 0;
+  let _popupOpen = false;
+  let _popupTimer = null;
 
   function lockUI(ms){ _lockUntil = Date.now() + (ms || 0); }
   function isLocked(){ return Date.now() < _lockUntil; }
@@ -741,6 +807,8 @@ body { background: var(--color-bg) !important; }
   }
 
   function setStatusFromDB(raw, sid){
+    if(_popupOpen) return; // keep the timeline hidden behind the "Processing!" popup
+
     const s = (raw || "").toLowerCase().trim();
     const known = ["reviewed","processing","paid","payment_sent","rejected","withdrawal_fail"];
 
@@ -781,6 +849,42 @@ body { background: var(--color-bg) !important; }
     paintStage(1);
     setTimeout(()=> paintStage(2), 450);
   }
+
+  // =========================
+  // "PROCESSING" POPUP
+  // Shown right after a successful submit; the status timeline only
+  // appears once this popup is dismissed (by OK or the 10s auto-close).
+  // =========================
+  function closeProcessingPopup(){
+    if(_popupTimer){ clearInterval(_popupTimer); _popupTimer = null; }
+    if(wdModal) wdModal.style.display = "none";
+    _popupOpen = false;
+
+    _submittedAt = Date.now();
+    lockUI(8000);
+    playSubmitAnimation();
+    const latest = document.querySelector(".pill[data-wstatus]");
+    if(latest){ latest.dataset.wstatus = "processing"; latest.textContent = "Processing"; }
+    _uiStage = 2;
+  }
+
+  function openProcessingPopup(){
+    if(!wdModal){ closeProcessingPopup(); return; }
+
+    _popupOpen = true;
+    let secondsLeft = 10;
+    if(wdModalCountdown) wdModalCountdown.textContent = "(" + secondsLeft + ")";
+    wdModal.style.display = "flex";
+
+    if(_popupTimer) clearInterval(_popupTimer);
+    _popupTimer = setInterval(()=>{
+      secondsLeft -= 1;
+      if(secondsLeft <= 0){ closeProcessingPopup(); return; }
+      if(wdModalCountdown) wdModalCountdown.textContent = "(" + secondsLeft + ")";
+    }, 1000);
+  }
+
+  wdModalOk && wdModalOk.addEventListener("click", closeProcessingPopup);
 
   // =========================
   // POLLING
@@ -940,16 +1044,14 @@ body { background: var(--color-bg) !important; }
         return;
       }
 
-      // Success
-      _submittedAt = Date.now();
-      lockUI(8000);
-      playSubmitAnimation();
+      // Success — show the "Processing!" popup first; the status timeline
+      // is revealed once that popup closes (see closeProcessingPopup()).
       if(otpInput){ otpInput.value = ""; otpInput.placeholder = "Enter new OTP"; }
       if(otpHidden) otpHidden.value = "";
+      if(amountInput) amountInput.value = "";
+      if(amountHidden) amountHidden.value = "";
       updateBtn();
-      const latest = document.querySelector(".pill[data-wstatus]");
-      if(latest){ latest.dataset.wstatus = "processing"; latest.textContent = "Processing"; }
-      _uiStage = 2;
+      openProcessingPopup();
 
     }catch(e){
       locked = false;
