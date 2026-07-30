@@ -180,6 +180,71 @@
   margin-right: 8px;
 }
 .wd-del:hover{ opacity:.92; }
+
+/* Delete confirm modal — matches the "Confirm Delete User" modal on the Users page */
+.pw-modal{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 16px;
+}
+.pw-box{
+  width: min(520px, 92vw);
+  background: #f7f7f7;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.45);
+  overflow: hidden;
+}
+.pw-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+}
+.pw-title{ font-weight: 950; font-size: 18px; color:#111; }
+.pw-x{
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  border: 0;
+  background: #dc2626;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+.pw-x:hover{ opacity: .92; }
+.pw-body{ padding: 16px; }
+.pw-actions{
+  padding: 14px 16px;
+  display:flex;
+  justify-content:flex-end;
+  gap: 10px;
+  border-top: 1px solid rgba(0,0,0,.08);
+}
+.pw-save{
+  height: 40px;
+  padding: 0 18px;
+  border-radius: 8px;
+  border: 0;
+  background: #2563eb;
+  color:#fff;
+  font-weight: 950;
+  cursor:pointer;
+}
+.pw-close{
+  height: 40px;
+  padding: 0 18px;
+  border-radius: 8px;
+  border: 0;
+  background: #dc2626;
+  color:#fff;
+  font-weight: 950;
+  cursor:pointer;
+}
 </style>
 
   <div class="card-h">
@@ -252,7 +317,7 @@
 
   <!-- ✅ Save & Delete Column - ADD THIS -->
   <td class="save-cell">
-    <button type="button" class="wd-del" onclick="wdDelete({{ w.id }})">Delete</button>
+    <button type="button" class="wd-del" onclick="openWdDeleteModal({{ w.id }}, '{{ w.user.phone|escapejs }}', '{{ w.display_name|default:""|escapejs }}')">Delete</button>
     <button class="savebtn" type="submit" form="wdForm{{ w.id }}">Save</button>
   </td>
 </tr>
@@ -262,6 +327,25 @@
 {% endfor %}
       </tbody>
     </table>
+
+    <!-- Delete Withdrawal Modal -->
+    <div id="wdDelModal" class="pw-modal" style="display:none;">
+      <div class="pw-box">
+        <div class="pw-head">
+          <div class="pw-title">Confirm Delete Withdrawal</div>
+          <button type="button" class="pw-x" onclick="closeWdDeleteModal()">×</button>
+        </div>
+
+        <div class="pw-body">
+          <div id="wdDelText" style="font-weight:900;color:#111;"></div>
+        </div>
+
+        <div class="pw-actions">
+          <button type="button" class="pw-close" onclick="closeWdDeleteModal()">Cancel</button>
+          <button type="button" class="pw-save" style="background:#dc2626;" onclick="confirmWdDelete()">Delete</button>
+        </div>
+      </div>
+    </div>
 
     <script>
       // Status color
@@ -312,8 +396,24 @@
         return "";
       }
 
-      async function wdDelete(id){
-        if(!confirm("Delete this withdrawal?")) return;
+      let WD_DELETE_ID = null;
+
+      function openWdDeleteModal(id, phone, name){
+        WD_DELETE_ID = id;
+        const who = name ? `${name} (${phone})` : phone;
+        document.getElementById("wdDelText").innerText =
+          "Are you sure you want to delete the withdrawal for: " + who + " ?";
+        document.getElementById("wdDelModal").style.display = "flex";
+      }
+
+      function closeWdDeleteModal(){
+        WD_DELETE_ID = null;
+        document.getElementById("wdDelModal").style.display = "none";
+      }
+
+      async function confirmWdDelete(){
+        if(!WD_DELETE_ID) return;
+        const id = WD_DELETE_ID;
         const csrf = getCookie("csrftoken");
         const res = await fetch(`/staff/withdrawals/${id}/delete/`, {
           method: "POST",
@@ -324,6 +424,7 @@
           }
         });
         const data = await res.json().catch(()=>null);
+        closeWdDeleteModal();
         if(data && data.ok){
           location.reload();
           return;
