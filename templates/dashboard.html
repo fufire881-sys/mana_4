@@ -796,13 +796,13 @@ body{
 
       <div class="calc-rate-badge">
         <div class="calc-rate-dot"></div>
-        <span class="calc-rate-text">Interest rate: <span class="calc-rate-pct">0.5% per month</span></span>
+        <span class="calc-rate-text">Interest rate: <span class="calc-rate-pct">0.3% per month</span></span>
       </div>
 
       <label class="calc-label">Loan Amount (PHP)</label>
       <div class="calc-amount-wrap">
         <span class="calc-currency-badge">₱</span>
-        <input class="calc-amount-input" id="calcAmt" type="number" placeholder="e.g. 75,000" min="75000" max="2000000">
+        <input class="calc-amount-input" id="calcAmt" type="number" placeholder="e.g. 100,000" min="100000" max="2000000">
       </div>
       <div id="calcWarn" style="display:none;align-items:center;gap:7px;background:#FFF7E0;border:1.5px solid #D6A637;border-radius:10px;padding:9px 12px;margin-bottom:10px;margin-top:-6px;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="#9B6A16" flex-shrink="0"><path d="M12 2L1 21h22L12 2zm0 3.5L20.5 19h-17L12 5.5zM11 10v4h2v-4zm0 6v2h2v-2z"/></svg>
@@ -983,7 +983,7 @@ body{
   var warnTxt  = document.getElementById('calcWarnTxt');
   var applyBtn = document.getElementById('calcApplyBtn');
   var selMonths = 12;
-  var MIN = 75000, MAX = 2000000;
+  var MIN = 100000, MAX = 2000000;
 
   function fmt(n){
     return '₱ ' + n.toLocaleString('en-PH', {minimumFractionDigits:2, maximumFractionDigits:2});
@@ -1007,7 +1007,7 @@ body{
   function calculate(){
     var P = parseFloat(amtEl.value);
     var n = selMonths;
-    var r = 0.005;
+    var r = 0.003;
     if(!P || P <= 0){
       monthly.textContent='₱ —';
       total.textContent='₱ —';
@@ -1016,7 +1016,7 @@ body{
       return;
     }
     if(P < MIN){
-      setWarn('Minimum loan amount is ₱75,000. Please enter a higher amount.');
+      setWarn('Minimum loan amount is ₱100,000. Please enter a higher amount.');
       monthly.textContent='₱ —'; total.textContent='₱ —'; interest.textContent='₱ —';
       return;
     }

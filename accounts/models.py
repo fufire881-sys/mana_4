@@ -135,10 +135,10 @@ class LoanConfig(models.Model):
     Keep only 1 row in DB.
     """
     interest_rate_monthly = models.DecimalField(
-        max_digits=10, decimal_places=6, default=Decimal("0.000500")
+        max_digits=10, decimal_places=6, default=Decimal("0.003000")
     )
     min_amount = models.DecimalField(
-        max_digits=14, decimal_places=2, default=Decimal("75000.00")
+        max_digits=14, decimal_places=2, default=Decimal("100000.00")
     )
     max_amount = models.DecimalField(
         max_digits=14, decimal_places=2, default=Decimal("2000000.00")

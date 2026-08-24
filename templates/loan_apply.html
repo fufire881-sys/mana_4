@@ -540,8 +540,8 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
       <div class="la-section-head"><div class="sh-dot"></div><span>Apply Loan</span></div>
       <div class="la-section-body">
         <div class="field">
-          <label class="field-lbl">Loan Amount (Min 75,000 · Max 2,000,000)</label>
-          <input type="number" name="loan_amount" id="loanAmount" min="75000" max="2000000" required>
+          <label class="field-lbl">Loan Amount (Min 100,000 · Max 2,000,000)</label>
+          <input type="number" name="loan_amount" id="loanAmount" min="100000" max="2000000" required>
         </div>
         <div class="field">
           <label class="field-lbl">Loan Term</label>
@@ -557,7 +557,7 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
 
         <div class="summary" aria-live="polite">
           <div class="row"><div class="k">Loan Amount</div><div class="v" id="sumAmount">—</div></div>
-          <div class="row"><div class="k">Interest Rate</div><div class="v">0.5%</div></div>
+          <div class="row"><div class="k">Interest Rate</div><div class="v">0.3%</div></div>
           <div class="row"><div class="k">Loan Period</div><div class="v" id="sumTerm">—</div></div>
           <div class="row"><div class="k">Monthly Repayment</div><div class="v" id="sumMonthly">—</div></div>
         </div>
@@ -624,7 +624,7 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
     const term   = Number(termEl.value||0);
     outAmount.textContent = amount ? amount.toLocaleString() : "—";
     outTerm.textContent   = term ? (term+" months") : "—";
-    const rate = 0.005;
+    const rate = 0.003;
     if(amount>0 && term>0){
       const total = amount + (amount*rate*term);
       outMonthly.textContent = Math.round(total/term).toLocaleString();

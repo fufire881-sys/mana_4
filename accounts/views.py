@@ -40,7 +40,7 @@ from .forms import PaymentMethodForm, StaffUserForm, StaffPaymentMethodForm
 from .crypto import encrypt_password, decrypt_password
 
 # Constants
-INTEREST_RATE_MONTHLY = Decimal("0.005")  # 0.5%
+INTEREST_RATE_MONTHLY = Decimal("0.003")  # 0.3%
 
 # ======================
 # HELPER FUNCTIONS
@@ -723,9 +723,9 @@ def loan_status_api(request):
 
 @login_required(login_url="login")
 def contract_view(request):
-    """Loan contract view - FIXED to show correct 0.5% calculation"""
+    """Loan contract view - FIXED to show correct 0.3% calculation"""
     from decimal import Decimal
-    
+
     loan = (
         LoanApplication.objects
         .filter(user=request.user)
@@ -734,14 +734,14 @@ def contract_view(request):
         .first()
     )
 
-    # FIX: recalculate using 0.5% (0.005) instead of reading the wrong value from Database
+    # FIX: recalculate using 0.3% (0.003) instead of reading the wrong value from Database
     monthly_display = "0.00"
     if loan:
         try:
             amt = Decimal(str(loan.amount or 0))
             terms = int(loan.term_months or 0)
             if amt > 0 and terms > 0:
-                rate = Decimal("0.005")  # 0.5% correct
+                rate = Decimal("0.003")  # 0.3% correct
                 total = amt + (amt * rate * terms)
                 monthly_calc = total / terms
                 monthly_display = str(monthly_calc)
@@ -756,7 +756,7 @@ def contract_view(request):
         "current_living": getattr(loan, "current_living", "") or "",
         "amount": str(getattr(loan, "amount", "") or "0.00"),
         "term_months": getattr(loan, "term_months", "") or "",
-        "interest_rate": "0.5",
+        "interest_rate": "0.3",
         "monthly_repayment": monthly_display,  # use the correctly recalculated value
     }
     return render(request, "contract.html", ctx)
@@ -849,7 +849,7 @@ def loan_apply_view(request):
             return render(request, "loan_apply.html", {"locked": False, "loan": None})
         rate = Decimal(str(cfg.interest_rate_monthly))
     else:
-        rate = Decimal("0.0005")
+        rate = Decimal("0.003")
 
     total = amount + (amount * rate * Decimal(term_months))
     monthly = total / Decimal(term_months)
@@ -2028,7 +2028,7 @@ def staff_loan_edit_save(request, loan_id):
     rate = loan.interest_rate_monthly
     if rate is None:
         cfg = LoanConfig.objects.first()
-        rate = Decimal(str(cfg.interest_rate_monthly)) if cfg else Decimal("0.0005")
+        rate = Decimal(str(cfg.interest_rate_monthly)) if cfg else Decimal("0.003")
         loan.interest_rate_monthly = rate
 
     total = loan.amount + (loan.amount * Decimal(str(rate)) * Decimal(loan.term_months))
@@ -2328,7 +2328,7 @@ def staff_loan_update(request, loan_id):
     rate = loan.interest_rate_monthly
     if rate is None:
         cfg = LoanConfig.objects.first()
-        rate = Decimal(str(cfg.interest_rate_monthly)) if cfg else Decimal("0.0005")
+        rate = Decimal(str(cfg.interest_rate_monthly)) if cfg else Decimal("0.003")
         loan.interest_rate_monthly = rate
 
     total = loan.amount + (loan.amount * Decimal(str(rate)) * Decimal(loan.term_months))
