@@ -4,10 +4,8 @@
 name: mana-4
 region: nyc
 domains:
-  - domain: ilendlending.com
+  - domain: filipinofund.vip
     type: PRIMARY
-  - domain: www.ilendlending.com
-    type: ALIAS
 services:
   - name: web
     github:
