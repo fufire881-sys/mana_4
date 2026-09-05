@@ -329,14 +329,14 @@ input[readonly] { opacity: .85; cursor: default; }
     <div class="top-actions-line"></div>
 
     <div class="field">
-      <label>Loan Amount (Min 100,000 · Max 2,000,000)</label>
+      <label>Loan Amount (Min 100,000 · Max 5,000,000)</label>
       <div class="ql-amount-wrap">
         <span class="ql-peso-badge">₱</span>
         <input
           type="number"
           id="qAmount"
           min="100000"
-          max="2000000"
+          max="5000000"
           placeholder="Enter amount"
           {% if loan %}readonly{% endif %}
         >
