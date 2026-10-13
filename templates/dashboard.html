@@ -440,8 +440,8 @@ body{
 }
 .calc-amount-input{ flex:1; border:none; outline:none; background:transparent; padding:13px 12px; font-size:16px; font-weight:700; color: var(--color-text); font-family:'Poppins',sans-serif; }
 .calc-amount-input::placeholder{ color:#b6aebf; font-weight:400; font-size:14px; }
-.calc-terms{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:14px; }
-.calc-term-btn{ border: 1.5px solid var(--border-gold); border-radius:10px; padding:9px 0; font-size:13px; font-weight:700; color: var(--color-text); background:#FFFDF6; cursor:pointer; text-align:center; transition:all .2s; font-family:'Poppins',sans-serif; }
+.calc-terms{ display:grid; grid-template-columns:repeat(5,1fr); gap:6px; margin-bottom:14px; }
+.calc-term-btn{ border: 1.5px solid var(--border-gold); border-radius:10px; padding:9px 0; font-size:12px; white-space:nowrap; font-weight:700; color: var(--color-text); background:#FFFDF6; cursor:pointer; text-align:center; transition:all .2s; font-family:'Poppins',sans-serif; }
 .calc-term-btn:hover{ border-color: var(--color-gold-dark); color: var(--color-gold-dark); }
 .calc-term-btn.active{ background: linear-gradient(135deg, var(--color-purple-dark), var(--color-purple)); border-color: var(--color-gold); color:#fff; box-shadow: 0 3px 10px rgba(59,22,95,.30); }
 .calc-result{ background: #FFFDF6; border: 1.5px solid var(--border-gold); border-radius:14px; padding:14px 16px; margin-bottom:14px; }
@@ -815,6 +815,7 @@ body{
         <button class="calc-term-btn active" data-m="12">12 mo</button>
         <button class="calc-term-btn" data-m="24">24 mo</button>
         <button class="calc-term-btn" data-m="36">36 mo</button>
+        <button class="calc-term-btn" data-m="48">48 mo</button>
       </div>
 
       <div class="calc-result" id="calcResult">

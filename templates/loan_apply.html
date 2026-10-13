@@ -259,16 +259,19 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
 
 /* ── Term buttons ── */
 .term-grid {
-  display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-top: 8px;
+  display: grid; grid-template-columns: repeat(5,1fr); gap: 8px; margin-top: 8px;
 }
-@media(max-width:480px) { .term-grid { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:480px) {
+  .term-grid { grid-template-columns: repeat(5,1fr); gap: 6px; }
+  .term-btn  { padding: 11px 2px; font-size: 12px; }
+}
 
 .term-btn {
   padding: 12px 8px; border-radius: 12px;
   border: 1.5px solid var(--border-gold); background: #FFFDF6;
   color: var(--color-text); font-weight: 700; font-size: 14px;
   cursor: pointer; transition: all .15s ease;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif; white-space: nowrap;
 }
 .term-btn:hover  { border-color: var(--color-gold-dark); color: var(--color-purple); }
 .term-btn:active { transform: scale(.97); }
@@ -551,6 +554,7 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
             <button type="button" class="term-btn" data-term="12">12 mo</button>
             <button type="button" class="term-btn" data-term="24">24 mo</button>
             <button type="button" class="term-btn" data-term="36">36 mo</button>
+            <button type="button" class="term-btn" data-term="48">48 mo</button>
           </div>
           <div class="muted" id="termHint" style="margin-top:6px;">Choose months</div>
         </div>

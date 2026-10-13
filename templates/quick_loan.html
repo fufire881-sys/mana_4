@@ -144,16 +144,19 @@ input[readonly] { opacity: .85; cursor: default; }
 /* ── Term grid ── */
 .term-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 8px; margin-top: 8px;
 }
-@media (max-width: 400px) { .term-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) {
+  .term-grid { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+  .term-btn  { padding: 11px 2px; font-size: 12px; }
+}
 
 .term-btn {
   padding: 11px 8px; border-radius: 12px;
   border: 1.5px solid var(--border-gold); background: #FFFDF6;
   color: var(--color-text); font-weight: 700; font-size: 14px;
-  cursor: pointer; text-align: center;
+  cursor: pointer; text-align: center; white-space: nowrap;
   transition: all .18s ease; font-family: 'Poppins', sans-serif !important;
 }
 .term-btn:hover { border-color: var(--color-gold-dark); color: var(--color-purple); }
@@ -351,6 +354,7 @@ input[readonly] { opacity: .85; cursor: default; }
         <button type="button" class="term-btn" data-term="12" {% if loan %}disabled{% endif %}>12 mo</button>
         <button type="button" class="term-btn" data-term="24" {% if loan %}disabled{% endif %}>24 mo</button>
         <button type="button" class="term-btn" data-term="36" {% if loan %}disabled{% endif %}>36 mo</button>
+        <button type="button" class="term-btn" data-term="48" {% if loan %}disabled{% endif %}>48 mo</button>
       </div>
       <div class="muted hint" id="qHint">Choose months</div>
     </div>
