@@ -259,9 +259,12 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
 
 /* ── Term buttons ── */
 .term-grid {
-  display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-top: 8px;
+  display: grid; grid-template-columns: repeat(5,1fr); gap: 8px; margin-top: 8px;
 }
-@media(max-width:480px) { .term-grid { grid-template-columns: repeat(2,1fr); } }
+@media(max-width:480px) {
+  .term-grid { grid-template-columns: repeat(5,1fr); gap: 6px; }
+  .term-btn  { padding: 11px 2px; font-size: 12px; }
+}
 
 .term-btn {
   padding: 12px 8px; border-radius: 12px;
@@ -374,10 +377,10 @@ input[readonly], textarea[readonly] { background: #E4E9F5; }
 #sigBox img#sigPreviewImg { background: #E6ECF8; }
 .sig-clear-wrap .sig-btn { border: 1.5px solid #E8C8BF; color: #C0604F; border-radius: 10px; }
 .term-grid { background: #DDE3F7; border-radius: 999px; padding: 5px; gap: 2px; }
-.term-btn { border: 0; background: transparent; border-radius: 999px; font-weight: 500; padding: 11px 6px; }
+.term-btn { border: 0; background: transparent; border-radius: 999px; font-weight: 500; padding: 11px 2px; font-size: clamp(12px, 3.3vw, 14px); white-space: nowrap; }
 .term-btn:hover { color: #14214D; background: rgba(255,255,255,0.5); }
 .term-btn.active { background: #fff; color: #14214D; font-weight: 700; box-shadow: 0 4px 12px rgba(40,56,120,.15); }
-@media(max-width:480px) { .term-grid { grid-template-columns: repeat(4,1fr); } }
+@media(max-width:480px) { .term-grid { grid-template-columns: repeat(5,1fr); } }
 .summary { background: #E6EAF9; border: 0; border-radius: 18px; padding: 10px 0; }
 .summary .row { border-bottom: 0; padding: 7px 18px; font-size: 15px; }
 .summary .row:last-child { border-top: 1.5px dashed #A9B4DE; margin: 6px 18px 0; padding: 12px 0 4px; }
@@ -705,6 +708,7 @@ input[readonly], textarea[readonly] { background: #E4E9F5; }
             <button type="button" class="term-btn" data-term="12">12 mo</button>
             <button type="button" class="term-btn" data-term="24">24 mo</button>
             <button type="button" class="term-btn" data-term="36">36 mo</button>
+            <button type="button" class="term-btn" data-term="48">48 mo</button>
           </div>
           <div class="muted" id="termHint" style="margin-top:6px;">Choose months</div>
         </div>
