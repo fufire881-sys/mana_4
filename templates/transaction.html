@@ -1,284 +1,162 @@
 {% extends "base.html" %}
-{% block title %}Transactions — Filipino Fund, Inc.{% endblock %}
+{% load static humanize %}
+{% block title %}Transactions — 365 Ampersand Connect Corporation{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body, body * { font-family: 'Poppins', sans-serif !important; }
+body, body * { font-family: 'Inter', sans-serif !important; }
 
-:root{
-  --color-bg: #FAF6EC;
-  --color-gold: #D6A637;
-  --color-gold-dark: #9B6A16;
-  --color-gold-light: #F7D77A;
-  --color-purple: #3B165F;
-  --color-purple-dark: #26103F;
-  --color-text: #221B2D;
-  --color-muted: #6D6474;
-  --border-gold: rgba(190, 140, 45, 0.45);
-  --shadow-soft: 0 10px 30px rgba(59, 22, 95, 0.08);
-  --shadow-gold: 0 10px 26px rgba(214, 166, 55, 0.30);
-  --ok: #2e9c53;
-  --danger: #dc2626;
-  --radius-lg: 22px;
-  --radius-md: 16px;
-}
-.serif{ font-family:'Playfair Display', serif !important; }
+#pageRoot.wrap { max-width: 100% !important; width: 100% !important; padding: 0 !important; display: block !important; }
+body { padding-bottom: 40px !important; overflow-x: hidden !important; background: #F7F3EA !important; }
 
-body { background: var(--color-bg) !important; }
-.wrap { align-items: flex-start !important; padding-top: 0 !important; }
-
-@keyframes diamondShine{ 0%,55%{ transform: translateX(-120%); } 100%{ transform: translateX(120%); } }
-
-.tx-page {
-  width: min(520px, 100vw);
-  margin: 0 auto;
-  min-height: 100vh;
-  padding-bottom: 40px;
-}
+.tx-page { width: 100%; max-width: 520px; margin: 0 auto; min-height: 100vh; padding: 22px 18px 40px; }
 
 /* ── Reveal on scroll ── */
-.reveal{ opacity:0; transform: translateY(16px); will-change: transform, opacity; }
-.reveal.on{ opacity:1; transform: translateY(0); transition: opacity .5s ease, transform .5s ease; }
+.reveal { opacity: 0; transform: translateY(14px); will-change: transform, opacity; }
+.reveal.on { opacity: 1; transform: translateY(0); transition: opacity .45s ease, transform .45s ease; }
 
-/* ── Header ── */
-.tx-header {
-  position: relative; overflow: hidden;
-  margin: 16px 16px 0;
-  padding: 52px 24px 30px;
-  border-radius: var(--radius-lg);
-  border: 2px solid var(--color-gold);
-  background: linear-gradient(120deg, var(--color-purple-dark), var(--color-purple));
-  box-shadow: var(--shadow-soft);
-}
-.tx-header::before{
-  content:""; position:absolute; border-radius:50%; pointer-events:none;
-  width:190px; height:190px; top:-70px; right:-40px;
-  border:1px solid rgba(214,166,55,0.30);
-}
-.tx-header::after{
-  content:""; position:absolute; inset:0;
-  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.16) 50%, transparent 100%);
-  transform: translateX(-120%);
-  animation: diamondShine 4.5s ease-in-out infinite;
-  pointer-events:none;
-}
-.tx-header > *{ position: relative; z-index: 2; }
-
+/* ── Header: back button · centred title ── */
+.tx-head { display: grid; grid-template-columns: 52px 1fr 52px; align-items: center; gap: 8px; margin-bottom: 20px; }
 .tx-back {
-  position: absolute; top: 16px; left: 16px; z-index: 3;
-  display: inline-flex; align-items: center; gap: 5px;
-  color: var(--color-gold-light); font-size: 13px; font-weight: 700;
-  text-decoration: none;
+  width: 52px; height: 52px; border-radius: 50%; background: #fff; text-decoration: none;
+  display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(40,56,120,0.14);
 }
-.tx-back svg { width: 16px; height: 16px; fill: var(--color-gold-light); }
+.tx-back svg { width: 24px; height: 24px; fill: none; stroke: #14214D; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.tx-head h1 { text-align: center; font-size: 24px; font-weight: 800; color: #14214D; letter-spacing: -0.01em; }
 
-.tx-header-icon {
-  width: 54px; height: 54px; flex-shrink: 0;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, var(--color-gold-light) 0%, var(--color-gold) 55%, var(--color-gold-dark) 100%);
-  border: 2px solid var(--color-gold-light);
-  box-shadow: inset 0 2px 4px rgba(255,255,255,0.40), inset 0 -3px 6px rgba(0,0,0,0.25), 0 3px 8px rgba(0,0,0,0.25);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 14px;
+/* ── Balance card ── */
+.tx-balance {
+  display: flex; align-items: center; gap: 14px; padding: 16px 18px; margin-bottom: 18px;
+  background: #fff; border-radius: 22px; box-shadow: 0 10px 26px rgba(40,56,120,0.10);
 }
-.tx-header-icon svg { width: 26px; height: 26px; fill: var(--color-purple-dark); }
+.tx-bal-ico { width: 52px; height: 52px; border-radius: 50%; background: #7F92DD; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.tx-bal-ico svg { width: 26px; height: 26px; fill: none; stroke: #fff; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.tx-bal-text { flex: 1; min-width: 0; }
+.tx-bal-lbl { font-size: 14px; color: #7A7F92; }
+.tx-bal-amt { font-size: 24px; font-weight: 900; color: #14214D; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tx-bal-link { flex-shrink: 0; font-size: 15px; font-weight: 600; color: #D9604F; text-decoration: none; white-space: nowrap; }
 
-.tx-header h1 { font-family:'Playfair Display', serif !important; font-size: 21px; font-weight: 800; color: #fff; margin-bottom: 5px; }
-.tx-header p { font-size: 12.5px; color: rgba(255,255,255,0.75); }
-
-/* ── Balance pill ── */
-.tx-balance-pill {
-  display: inline-flex; align-items: center; gap: 8px;
-  margin-top: 14px;
-  background: rgba(214,166,55,0.16);
-  border: 1px solid var(--color-gold);
-  border-radius: 999px;
-  padding: 6px 14px;
+/* ── Filter tabs ── */
+.tx-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; padding: 5px; margin-bottom: 22px; border-radius: 999px; background: #DDE2EC; }
+.tx-tab {
+  border: 0; background: transparent; cursor: pointer; padding: 11px 4px; border-radius: 999px;
+  font-size: 15.5px; font-weight: 500; color: #4A5068; transition: background .2s, color .2s, box-shadow .2s;
 }
-.tx-balance-pill span { font-size: 13px; font-weight: 800; color: var(--color-gold-light); }
-.tx-balance-pill .bal-label { font-size: 11px; color: rgba(255,255,255,0.65); font-weight: 600; }
+.tx-tab.active { background: #fff; color: #14214D; font-weight: 700; box-shadow: 0 6px 14px rgba(40,56,120,0.14); }
 
-/* ── Body ── */
-.tx-body { padding: 16px 16px 0; }
-
-.tx-section-label {
-  font-size: 11px; font-weight: 800; color: var(--color-gold-dark);
-  text-transform: uppercase; letter-spacing: 0.8px;
-  margin-bottom: 10px;
+/* ── Groups + rows ── */
+.tx-group + .tx-group { margin-top: 22px; }
+.tx-group-label { margin: 0 0 10px 2px; font-size: 16px; color: #7A7F92; }
+.tx-list { display: flex; flex-direction: column; gap: 12px; }
+.tx-row {
+  display: flex; align-items: center; gap: 14px; padding: 14px 16px;
+  background: #fff; border-radius: 18px; box-shadow: 0 8px 20px rgba(40,56,120,0.07);
 }
-
-/* ── Timeline card — replaces the flat divided-row list with a connected
-   activity feed (colored node + line running down between entries), so
-   this reads as a genuinely different structure, not a re-skinned list. ── */
-.tx-card {
-  background: #fff;
-  border: 1.5px solid var(--border-gold);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-soft);
-  padding: 18px 18px 4px;
-  margin-bottom: 16px;
-}
-
-.tx-node{ display: flex; gap: 14px; }
-.tx-node-track{ display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
-.tx-dot{
-  width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  border: 2px solid #fff;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
-}
-.tx-dot.sent{ background: linear-gradient(135deg, #49c477, var(--ok)); }
-.tx-dot.rejected{ background: linear-gradient(135deg, #f87171, var(--danger)); }
-.tx-dot svg{ width: 18px; height: 18px; fill: #fff; }
-.tx-node-line{ width: 3px; flex: 1; min-height: 24px; border-radius: 999px; margin: 4px 0; }
-.tx-node-line.sent{ background: linear-gradient(180deg, var(--ok), transparent); }
-.tx-node-line.rejected{ background: linear-gradient(180deg, var(--danger), transparent); }
-
-.tx-node-body{ flex: 1; min-width: 0; padding-bottom: 18px; }
-.tx-node-top{ display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-.tx-node-label{ font-size: 13.5px; font-weight: 800; color: var(--color-text); }
-.tx-node-date{ font-size: 11px; color: var(--color-muted); font-weight: 500; margin-top: 2px; }
-.tx-node-amount{ font-size: 14px; font-weight: 800; margin-top: 6px; font-variant-numeric: tabular-nums; }
-.tx-node-amount.negative{ color: var(--danger); }
-
-/* Status pill */
-.tx-pill {
-  display: inline-block;
-  padding: 3px 10px;
-  border-radius: 999px;
-  font-size: 10px; font-weight: 800;
-  flex-shrink: 0; white-space: nowrap;
-}
-.tx-pill.sent     { background: rgba(46,156,83,0.12); color: var(--ok); border: 1px solid rgba(46,156,83,0.35); }
-.tx-pill.rejected { background: rgba(220,38,38,0.10); color: var(--danger); border: 1px solid rgba(220,38,38,0.30); }
+.tx-dot { width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.tx-dot svg { width: 22px; height: 22px; fill: none; stroke: #fff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.tx-row.sent .tx-dot { background: #7F92DD; }
+.tx-row.rejected .tx-dot { background: #EE7A6B; }
+.tx-mid { flex: 1; min-width: 0; }
+.tx-title { font-size: 17px; font-weight: 800; color: #14214D; }
+.tx-date { margin-top: 2px; font-size: 14px; color: #2F3550; }
+.tx-right { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex-shrink: 0; }
+.tx-amt { font-size: 17px; font-weight: 800; color: #14214D; white-space: nowrap; }
+.tx-row.rejected .tx-amt { text-decoration: line-through; color: #6B7084; }
+.tx-pill { padding: 3px 11px; border-radius: 999px; font-size: 13px; font-weight: 500; }
+.tx-row.sent .tx-pill { background: #CDEFD8; color: #1E6B3A; }
+.tx-row.rejected .tx-pill { background: #FBD3CB; color: #A8392B; }
+.tx-foot { margin-top: 26px; text-align: center; font-size: 14px; color: #8A90A2; }
 
 /* ── Empty state ── */
-.tx-empty {
-  padding: 48px 20px;
-  text-align: center;
-}
-.tx-empty-icon {
-  width: 72px; height: 72px; margin: 0 auto 16px;
-  border-radius: 999px;
-  background: radial-gradient(circle at 35% 30%, #5B2A8A 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
-  border: 2px solid var(--color-gold);
-  box-shadow: inset 0 2px 4px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.35);
-  display: flex; align-items: center; justify-content: center;
-}
-.tx-empty-icon svg { width: 32px; height: 32px; fill: var(--color-gold-light); }
-.tx-empty-title { font-family:'Playfair Display', serif !important; font-size: 16px; font-weight: 800; color: var(--color-purple); margin-bottom: 6px; }
-.tx-empty-sub   { font-size: 12.5px; color: var(--color-muted); }
+.tx-empty { text-align: center; padding: 28px 12px 10px; }
+.tx-empty img { width: min(250px, 66vw); height: auto; display: block; margin: 0 auto 26px; }
+.tx-empty h3 { font-size: 24px; font-weight: 800; color: #14214D; margin-bottom: 8px; }
+.tx-empty p { font-size: 15.5px; color: #4A5068; }
+.tx-empty a { display: inline-block; margin-top: 16px; font-size: 15.5px; font-weight: 600; color: #D9604F; text-decoration: none; }
+.tx-empty.filtered { padding-top: 16px; }
+.tx-empty.filtered img { width: min(170px, 46vw); margin-bottom: 18px; }
+.tx-empty.filtered h3 { font-size: 20px; }
 
-/* ── Actions ── */
-.tx-actions {
-  display: flex; gap: 10px;
-  padding: 0 16px;
+@media (max-width: 380px) {
+  .tx-bal-amt { font-size: 21px; }
+  .tx-title, .tx-amt { font-size: 15.5px; }
+  .tx-date { font-size: 12.5px; }
 }
-.tx-btn {
-  flex: 1; padding: 14px;
-  border-radius: 999px; font-size: 14px; font-weight: 700;
-  text-decoration: none; text-align: center;
-  cursor: pointer; border: 1.5px solid var(--border-gold);
-  transition: transform 0.15s, opacity 0.15s, box-shadow .15s;
-  font-family: 'Poppins', sans-serif;
-}
-.tx-btn:active { transform: scale(0.98); }
-.tx-btn-ghost   { background: #fff; color: var(--color-purple); }
-.tx-btn-ghost:hover{ background: #FFFDF6; }
-.tx-btn-primary {
-  background:
-    linear-gradient(var(--color-purple), var(--color-purple)) padding-box,
-    linear-gradient(120deg, var(--color-gold-dark), var(--color-gold-light) 45%, var(--color-gold-dark) 100%) border-box;
-  border: 3px solid transparent;
-  color: var(--color-gold-light);
-  box-shadow: var(--shadow-gold);
-}
-.tx-btn-primary:hover{ box-shadow: 0 14px 30px rgba(59,22,95,0.36); }
-
-@media (prefers-reduced-motion: reduce){
-  .reveal{ opacity:1 !important; transform:none !important; }
-  .tx-header::after{ animation: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1 !important; transform: none !important; }
 }
 </style>
 
+{% now "Y-m-d" as today_str %}
 <div class="tx-page">
 
   <!-- Header -->
-  <div class="tx-header reveal">
-    <a href="/profile/" class="tx-back">
-      <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"/></svg>
-      Back
+  <div class="tx-head reveal">
+    <a href="/profile/" class="tx-back" aria-label="Back">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
     </a>
-
-    <div class="tx-header-icon">
-      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S14.93 14 13 14s-3.5-1.57-3.5-3.5S11.07 7 13 7zM5 18v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 13 15c.44 0 .84.02 1.23.06L11.5 18H5zm14 0h-5.5l2.5-2.94c.75.26 1.38.66 1.74.98.48.38.76.97.76 1.58V18z"/></svg>
-    </div>
     <h1>Transactions</h1>
-    <p>Payment sent / Rejected — Latest 20</p>
-
-    <div class="tx-balance-pill">
-      <span class="bal-label">Balance</span>
-      <span>PHP {{ request.user.balance|default:"0" }}</span>
-    </div>
   </div>
 
-  <!-- Body -->
-  <div class="tx-body">
-
-    <div class="tx-section-label" style="margin-top:4px;">Recent Activity</div>
-
-    <div class="tx-card reveal">
-      {% for w in withdrawals %}
-        <div class="tx-node">
-          <div class="tx-node-track">
-            <div class="tx-dot {% if w.status == 'paid' %}sent{% else %}rejected{% endif %}">
-              {% if w.status == "paid" %}
-                <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
-              {% else %}
-                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-              {% endif %}
-            </div>
-            {% if not forloop.last %}
-              <div class="tx-node-line {% if w.status == 'paid' %}sent{% else %}rejected{% endif %}"></div>
-            {% endif %}
-          </div>
-          <div class="tx-node-body">
-            <div class="tx-node-top">
-              <span class="tx-node-label">
-                {% if w.status == "paid" %}Payment Sent{% else %}Payment Rejected{% endif %}
-              </span>
-              <span class="tx-pill {% if w.status == 'paid' %}sent{% else %}rejected{% endif %}">
-                {% if w.status == "paid" %}Sent{% else %}Rejected{% endif %}
-              </span>
-            </div>
-            <div class="tx-node-date">{{ w.created_at|date:"M d, Y · g:i A" }}</div>
-            <div class="tx-node-amount negative">- PHP {{ w.amount }} {{ w.currency }}</div>
-          </div>
-        </div>
-      {% empty %}
-        <div class="tx-empty">
-          <div class="tx-empty-icon">
-            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm0-12l-8 5-8-5V6h16v.01z"/></svg>
-          </div>
-          <div class="tx-empty-title serif">No transactions yet</div>
-          <div class="tx-empty-sub">Your payment history will appear here</div>
-        </div>
-      {% endfor %}
+  <!-- Balance -->
+  <div class="tx-balance reveal">
+    <span class="tx-bal-ico" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M19 7V5.5A1.5 1.5 0 0 0 17.5 4H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2H5"/><path d="M16.5 14h.01"/></svg>
+    </span>
+    <div class="tx-bal-text">
+      <div class="tx-bal-lbl">Balance</div>
+      <div class="tx-bal-amt">₱{{ request.user.balance|default:0|floatformat:2|intcomma }}</div>
     </div>
-
-    <!-- Actions -->
-    <div class="tx-actions">
-      <a class="tx-btn tx-btn-ghost" href="/profile/">Back</a>
-      <a class="tx-btn tx-btn-primary" href="/dashboard/">Dashboard</a>
-    </div>
-
+    <a class="tx-bal-link" href="{% url 'wallet' %}">View wallet →</a>
   </div>
+
+  <!-- Filter tabs -->
+  <div class="tx-tabs reveal" role="tablist" aria-label="Filter transactions">
+    <button type="button" class="tx-tab active" data-filter="all" role="tab" aria-selected="true">All</button>
+    <button type="button" class="tx-tab" data-filter="sent" role="tab" aria-selected="false">Sent</button>
+    <button type="button" class="tx-tab" data-filter="rejected" role="tab" aria-selected="false">Rejected</button>
+  </div>
+
+  {% if withdrawals %}
+    <div class="tx-group" data-group="today">
+      <div class="tx-group-label">Today</div>
+      <div class="tx-list">
+      {% for w in withdrawals %}{% if w.created_at|date:"Y-m-d" == today_str %}
+        {% include "partials/tx_row.html" with w=w %}
+      {% endif %}{% endfor %}
+      </div>
+    </div>
+    <div class="tx-group" data-group="earlier">
+      <div class="tx-group-label">Earlier</div>
+      <div class="tx-list">
+      {% for w in withdrawals %}{% if w.created_at|date:"Y-m-d" != today_str %}
+        {% include "partials/tx_row.html" with w=w %}
+      {% endif %}{% endfor %}
+      </div>
+    </div>
+
+    <div class="tx-empty filtered" id="txFilterEmpty" hidden>
+      <img src="{% static 'img/tx-empty.png' %}" alt="">
+      <h3>Nothing here yet</h3>
+      <p>No transactions with this status.</p>
+    </div>
+
+    <p class="tx-foot">Showing the latest 20 transactions</p>
+  {% else %}
+    <div class="tx-empty reveal">
+      <img src="{% static 'img/tx-empty.png' %}" alt="">
+      <h3>No transactions yet</h3>
+      <p>Your payment history will appear here.</p>
+      <a href="{% url 'dashboard' %}">Back to Dashboard →</a>
+    </div>
+  {% endif %}
+
 </div>
 
 <script>
-/* Scroll-triggered reveal, matching the rest of the redesigned pages. */
+/* Scroll-triggered reveal, staggered — matches the other redesigned pages. */
 (function(){
   const nodes = Array.from(document.querySelectorAll('.reveal'));
   if(!nodes.length) return;
@@ -293,13 +171,37 @@ body { background: var(--color-bg) !important; }
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
       const el = entry.target;
-      setTimeout(() => el.classList.add('on'), (firstBatch ? 250 : 0) + i * 90);
+      setTimeout(() => el.classList.add('on'), (firstBatch ? 150 : 0) + i * 70);
       io.unobserve(el);
       i++;
     });
     firstBatch = false;
   }, { threshold: 0.1 });
   nodes.forEach(el => io.observe(el));
+})();
+
+/* All / Sent / Rejected filter, hiding groups that end up empty. */
+(function(){
+  const tabs = Array.from(document.querySelectorAll('.tx-tab'));
+  const rows = Array.from(document.querySelectorAll('.tx-row'));
+  const groups = Array.from(document.querySelectorAll('.tx-group'));
+  const empty = document.getElementById('txFilterEmpty');
+  function apply(filter){
+    rows.forEach(r => { r.hidden = !(filter === 'all' || r.dataset.status === filter); });
+    let any = false;
+    groups.forEach(g => {
+      const visible = g.querySelectorAll('.tx-row:not([hidden])').length > 0;
+      g.hidden = !visible;
+      if (visible) any = true;
+    });
+    if (empty) empty.hidden = any;
+  }
+  tabs.forEach(t => t.addEventListener('click', function(){
+    tabs.forEach(x => { x.classList.remove('active'); x.setAttribute('aria-selected', 'false'); });
+    t.classList.add('active'); t.setAttribute('aria-selected', 'true');
+    apply(t.dataset.filter);
+  }));
+  apply('all');
 })();
 </script>
 {% endblock %}

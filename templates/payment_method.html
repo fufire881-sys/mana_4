@@ -1,28 +1,28 @@
 {% extends "base.html" %}
-{% block title %}Payment Method — Filipino Fund, Inc.{% endblock %}
+{% block title %}Payment Method — 365 Ampersand Connect Corporation{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body, body * { font-family: 'Poppins', sans-serif !important; }
+body, body * { font-family: 'Inter', sans-serif !important; }
 
 :root{
-  --color-bg: #FAF6EC;
-  --color-gold: #D6A637;
-  --color-gold-dark: #9B6A16;
-  --color-gold-light: #F7D77A;
-  --color-purple: #3B165F;
-  --color-purple-dark: #26103F;
-  --color-text: #221B2D;
-  --color-muted: #6D6474;
-  --border-gold: rgba(190, 140, 45, 0.45);
-  --shadow-soft: 0 10px 30px rgba(59, 22, 95, 0.08);
-  --shadow-gold: 0 10px 26px rgba(214, 166, 55, 0.30);
+  --color-bg: #F7F4EE;
+  --color-gold: #7389DA;
+  --color-gold-dark: #D9604F;
+  --color-gold-light: #C9D3F5;
+  --color-purple: #14214D;
+  --color-purple-dark: #0E1838;
+  --color-text: #14214D;
+  --color-muted: #6B7084;
+  --border-gold: rgba(200,206,228, 0.45);
+  --shadow-soft: 0 10px 30px rgba(40,56,120, 0.08);
+  --shadow-gold: 0 10px 26px rgba(115,137,218, 0.30);
   --radius-lg: 22px;
   --radius-md: 16px;
 }
-.serif{ font-family:'Playfair Display', serif !important; }
+.serif{ font-family:'Inter', sans-serif !important; }
 
 body { background: var(--color-bg) !important; }
 .wrap { align-items: flex-start !important; padding-top: 0 !important; }
@@ -52,7 +52,7 @@ body { background: var(--color-bg) !important; }
 .pm-header::before{
   content:""; position:absolute; border-radius:50%; pointer-events:none;
   width:190px; height:190px; top:-70px; right:-40px;
-  border:1px solid rgba(214,166,55,0.30);
+  border:1px solid rgba(115,137,218,0.30);
 }
 .pm-header::after{
   content:""; position:absolute; inset:0;
@@ -65,7 +65,7 @@ body { background: var(--color-bg) !important; }
 
 .pm-header-icon {
   width: 52px; height: 52px;
-  background: radial-gradient(circle at 35% 30%, #5B2A8A 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
+  background: radial-gradient(circle at 35% 30%, #8A9DE3 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
   border: 2px solid var(--color-gold);
   border-radius: 16px;
   display: flex; align-items: center; justify-content: center;
@@ -75,7 +75,7 @@ body { background: var(--color-bg) !important; }
 .pm-header-icon svg { width: 24px; height: 24px; fill: var(--color-gold-light); }
 
 .pm-header h1 {
-  font-family:'Playfair Display', serif !important;
+  font-family:'Inter', sans-serif !important;
   font-size: 24px; font-weight: 800;
   color: #fff; margin-bottom: 4px;
 }
@@ -88,7 +88,7 @@ body { background: var(--color-bg) !important; }
   border-radius: 999px;
   font-size: 12px; font-weight: 700;
 }
-.pm-status-pill.saved   { background: rgba(214,166,55,0.20); color: var(--color-gold-light); border: 1px solid var(--color-gold); }
+.pm-status-pill.saved   { background: rgba(115,137,218,0.20); color: var(--color-gold-light); border: 1px solid var(--color-gold); }
 .pm-status-pill.not-set { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.25); }
 .pm-status-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
 .pm-status-pill.saved .pm-status-dot   { background: var(--color-gold-light); }
@@ -114,7 +114,7 @@ body { background: var(--color-bg) !important; }
 .pm-passbook::after{
   content:""; position:absolute; border-radius:50%; pointer-events:none;
   width:130px; height:130px; bottom:-60px; right:-30px;
-  background: rgba(214,166,55,0.10);
+  background: rgba(115,137,218,0.10);
 }
 .pm-passbook-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; position: relative; z-index: 1; }
 .pm-passbook-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--color-gold-light); }
@@ -124,7 +124,7 @@ body { background: var(--color-bg) !important; }
   box-shadow: inset 0 1px 2px rgba(255,255,255,0.5);
 }
 .pm-passbook-number {
-  font-family: 'Poppins', sans-serif !important;
+  font-family: 'Inter', sans-serif !important;
   font-size: 19px; font-weight: 700; letter-spacing: 2.5px;
   font-variant-numeric: tabular-nums;
   margin-bottom: 16px; position: relative; z-index: 1;
@@ -142,7 +142,7 @@ body { background: var(--color-bg) !important; }
 /* ── Locked banner ── */
 .pm-locked-banner {
   display: flex; align-items: center; gap: 10px;
-  background: #FFFDF6;
+  background: #FFFFFF;
   border: 1.5px solid var(--color-gold);
   border-radius: var(--radius-md);
   padding: 12px 14px;
@@ -164,7 +164,7 @@ body { background: var(--color-bg) !important; }
 .pm-section-head {
   display: flex; align-items: center; gap: 10px;
   padding: 15px 16px 13px;
-  border-bottom: 1px solid rgba(190,140,45,0.18);
+  border-bottom: 1px solid rgba(200,206,228,0.18);
 }
 .pm-section-head-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-gold); flex-shrink: 0; }
 .pm-section-head-label {
@@ -195,16 +195,16 @@ body { background: var(--color-bg) !important; }
   border-radius: 12px !important;
   font-size: 14px !important; font-weight: 500 !important;
   color: var(--color-text) !important;
-  background: #FFFDF6 !important;
+  background: #FFFFFF !important;
   outline: none !important;
-  font-family: 'Poppins', sans-serif !important;
+  font-family: 'Inter', sans-serif !important;
   transition: border-color 0.2s, box-shadow 0.2s !important;
   box-sizing: border-box !important;
 }
-.pm-section-body input::placeholder { color: #b8afc4 !important; font-weight: 400 !important; }
+.pm-section-body input::placeholder { color: #A9AEC0 !important; font-weight: 400 !important; }
 .pm-section-body input:focus {
   border-color: var(--color-gold) !important;
-  box-shadow: 0 0 0 3px rgba(214,166,55,0.18) !important;
+  box-shadow: 0 0 0 3px rgba(115,137,218,0.18) !important;
   background: #fff !important;
 }
 
@@ -212,8 +212,8 @@ body { background: var(--color-bg) !important; }
 .pm-locked .pm-section-body input[type="number"],
 .pm-locked .pm-section-body input[type="tel"],
 .pm-locked .pm-section-body input {
-  background: #f2f0ee !important;
-  border-color: #ddd6c8 !important;
+  background: #F1F2F6 !important;
+  border-color: #DDE1EC !important;
   color: #948c9c !important;
   pointer-events: none !important;
   cursor: not-allowed !important;
@@ -229,7 +229,7 @@ body { background: var(--color-bg) !important; }
     linear-gradient(120deg, var(--color-gold-dark), var(--color-gold-light) 45%, var(--color-gold-dark) 100%) border-box;
   border: 3px solid transparent; border-radius: 999px;
   color: var(--color-gold-light); font-size: 15px; font-weight: 700;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
   cursor: pointer; letter-spacing: 0.3px;
   display: flex; align-items: center; justify-content: center; gap: 8px;
   box-shadow: var(--shadow-gold);
@@ -239,17 +239,17 @@ body { background: var(--color-bg) !important; }
 .pm-submit-btn svg { width: 18px; height: 18px; fill: var(--color-gold-light); }
 .pm-submit-btn:disabled {
   background:
-    linear-gradient(#c9c2d1, #c9c2d1) padding-box,
-    linear-gradient(120deg, #a89fb0, #d4cedb 45%, #a89fb0 100%) border-box;
-  color: #6d6474;
+    linear-gradient(#C3C8D6, #C3C8D6) padding-box,
+    linear-gradient(120deg, #9BA1B4, #D3D7E3 45%, #9BA1B4 100%) border-box;
+  color: #6B7084;
   box-shadow: none; cursor: not-allowed;
 }
-.pm-submit-btn:disabled svg { fill: #6d6474; }
+.pm-submit-btn:disabled svg { fill: #6B7084; }
 #pmSubmitBtnLabel { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
 
 .pm-btn-spinner {
   display:inline-block; width:16px; height:16px;
-  border:2.5px solid rgba(247,215,122,0.35);
+  border:2.5px solid rgba(201,211,245,0.35);
   border-top-color: var(--color-gold-light);
   border-radius:50%;
   animation: pmBtnSpin 0.7s linear infinite;
@@ -261,6 +261,78 @@ body { background: var(--color-bg) !important; }
   .reveal{ opacity:1 !important; transform:none !important; }
   .pm-header::after{ animation: none !important; }
 }
+
+/* ══ 365 THEME — periwinkle / coral ══ */
+.pm-header {
+  margin: 0 16px; padding: 30px 54px 14px; text-align: center;
+  background: transparent; border: 0; box-shadow: none; overflow: visible;
+}
+.pm-header::before, .pm-header::after, .pm-header-icon { display: none; }
+.pm-header h1 { color: #14214D; font-size: 25px; font-weight: 900; }
+.pm-header p { color: #6B7084; font-size: 13.5px; }
+.pm-back {
+  top: 20px; left: 0; width: 50px; height: 50px; border-radius: 50%; background: #fff;
+  justify-content: center; font-size: 0; box-shadow: 0 8px 20px rgba(40,56,120,0.14);
+}
+.pm-back svg { width: 24px; height: 24px; fill: #14214D; }
+.pm-btn { border: 0; }
+.pm-btn-primary { background: #7389DA; color: #fff; box-shadow: 0 12px 26px rgba(115,137,218,0.35); }
+.pm-btn-primary:hover { box-shadow: 0 14px 30px rgba(115,137,218,0.45); }
+.pm-btn-ghost { background: transparent; color: #D9604F; box-shadow: none; }
+.pm-btn-ghost:hover { background: rgba(224,102,90,0.08); }
+.pm-empty-icon {
+  width: 150px; height: 150px; background: #7F92DD; border: 0;
+  box-shadow: 0 0 0 18px rgba(127,146,221,0.14);
+}
+.pm-empty-icon svg { width: 64px; height: 64px; fill: #FFF1EA; }
+.pm-empty-title { color: #14214D; font-size: 22px; font-weight: 900; margin-top: 30px; }
+.pm-empty-sub { color: #4A5068; font-size: 14.5px; }
+.pm-header { text-align: left; padding: 30px 110px 8px 4px; }
+.pm-header h1 { font-size: 27px; white-space: nowrap; }
+.pm-header p { font-size: 15px; }
+.pm-status-pill { position: absolute; right: 0; top: 46px; margin: 0; font-size: 14px; font-weight: 500; padding: 8px 16px; }
+.pm-status-pill.saved { background: #CDEFD8; color: #1E6B3A; border: 0; }
+.pm-status-pill.not-set { background: #E6E9F2; color: #4A5068; border: 0; }
+.pm-status-pill.saved .pm-status-dot { background: #2E9C53; }
+.pm-status-pill.not-set .pm-status-dot { background: #9BA1B4; }
+.pm-passbook {
+  margin: 0 0 18px; border-radius: 24px; border: 0; padding: 24px 22px 22px; min-height: 196px;
+  background: linear-gradient(120deg, #7289DA 0%, #8E95D6 45%, #B884A0 75%, #E36F5E 100%);
+  box-shadow: 0 16px 34px rgba(150,100,140,0.28);
+}
+.pm-passbook::after { background: rgba(255,255,255,0.08); }
+.pm-passbook-label { color: #fff; font-size: 13px; }
+.pm-passbook-head { min-width: 0; }
+.pm-passbook-bank {
+  margin-top: 6px; font-size: 20px; font-weight: 800; color: #fff; letter-spacing: .02em;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 250px;
+}
+.pm-passbook-bank.placeholder { color: rgba(255,255,255,0.65); font-weight: 600; font-size: 16px; }
+.pm-passbook-number { margin-top: 22px; }
+.pm-passbook-row { align-items: flex-start; margin-bottom: 0; }
+.pm-passbook-chip { width: 44px; height: 34px; border-radius: 8px; background: rgba(255,255,255,0.35); box-shadow: inset 0 0 0 1.5px rgba(255,255,255,0.5); }
+.pm-passbook-number { font-size: 26px; margin: 30px 0 22px; }
+.pm-passbook-number.placeholder, .pm-passbook-name.placeholder { color: rgba(255,255,255,0.65); }
+.pm-locked-banner { border: 0; background: #CDEFD8; border-radius: 16px; }
+.pm-locked-banner svg { fill: #2E7D4B; }
+.pm-locked-banner span { color: #1E6B3A; }
+.pm-section-card { border: 0 !important; border-radius: 24px !important; box-shadow: 0 10px 26px rgba(40,56,120,0.08) !important; }
+.pm-section-head { border-bottom: 0; padding: 20px 18px 4px; }
+.pm-section-head-dot { width: 22px; height: 22px; border-radius: 4px; background: no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2314214D'%3E%3Cpath d='M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-4.5-9L2 6v2h19V6l-9.5-5z'/%3E%3C/svg%3E"); }
+.pm-section-head-label { color: #14214D; font-size: 19px; text-transform: none; letter-spacing: 0; }
+.pm-section-body { padding: 14px 18px 20px; gap: 14px; }
+.pm-field label { color: #14214D; text-transform: none; letter-spacing: 0; font-size: 14px; font-weight: 500; }
+.pm-field label svg { fill: #7389DA; }
+.pm-section-body input { border: 1.5px solid #D3D7E3 !important; border-radius: 14px !important; padding: 15px 16px !important; font-size: 16px !important; }
+.pm-section-body input:focus { border-color: #7389DA !important; }
+.pm-submit-btn {
+  border: 0; background: #7389DA; color: #fff; padding: 18px; font-size: 17px;
+  box-shadow: 0 12px 26px rgba(115,137,218,0.35);
+}
+.pm-submit-btn svg { fill: #fff; }
+.pm-submit-btn:disabled { background: #fff; border: 2px solid #8A9DE3; color: #8A9DE3; box-shadow: none; }
+.pm-submit-btn:disabled svg { fill: #8A9DE3; }
+.pm-btn-spinner { border-color: rgba(255,255,255,0.35); border-top-color: #fff; }
 </style>
 
 <div class="pm-page">
@@ -285,7 +357,10 @@ body { background: var(--color-bg) !important; }
     <!-- Live bank passbook preview -->
     <div class="pm-passbook reveal">
       <div class="pm-passbook-row">
-        <span class="pm-passbook-label">Bank Account</span>
+        <div class="pm-passbook-head">
+          <span class="pm-passbook-label">Bank Account</span>
+          <div class="pm-passbook-bank placeholder" id="pbBank">Bank name</div>
+        </div>
         <span class="pm-passbook-chip"></span>
       </div>
       <div class="pm-passbook-number placeholder" id="pbNumber">•••• •••• ••••</div>
@@ -363,6 +438,7 @@ body { background: var(--color-bg) !important; }
   const numInput  = document.getElementById('id_bank_account');
   const pbName    = document.getElementById('pbName');
   const pbNumber  = document.getElementById('pbNumber');
+  const pbBank    = document.getElementById('pbBank');
   if (!pbName || !pbNumber) return;
 
   function groupNumber(v){
@@ -374,6 +450,12 @@ body { background: var(--color-bg) !important; }
   function refresh(){
     const nameVal = nameInput ? nameInput.value.trim() : '';
     const numVal  = numInput ? numInput.value.trim() : '';
+    const bankVal = bankNameInput ? bankNameInput.value.trim() : '';
+
+    if (pbBank) {
+      if (bankVal) { pbBank.textContent = bankVal; pbBank.classList.remove('placeholder'); }
+      else { pbBank.textContent = 'Bank name'; pbBank.classList.add('placeholder'); }
+    }
 
     if (nameVal) { pbName.textContent = nameVal; pbName.classList.remove('placeholder'); }
     else { pbName.textContent = 'Account holder name'; pbName.classList.add('placeholder'); }
@@ -382,6 +464,7 @@ body { background: var(--color-bg) !important; }
     else { pbNumber.textContent = '•••• •••• ••••'; pbNumber.classList.add('placeholder'); }
   }
 
+  if (bankNameInput) bankNameInput.addEventListener('input', refresh);
   if (nameInput) nameInput.addEventListener('input', refresh);
   if (numInput)  numInput.addEventListener('input', refresh);
   refresh();

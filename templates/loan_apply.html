@@ -1,29 +1,29 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Loan Application — Filipino Fund, Inc.{% endblock %}
+{% block title %}Loan Application — 365 Ampersand Connect Corporation{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body, body * { font-family: 'Poppins', sans-serif !important; }
+body, body * { font-family: 'Inter', sans-serif !important; }
 
 :root{
-  --color-bg: #FAF6EC;
-  --color-gold: #D6A637;
-  --color-gold-dark: #9B6A16;
-  --color-gold-light: #F7D77A;
-  --color-purple: #3B165F;
-  --color-purple-dark: #26103F;
-  --color-text: #221B2D;
-  --color-muted: #6D6474;
-  --border-gold: rgba(190, 140, 45, 0.45);
-  --shadow-soft: 0 10px 30px rgba(59, 22, 95, 0.08);
-  --shadow-gold: 0 10px 26px rgba(214, 166, 55, 0.30);
+  --color-bg: #F7F4EE;
+  --color-gold: #7389DA;
+  --color-gold-dark: #D9604F;
+  --color-gold-light: #C9D3F5;
+  --color-purple: #14214D;
+  --color-purple-dark: #0E1838;
+  --color-text: #14214D;
+  --color-muted: #6B7084;
+  --border-gold: rgba(200,206,228, 0.45);
+  --shadow-soft: 0 10px 30px rgba(40,56,120, 0.08);
+  --shadow-gold: 0 10px 26px rgba(115,137,218, 0.30);
   --radius-lg: 22px;
   --radius-md: 16px;
 }
-.serif{ font-family:'Playfair Display', serif !important; }
+.serif{ font-family:'Inter', sans-serif !important; }
 
 body { background: var(--color-bg) !important; }
 .wrap { align-items: flex-start !important; padding-top: 0 !important; }
@@ -55,7 +55,7 @@ body { background: var(--color-bg) !important; }
 .la-header::before{
   content:""; position:absolute; border-radius:50%; pointer-events:none;
   width:190px; height:190px; top:-70px; right:-40px;
-  border:1px solid rgba(214,166,55,0.30);
+  border:1px solid rgba(115,137,218,0.30);
 }
 .la-header::after{
   content:""; position:absolute; inset:0;
@@ -84,7 +84,7 @@ body { background: var(--color-bg) !important; }
   margin-bottom: 14px;
 }
 .la-header-icon svg { width: 26px; height: 26px; fill: var(--color-purple-dark); }
-.la-header h1 { font-family:'Playfair Display', serif !important; font-size: 21px; font-weight: 800; color: #fff; margin-bottom: 5px; }
+.la-header h1 { font-family:'Inter', sans-serif !important; font-size: 21px; font-weight: 800; color: #fff; margin-bottom: 5px; }
 .la-header p  { font-size: 12.5px; color: rgba(255,255,255,0.75); }
 
 /* ── Body ── */
@@ -99,7 +99,7 @@ body { background: var(--color-bg) !important; }
 }
 .la-section-head {
   padding: 13px 16px;
-  background: #FFFDF6;
+  background: #FFFFFF;
   border-bottom: 1px solid var(--border-gold);
   display: flex; align-items: center; gap: 9px;
 }
@@ -136,20 +136,20 @@ textarea {
   border: 1.5px solid var(--border-gold);
   border-radius: 14px;
   font-size: 14px; font-weight: 500;
-  color: var(--color-text); background: #FFFDF6;
+  color: var(--color-text); background: #FFFFFF;
   outline: none; resize: none;
   transition: border-color .2s, box-shadow .2s, background .2s;
   appearance: none; -webkit-appearance: none;
-  font-family: 'Poppins', sans-serif !important;
+  font-family: 'Inter', sans-serif !important;
 }
 textarea { height: 46px; min-height: 46px; max-height: 46px; overflow: hidden; }
-input::placeholder, textarea::placeholder { color: #b6aebf; font-weight: 400; }
+input::placeholder, textarea::placeholder { color: #A9AEC0; font-weight: 400; }
 input:focus, textarea:focus {
   border-color: var(--color-gold-dark);
-  box-shadow: 0 0 0 3px rgba(214,166,55,.16);
+  box-shadow: 0 0 0 3px rgba(115,137,218,.16);
   background: #fff;
 }
-input[readonly], textarea[readonly] { opacity: .85; cursor: default; background: #f1ede1; }
+input[readonly], textarea[readonly] { opacity: .85; cursor: default; background: #ECEEF4; }
 
 .muted { font-size: 11px; color: var(--color-muted); margin-top: 6px; }
 
@@ -162,7 +162,7 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
 .purpose-pill {
   display: flex; align-items: center; gap: 10px;
   padding: 11px 14px; border-radius: 14px;
-  border: 1.5px solid var(--border-gold); background: #FFFDF6;
+  border: 1.5px solid var(--border-gold); background: #FFFFFF;
   color: var(--color-text); font-weight: 700; font-size: 13px;
   cursor: pointer; user-select: none;
   transition: background .15s, border-color .15s, box-shadow .15s;
@@ -173,7 +173,7 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
 }
 .purpose-pill span { display: block; line-height: 1.1; }
 .purpose-pill:has(input:checked) {
-  background: linear-gradient(160deg, #F4EEF9 0%, #EAE0F2 100%);
+  background: linear-gradient(160deg, #EEF1FB 0%, #E3E8F8 100%);
   border-color: var(--color-gold);
   color: var(--color-purple);
   box-shadow: var(--shadow-soft);
@@ -188,7 +188,7 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
 .idbox {
   height: 220px; border-radius: var(--radius-md);
   border: 2px dashed var(--color-gold);
-  background: #FFFDF6;
+  background: #FFFFFF;
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   text-align: center; gap: 8px; cursor: pointer;
@@ -196,7 +196,7 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
   transition: border-color .2s, background .2s;
   color: var(--color-purple);
 }
-.idbox:hover { border-color: var(--color-gold-dark); background: #FBF3DF; }
+.idbox:hover { border-color: var(--color-gold-dark); background: #EEF1FB; }
 .idbox.id-doc { height: auto; aspect-ratio: 1402 / 1122; }
 .idbox small  { opacity:.85; font-weight:700; color: var(--color-muted); font-size:11px; }
 .idbox strong { font-weight:800; color: var(--color-purple); font-size:12px; }
@@ -219,7 +219,7 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
 .choose-btn {
   margin-top:8px; display:inline-block;
   padding:7px 12px; border-radius:8px;
-  background: rgba(214,166,55,.14); border:1px solid var(--border-gold);
+  background: rgba(115,137,218,.14); border:1px solid var(--border-gold);
   color: var(--color-gold-dark); font-weight:700; font-size:11px;
 }
 
@@ -238,21 +238,21 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
 }
 .sig-canvas {
   width:100%; height:140px; border-radius:12px;
-  border:2px dashed var(--color-gold); background: #FFFDF6;
+  border:2px dashed var(--color-gold); background: #FFFFFF;
   box-sizing:border-box; display:block;
   position:relative; z-index:1; cursor:crosshair;
 }
 #sigBox { position:relative; }
 #sigBox .sig-canvas { position:relative; z-index:2; }
-#sigBox img#sigPreviewImg { background: #FFFDF6; }
+#sigBox img#sigPreviewImg { background: #FFFFFF; }
 .sig-clear-wrap {
   width:100%; display:flex; justify-content:flex-end; margin-top:10px;
 }
 .sig-clear-wrap .sig-btn {
   padding:8px 16px; border-radius:8px;
-  border:1px solid var(--border-gold); background:#FFFDF6;
+  border:1px solid var(--border-gold); background:#FFFFFF;
   color: var(--color-gold-dark); font-weight:700; font-size:12px;
-  cursor:pointer; font-family:'Poppins',sans-serif;
+  cursor:pointer; font-family:'Inter',sans-serif;
   transition:background .2s, color .2s;
 }
 .sig-clear-wrap .sig-btn:hover { background:rgba(220,38,38,.10); color:#c62828; border-color:rgba(198,40,40,.3); }
@@ -265,21 +265,21 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
 
 .term-btn {
   padding: 12px 8px; border-radius: 12px;
-  border: 1.5px solid var(--border-gold); background: #FFFDF6;
+  border: 1.5px solid var(--border-gold); background: #FFFFFF;
   color: var(--color-text); font-weight: 700; font-size: 14px;
   cursor: pointer; transition: all .15s ease;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
 }
 .term-btn:hover  { border-color: var(--color-gold-dark); color: var(--color-purple); }
 .term-btn:active { transform: scale(.97); }
 .term-btn.active {
   background: linear-gradient(135deg, var(--color-purple-dark), var(--color-purple)); border-color: var(--color-gold);
-  color: #fff; box-shadow: 0 4px 12px rgba(59,22,95,.30);
+  color: #fff; box-shadow: 0 4px 12px rgba(40,56,120,.30);
 }
 
 /* ── Summary ── */
 .summary {
-  background: #FFFDF6; border-radius: var(--radius-md);
+  background: #FFFFFF; border-radius: var(--radius-md);
   border: 1.5px solid var(--border-gold); padding: 4px 0;
   margin: 14px 0 0;
 }
@@ -301,8 +301,8 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
     linear-gradient(120deg, var(--color-gold-dark), var(--color-gold-light) 45%, var(--color-gold-dark) 100%) border-box;
   color: var(--color-gold-light); border: 3px solid transparent; border-radius: 999px;
   font-weight: 800; font-size: 15px;
-  font-family: 'Poppins', sans-serif;
-  box-shadow: 0 10px 24px rgba(59,22,95,0.30);
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 10px 24px rgba(40,56,120,0.30);
   cursor: pointer; margin-top: 14px;
   transition: transform .2s, box-shadow .2s;
 }
@@ -314,20 +314,130 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
   animation: btnShine 5s ease-in-out infinite;
   pointer-events: none;
 }
-.btn.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(59,22,95,0.36); }
+.btn.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(40,56,120,0.36); }
 .btn.btn-primary:active { transform: scale(0.98); }
 .btn.btn-primary:disabled { opacity:.6; cursor:not-allowed; transform:none; }
 .btn.btn-primary:disabled::before{ display:none; }
 
 .btn-spinner {
   display:inline-block; width:16px; height:16px;
-  border:2.5px solid rgba(247,215,122,0.35);
+  border:2.5px solid rgba(201,211,245,0.35);
   border-top-color: var(--color-gold-light);
   border-radius:50%;
   vertical-align:-3px; margin-right:8px;
   animation: btnSpin 0.7s linear infinite;
 }
 @keyframes btnSpin { to { transform: rotate(360deg); } }
+
+/* ══ 365 THEME — periwinkle / coral ══ */
+body { background: #F4F3F0 !important; }
+.la-header {
+  margin: 0 16px; padding: 30px 54px 18px; text-align: center;
+  background: transparent; border: 0; box-shadow: none; overflow: visible;
+}
+.la-header::before, .la-header::after, .la-header-icon { display: none; }
+.la-header h1 { color: #14214D; font-size: 25px; font-weight: 900; }
+.la-header p { color: #2F3550; font-size: 14px; }
+.la-back {
+  top: 22px; left: 0; width: 50px; height: 50px; border-radius: 50%; background: #fff;
+  justify-content: center; font-size: 0; box-shadow: 0 8px 20px rgba(40,56,120,0.14);
+}
+.la-back svg { width: 24px; height: 24px; fill: #14214D; }
+.la-body { padding-top: 6px; counter-reset: la-step; }
+.la-section { border: 0; border-radius: 24px; box-shadow: 0 10px 28px rgba(40,56,120,0.08); margin-bottom: 18px; counter-increment: la-step; }
+.la-section-head { background: #fff; border-bottom: 0; padding: 20px 18px 4px; gap: 12px; }
+.la-section-head .sh-dot {
+  width: 34px; height: 34px; border-radius: 50%; background: #8193DC;
+  display: flex; align-items: center; justify-content: center;
+}
+.la-section-head .sh-dot::before { content: counter(la-step); color: #fff; font-weight: 700; font-size: 16px; }
+.la-section-head span { color: #14214D; font-size: 19px; text-transform: none; letter-spacing: 0; }
+.la-section-body { padding: 14px 18px 20px; }
+label.field-lbl { color: #14214D; font-size: 14px; font-weight: 500; text-transform: none; letter-spacing: 0; }
+input[type="text"], input[type="number"], input[type="tel"], input[type="email"], textarea {
+  height: 52px; border: 1.5px solid transparent; background: #E4E9F5; border-radius: 14px; font-size: 15px;
+}
+textarea { height: 52px; min-height: 52px; max-height: 52px; }
+input::placeholder, textarea::placeholder { color: #6B7290; }
+input:focus, textarea:focus { border-color: #7389DA; box-shadow: 0 0 0 4px rgba(115,137,218,.18); background: #E4E9F5; }
+input[readonly], textarea[readonly] { background: #E4E9F5; }
+.purpose-pill { border: 1.5px solid #C3C8D6; background: #fff; border-radius: 14px; padding: 14px; font-weight: 500; font-size: 14px; }
+.purpose-pill input { accent-color: #7389DA; }
+@media(max-width:480px) { .purpose-grid { grid-template-columns: repeat(2,1fr); } .grid-2 { grid-template-columns: 1fr 1fr; } }
+.purpose-pill:has(input:checked) { background: #E6EAF9; border-color: #7389DA; color: #14214D; box-shadow: none; }
+.idbox { border: 2px dashed #8A93C2; background: #EEF1FB; border-radius: 18px; color: #14214D; }
+.idbox:hover { border-color: #7389DA; background: #E6EAF9; }
+.idbox.has-img { border: 2px solid #7CC793; background: #fff; }
+.idbox strong, .id-text strong { color: #14214D; }
+.choose-btn { background: #7389DA; border: 0; color: #fff; border-radius: 10px; padding: 9px 16px; font-size: 12px; }
+.sig-canvas { border: 0; background: #E6ECF8; border-radius: 16px; }
+#sigBox img#sigPreviewImg { background: #E6ECF8; }
+.sig-clear-wrap .sig-btn { border: 1.5px solid #E8C8BF; color: #C0604F; border-radius: 10px; }
+.term-grid { background: #DDE3F7; border-radius: 999px; padding: 5px; gap: 2px; }
+.term-btn { border: 0; background: transparent; border-radius: 999px; font-weight: 500; padding: 11px 6px; }
+.term-btn:hover { color: #14214D; background: rgba(255,255,255,0.5); }
+.term-btn.active { background: #fff; color: #14214D; font-weight: 700; box-shadow: 0 4px 12px rgba(40,56,120,.15); }
+@media(max-width:480px) { .term-grid { grid-template-columns: repeat(4,1fr); } }
+.summary { background: #E6EAF9; border: 0; border-radius: 18px; padding: 10px 0; }
+.summary .row { border-bottom: 0; padding: 7px 18px; font-size: 15px; }
+.summary .row:last-child { border-top: 1.5px dashed #A9B4DE; margin: 6px 18px 0; padding: 12px 0 4px; }
+.summary .k { color: #6B7084; }
+.summary .v { color: #14214D; font-weight: 500; }
+.summary .row:last-child .k { color: #14214D; font-weight: 800; }
+.summary .row:last-child .v { color: #7389DA; font-size: 26px; font-weight: 900; }
+.btn.btn-primary {
+  border: 0; background: #7487D6; color: #fff; border-radius: 14px; padding: 18px; font-size: 18px;
+  box-shadow: 0 12px 26px rgba(115,137,218,0.35);
+}
+.btn.btn-primary::before { display: none; }
+.btn.btn-primary:hover { box-shadow: 0 14px 30px rgba(115,137,218,0.45); }
+.btn-spinner { border-color: rgba(255,255,255,0.35); border-top-color: #fff; }
+
+
+/* ══ ID documents — rows with illustration, hint and Take photo / Upload (reference layout) ══ */
+.id-intro { margin: -6px 0 12px; font-size: 14px; color: #6B7084; }
+.id-tips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.id-tips span {
+  display: inline-flex; align-items: center; gap: 6px; padding: 7px 11px; border-radius: 10px;
+  background: #FCE6DF; color: #14214D; font-size: 13px; font-weight: 500;
+}
+.id-tips svg { width: 16px; height: 16px; color: #C0604F; flex-shrink: 0; }
+.id-list { display: flex; flex-direction: column; gap: 12px; }
+.idbox.id-row {
+  height: auto; aspect-ratio: auto; position: relative; overflow: visible;
+  display: grid; grid-template-columns: 34% 1fr; align-items: center; gap: 14px;
+  padding: 14px; text-align: left; cursor: default;
+  border: 2px dashed #9AA3D6; border-radius: 18px; background: #F1F3FC;
+}
+.idbox.id-row:hover { background: #EEF1FB; border-color: #7389DA; }
+.id-art { position: relative; height: 92px; border-radius: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.id-art .id-guide { position: static; width: 100%; height: 100%; object-fit: contain; border-radius: 0; }
+.id-art .id-preview { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
+.id-row:has(#prevSelfie) .id-art { height: 120px; }
+.id-info { min-width: 0; }
+.id-title { font-size: 17px; font-weight: 800; color: #14214D; line-height: 1.2; }
+.id-hint { margin-top: 3px; font-size: 13px; color: #4A5068; line-height: 1.35; }
+.id-actions { display: flex; gap: 8px; margin-top: 10px; }
+.id-btn {
+  flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 40px; padding: 0 8px;
+  border-radius: 10px; font-size: 13.5px; font-weight: 700; cursor: pointer; white-space: nowrap;
+}
+.id-btn svg { width: 17px; height: 17px; flex-shrink: 0; }
+.id-btn-cam { border: 0; background: #7389DA; color: #fff; }
+.id-btn-up { border: 1.5px solid #8A93C2; background: #fff; color: #14214D; }
+.id-btn:disabled { opacity: .5; cursor: default; }
+.id-done { display: none; margin-top: 8px; align-items: center; gap: 6px; width: max-content; padding: 5px 11px; border-radius: 9px; background: #D3F1DD; color: #1E6B3A; font-size: 13.5px; font-weight: 600; }
+.id-done svg { width: 15px; height: 15px; }
+.id-retake { display: none; position: absolute; top: 14px; right: 14px; border: 0; background: none; padding: 2px; cursor: pointer; color: #D9604F; font-size: 14px; font-weight: 700; }
+/* uploaded state */
+.idbox.id-row.has-img { border: 2px solid #7CC793; background: #fff; }
+.idbox.id-row.has-img .id-hint, .idbox.id-row.has-img .id-actions { display: none; }
+.idbox.id-row.has-img .id-done { display: inline-flex; }
+.idbox.id-row.has-img .id-retake { display: block; }
+.idbox.id-row.has-img .id-info { padding-right: 56px; }
+.id-secure { display: flex; gap: 8px; align-items: flex-start; margin: 14px 0 4px; font-size: 13px; color: #6B7084; line-height: 1.4; }
+.id-secure svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; }
+@media (max-width: 380px) { .id-btn { font-size: 12.5px; gap: 4px; } .id-btn svg { width: 15px; height: 15px; } }
 
 @media (prefers-reduced-motion: reduce){
   .btn-spinner { animation: none; }
@@ -384,7 +494,7 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
             <textarea name="hometown" rows="2" required {% if locked %}readonly{% endif %}>{{ loan.hometown|default:'' }}</textarea>
           </div>
           <div class="field">
-            <label class="field-lbl">Income (optional)</label>
+            <label class="field-lbl">Income</label>
             <input type="text" name="income" id="incomeInput"
               inputmode="numeric" pattern="[0-9]*"
               value="{{ loan.income|default:'' }}"
@@ -488,29 +598,73 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
     <div class="la-section reveal">
       <div class="la-section-head"><div class="sh-dot"></div><span>ID Documents (Upload)</span></div>
       <div class="la-section-body">
-        <div class="id-grid">
-          <label class="idbox id-doc {% if loan and loan.id_front %}has-img{% endif %}" id="boxFront">
-            <img class="id-preview" id="prevFront"
-              {% if loan and loan.id_front %}src="{{ loan.id_front.url }}"{% endif %} alt="ID Front">
-            <img class="id-guide" src="{% static 'img/id_front.webp' %}" alt="ID Front guide">
+        <p class="id-intro">Upload clear photos of your valid ID</p>
+        <div class="id-tips">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9h16M4 14h16M9 4v16M14 4v16" opacity=".55"/></svg>Plain background</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></svg>Good lighting</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M18.5 15.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg>No glare</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>No filters</span>
+        </div>
+        <div class="id-list">
+          <div class="idbox id-row {% if loan and loan.id_front %}has-img{% endif %}" id="boxFront">
+            <div class="id-art">
+              <img class="id-guide" src="{% static 'img/doc-front.png' %}" alt="">
+              <img class="id-preview" id="prevFront"
+                {% if loan and loan.id_front %}src="{{ loan.id_front.url }}"{% endif %} alt="Front of ID">
+            </div>
+            <div class="id-info">
+              <div class="id-title">Front of ID</div>
+              <div class="id-hint">Show all 4 corners, keep it flat</div>
+              <div class="id-done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Uploaded</div>
+              <div class="id-actions">
+                <button type="button" class="id-btn id-btn-cam" data-capture="environment" {% if locked %}disabled{% endif %}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Take photo</button>
+                <button type="button" class="id-btn id-btn-up" {% if locked %}disabled{% endif %}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4M7.5 8.5L12 4l4.5 4.5"/><path d="M4 15v4h16v-4"/></svg>Upload</button>
+              </div>
+            </div>
+            {% if not locked %}<button type="button" class="id-retake">Retake</button>{% endif %}
             <input type="file" name="id_front" accept="image/*" class="compress-img"
               {% if not locked %}required{% endif %} {% if locked %}disabled{% endif %} hidden>
-          </label>
-          <label class="idbox id-doc {% if loan and loan.id_back %}has-img{% endif %}" id="boxBack">
-            <img class="id-preview" id="prevBack"
-              {% if loan and loan.id_back %}src="{{ loan.id_back.url }}"{% endif %} alt="ID Back">
-            <img class="id-guide" src="{% static 'img/id_back.webp' %}" alt="ID Back guide">
+          </div>
+          <div class="idbox id-row {% if loan and loan.id_back %}has-img{% endif %}" id="boxBack">
+            <div class="id-art">
+              <img class="id-guide" src="{% static 'img/doc-back.png' %}" alt="">
+              <img class="id-preview" id="prevBack"
+                {% if loan and loan.id_back %}src="{{ loan.id_back.url }}"{% endif %} alt="Back of ID">
+            </div>
+            <div class="id-info">
+              <div class="id-title">Back of ID</div>
+              <div class="id-hint">Show all 4 corners, keep it flat</div>
+              <div class="id-done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Uploaded</div>
+              <div class="id-actions">
+                <button type="button" class="id-btn id-btn-cam" data-capture="environment" {% if locked %}disabled{% endif %}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Take photo</button>
+                <button type="button" class="id-btn id-btn-up" {% if locked %}disabled{% endif %}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4M7.5 8.5L12 4l4.5 4.5"/><path d="M4 15v4h16v-4"/></svg>Upload</button>
+              </div>
+            </div>
+            {% if not locked %}<button type="button" class="id-retake">Retake</button>{% endif %}
             <input type="file" name="id_back" accept="image/*" class="compress-img"
               {% if not locked %}required{% endif %} {% if locked %}disabled{% endif %} hidden>
-          </label>
-          <label class="idbox id-doc {% if loan and loan.selfie_with_id %}has-img{% endif %}" id="boxSelfie">
-            <img class="id-preview" id="prevSelfie"
-              {% if loan and loan.selfie_with_id %}src="{{ loan.selfie_with_id.url }}"{% endif %} alt="Selfie">
-            <img class="id-guide" src="{% static 'img/id_selfie.webp' %}" alt="Selfie + ID guide">
+          </div>
+          <div class="idbox id-row {% if loan and loan.selfie_with_id %}has-img{% endif %}" id="boxSelfie">
+            <div class="id-art">
+              <img class="id-guide" src="{% static 'img/doc-selfie.png' %}" alt="">
+              <img class="id-preview" id="prevSelfie"
+                {% if loan and loan.selfie_with_id %}src="{{ loan.selfie_with_id.url }}"{% endif %} alt="Selfie with ID">
+            </div>
+            <div class="id-info">
+              <div class="id-title">Selfie with ID</div>
+              <div class="id-hint">Hold your ID next to your face</div>
+              <div class="id-done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Uploaded</div>
+              <div class="id-actions">
+                <button type="button" class="id-btn id-btn-cam" data-capture="user" {% if locked %}disabled{% endif %}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-2.5h6L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Take photo</button>
+                <button type="button" class="id-btn id-btn-up" {% if locked %}disabled{% endif %}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V4M7.5 8.5L12 4l4.5 4.5"/><path d="M4 15v4h16v-4"/></svg>Upload</button>
+              </div>
+            </div>
+            {% if not locked %}<button type="button" class="id-retake">Retake</button>{% endif %}
             <input type="file" name="selfie_with_id" accept="image/*" class="compress-img"
               {% if not locked %}required{% endif %} {% if locked %}disabled{% endif %} hidden>
-          </label>
+          </div>
         </div>
+        <p class="id-secure"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="5" y="10.5" width="14" height="10" rx="2.4"/><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3M12 14.5v2.2"/></svg>Your documents are encrypted &amp; processed securely by 365 Ampersand Connect.</p>
 
         <!-- Signature -->
         <div class="idbox" id="sigBox" style="margin-top:12px; height:220px;">
@@ -585,6 +739,16 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
     const input = box.querySelector(`input[name="${inputName}"]`);
     const prev = document.getElementById(prevId);
     if(!input || !prev) return;
+    /* "Take photo" asks the phone for its camera; "Upload" / "Retake" open the gallery picker */
+    function pick(capture){
+      if (input.disabled) return;
+      if (capture) input.setAttribute('capture', capture); else input.removeAttribute('capture');
+      input.click();
+    }
+    const cam = box.querySelector('.id-btn-cam'), up = box.querySelector('.id-btn-up'), re = box.querySelector('.id-retake');
+    if (cam) cam.addEventListener('click', () => pick(cam.dataset.capture));
+    if (up) up.addEventListener('click', () => pick(null));
+    if (re) re.addEventListener('click', () => pick(null));
     input.addEventListener('change', () => {
       const f = input.files && input.files[0];
       if(!f) return;
@@ -698,7 +862,7 @@ input[readonly], textarea[readonly] { opacity: .85; cursor: default; background:
       const rect=canvas.getBoundingClientRect(), ratio=window.devicePixelRatio||1;
       canvas.width=Math.floor(rect.width*ratio); canvas.height=Math.floor(rect.height*ratio);
       ctx.setTransform(ratio,0,0,ratio,0,0);
-      ctx.lineWidth=3; ctx.lineCap="round"; ctx.lineJoin="round"; ctx.strokeStyle="#3B165F";
+      ctx.lineWidth=3; ctx.lineCap="round"; ctx.lineJoin="round"; ctx.strokeStyle="#14214D";
     }
     let drawing=false, hasInk=false, lastX=0, lastY=0;
     function getPos(e){ const rect=canvas.getBoundingClientRect(), touch=e.touches&&e.touches[0], clientX=touch?touch.clientX:e.clientX, clientY=touch?touch.clientY:e.clientY; return{x:clientX-rect.left,y:clientY-rect.top}; }

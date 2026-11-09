@@ -3,13 +3,13 @@
 <html lang="en">
 <head>  
 <meta charset="UTF-8">
-<link rel="icon" type="image/png" href="{% static 'img/company-logo.webp' %}?v=5">
+<link rel="icon" type="image/png" href="{% static 'img/365-logo.png' %}?v=6">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 {% block extra_css %}
 <style>
 :root{
-  --g1:#4a7a1e;
-  --g2:#7CB342;
+  --g1:#6F84D8;
+  --g2:#8A9DE3;
 }
 @font-face{
   font-family: "Ovelion";
@@ -104,16 +104,19 @@ body{
   margin: 0;
   min-height: 100vh;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%) !important;
+  background: #F7F4EE !important;
 }
 
 /* ===== PAGE ENTER/LEAVE ANIMATION ===== */
 .page-enter{
-  animation: pageIn .45s ease both;
+  animation: pageIn .45s ease backwards; /* no fill after the end, so #pageRoot keeps no transform and fixed children stay pinned to the viewport */
 }
 @keyframes pageIn{
   from{ opacity:0; transform: translateX(16px); }
-  to{ opacity:1; transform: translateX(0); }
+  /* end on transform:none — a lingering translateX(0) would make every
+     position:fixed child (bottom nav, top bar, modals) stick to #pageRoot
+     instead of the viewport */
+  to{ opacity:1; transform: none; }
 }
 .page-leave{
   animation: pageOut .22s ease both;
@@ -263,7 +266,7 @@ h1,h2,h3{ margin:0 0 10px; }
 }
 .btn:active{ transform: scale(.98); }
 .btn-primary{
-  background: linear-gradient(90deg, #4a7a1e, #7CB342d0);
+  background: #7389DA;
   color:#fff;
 }
 .btn-ghost{
@@ -392,14 +395,13 @@ html, body{
    Make cards NOT transparent
    ========================= */
 .cardx{
-  background: rgba(255,255,255,0.93) !important;
+  background: #fff !important;
   border: none !important;
-  border-top: 3px solid #7CB342 !important;
-  border-radius: 18px !important;
-  color: #1a1a1a !important;
+  border-radius: 20px !important;
+  color: #14214D !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  box-shadow: 0 4px 20px rgba(0,0,0,.12), 0 2px 8px rgba(74,122,30,.10) !important;
+  box-shadow: 0 6px 22px rgba(40,56,120,.08) !important;
 }
 
 </style>

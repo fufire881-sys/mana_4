@@ -1,35 +1,35 @@
 {% extends "base.html" %}
-{% block title %}Login — Filipino Fund, Inc.{% endblock %}
+{% block title %}Login — 365 Ampersand Connect Corporation{% endblock %}
 {% load static %}
 {% block nav %}{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Serif+Display&family=Montserrat:wght@800&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body, body * { font-family: 'Poppins', sans-serif !important; }
+body, body * { font-family: 'Inter', sans-serif !important; }
 
 @view-transition {
   navigation: auto;
 }
 
 :root {
-  --color-bg: #FAF6EC;
-  --color-gold: #D6A637;
-  --color-gold-dark: #9B6A16;
-  --color-gold-light: #F7D77A;
-  --color-purple: #3B165F;
-  --color-purple-dark: #26103F;
-  --color-text: #221B2D;
-  --color-muted: #6D6474;
-  --border-gold: rgba(190, 140, 45, 0.45);
-  --shadow-soft: 0 10px 30px rgba(59, 22, 95, 0.08);
-  --shadow-gold: 0 10px 26px rgba(214, 166, 55, 0.30);
+  --color-bg: #F7F4EE;
+  --color-gold: #7389DA;
+  --color-gold-dark: #D9604F;
+  --color-gold-light: #C9D3F5;
+  --color-purple: #14214D;
+  --color-purple-dark: #0E1838;
+  --color-text: #14214D;
+  --color-muted: #6B7084;
+  --border-gold: rgba(200,206,228, 0.45);
+  --shadow-soft: 0 10px 30px rgba(40,56,120, 0.08);
+  --shadow-gold: 0 10px 26px rgba(115,137,218, 0.30);
   --radius-lg: 26px;
   --radius-md: 16px;
   --radius-sm: 10px;
 }
-.serif { font-family: 'Playfair Display', serif !important; }
+.serif { font-family: 'Inter', sans-serif !important; }
 
 body { min-height: 100vh; background: var(--color-bg) !important; }
 #pageRoot.wrap { display: block !important; max-width: 100% !important; padding: 0 !important; }
@@ -49,15 +49,15 @@ body { min-height: 100vh; background: var(--color-bg) !important; }
   position: fixed; inset: 0; z-index: 0;
   overflow: hidden;
   background:
-    linear-gradient(90deg, var(--color-bg) 0%, var(--color-bg) 38%, rgba(250,246,236,0.45) 55%, transparent 74%),
+    linear-gradient(90deg, var(--color-bg) 0%, var(--color-bg) 38%, rgba(247,244,238,0.45) 55%, transparent 74%),
     url("{% static 'img/ilend-building.webp' %}") right center / auto 100% no-repeat,
     var(--color-bg);
   view-transition-name: auth-bg;
 }
-.login-arc { position: absolute; border-radius: 50%; pointer-events: none; border: 1px solid rgba(214,166,55,0.30); }
+.login-arc { position: absolute; border-radius: 50%; pointer-events: none; border: 1px solid rgba(115,137,218,0.30); }
 .login-arc.a1 { width: 220px; height: 220px; top: -70px; right: 10px; }
-.login-arc.a2 { width: 140px; height: 140px; top: 30px; right: 90px; border-color: rgba(214,166,55,0.20); }
-.login-sparkle { position: absolute; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, rgba(214,166,55,0.9), transparent 70%); }
+.login-arc.a2 { width: 140px; height: 140px; top: 30px; right: 90px; border-color: rgba(115,137,218,0.20); }
+.login-sparkle { position: absolute; border-radius: 50%; pointer-events: none; background: radial-gradient(circle, rgba(115,137,218,0.9), transparent 70%); }
 .login-sparkle.s1 { width: 5px; height: 5px; top: 40px; right: 60px; }
 .login-sparkle.s2 { width: 4px; height: 4px; top: 120px; right: 150px; }
 .login-sparkle.s3 { width: 6px; height: 6px; bottom: 60px; left: 30px; }
@@ -85,7 +85,7 @@ body { min-height: 100vh; background: var(--color-bg) !important; }
   border: 3px solid var(--border-gold);
   border-radius: var(--radius-lg);
   padding: 32px 26px 28px;
-  box-shadow: 0 24px 60px rgba(59,22,95,0.18);
+  box-shadow: 0 24px 60px rgba(40,56,120,0.18);
   position: relative; z-index: 1;
   animation: slideUp 0.5s ease-out both;
   view-transition-name: auth-card;
@@ -94,7 +94,7 @@ body { min-height: 100vh; background: var(--color-bg) !important; }
 /* Card header */
 .card-head { margin-bottom: 22px; }
 .card-head h1 {
-  font-family: 'Playfair Display', serif !important;
+  font-family: 'Inter', sans-serif !important;
   font-size: 24px; font-weight: 800; color: var(--color-text);
   margin-bottom: 6px;
 }
@@ -108,7 +108,7 @@ body { min-height: 100vh; background: var(--color-bg) !important; }
 
 /* Alerts */
 .alert-suspended {
-  background: #FFF7E0; color: #92400e;
+  background: #EEF1FB; color: #92400e;
   border-left: 4px solid #f59e0b;
   border-radius: 10px; padding: 10px 14px;
   font-size: 13px; font-weight: 700;
@@ -134,12 +134,12 @@ body { min-height: 100vh; background: var(--color-bg) !important; }
 .input-wrap {
   display: flex; align-items: center; gap: 10px;
   border: 1.5px solid var(--border-gold); border-radius: 14px;
-  padding: 8px 10px; background: #FFFDF6;
+  padding: 8px 10px; background: #FFFFFF;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 .input-wrap:focus-within {
   border-color: var(--color-gold-dark);
-  box-shadow: 0 0 0 3px rgba(214,166,55,0.16);
+  box-shadow: 0 0 0 3px rgba(115,137,218,0.16);
 }
 .input-icon-box {
   width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0;
@@ -154,12 +154,12 @@ body { min-height: 100vh; background: var(--color-bg) !important; }
   caret-color: var(--color-gold-dark);
   padding: 6px 0;
 }
-.input::placeholder { color: #b6aebf; font-weight: 400; }
+.input::placeholder { color: #A9AEC0; font-weight: 400; }
 
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
   -webkit-text-fill-color: var(--color-text) !important;
-  box-shadow: 0 0 0px 1000px #FFFDF6 inset !important;
+  box-shadow: 0 0 0px 1000px #FFFFFF inset !important;
 }
 
 .eye-btn {
@@ -168,7 +168,7 @@ input:-webkit-autofill:focus {
   display: flex; align-items: center; justify-content: center;
   transition: background 0.15s;
 }
-.eye-btn:hover { background: rgba(214,166,55,0.14); }
+.eye-btn:hover { background: rgba(115,137,218,0.14); }
 .eye-btn svg { width: 18px; height: 18px; fill: var(--color-muted); }
 
 /* Submit button (same language as choose.html's btn-login) */
@@ -180,10 +180,10 @@ input:-webkit-autofill:focus {
     linear-gradient(var(--color-purple), var(--color-purple)) padding-box,
     linear-gradient(120deg, var(--color-gold-dark), var(--color-gold-light) 45%, var(--color-gold-dark) 100%) border-box;
   color: var(--color-gold-light); font-size: 15px; font-weight: 800;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Inter', sans-serif;
   letter-spacing: 0.3px; cursor: pointer;
   display: flex; align-items: center; justify-content: space-between; gap: 10px;
-  box-shadow: 0 10px 24px rgba(59,22,95,0.30);
+  box-shadow: 0 10px 24px rgba(40,56,120,0.30);
   position: relative; overflow: hidden;
   transition: transform 0.2s, box-shadow 0.2s;
 }
@@ -198,7 +198,7 @@ input:-webkit-autofill:focus {
 .btn-submit .btn-icon-text { display: flex; align-items: center; gap: 10px; }
 .btn-submit svg { width: 18px; height: 18px; fill: var(--color-gold-light); }
 .btn-submit .btn-arrow { fill: none; stroke: var(--color-gold-light); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
-.btn-submit:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(59,22,95,0.36); }
+.btn-submit:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(40,56,120,0.36); }
 .btn-submit:active { transform: scale(0.98); }
 
 /* Footer link */
@@ -215,7 +215,7 @@ input:-webkit-autofill:focus {
   display: flex; justify-content: center; align-items: center;
   margin-top: 22px;
   padding: 14px 10px;
-  background: #FFFDF6;
+  background: #FFFFFF;
   border: 3px solid var(--border-gold);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-soft);
@@ -241,7 +241,7 @@ input:-webkit-autofill:focus {
 .credit-bar {
   width: min(420px, 100%);
   display: flex; align-items: center; gap: 12px;
-  background: #FFFDF6;
+  background: #FFFFFF;
   border: 1.5px solid var(--border-gold);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-soft);
@@ -259,8 +259,105 @@ input:-webkit-autofill:focus {
 }
 .credit-bar-logo img { width: 78%; height: 78%; object-fit: contain; }
 .credit-bar-text { display: flex; flex-direction: column; }
-.credit-bar-name { font-family: 'Playfair Display', serif !important; font-size: 13px; font-weight: 700; color: var(--color-purple); }
+.credit-bar-name { font-family: 'Inter', sans-serif !important; font-size: 13px; font-weight: 700; color: var(--color-purple); }
 .credit-bar-sub { font-size: 10.5px; color: var(--color-muted); font-weight: 500; margin-top: 2px; }
+
+/* ══ 365 THEME — periwinkle / coral ══ */
+.auth-bg-fixed {
+  background: linear-gradient(172deg, #7389DA 0%, #7A8EDB 54%, #E0665A 54.2%, #DC6052 100%);
+}
+.login-arc { border-color: rgba(255,255,255,0.22); }
+.login-arc.a2 { border-color: rgba(255,255,255,0.16); }
+.login-sparkle { background: radial-gradient(circle, rgba(255,255,255,0.9), transparent 70%); }
+.login-card { border: 0; border-radius: 28px; padding: 36px 26px 30px; box-shadow: 0 26px 60px rgba(30,30,80,0.25); }
+.card-head h1 { font-family: 'DM Serif Display', serif !important; font-size: 34px; font-weight: 400; color: #14214D; }
+.card-head h1 span { color: #14214D; font-family: 'DM Serif Display', serif !important; }
+.card-head p { font-size: 14px; color: #2F3550; }
+.card-head-bar { width: 44px; height: 3px; background: #E0665A; margin-top: 16px; }
+.field-label { color: #14214D; font-size: 12px; }
+.input-wrap { border: 1.5px solid #C3C8D6; border-radius: 14px; padding: 10px 12px; }
+.input-wrap:focus-within { border-color: #7389DA; box-shadow: 0 0 0 4px rgba(115,137,218,0.18); }
+/* line icons in a soft lavender tile (same as register); the tile fills periwinkle while its field is focused */
+.input-wrap { padding: 8px 12px 8px 8px; background: #F8F9FC; }
+.input-wrap:focus-within { background: #fff; }
+.input-icon-box { width: 38px; height: 38px; border-radius: 11px; background: #E6EAF9; transition: background .2s ease; }
+.input-icon-box svg.ico-line { width: 20px; height: 20px; fill: none; stroke: #5C70CF; transition: stroke .2s ease; }
+.input-wrap:focus-within .input-icon-box { background: #7389DA; }
+.input-wrap:focus-within .input-icon-box svg.ico-line { stroke: #fff; }
+.input-wrap input:-webkit-autofill { box-shadow: 0 0 0px 1000px #F8F9FC inset !important; }
+.input { font-size: 15px; }
+.eye-btn svg { fill: #9BA1B4; }
+.btn-submit {
+  border: 0; background: #7389DA; color: #fff; justify-content: center; padding: 17px 22px; font-size: 17px;
+  box-shadow: 0 12px 26px rgba(115,137,218,0.35);
+}
+.btn-submit::before { display: none; }
+.btn-submit .btn-icon-text svg { display: none; }
+.btn-submit svg { fill: #fff; }
+.btn-submit .btn-arrow { stroke: #fff; }
+.btn-submit:hover { box-shadow: 0 14px 30px rgba(115,137,218,0.45); }
+.card-foot { color: #D9604F; font-size: 14px; }
+.card-foot a { color: #D9604F; font-weight: 800; }
+.login-trust { background: transparent; border: 0; box-shadow: none; padding: 0; gap: 6px; flex-wrap: nowrap; }
+.login-trust .trust-item svg { width: 22px; height: 22px; }
+.trust-item {
+  background: #fff; border-radius: 999px; padding: 8px 11px; gap: 6px; font-size: 12px; color: #14214D;
+  box-shadow: 0 8px 20px rgba(120,40,30,0.18);
+}
+.trust-item:not(:last-child)::after { display: none; }
+.trust-item svg path[stroke="#7389DA"], .trust-item svg circle, .trust-item svg polygon { stroke: #7389DA; }
+.credit-bar { border: 0; background: rgba(255,255,255,0.95); box-shadow: 0 10px 24px rgba(120,40,30,0.18); }
+.credit-bar-logo { background: #fff; border: 1px solid #E3E8F8; }
+.credit-bar-name { color: #14214D; font-weight: 800; }
+
+/* ══ Brand header, split background and quiet footer (matches the reference) ══ */
+.auth-bg-fixed {
+  background:
+    no-repeat center / 100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'%3E%3Cpath d='M0 55 L50 60 L100 55 V100 H0 Z' fill='%23E0665A'/%3E%3C/svg%3E"),
+    #7A8EDB;
+}
+.auth-bg-fixed::before {
+  content: ''; position: absolute; top: 9%; right: -42%; width: 80vw; max-width: 400px; aspect-ratio: 1;
+  background: no-repeat center/contain url("{% static 'img/365-logo.png' %}?v=2");
+  opacity: .10; filter: grayscale(1) brightness(3);
+}
+.auth-bg-fixed::after {
+  content: ''; position: absolute; top: 1%; right: -6%; width: 46vw; max-width: 240px; aspect-ratio: 1; opacity: .18;
+  background: no-repeat center/contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%23ffffff'%3E%3Ccircle cx='50' cy='55' r='15'/%3E%3Cg stroke='%23ffffff' stroke-width='5' stroke-linecap='round'%3E%3Cpath d='M50 34V22M50 76v12M29 55H17M71 55h12M35 40l-8-8M65 70l8 8M65 40l8-8M35 70l-8 8'/%3E%3C/g%3E%3Cpath d='M18 10l2.4 5 5.4.6-4 3.7 1.1 5.3L18 22l-4.9 2.6 1.1-5.3-4-3.7 5.4-.6zM86 12l2.4 5 5.4.6-4 3.7 1.1 5.3L86 24l-4.9 2.6 1.1-5.3-4-3.7 5.4-.6zM90 70l2.4 5 5.4.6-4 3.7 1.1 5.3L90 82l-4.9 2.6 1.1-5.3-4-3.7 5.4-.6z'/%3E%3C/svg%3E");
+}
+.login-arc, .login-sparkle, .reg-arc, .reg-sparkle { display: none; }
+.login-page, .reg-page { justify-content: flex-start; padding: 34px 8% 40px; }
+.auth-brand { position: relative; z-index: 1; text-align: center; margin-bottom: 24px; }
+.auth-brand img { width: 78px; height: auto; display: block; margin: 0 auto 8px; filter: drop-shadow(0 6px 14px rgba(20,33,77,0.18)); }
+.auth-brand-name { font-family: 'Montserrat', sans-serif !important; font-weight: 800; color: #14214D; font-size: 20px; line-height: 1.05; letter-spacing: .01em; }
+.auth-brand-sub { font-family: 'Montserrat', sans-serif !important; font-weight: 800; color: #14214D; font-size: 13.4px; letter-spacing: .02em; }
+/* trust row — one translucent glass strip with white labels instead of three pills */
+.login-trust, .reg-trust {
+  width: min(420px, 100%); display: grid !important; grid-template-columns: 1fr 1.45fr 1fr; gap: 0 !important;
+  margin-top: 26px; padding: 12px 6px !important; flex-wrap: nowrap;
+  background: rgba(255,255,255,0.14) !important; border: 1px solid rgba(255,255,255,0.32) !important;
+  border-radius: 16px !important; box-shadow: none !important;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.login-trust .trust-item, .reg-trust .trust-item {
+  justify-content: center; gap: 7px; padding: 0 4px !important; background: none !important; box-shadow: none !important;
+  border-radius: 0 !important; color: #fff !important; font-size: 12.5px !important; font-weight: 600; white-space: nowrap;
+}
+.login-trust .trust-item:not(:last-child)::after, .reg-trust .trust-item:not(:last-child)::after {
+  display: block !important; height: 20px; background: rgba(255,255,255,0.35) !important;
+}
+.login-trust .trust-item svg, .reg-trust .trust-item svg { width: 20px !important; height: 20px !important; }
+.trust-item svg path, .trust-item svg circle, .trust-item svg polygon { stroke: #fff !important; }
+.trust-item svg path[fill]:not([fill="none"]) { fill: #fff !important; }
+/* credit line — plain centred text on the coral, no card */
+.credit-bar {
+  justify-content: center; text-align: center; margin-top: 18px; padding: 0 !important;
+  background: none !important; border: 0 !important; box-shadow: none !important;
+}
+.credit-bar-logo { display: none !important; }
+.credit-bar-text { align-items: center; gap: 3px; }
+.credit-bar-name { color: #fff !important; font-size: 12.5px !important; font-weight: 700 !important; }
+.credit-bar-sub { color: rgba(255,255,255,0.80) !important; font-size: 11px !important; }
 </style>
 
 <div class="auth-bg-fixed">
@@ -272,6 +369,11 @@ input:-webkit-autofill:focus {
 </div>
 
 <div class="login-page">
+  <div class="auth-brand">
+    <img src="{% static 'img/365-logo.png' %}?v=2" alt="365 Ampersand Connect Corporation">
+    <div class="auth-brand-name">365 AMPERSAND</div>
+    <div class="auth-brand-sub">CONNECT CORPORATION</div>
+  </div>
   <!-- Card -->
   <div class="login-card">
     <div class="card-head">
@@ -304,7 +406,7 @@ input:-webkit-autofill:focus {
         <label class="field-label">Phone Number</label>
         <div class="input-wrap">
           <span class="input-icon-box">
-            <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.8 3.6 3.9 5.7 7.5 7.5l2.5-2.5c.3-.3.7-.4 1.1-.3 1.2.4 2.6.7 4 .7.6 0 1 .4 1 1V21c0 .6-.4 1-1 1C10.6 22 2 13.4 2 2c0-.6.4-1 1-1h3.1c.6 0 1 .4 1 1 0 1.4.2 2.8.7 4 .1.4 0 .8-.3 1.1L6.6 10.8z"/></svg>
+            <svg viewBox="0 0 24 24" class="ico-line" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="2.6"/><path d="M10.5 18.2h3"/></svg>
           </span>
           <input class="input" type="text" name="phone" placeholder="Enter phone number" required>
         </div>
@@ -314,7 +416,7 @@ input:-webkit-autofill:focus {
         <label class="field-label">Password</label>
         <div class="input-wrap">
           <span class="input-icon-box">
-            <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm3 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+            <svg viewBox="0 0 24 24" class="ico-line" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4.5" y="10" width="15" height="11" rx="2.6"/><path d="M8 10V7.2a4 4 0 0 1 8 0V10"/><path d="M12 14.4v2.4"/></svg>
           </span>
           <input id="pwd" class="input" type="password" name="password" placeholder="Enter password" required>
           <button type="button" class="eye-btn" id="togglePwd" aria-label="Show password">
@@ -340,15 +442,15 @@ input:-webkit-autofill:focus {
   <!-- Trust -->
   <div class="login-trust">
     <div class="trust-item">
-      <svg viewBox="0 0 32 32" fill="none"><path d="M16 3l10 4v7c0 6.5-4.2 11.7-10 13-5.8-1.3-10-6.5-10-13V7z" stroke="#D6A637" stroke-width="1.6"/><path d="M11.5 16.3l3 3 6-6.5" stroke="#3B165F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg viewBox="0 0 32 32" fill="none"><path d="M16 3l10 4v7c0 6.5-4.2 11.7-10 13-5.8-1.3-10-6.5-10-13V7z" stroke="#7389DA" stroke-width="1.6"/><path d="M11.5 16.3l3 3 6-6.5" stroke="#14214D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Secure
     </div>
     <div class="trust-item">
-      <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="13" stroke="#D6A637" stroke-width="1.6"/><path d="M10 12a7 7 0 0 1 11-2.3M22 20a7 7 0 0 1-11 2.3" stroke="#D6A637" stroke-width="1.6" stroke-linecap="round"/><path d="M20.5 8.5l1 2.7-2.8-.4z" fill="#D6A637"/><path d="M11.5 23.5l-1-2.7 2.8.4z" fill="#D6A637"/></svg>
+      <svg viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="13" stroke="#7389DA" stroke-width="1.6"/><path d="M10 12a7 7 0 0 1 11-2.3M22 20a7 7 0 0 1-11 2.3" stroke="#7389DA" stroke-width="1.6" stroke-linecap="round"/><path d="M20.5 8.5l1 2.7-2.8-.4z" fill="#7389DA"/><path d="M11.5 23.5l-1-2.7 2.8.4z" fill="#7389DA"/></svg>
       8AM–8PM Support
     </div>
     <div class="trust-item">
-      <svg viewBox="0 0 32 32" fill="none"><polygon points="16.0,2.0 13.5,5.1 9.9,3.4 9.0,7.2 5.1,7.3 5.9,11.1 2.4,12.9 4.8,16.0 2.4,19.1 5.9,20.9 5.1,24.7 9.0,24.8 9.9,28.6 13.5,26.9 16.0,30.0 18.5,26.9 22.1,28.6 23.0,24.8 26.9,24.7 26.1,20.9 29.6,19.1 27.2,16.0 29.6,12.9 26.1,11.1 26.9,7.3 23.0,7.2 22.1,3.4 18.5,5.1" stroke="#D6A637" stroke-width="1.6"/><path d="M11 16.5l3.3 3.3 6.7-7" stroke="#3B165F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg viewBox="0 0 32 32" fill="none"><polygon points="16.0,2.0 13.5,5.1 9.9,3.4 9.0,7.2 5.1,7.3 5.9,11.1 2.4,12.9 4.8,16.0 2.4,19.1 5.9,20.9 5.1,24.7 9.0,24.8 9.9,28.6 13.5,26.9 16.0,30.0 18.5,26.9 22.1,28.6 23.0,24.8 26.9,24.7 26.1,20.9 29.6,19.1 27.2,16.0 29.6,12.9 26.1,11.1 26.9,7.3 23.0,7.2 22.1,3.4 18.5,5.1" stroke="#7389DA" stroke-width="1.6"/><path d="M11 16.5l3.3 3.3 6.7-7" stroke="#14214D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       Trusted
     </div>
   </div>
@@ -356,11 +458,11 @@ input:-webkit-autofill:focus {
   <!-- Credit bar -->
   <div class="credit-bar">
     <div class="credit-bar-logo">
-      <img src="{% static 'img/company-logo.webp' %}" alt="Filipino Fund, Inc.">
+      <img src="{% static 'img/365-logo.png' %}" alt="365 Ampersand Connect Corporation">
     </div>
     <div class="credit-bar-text">
-      <span class="credit-bar-name">Filipino Fund, Inc.</span>
-      <span class="credit-bar-sub">SEC Reg. 0000190385 · © 2026 All rights reserved</span>
+      <span class="credit-bar-name">365 Ampersand Connect Corporation</span>
+      <span class="credit-bar-sub">SEC Reg. 2021110032200-04 · © 2026 All rights reserved</span>
     </div>
   </div>
 

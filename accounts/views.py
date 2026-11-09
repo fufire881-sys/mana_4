@@ -347,12 +347,35 @@ def dashboard_view(request):
 
 @login_required(login_url="login")
 def profile_view(request):
-    return render(request, "profile.html")
+    # name + photo come from the customer's latest loan application, if any
+    loan = (
+        LoanApplication.objects
+        .filter(user=request.user)
+        .exclude(full_name="")
+        .only("full_name", "selfie_with_id")
+        .order_by("-id")
+        .first()
+    )
+    selfie_url = None
+    if loan and loan.selfie_with_id:
+        try:
+            selfie_url = loan.selfie_with_id.url
+        except Exception:
+            selfie_url = None
+    return render(request, "profile.html", {
+        "display_name": (loan.full_name if loan else "").strip(),
+        "selfie_url": selfie_url,
+    })
 
 
 @login_required(login_url="login")
 def credit_score_view(request):
-    return render(request, "credit_score.html")
+    loans = LoanApplication.objects.filter(user=request.user).exclude(status="DRAFT")
+    return render(request, "credit_score.html", {
+        "total_loans": loans.count(),
+        "active_loans": loans.filter(status="APPROVED").count(),
+        "completed_payments": loans.filter(status="PAID").count(),
+    })
 
 
 @login_required(login_url="login")
@@ -391,9 +414,27 @@ def payment_schedule_view(request):
                 "interest_rate": latest_loan.interest_rate_monthly,
             })
 
+    # Mark each instalment past / next / upcoming by its due date (there is no
+    # per-instalment payment record, so the page never claims "paid").
+    today = timezone.localdate()
+    next_payment = None
+    for i, s in enumerate(schedules):
+        due = datetime.strptime(s["due_date"], "%d/%m/%Y").date()
+        s["due"] = due
+        s["num"] = i + 1
+        if due < today:
+            s["state"] = "past"
+        elif next_payment is None:
+            s["state"] = "next"
+            next_payment = s
+        else:
+            s["state"] = "upcoming"
+
     return render(request, "payment_schedule.html", {
         "latest_loan": latest_loan,
         "schedules": schedules,
+        "next_payment": next_payment,
+        "past_count": sum(1 for s in schedules if s.get("state") == "past"),
     })
 
 
@@ -652,6 +693,10 @@ def notifications_view(request):
     success_msg = (request.user.success_message or "").strip()
     success_at = request.user.success_message_updated_at
 
+    # remember what was unread before this visit marks it read, so the page can show the unread dot once
+    alert_unread = bool(alert_msg) and not request.user.notification_is_read
+    success_unread = bool(success_msg) and not request.user.success_is_read
+
     changed = []
 
     if alert_msg and not request.user.notification_is_read:
@@ -672,6 +717,7 @@ def notifications_view(request):
             "title": "Congratulations",
             "msg": success_msg,
             "at": success_at,
+            "unread": success_unread,
         })
     if alert_msg:
         items.append({
@@ -679,6 +725,7 @@ def notifications_view(request):
             "title": "Important Notice",
             "msg": alert_msg,
             "at": alert_at,
+            "unread": alert_unread,
         })
 
     tz = timezone.get_current_timezone()

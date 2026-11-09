@@ -1,0 +1,18 @@
+{# One notification card. success = loan approved (Loans tab), alert = account notice (Updates tab). #}
+<div class="notif-card {{ n.kind }}{% if n.unread %} has-dot{% endif %} reveal" data-cat="{% if n.kind == 'success' %}loans{% else %}updates{% endif %}">
+  <div class="notif-avatar">
+    {% if n.kind == "success" %}
+      <svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+    {% else %}
+      <svg viewBox="0 0 24 24"><path d="M12 3l7.5 2.8v5.4c0 4.6-3.2 8.6-7.5 9.8-4.3-1.2-7.5-5.2-7.5-9.8V5.8z"/><path d="M12 8.5v4M12 15.6v.01"/></svg>
+    {% endif %}
+  </div>
+  <div class="notif-content">
+    <div class="notif-row1">
+      <span class="notif-card-title">{{ n.title }}</span>
+      {% if n.at %}<span class="notif-time">{% if today %}{{ n.at|date:"g:i A" }}{% else %}{{ n.at|date:"M j" }}{% endif %}</span>{% endif %}
+    </div>
+    <div class="notif-msg">{{ n.msg }}</div>
+  </div>
+  {% if n.unread %}<span class="notif-dot" aria-label="Unread"></span>{% endif %}
+</div>

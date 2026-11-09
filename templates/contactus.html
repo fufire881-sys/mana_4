@@ -1,249 +1,129 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Contact Us{% endblock %}
+{% block title %}Contact Us — 365 Ampersand Connect Corporation{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%) !important; }
-.wrap { align-items: flex-start !important; justify-content: center !important; padding-top: 0 !important; }
+body, body * { font-family: 'Inter', sans-serif; }
 
-.contact-page {
-  width: min(520px, 100vw);
-  margin: 0 auto;
-  min-height: 100vh;
-  font-family: 'Poppins', sans-serif;
-  padding-bottom: 90px;
-}
+#pageRoot.wrap { max-width: 100% !important; width: 100% !important; padding: 0 !important; display: block !important; }
+body { padding-bottom: 40px !important; overflow-x: hidden !important; background: #F7F3EA !important; }
 
-/* ── Header ── */
-.ct-header {
-  background: linear-gradient(160deg, #0d2d6e 0%, #1565C0 40%, #1a5c2a 75%, #2d6b0a 100%);
-  padding: 52px 24px 36px;
-  position: relative;
-  overflow: hidden;
-  margin: 16px 16px 0;
-  border-radius: 20px;
-}
-.ct-header .bg-circle {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.05);
-  pointer-events: none;
-}
-.ct-header .bg-circle.c1 { width: 180px; height: 180px; top: -60px; right: -40px; }
-.ct-header .bg-circle.c2 { width: 100px; height: 100px; bottom: -20px; left: 20px; }
+.contact-page { width: 100%; max-width: 520px; margin: 0 auto; min-height: 100vh; padding: 22px 18px 40px; }
 
+.reveal { opacity: 0; transform: translateY(14px); will-change: transform, opacity; }
+.reveal.on { opacity: 1; transform: translateY(0); transition: opacity .45s ease, transform .45s ease; }
+
+/* Header */
+.ct-head { display: grid; grid-template-columns: 52px 1fr 52px; align-items: center; gap: 8px; margin-bottom: 20px; }
 .ct-back {
-  position: absolute;
-  top: 16px; left: 18px;
-  display: inline-flex; align-items: center; gap: 5px;
-  color: rgba(255,255,255,0.85); font-size: 13px; font-weight: 600;
-  text-decoration: none; z-index: 2;
+  width: 52px; height: 52px; border-radius: 50%; background: #fff; color: #14214D; text-decoration: none;
+  display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(40,56,120,0.14);
 }
-.ct-back svg { width: 16px; height: 16px; fill: rgba(255,255,255,0.85); }
+.ct-back svg { width: 24px; height: 24px; }
+.ct-head h1 { text-align: center; font-size: 25px; font-weight: 800; color: #14214D; }
 
-.ct-header-icon {
-  width: 56px; height: 56px;
-  background: rgba(255,255,255,0.15);
-  border-radius: 16px;
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 14px;
-  position: relative; z-index: 1;
+/* Hero card — same gradient + logo watermark as the other main cards */
+.ct-hero {
+  position: relative; overflow: hidden; padding: 24px 22px; border-radius: 26px; color: #fff;
+  background: linear-gradient(120deg, #6F86DA 0%, #8C8FD0 42%, #C27C93 78%, #E36F5E 100%);
+  box-shadow: 0 16px 34px rgba(115,137,218,0.30);
 }
-.ct-header-icon svg { width: 28px; height: 28px; fill: #fff; }
+.ct-hero::after {
+  content: ''; position: absolute; top: 50%; right: -60px; width: 210px; height: 210px; transform: translateY(-50%);
+  opacity: .17; filter: grayscale(1) brightness(2.6); pointer-events: none;
+  background: no-repeat center/contain url("{% static 'img/365-logo.png' %}?v=2");
+}
+.ct-hero > * { position: relative; z-index: 1; }
+.ct-hero-ico { width: 56px; height: 56px; border-radius: 18px; background: rgba(255,255,255,0.95); color: #5C70CF; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+.ct-hero-ico svg { width: 28px; height: 28px; }
+.ct-hero h2 { font-size: 22px; font-weight: 800; line-height: 1.25; }
+.ct-hero p { margin-top: 6px; font-size: 14.5px; color: rgba(255,255,255,0.92); line-height: 1.45; max-width: 85%; }
 
-.ct-header h1 {
-  font-size: 22px; font-weight: 800;
-  color: #fff; margin-bottom: 6px;
-  position: relative; z-index: 1;
-}
-.ct-header p {
-  font-size: 13px; color: rgba(255,255,255,0.75);
-  font-weight: 400; line-height: 1.5;
-  position: relative; z-index: 1;
-}
+/* Info tiles */
+.ct-info { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+.ct-tile { display: flex; align-items: center; gap: 12px; padding: 14px; background: #fff; border-radius: 18px; box-shadow: 0 8px 20px rgba(40,56,120,0.07); }
+.ct-tile-ico { width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.ct-tile-ico svg { width: 22px; height: 22px; }
+.ct-tile:nth-child(1) .ct-tile-ico { background: #FCDDD6; color: #D9604F; }
+.ct-tile:nth-child(2) .ct-tile-ico { background: #E3E8F8; color: #5C70CF; }
+.ct-tile-lbl { font-size: 12.5px; color: #6B7084; }
+.ct-tile-val { font-size: 15px; font-weight: 700; color: #14214D; }
 
-/* ── Info pills ── */
-.ct-info-row {
-  display: flex; gap: 10px;
-  padding: 16px 16px 0;
-  flex-wrap: wrap;
-}
-.ct-info-pill {
-  flex: 1; min-width: 0;
-  background: #fff;
-  border-radius: 14px;
-  padding: 12px 14px;
-  display: flex; align-items: center; gap: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-}
-.ct-info-pill .pill-icon {
-  width: 36px; height: 36px; flex-shrink: 0;
-  background: #eaf4e0;
-  border-radius: 10px;
-  display: flex; align-items: center; justify-content: center;
-}
-.ct-info-pill .pill-icon svg { width: 18px; height: 18px; fill: #3d7a12; }
-.ct-info-pill .pill-label { font-size: 10px; color: #999; font-weight: 500; }
-.ct-info-pill .pill-val { font-size: 12px; color: #1a1a1a; font-weight: 700; }
+/* Success */
+.ct-success { display: flex; align-items: center; gap: 10px; margin-top: 16px; padding: 14px 16px; border-radius: 16px; background: #CDEFD8; color: #1E6B3A; font-size: 14.5px; font-weight: 600; }
+.ct-success svg { width: 22px; height: 22px; flex-shrink: 0; }
 
-/* ── Success alert ── */
-.ct-success {
-  margin: 16px 16px 0;
-  background: #eaf7e4;
-  border-radius: 14px;
-  padding: 14px 16px;
-  display: flex; align-items: center; gap: 10px;
-  border: 1px solid #b6e0a0;
-}
-.ct-success svg { width: 22px; height: 22px; fill: #3d7a12; flex-shrink: 0; }
-.ct-success span { font-size: 13px; font-weight: 600; color: #2d6b0a; }
-
-/* ── Form card ── */
-.ct-form-card {
-  margin: 16px 16px 0;
-  background: #fff;
-  border-radius: 20px;
-  padding: 24px 20px;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-}
-.ct-form-card h2 {
-  font-size: 15px; font-weight: 700;
-  color: #1a1a1a; margin-bottom: 20px;
-  display: flex; align-items: center; gap: 8px;
-}
-.ct-form-card h2 span {
-  display: inline-block; width: 4px; height: 18px;
-  background: #4a7a1e; border-radius: 4px;
-}
-
-/* ── Input group ── */
-.field-group { margin-bottom: 16px; }
-.field-group label {
-  display: block; font-size: 11px; font-weight: 700;
-  color: #555; margin-bottom: 6px;
-  text-transform: uppercase; letter-spacing: 0.6px;
-}
-.field-wrap {
-  position: relative;
-  display: flex; align-items: center;
-}
-.field-wrap .f-icon {
-  position: absolute; left: 13px;
-  width: 18px; height: 18px; fill: #aaa;
-  pointer-events: none; flex-shrink: 0;
-}
-.field-wrap input,
-.field-wrap textarea {
-  width: 100%;
-  padding: 12px 14px 12px 40px;
-  border: 1.5px solid #e8e8e8;
-  border-radius: 12px;
-  font-size: 14px; font-weight: 500;
-  color: #1a1a1a;
-  background: #fafafa;
-  outline: none;
-  font-family: 'Poppins', sans-serif;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-.field-wrap textarea {
-  min-height: 120px; resize: none;
-  padding-top: 13px; line-height: 1.6;
-}
-.field-wrap input::placeholder,
-.field-wrap textarea::placeholder { color: #ccc; font-weight: 400; }
-.field-wrap input:focus,
-.field-wrap textarea:focus {
-  border-color: #4a7a1e;
-  box-shadow: 0 0 0 3px rgba(74,122,30,0.10);
-  background: #fff;
-}
-.field-wrap input:focus ~ .f-icon,
-.field-wrap input:focus + .f-icon { fill: #4a7a1e; }
-
-/* optional tag */
-.opt-tag {
-  font-size: 10px; font-weight: 500;
-  color: #aaa; margin-left: 5px;
-  text-transform: none; letter-spacing: 0;
-}
-
-/* ── Submit button ── */
+/* Form */
+.ct-form { margin-top: 16px; padding: 22px 20px; background: #fff; border-radius: 24px; box-shadow: 0 10px 26px rgba(40,56,120,0.08); }
+.ct-form h3 { font-size: 20px; font-weight: 800; color: #14214D; margin-bottom: 16px; }
+.field-group { margin-bottom: 14px; }
+.field-group label { display: block; margin-bottom: 6px; font-size: 14px; font-weight: 500; color: #14214D; }
+.opt-tag { color: #8A90A2; font-weight: 400; }
+.field-wrap { display: flex; align-items: center; gap: 10px; padding: 0 12px 0 8px; border: 1.5px solid #DDE1EC; border-radius: 16px; background: #F8F9FC; transition: border-color .2s, box-shadow .2s, background .2s; }
+.field-wrap:focus-within { border-color: #7389DA; box-shadow: 0 0 0 4px rgba(115,137,218,0.16); background: #fff; }
+.f-icon { width: 38px; height: 38px; flex-shrink: 0; border-radius: 11px; background: #E6EAF9; color: #5C70CF; display: flex; align-items: center; justify-content: center; transition: background .2s, color .2s; }
+.field-wrap:focus-within .f-icon { background: #7389DA; color: #fff; }
+.f-icon svg { width: 19px; height: 19px; }
+.field-wrap input, .field-wrap textarea { flex: 1; min-width: 0; border: 0; outline: none; background: transparent; padding: 15px 0; font-size: 15px; color: #14214D; }
+.field-wrap input::placeholder, .field-wrap textarea::placeholder { color: #9BA1B4; }
+.field-wrap.area { align-items: flex-start; padding-top: 8px; }
+.field-wrap textarea { min-height: 120px; padding-top: 9px; resize: none; line-height: 1.5; }
 .ct-submit {
-  width: 100%; margin-top: 8px;
-  padding: 15px;
-  background: linear-gradient(135deg, #2d6b0a, #5d9e28);
-  border: none; border-radius: 14px;
-  color: #fff; font-size: 15px; font-weight: 700;
-  font-family: 'Poppins', sans-serif;
-  cursor: pointer; letter-spacing: 0.3px;
-  display: flex; align-items: center; justify-content: center; gap: 8px;
-  box-shadow: 0 6px 20px rgba(45,107,10,0.30);
-  transition: transform 0.2s, box-shadow 0.2s;
+  width: 100%; height: 58px; margin-top: 6px; border: 0; border-radius: 999px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  background: #7389DA; color: #fff; font-size: 17px; font-weight: 700; box-shadow: 0 12px 26px rgba(115,137,218,0.35);
 }
-.ct-submit:active { transform: scale(0.98); }
-.ct-submit svg { width: 18px; height: 18px; fill: #fff; }
+.ct-submit svg { width: 20px; height: 20px; }
+.ct-submit:active { transform: scale(.98); }
+
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1 !important; transform: none !important; } }
 </style>
 
 <div class="contact-page">
 
-  <!-- Header -->
-  <div class="ct-header">
-    <div class="bg-circle c1"></div>
-    <div class="bg-circle c2"></div>
-    <a href="javascript:history.back()" class="ct-back">
-      <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"/></svg>
-      Back
+  <div class="ct-head reveal">
+    <a href="javascript:history.back()" class="ct-back" aria-label="Back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
     </a>
-    <div class="ct-header-icon">
-      <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-    </div>
     <h1>Contact Us</h1>
+  </div>
+
+  <div class="ct-hero reveal">
+    <span class="ct-hero-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 13a7.5 7.5 0 0 1 15 0"/><rect x="3" y="12.5" width="4" height="6" rx="1.6"/><rect x="17" y="12.5" width="4" height="6" rx="1.6"/><path d="M19 18.5c0 1.6-1.6 2.5-4 2.5h-2"/></svg></span>
+    <h2>How can we help?</h2>
     <p>Send us a message — our team will get back to you shortly.</p>
   </div>
 
-  <!-- Info pills -->
-  <div class="ct-info-row">
-    <div class="ct-info-pill">
-      <div class="pill-icon">
-        <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01z"/></svg>
-      </div>
-      <div>
-        <div class="pill-label">Response</div>
-        <div class="pill-val">Within 24hrs</div>
-      </div>
+  <div class="ct-info reveal">
+    <div class="ct-tile">
+      <span class="ct-tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+      <div><div class="ct-tile-lbl">Response</div><div class="ct-tile-val">Within 24hrs</div></div>
     </div>
-    <div class="ct-info-pill">
-      <div class="pill-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
-      </div>
-      <div>
-        <div class="pill-label">Support</div>
-        <div class="pill-val">24/7 Available</div>
-      </div>
+    <div class="ct-tile">
+      <span class="ct-tile-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 13a7.5 7.5 0 0 1 15 0"/><rect x="3" y="12.5" width="4" height="6" rx="1.6"/><rect x="17" y="12.5" width="4" height="6" rx="1.6"/></svg></span>
+      <div><div class="ct-tile-lbl">Support</div><div class="ct-tile-val">8AM–8PM daily</div></div>
     </div>
   </div>
 
-  <!-- Success message -->
   {% if sent %}
   <div class="ct-success">
-    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14l-4-4 1.41-1.41L10 13.17l6.59-6.59L18 8l-8 8z"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16.5 9.5"/></svg>
     <span>Message sent! We will contact you soon.</span>
   </div>
   {% endif %}
 
-  <!-- Form -->
-  <div class="ct-form-card">
-    <h2><span></span> Send a Message</h2>
+  <div class="ct-form reveal">
+    <h3>Send a Message</h3>
     <form method="POST" action="/contact/">
       {% csrf_token %}
 
       <div class="field-group">
         <label>Full Name</label>
         <div class="field-wrap">
-          <svg class="f-icon" viewBox="0 0 24 24"><path d="M12 12a5 5 0 100-10 5 5 0 000 10zm0 2c-4.42 0-8 2-8 4.5V20h16v-1.5C20 16 16.42 14 12 14z"/></svg>
+          <span class="f-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg></span>
           <input type="text" name="full_name" placeholder="Enter your full name" required>
         </div>
       </div>
@@ -251,7 +131,7 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
       <div class="field-group">
         <label>Phone / WhatsApp</label>
         <div class="field-wrap">
-          <svg class="f-icon" viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01z"/></svg>
+          <span class="f-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><rect x="6" y="2.5" width="12" height="19" rx="2.6"/><path d="M10.5 18.2h3"/></svg></span>
           <input type="tel" name="phone" placeholder="+63 9XX XXX XXXX" required>
         </div>
       </div>
@@ -259,25 +139,38 @@ body { background: linear-gradient(160deg, #edf5f0 0%, #eaf0f8 55%, #edf4f0 100%
       <div class="field-group">
         <label>Subject <span class="opt-tag">(optional)</span></label>
         <div class="field-wrap">
-          <svg class="f-icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <span class="f-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h10M4 17h7"/></svg></span>
           <input type="text" name="subject" placeholder="What is this about?">
         </div>
       </div>
 
       <div class="field-group">
         <label>Message</label>
-        <div class="field-wrap">
-          <svg class="f-icon" style="top:13px;align-self:flex-start;" viewBox="0 0 24 24"><path d="M4 4h16v12H7l-3 3z"/></svg>
+        <div class="field-wrap area">
+          <span class="f-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 3.5z"/></svg></span>
           <textarea name="message" placeholder="Type your message here..." required></textarea>
         </div>
       </div>
 
       <button type="submit" class="ct-submit">
-        <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3L10 14"/><path d="M21 3l-7 18-4-7-7-4z"/></svg>
         Send Message
       </button>
     </form>
   </div>
 
 </div>
+
+<script>
+(function(){
+  const nodes = Array.from(document.querySelectorAll('.reveal'));
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !('IntersectionObserver' in window)) { nodes.forEach(el => el.classList.add('on')); return; }
+  const io = new IntersectionObserver((entries) => {
+    let i = 0;
+    entries.forEach((e) => { if (!e.isIntersecting) return; setTimeout(() => e.target.classList.add('on'), 120 + i++ * 70); io.unobserve(e.target); });
+  }, { threshold: 0.1 });
+  nodes.forEach(el => io.observe(el));
+})();
+</script>
 {% endblock %}

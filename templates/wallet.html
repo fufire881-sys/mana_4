@@ -1,32 +1,32 @@
 {% extends "base.html" %}
-{% load static %}
-{% block title %}Wallet — Filipino Fund, Inc.{% endblock %}
+{% load static humanize %}
+{% block title %}Wallet — 365 Ampersand Connect Corporation{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
 body, .w-wrap, .w-wrap * {
-  font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif !important;
 }
 
 :root{
-  --color-bg: #FAF6EC;
-  --color-gold: #D6A637;
-  --color-gold-dark: #9B6A16;
-  --color-gold-light: #F7D77A;
-  --color-purple: #3B165F;
-  --color-purple-dark: #26103F;
-  --color-text: #221B2D;
-  --color-muted: #6D6474;
-  --border-gold: rgba(190, 140, 45, 0.45);
-  --shadow-soft: 0 10px 30px rgba(59, 22, 95, 0.08);
-  --shadow-gold: 0 10px 26px rgba(214, 166, 55, 0.30);
+  --color-bg: #F7F4EE;
+  --color-gold: #7389DA;
+  --color-gold-dark: #D9604F;
+  --color-gold-light: #C9D3F5;
+  --color-purple: #14214D;
+  --color-purple-dark: #0E1838;
+  --color-text: #14214D;
+  --color-muted: #6B7084;
+  --border-gold: rgba(200,206,228, 0.45);
+  --shadow-soft: 0 10px 30px rgba(40,56,120, 0.08);
+  --shadow-gold: 0 10px 26px rgba(115,137,218, 0.30);
   --ok: #16a34a;
   --danger: #dc2626;
   --radius-lg: 22px;
   --radius-md: 16px;
 }
-.serif{ font-family:'Playfair Display', serif !important; }
+.serif{ font-family:'Inter', sans-serif !important; }
 
 body { background: var(--color-bg) !important; }
 
@@ -56,8 +56,8 @@ body { background: var(--color-bg) !important; }
   border: 1.5px solid;
 }
 .status-danger  { background: #FDECEC; color: var(--danger); border-color: rgba(220,38,38,.3); }
-.status-success { background: #FDF7E8; color: var(--color-gold-dark); border-color: var(--color-gold); }
-.status-warn    { background: #FFF7E0; color: #9B6A16; border-color: var(--color-gold); }
+.status-success { background: #F2F4FC; color: var(--color-gold-dark); border-color: var(--color-gold); }
+.status-warn    { background: #EEF1FB; color: #D9604F; border-color: var(--color-gold); }
 
 /* ── Hero balance card — base.html defines a global ".cardx { ... !important }"
    rule (its "make cards not transparent" rule, which also forces a green
@@ -78,7 +78,7 @@ body { background: var(--color-bg) !important; }
 .cardx.card-diamond::before{
   content:""; position:absolute; border-radius:50%; pointer-events:none;
   width:160px; height:160px; top:-60px; right:-30px;
-  border:1px solid rgba(214,166,55,0.30);
+  border:1px solid rgba(115,137,218,0.30);
 }
 .cardx.card-diamond::after {
   content: "";
@@ -116,7 +116,7 @@ body { background: var(--color-bg) !important; }
 
 /* ── Titles ── */
 .title {
-  font-family:'Playfair Display', serif !important;
+  font-family:'Inter', sans-serif !important;
   font-weight: 800;
   font-size: 17px;
   color: var(--color-text);
@@ -140,7 +140,7 @@ body { background: var(--color-bg) !important; }
   font-variant-numeric: tabular-nums;
 }
 .cardx.card-diamond .balance-amount .peso{
-  font-family:'Poppins', sans-serif !important; font-weight: 700; color: var(--color-gold-light) !important;
+  font-family:'Inter', sans-serif !important; font-weight: 700; color: var(--color-gold-light) !important;
 }
 
 /* ── Pill chips ── */
@@ -150,14 +150,14 @@ body { background: var(--color-bg) !important; }
   font-weight: 800;
   font-size: 11.5px;
   white-space: nowrap;
-  background: rgba(214,166,55,0.20);
+  background: rgba(115,137,218,0.20);
   border: 1px solid var(--color-gold-light);
   color: #fff;
 }
 .cardx.card-diamond .pill{ color: var(--color-gold-light) !important; }
 /* pill on white cards */
 .cardx:not(.card-diamond) .pill {
-  background: rgba(214,166,55,0.14);
+  background: rgba(115,137,218,0.14);
   border: 1px solid var(--color-gold);
   color: var(--color-gold-dark) !important;
 }
@@ -174,7 +174,7 @@ body { background: var(--color-bg) !important; }
   padding: 13px 14px;
   border-radius: 14px;
   border: 1.5px solid var(--border-gold);
-  background: #FFFDF6;
+  background: #FFFFFF;
   color: var(--color-text);
   outline: none;
   font-size: 15px;
@@ -182,10 +182,10 @@ body { background: var(--color-bg) !important; }
   box-sizing: border-box;
   transition: border-color .15s ease, box-shadow .15s ease;
 }
-.num-input::placeholder { color: #b6aebf; font-weight: 400; }
+.num-input::placeholder { color: #A9AEC0; font-weight: 400; }
 .num-input:focus {
   border-color: var(--color-gold-dark);
-  box-shadow: 0 0 0 3px rgba(214,166,55,.16);
+  box-shadow: 0 0 0 3px rgba(115,137,218,.16);
   background: #fff;
 }
 
@@ -228,7 +228,7 @@ body { background: var(--color-bg) !important; }
   animation: btnShine 5s ease-in-out infinite;
   pointer-events: none;
 }
-.big-btn:hover  { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(59,22,95,0.36); }
+.big-btn:hover  { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(40,56,120,0.36); }
 .big-btn:active { transform: scale(.99); }
 .big-btn[disabled] {
   opacity: .45;
@@ -264,7 +264,7 @@ body { background: var(--color-bg) !important; }
   justify-content: center;
   padding: 18px;
   box-sizing: border-box;
-  background: rgba(20,10,32,.6);
+  background: rgba(14,24,56,.6);
 }
 .wd-modal-card {
   width: min(340px, 92vw);
@@ -284,7 +284,7 @@ body { background: var(--color-bg) !important; }
 }
 .wd-modal-icon svg { width: 30px; height: 30px; }
 .wd-modal-title {
-  font-family: 'Playfair Display', serif !important;
+  font-family: 'Inter', sans-serif !important;
   font-weight: 800;
   font-size: 20px;
   color: var(--color-text);
@@ -342,7 +342,7 @@ body { background: var(--color-bg) !important; }
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: #F1ECE0;
+  background: #ECEEF4;
   border: 2px solid var(--border-gold);
   display: flex;
   align-items: center;
@@ -354,7 +354,7 @@ body { background: var(--color-bg) !important; }
 .tl-bullet.on {
   background: linear-gradient(135deg, var(--color-purple-dark), var(--color-purple));
   border-color: var(--color-gold);
-  box-shadow: 0 0 10px rgba(59,22,95,.40);
+  box-shadow: 0 0 10px rgba(40,56,120,.40);
 }
 .tl-bullet.on svg{ fill: var(--color-gold-light); opacity: 1; }
 .tl-bullet.rejected,
@@ -419,20 +419,147 @@ body { background: var(--color-bg) !important; }
   box-shadow: var(--shadow-soft);
   transition: background .15s ease, transform .08s ease;
 }
-.back-btn:hover  { background: #FFFDF6; transform: translateY(-1px); }
+.back-btn:hover  { background: #FFFFFF; transform: translateY(-1px); }
 .back-btn:active { transform: scale(.98); }
 
 @media (max-width: 520px) {
   .top-actions { padding: 0; }
 }
 
+/* ══ 365 THEME — periwinkle / coral ══ */
+.cardx.card-diamond {
+  background: linear-gradient(120deg, #7289DA 0%, #9A8FC6 50%, #C77F8E 78%, #E36F5E 100%) !important;
+  border: 0 !important; border-radius: 26px !important; padding: 24px 22px;
+  box-shadow: 0 16px 34px rgba(150,100,140,0.28) !important;
+}
+.cardx.card-diamond::before, .cardx.card-diamond::after { display: none; }
+.cardx .row { flex-wrap: nowrap; align-items: flex-start; }
+.cardx.card-diamond .sub { color: rgba(255,255,255,.80) !important; font-size: 14px; }
+.cardx.card-diamond .balance-amount { font-size: 44px; font-weight: 900; margin-top: 10px; }
+.cardx.card-diamond .balance-amount .peso { color: #fff !important; font-weight: 900; }
+.cardx.card-diamond .pill { background: #fff; border: 0; color: #14214D !important; font-weight: 600; font-size: 12.5px; }
+.cardx { border: 0 !important; border-radius: 24px !important; box-shadow: 0 10px 28px rgba(40,56,120,0.08) !important; padding: 20px; }
+.title { color: #14214D; font-size: 18px; }
+.sub { color: #2F3550; font-size: 13px; }
+.cardx:not(.card-diamond) .pill { background: transparent; border: 1.5px solid #14214D; color: #14214D !important; font-weight: 500; }
+.wd-divider { background: #E6E3D8; }
+.num-input { border: 1.5px solid #DDD6C2; background: #FFFBF0; border-radius: 16px; padding: 15px 18px; font-size: 20px; font-weight: 800; }
+.num-input:focus { border-color: #7389DA; box-shadow: 0 0 0 4px rgba(115,137,218,.18); background: #fff; }
+.hint { color: #6B7084; font-size: 13px; }
+.big-btn {
+  height: 60px; border: 0; color: #fff; letter-spacing: .04em;
+  background: #7A8DD8; box-shadow: 0 12px 26px rgba(115,137,218,0.35);
+}
+.big-btn::before { display: none; }
+.big-btn:hover { box-shadow: 0 14px 30px rgba(115,137,218,0.45); }
+.big-btn[disabled] { opacity: 1; background: #B6C0DA; box-shadow: none; color: rgba(255,255,255,.85); }
+.status-success { background: #E6F6EC; color: #1E7A44; border-color: #A7DDB9; }
+.status-warn { background: #FFF4D9; color: #8A5A00; border-color: #F2D48A; }
+.wd-modal-card { border: 0; border-radius: 26px; box-shadow: 0 20px 50px rgba(14,24,56,0.25); }
+.list-row { border-bottom: 1px solid #EEF0F5; }
+.list-icon { width: 42px; height: 42px; border: 0; box-shadow: none; }
+.list-icon.paid { background: #DDF3E5; } .list-icon.paid svg { fill: #2E9C53; }
+.list-icon.rejected { background: #FCE1DA; } .list-icon.rejected svg { fill: #D9604F; }
+.list-icon.pending { background: #DFE5F8; } .list-icon.pending svg { fill: #14214D; }
+.list-row .pill { border: 0 !important; }
+.list-row .pill[data-wstatus="paid"], .list-row .pill[data-wstatus="payment_sent"] { background: #CDEFD8 !important; color: #1E6B3A !important; }
+.list-row .pill[data-wstatus="rejected"], .list-row .pill[data-wstatus="withdrawal_fail"] { background: #FBD3CB !important; color: #A8392B !important; }
+.list-row .pill[data-wstatus="pending"], .list-row .pill[data-wstatus="processing"], .list-row .pill[data-wstatus="waiting"], .list-row .pill[data-wstatus="reviewed"] { background: #FBE8B0 !important; color: #7A5A00 !important; }
+.tl-bullet { border-color: #DDE1EC; }
+.tl-bullet.on { background: #7389DA; border-color: #7389DA; box-shadow: 0 6px 14px rgba(115,137,218,.35); }
+.tl-bullet.on svg { fill: #fff; }
+.tl-line { background: #DDE1EC; }
+.tl-item:has(.tl-bullet.on) + .tl-item .tl-line { background: #7389DA; }
+.back-btn { border: 0; height: 48px; padding: 0 26px; color: #14214D !important; box-shadow: 0 8px 20px rgba(40,56,120,0.12); }
+
 @media (prefers-reduced-motion: reduce){
   .reveal{ opacity:1 !important; transform:none !important; }
   .cardx.card-diamond::after, .big-btn::before{ animation: none !important; }
 }
+
+/* ══ Wallet — reference layout ══ */
+body { background: #F7F3EA !important; }
+.w-wrap { padding-top: 22px; }
+.wl-head { display: grid; grid-template-columns: 52px 1fr 52px; align-items: center; gap: 8px; margin-bottom: 20px; }
+.wl-back { width: 52px; height: 52px; border-radius: 50%; background: #fff; color: #14214D; display: flex; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(40,56,120,0.14); }
+.wl-back svg { width: 24px; height: 24px; }
+.wl-head h1 { text-align: center; font-size: 25px; font-weight: 800; color: #14214D; }
+
+/* balance card: same white logo pattern as the dashboard card */
+.cardx.card-diamond { padding: 24px 22px 26px; }
+.cardx.card-diamond::after {
+  content: ''; display: block !important; position: absolute; top: 50%; right: -60px; width: 210px; height: 210px; inset: auto -60px auto auto;
+  transform: translateY(-50%) !important; animation: none !important; opacity: .17; pointer-events: none; z-index: 1;
+  filter: grayscale(1) brightness(2.6);
+  background: no-repeat center/contain url("{% static 'img/365-logo.png' %}?v=2") !important;
+}
+.cardx.card-diamond .row { align-items: center !important; }
+.cardx.card-diamond .sub { white-space: nowrap; font-size: 16px; color: rgba(255,255,255,0.85) !important; margin: 0; }
+.cardx.card-diamond .balance-amount { font-size: 46px; margin-top: 8px; letter-spacing: -0.01em; }
+
+/* withdraw form */
+.wl-form .title { font-size: 22px; font-weight: 800; color: #14214D; }
+.wl-form .sub { font-size: 15px; margin-top: 2px; }
+.wl-amount {
+  display: flex; align-items: center; gap: 6px; margin-top: 12px; padding: 0 16px; height: 62px;
+  border: 1.5px solid #D9C99C; border-radius: 16px; background: #FFFBEE; cursor: text;
+}
+.wl-amount:focus-within { border-color: #7389DA; box-shadow: 0 0 0 4px rgba(115,137,218,.16); background: #fff; }
+.wl-cur { font-size: 24px; font-weight: 900; color: #14214D; }
+.wl-amount .num-input { flex: 1; min-width: 0; margin: 0; padding: 0; height: 100%; border: 0 !important; background: transparent !important; box-shadow: none !important; font-size: 26px; font-weight: 900; }
+.wl-suffix { font-size: 15px; color: #8A90A2; font-weight: 500; }
+.wl-hint-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.wl-hint-row .hint { margin: 0; font-size: 14px; }
+.wl-chips { display: flex; gap: 6px; }
+.wl-chip { border: 1.5px solid #14214D; background: transparent; color: #14214D; border-radius: 999px; padding: 4px 12px; font-size: 14px; font-weight: 500; cursor: pointer; }
+.wl-chip:hover { background: #EEF1FB; }
+.wl-otp { margin-top: 12px; height: 60px; text-align: center; letter-spacing: .5em; font-size: 24px !important; }
+.wl-otp::placeholder { letter-spacing: .3em; color: #C9C2B0; }
+
+/* withdraw button card blends into the page */
+#withdrawForm { margin: 0; }
+.cardx:has(#withdrawForm) { background: transparent !important; box-shadow: none !important; padding: 0 0 6px; }
+.big-btn { height: 62px; font-size: 18px; letter-spacing: .06em; }
+#btnHint { text-align: center; }
+.cardx:has(#timelineBox[style*="block"]) { background: #fff !important; padding: 20px; box-shadow: 0 10px 28px rgba(40,56,120,0.08) !important; }
+
+/* recent withdrawals list */
+.cardx:has(.wl-list-head) { background: transparent !important; box-shadow: none !important; padding: 0; }
+.wl-list-head { display: flex; justify-content: space-between; align-items: center; margin: 4px 2px 12px; }
+.wl-list-head .title { font-size: 22px; font-weight: 800; color: #14214D; }
+.wl-viewall { font-size: 16px; font-weight: 600; color: #D9604F; text-decoration: none; }
+.list-row { background: #fff; border: 0 !important; border-radius: 18px; padding: 14px 14px; margin-bottom: 12px; box-shadow: 0 8px 20px rgba(40,56,120,0.07); gap: 12px; }
+.list-icon { width: 46px; height: 46px; background: #DFE4F7 !important; }
+.list-icon svg { width: 22px; height: 22px; fill: none !important; stroke: #14214D; }
+.wl-row-title { font-size: 17px; font-weight: 800; color: #14214D; }
+.list-row .muted { font-size: 14px; color: #2F3550; }
+.list-row-mid { flex: 1; min-width: 0; }
+.list-row .muted { white-space: nowrap; }
+.wl-right { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex-shrink: 0; }
+.wl-row-amt { font-size: 16px; font-weight: 700; color: #14214D; white-space: nowrap; }
+.list-row .pill.st { background: #E6E7EC !important; color: #4A5068 !important; border: 0 !important; font-weight: 500; font-size: 13px; }
+.list-row .pill.st[data-wstatus="paid"], .list-row .pill.st[data-st="paid"],
+.list-row .pill.st[data-wstatus="payment_sent"], .list-row .pill.st[data-st="payment_sent"] { background: #CDEFD8 !important; color: #1E6B3A !important; }
+.list-row .pill.st[data-wstatus="rejected"], .list-row .pill.st[data-st="rejected"],
+.list-row .pill.st[data-wstatus="withdrawal_fail"], .list-row .pill.st[data-st="withdrawal_fail"] { background: #FBD3CB !important; color: #A8392B !important; }
+.list-row .pill.st[data-wstatus="processing"], .list-row .pill.st[data-st="processing"],
+.list-row .pill.st[data-wstatus="waiting"], .list-row .pill.st[data-st="waiting"],
+.list-row .pill.st[data-wstatus="reviewed"], .list-row .pill.st[data-st="reviewed"],
+.list-row .pill.st[data-wstatus="pending"], .list-row .pill.st[data-st="pending"] { background: #FBE8B0 !important; color: #7A5A00 !important; }
+.wl-empty { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 18px 0 8px; font-size: 16px; color: #8A90A2; }
+.wl-empty svg { width: 54px; height: 54px; color: #A9B1C6; }
+@media (max-width: 400px) {
+  .wl-row-amt { font-size: 15px; }
+  .cardx.card-diamond .balance-amount { font-size: 38px; }
+}
 </style>
 
 <div class="w-wrap ovelion">
+
+  <div class="wl-head reveal">
+    <a href="{% url 'dashboard' %}" class="wl-back" aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></a>
+    <h1>Wallet</h1>
+  </div>
 
   <!-- Card 1: Balance -->
 
@@ -444,60 +571,58 @@ body { background: var(--color-bg) !important; }
   <div class="cardx card-diamond reveal">
     <div class="row">
       <div>
-        <div class="title">Wallet</div>
-        <div class="sub">Balance (PHP)</div>
+        <div class="sub">Available balance</div>
       </div>
-      <div class="pill">Last transaction - Today</div>
+      <div class="pill">Last transaction · Today</div>
     </div>
 
     <div class="balance-amount">
-      <span class="peso">₱</span> <span data-balance>{{ request.user.balance|default:"0.00" }}</span>
+      <span class="peso">₱</span><span data-balance>{{ request.user.balance|default:"0.00" }}</span>
     </div>
   </div>
 
   <!-- Withdrawal amount + OTP, grouped into one card -->
-  <div class="cardx currency-style reveal">
+  <div class="cardx currency-style wl-form reveal">
     <div class="wd-section">
-      <div class="row">
-        <div>
-          <div class="title" style="font-size:16px;">Withdrawal amount</div>
-          <div class="sub">Enter amount you want to withdraw</div>
-        </div>
-        <div class="pill">PHP</div>
-      </div>
+      <div class="title">Withdraw</div>
+      <div class="sub">Enter amount to withdraw</div>
 
-      <input
-        id="amountInput"
-        class="num-input"
-        type="number"
-        inputmode="decimal"
-        min="0"
-        step="0.01"
-        placeholder="0.00"
-        autocomplete="off"
-      />
-      <div class="hint" id="amountHint">Max: PHP 0.00</div>
+      <label class="wl-amount">
+        <span class="wl-cur">₱</span>
+        <input
+          id="amountInput"
+          class="num-input"
+          type="number"
+          inputmode="decimal"
+          min="0"
+          step="0.01"
+          placeholder="0.00"
+          autocomplete="off"
+        />
+        <span class="wl-suffix">PHP</span>
+      </label>
+      <div class="wl-hint-row">
+        <div class="hint" id="amountHint">Max: ₱<span id="maxAmt">{{ request.user.balance|default:"0.00" }}</span></div>
+        <div class="wl-chips">
+          <button type="button" class="wl-chip" data-pct="25">25%</button>
+          <button type="button" class="wl-chip" data-pct="50">50%</button>
+          <button type="button" class="wl-chip" data-pct="100">Max</button>
+        </div>
+      </div>
     </div>
 
     <div class="wd-divider"></div>
 
     <div class="wd-section">
-      <div class="row">
-        <div>
-          <div class="title" style="font-size:16px;">OTP Code</div>
-          <div class="sub"></div>
-        </div>
-        <div class="pill">OTP</div>
-      </div>
-
+      <div class="title">Verification code</div>
       <input
         id="otpInput"
-        class="num-input"
+        class="num-input wl-otp"
         type="number"
         inputmode="numeric"
         min="0"
         step="1"
-        placeholder="Enter OTP"
+        placeholder="• • • • • •"
         autocomplete="one-time-code"
       />
       <div class="hint">OTP is required to confirm withdrawal.</div>
@@ -520,7 +645,7 @@ body { background: var(--color-bg) !important; }
         border-radius: 10px;
         background: #dc2626;
         color: #fff;
-        font-family: 'Poppins', system-ui, sans-serif;
+        font-family: 'Inter', system-ui, sans-serif;
         font-weight: 700;
         font-size: 13px;
         text-align: center;
@@ -535,7 +660,7 @@ body { background: var(--color-bg) !important; }
         border-radius: 10px;
         background: #dc2626;
         color: #fff;
-        font-family: 'Poppins', system-ui, sans-serif;
+        font-family: 'Inter', system-ui, sans-serif;
         font-weight: 700;
         font-size: 13px;
         text-align: center;
@@ -608,43 +733,33 @@ body { background: var(--color-bg) !important; }
 
   <!-- List -->
   <div class="cardx currency-style reveal">
-    <div class="row" style="margin-bottom:8px;">
-      <div class="title" style="font-size:16px;">Last withdrawals</div>
-      <div class="pill">{{ withdrawals|length }}</div>
+    <div class="wl-list-head">
+      <div class="title">Recent withdrawals</div>
+      <a class="wl-viewall" href="{% url 'transactions' %}">View all</a>
     </div>
 
     {% for w in withdrawals %}
       <div class="list-row">
-        <div class="list-icon {% if w.status == 'paid' or w.status == 'payment_sent' %}paid{% elif w.status == 'rejected' or w.status == 'withdrawal_fail' %}rejected{% else %}pending{% endif %}">
-          {% if w.status == 'paid' or w.status == 'payment_sent' %}
-            <svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
-          {% elif w.status == 'rejected' or w.status == 'withdrawal_fail' %}
-            <svg viewBox="0 0 24 24"><path d="M18.3 5.7 12 12l6.3 6.3-1.4 1.4L10.6 13.4 4.3 19.7 2.9 18.3 9.2 12 2.9 5.7 4.3 4.3l6.3 6.3 6.3-6.3z"/></svg>
-          {% else %}
-            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 11h-4v-2h2V7h2v6z"/></svg>
-          {% endif %}
-        </div>
+        <div class="list-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></div>
         <div class="list-row-mid">
-          <div style="font-weight:800;">PHP {{ w.amount }} {{ w.currency }}</div>
-          <div class="muted">{{ w.created_at }}</div>
+          <div class="wl-row-title">Withdrawal</div>
+          <div class="muted">{{ w.created_at|date:"M j, Y" }}</div>
         </div>
 
-        {% if forloop.first %}
-          <div class="pill" data-wstatus="{{ w.status }}">{{ w.get_status_display }}</div>
-        {% else %}
-          <div class="pill">{{ w.get_status_display }}</div>
-        {% endif %}
+        <div class="wl-right">
+          <div class="wl-row-amt">₱{{ w.amount|floatformat:2|intcomma }}</div>
+          {% if forloop.first %}
+            <div class="pill st" data-wstatus="{{ w.status }}">{{ w.get_status_display }}</div>
+          {% else %}
+            <div class="pill st" data-st="{{ w.status }}">{{ w.get_status_display }}</div>
+          {% endif %}
+        </div>
       </div>
     {% empty %}
-      <div class="muted">No withdrawals yet.</div>
+      <div class="wl-empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v1"/><path d="M3 7v10a2 2 0 0 0 2 2h6"/><circle cx="17" cy="16" r="3"/><path d="M19.2 18.2L21 20"/></svg>No withdrawals yet.</div>
     {% endfor %}
   </div>
 
-  <!-- Back -->
-  <div class="top-actions">
-    <a class="back-btn" href="{% url 'dashboard' %}">Back</a>
-  </div>
-  <div class="top-actions-line"></div>
 
 </div> <!-- ✅ close .w-wrap -->
 
@@ -1111,6 +1226,33 @@ body { background: var(--color-bg) !important; }
     firstBatch = false;
   }, { threshold: 0.1 });
   nodes.forEach(el => io.observe(el));
+})();
+</script>
+
+<script>
+/* 25% / 50% / Max fill the amount; the "Max" label follows the live balance. */
+(function(){
+  const input = document.getElementById('amountInput');
+  const maxEl = document.getElementById('maxAmt');
+  const balEl = document.querySelector('[data-balance]');
+  function bal(){ return parseFloat((balEl?.textContent || '0').replace(/,/g, '')) || 0; }
+  function fmt(n){ return n.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  function syncMax(){
+    const v = bal();
+    if (maxEl) maxEl.textContent = fmt(v);
+    // show the balance with thousands separators (only rewrite when it differs, so the observer settles)
+    if (balEl && balEl.textContent !== fmt(v)) balEl.textContent = fmt(v);
+  }
+  syncMax();
+  if (balEl) new MutationObserver(syncMax).observe(balEl, { childList: true, characterData: true, subtree: true });
+  document.querySelectorAll('.wl-chip').forEach(function(c){
+    c.addEventListener('click', function(){
+      if (!input) return;
+      const v = Math.floor(bal() * Number(c.dataset.pct) / 100 * 100) / 100;
+      input.value = v > 0 ? v.toFixed(2) : '';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+  });
 })();
 </script>
 {% endblock %}

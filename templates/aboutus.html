@@ -1,29 +1,29 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}About Us — Filipino Fund, Inc.{% endblock %}
+{% block title %}About Us — 365 Ampersand Connect Corporation{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 * { box-sizing:border-box; margin:0; padding:0; }
-body, body * { font-family: 'Poppins', sans-serif; }
+body, body * { font-family: 'Roboto', system-ui, sans-serif; }
 
 :root{
-  --color-bg: #FAF6EC;
-  --color-gold: #D6A637;
-  --color-gold-dark: #9B6A16;
-  --color-gold-light: #F7D77A;
-  --color-purple: #3B165F;
-  --color-purple-dark: #26103F;
-  --color-text: #221B2D;
-  --color-muted: #6D6474;
-  --border-gold: rgba(190, 140, 45, 0.45);
-  --shadow-soft: 0 10px 30px rgba(59, 22, 95, 0.08);
-  --shadow-gold: 0 10px 26px rgba(214, 166, 55, 0.30);
+  --color-bg: #F7F4EE;
+  --color-gold: #7389DA;
+  --color-gold-dark: #D9604F;
+  --color-gold-light: #C9D3F5;
+  --color-purple: #14214D;
+  --color-purple-dark: #0E1838;
+  --color-text: #14214D;
+  --color-muted: #6B7084;
+  --border-gold: rgba(200,206,228, 0.45);
+  --shadow-soft: 0 10px 30px rgba(40,56,120, 0.08);
+  --shadow-gold: 0 10px 26px rgba(115,137,218, 0.30);
   --radius-lg: 24px;
   --radius-md: 16px;
 }
-.serif{ font-family:'Playfair Display', serif !important; }
+.serif{ font-family: 'Roboto', system-ui, sans-serif !important; }
 
 #pageRoot.wrap { max-width:100% !important; width:100% !important; padding:0 !important; }
 body { padding-bottom:40px !important; overflow-x:hidden !important; background: var(--color-bg) !important; }
@@ -47,10 +47,10 @@ body { padding-bottom:40px !important; overflow-x:hidden !important; background:
   text-align: center;
   color: #fff;
   background:
-    linear-gradient(100deg, rgba(38,16,63,0.90) 0%, rgba(59,22,95,0.72) 45%, rgba(59,22,95,0.40) 100%),
+    linear-gradient(100deg, rgba(14,24,56,0.90) 0%, rgba(40,56,120,0.72) 45%, rgba(40,56,120,0.40) 100%),
     url("{% static 'img/profile-bg.webp' %}") right center / cover no-repeat,
     var(--color-purple-dark);
-  box-shadow: 0 14px 34px rgba(38,16,63,0.30);
+  box-shadow: 0 14px 34px rgba(14,24,56,0.30);
 }
 .about-header::after{
   content:""; position:absolute; inset:0;
@@ -75,14 +75,14 @@ body { padding-bottom:40px !important; overflow-x:hidden !important; background:
   box-shadow: var(--shadow-soft);
 }
 .about-header h1{
-  font-family:'Playfair Display', serif !important;
+  font-family: 'Roboto', system-ui, sans-serif !important;
   font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 4px; letter-spacing: 0.3px;
 }
 .about-header h1 .bn-gold{ color: var(--color-gold-light); }
 .about-header p{ font-size: 11.5px; color: rgba(255,255,255,0.80); font-weight: 500; }
 .about-sec-badge{
   display: inline-block; margin-top: 10px;
-  background: rgba(214,166,55,0.20);
+  background: rgba(115,137,218,0.20);
   border: 1px solid var(--color-gold);
   border-radius: 999px; padding: 5px 14px;
   font-size: 10px; color: var(--color-gold-light); font-weight: 700;
@@ -104,7 +104,7 @@ body { padding-bottom:40px !important; overflow-x:hidden !important; background:
 
 .section-img-wrap{
   width: 100%; height: 180px;
-  background: linear-gradient(135deg, #FFFDF6, #FBF3DF);
+  background: linear-gradient(135deg, #FFFFFF, #EEF1FB);
   display: flex; align-items: center; justify-content: center;
   overflow: hidden; position: relative;
 }
@@ -121,7 +121,7 @@ body { padding-bottom:40px !important; overflow-x:hidden !important; background:
   background: linear-gradient(135deg, var(--color-purple), var(--color-purple-dark));
   border: 1.5px solid var(--color-gold);
   color: var(--color-gold-light);
-  font-family:'Playfair Display', serif !important;
+  font-family: 'Roboto', system-ui, sans-serif !important;
   font-size: 12px; font-weight: 800;
   width: 34px; height: 34px; border-radius: 999px;
   display: flex; align-items: center; justify-content: center;
@@ -137,7 +137,7 @@ body { padding-bottom:40px !important; overflow-x:hidden !important; background:
   text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 6px;
 }
 .section-title{
-  font-family:'Playfair Display', serif !important;
+  font-family: 'Roboto', system-ui, sans-serif !important;
   font-size: 19px; font-weight: 700; color: var(--color-purple);
   margin-bottom: 10px; line-height: 1.3;
 }
@@ -163,7 +163,7 @@ body { padding-bottom:40px !important; overflow-x:hidden !important; background:
   pointer-events:none; z-index:1;
 }
 .about-footer-info h3{
-  font-family:'Playfair Display', serif !important;
+  font-family: 'Roboto', system-ui, sans-serif !important;
   font-size: 15px; font-weight: 800; color: var(--color-gold-light);
   margin-bottom: 14px; padding-bottom: 12px;
   border-bottom: 1px solid rgba(255,255,255,0.15);
@@ -176,20 +176,145 @@ body { padding-bottom:40px !important; overflow-x:hidden !important; background:
   .reveal{ opacity:1 !important; transform:none !important; }
   .about-header::after, .about-footer-info::after{ animation: none !important; }
 }
+
+/* ══ 365 THEME — periwinkle / coral ══ */
+.about-header {
+  margin: 0 16px; padding: 30px 54px 14px; text-align: center;
+  background: transparent; border: 0; box-shadow: none; overflow: visible;
+}
+.about-header::before, .about-header::after, .about-header-icon { display: none; }
+.about-header h1 { color: #14214D; font-size: 25px; font-weight: 900; }
+.about-header p { color: #6B7084; font-size: 13.5px; }
+.about-back {
+  top: 20px; left: 0; width: 50px; height: 50px; border-radius: 50%; background: #fff;
+  justify-content: center; font-size: 0; box-shadow: 0 8px 20px rgba(40,56,120,0.14);
+}
+.about-back svg { width: 24px; height: 24px; fill: #14214D; }
+.about-btn { border: 0; }
+.about-btn-primary { background: #7389DA; color: #fff; box-shadow: 0 12px 26px rgba(115,137,218,0.35); }
+.about-btn-primary:hover { box-shadow: 0 14px 30px rgba(115,137,218,0.45); }
+.about-btn-ghost { background: transparent; color: #D9604F; box-shadow: none; }
+.about-btn-ghost:hover { background: rgba(224,102,90,0.08); }
+.about-empty-icon {
+  width: 150px; height: 150px; background: #7F92DD; border: 0;
+  box-shadow: 0 0 0 18px rgba(127,146,221,0.14);
+}
+.about-empty-icon svg { width: 64px; height: 64px; fill: #FFF1EA; }
+.about-empty-title { color: #14214D; font-size: 22px; font-weight: 900; margin-top: 30px; }
+.about-empty-sub { color: #4A5068; font-size: 14.5px; }
+.about-page { padding-top: 0; }
+.about-header {
+  margin: 78px 0 0; padding: 26px 34px 30px; overflow: visible;
+  border: 0; border-radius: 50% / 64px;
+  background: linear-gradient(110deg, #7289DA 0%, #9D8EC2 50%, #D67A7A 80%, #EE7562 100%);
+  box-shadow: 0 14px 30px rgba(150,100,140,0.22);
+}
+.about-header .back-btn {
+  top: -66px; left: 16px; width: 50px; height: 50px; border-radius: 50%; background: #fff;
+  justify-content: center; font-size: 0; color: #14214D; box-shadow: 0 8px 20px rgba(40,56,120,0.14);
+}
+.about-header .back-btn::before { content: "←"; font-size: 24px; line-height: 1; }
+.about-header .back-btn svg { display: none; }
+.about-logo { width: 84px; height: 84px; border-radius: 20px; border: 0; box-shadow: 0 8px 20px rgba(40,56,120,0.18); }
+.about-header h1 { color: #14214D; font-size: 25px; font-weight: 900; }
+.about-header h1 .bn-gold { color: #14214D; }
+.about-header p { color: rgba(255,255,255,0.95); font-size: 14px; }
+.about-sec-badge { background: #fff; border: 0; color: #14214D; font-size: 12px; font-weight: 500; padding: 6px 14px; box-shadow: 0 4px 10px rgba(40,56,120,0.12); }
+.sections-wrap { padding-top: 26px; }
+.about-section-card { border: 0; border-radius: 26px; padding: 14px; box-shadow: 0 12px 28px rgba(40,56,120,0.08); }
+.about-section-card:hover { box-shadow: 0 14px 30px rgba(40,56,120,0.12); }
+.section-img-wrap { border-radius: 18px; height: 190px; }
+.section-order-badge { background: #14214D; border: 0; color: #fff; }
+.section-body { padding: 18px 6px 8px; }
+.section-body::before { display: none; }
+.section-subtitle { color: #E0665A; font-size: 13px; letter-spacing: .5px; }
+.section-title { color: #14214D; font-size: 26px; font-weight: 900; }
+.section-desc { color: #14214D; font-size: 15px; line-height: 1.6; }
+.section-img-placeholder, .section-img-placeholder span { color: #7389DA; }
+.section-img-placeholder svg { fill: #7389DA; }
+.about-footer-info { border: 0; border-radius: 26px; background: #fff; color: #14214D; box-shadow: 0 12px 28px rgba(40,56,120,0.08); }
+.about-footer-info::after { display: none; }
+.about-footer-info h3 { color: #14214D; font-size: 17px; border-bottom: 2px solid #E0665A; }
+.info-line .lbl { color: #6B7084; font-weight: 600; }
+.info-line .val { color: #14214D; }
+
+/* ══ About Us — reference layout ══ */
+body { background: #F6F5F1 !important; }
+.about-page { padding-top: 22px; }
+.ab-top { display: grid; grid-template-columns: 52px 1fr 52px; align-items: center; gap: 8px; margin: 0 16px 18px; }
+.ab-back {
+  width: 52px; height: 52px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 20px rgba(40,56,120,0.14);
+}
+.ab-back svg { width: 24px; height: 24px; fill: none; stroke: #14214D; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.ab-top h2 { text-align: center; font-size: 26px; font-weight: 700; color: #14214D; }
+/* Hero card — same gradient + white logo watermark as the Dashboard balance card and Profile header */
+.about-header {
+  margin: 0 16px; padding: 28px 22px 26px; overflow: hidden; border-radius: 28px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(255,255,255,0.22), transparent 45%),
+    linear-gradient(120deg, #6F86DA 0%, #8C8FD0 42%, #C27C93 78%, #E36F5E 100%) !important;
+  box-shadow: 0 16px 34px rgba(115,137,218,0.30);
+}
+.about-header::before {
+  content: ''; position: absolute; left: -50px; bottom: -70px; width: 180px; height: 180px; border-radius: 50%;
+  border: 1.5px solid rgba(255,255,255,0.22); pointer-events: none; z-index: 1;
+}
+.about-header::after {
+  content: ''; display: block; position: absolute; inset: auto; top: 50%; right: -70px; width: 250px; height: 250px;
+  opacity: .17; filter: grayscale(1) brightness(2.6); transform: translateY(-50%) !important; animation: none !important;
+  pointer-events: none; z-index: 1;
+  background: no-repeat center/contain url("{% static 'img/365-logo.png' %}?v=2");
+}
+.about-header .back-btn { display: none; }
+.about-logo {
+  width: 92px; height: 92px; border-radius: 24px; padding: 8px; object-fit: contain; border: 0;
+  background: rgba(255,255,255,0.92); box-shadow: 0 0 0 6px rgba(255,255,255,0.22), 0 12px 26px rgba(20,33,77,0.22);
+}
+.about-header h1 { font-size: 25px; font-weight: 900; line-height: 1.2; color: #fff; text-shadow: 0 2px 10px rgba(20,33,77,0.18); }
+.about-header p { font-size: 15px; color: rgba(255,255,255,0.92); }
+.ab-pills .about-sec-badge { background: rgba(255,255,255,0.95); }
+.ab-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 12px; }
+.ab-pills .about-sec-badge { margin: 0; font-size: 13.5px; font-weight: 500; padding: 6px 13px; }
+.sections-wrap { padding-top: 22px; }
+.about-section-card { padding: 16px; border-radius: 24px; }
+.section-img-wrap { border-radius: 18px; height: 200px; background: #E1E6F2; }
+.section-img-placeholder { opacity: 1; color: #8A90A2; }
+.section-img-placeholder svg { width: 64px; height: 64px; fill: #A9B1C6; }
+.section-img-placeholder span { font-size: 15px; font-weight: 400; color: #8A90A2; }
+.section-order-badge { top: 10px; left: 10px; width: 36px; height: 36px; font-size: 15px; font-weight: 700; }
+.section-body { padding: 18px 4px 6px; }
+.section-subtitle { font-size: 14px; font-weight: 500; letter-spacing: .02em; color: #D9775F; }
+.section-title { font-size: 30px; font-weight: 700; margin-bottom: 8px; }
+.section-desc { font-size: 17px; line-height: 1.5; color: #14214D; }
+.about-footer-info { border-radius: 24px; padding: 22px 20px; }
+.about-footer-info h3 { font-size: 22px; font-weight: 700; border-bottom: 0; padding-bottom: 0; margin-bottom: 14px; }
+.info-line { align-items: flex-start; gap: 12px; margin-bottom: 14px; font-size: 15px; }
+.info-line .lbl {
+  min-width: 0; width: 110px; flex-shrink: 0; padding: 4px 10px; border-radius: 999px; text-align: center;
+  background: #E6EAF9; color: #4A5DB5; font-size: 12.5px; font-weight: 500;
+}
+.info-line .val { color: #14214D; line-height: 1.45; padding-top: 3px; }
 </style>
 
 <div class="about-page">
 
   <!-- Header -->
-  <div class="about-header reveal">
-    <a href="/dashboard/" class="back-btn">
-      <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"/></svg>
-      Back
+  <div class="ab-top reveal">
+    <a href="/dashboard/" class="ab-back" aria-label="Back">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
     </a>
-    <img src="{% static 'img/company-logo.webp' %}" alt="Filipino Fund, Inc." class="about-logo">
-    <h1><span class="bn-gold">Filipino</span> Fund, Inc.</h1>
-    <p>Your trusted financial partner since 1991</p>
-    <span class="about-sec-badge">SEC Reg. No. 0000190385</span>
+    <h2>About Us</h2>
+  </div>
+
+  <div class="about-header reveal">
+    <img src="{% static 'img/365-logo.png' %}" alt="365 Ampersand Connect Corporation" class="about-logo">
+    <h1>365 Ampersand Connect Corporation</h1>
+    <p>Financial Solutions for the Philippines</p>
+    <div class="ab-pills">
+      <span class="about-sec-badge">Since 2021</span>
+      <span class="about-sec-badge">SEC Reg. No. 2021110032200-04</span>
+    </div>
   </div>
 
   <!-- Sections -->
@@ -223,19 +348,23 @@ body { padding-bottom:40px !important; overflow-x:hidden !important; background:
     <h3 class="serif">Company Information</h3>
     <div class="info-line">
       <span class="lbl">Company</span>
-      <span class="val">Filipino Fund, Inc.</span>
+      <span class="val">365 Ampersand Connect Corporation</span>
     </div>
     <div class="info-line">
       <span class="lbl">SEC No.</span>
-      <span class="val">0000190385</span>
+      <span class="val">2021110032200-04</span>
     </div>
     <div class="info-line">
       <span class="lbl">Registered</span>
-      <span class="val">May 9, 1991</span>
+      <span class="val">November 11, 2021</span>
+    </div>
+    <div class="info-line">
+      <span class="lbl">Secondary License</span>
+      <span class="val">Registered</span>
     </div>
     <div class="info-line">
       <span class="lbl">Address</span>
-      <span class="val">Units 1210-1212, 12th Floor, PSE Tower, 5th Avenue corner 28th Street, Fort Bonifacio, Taguig City, Fourth District, National Capital Region (NCR), 1630</span>
+      <span class="val">Unit 3 No. 22, Cristobal Apartment Villarica, Tabing Ilog, Marilao, Bulacan, Region III (Central Luzon), 3019</span>
     </div>
   </div>
 

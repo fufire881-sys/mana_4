@@ -1,28 +1,28 @@
 {% extends "base.html" %}
-{% block title %}Apply for a Loan — Filipino Fund, Inc.{% endblock %}
+{% block title %}Apply for a Loan — 365 Ampersand Connect Corporation{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body, body * { font-family: 'Poppins', sans-serif !important; }
+body, body * { font-family: 'Inter', sans-serif !important; }
 
 :root{
-  --color-bg: #FAF6EC;
-  --color-gold: #D6A637;
-  --color-gold-dark: #9B6A16;
-  --color-gold-light: #F7D77A;
-  --color-purple: #3B165F;
-  --color-purple-dark: #26103F;
-  --color-text: #221B2D;
-  --color-muted: #6D6474;
-  --border-gold: rgba(190, 140, 45, 0.45);
-  --shadow-soft: 0 10px 30px rgba(59, 22, 95, 0.08);
-  --shadow-gold: 0 10px 26px rgba(214, 166, 55, 0.30);
+  --color-bg: #F7F4EE;
+  --color-gold: #7389DA;
+  --color-gold-dark: #D9604F;
+  --color-gold-light: #C9D3F5;
+  --color-purple: #14214D;
+  --color-purple-dark: #0E1838;
+  --color-text: #14214D;
+  --color-muted: #6B7084;
+  --border-gold: rgba(200,206,228, 0.45);
+  --shadow-soft: 0 10px 30px rgba(40,56,120, 0.08);
+  --shadow-gold: 0 10px 26px rgba(115,137,218, 0.30);
   --radius-lg: 22px;
   --radius-md: 16px;
 }
-.serif{ font-family:'Playfair Display', serif !important; }
+.serif{ font-family:'Inter', sans-serif !important; }
 
 body { background: var(--color-bg) !important; }
 .wrap { align-items: flex-start; }
@@ -55,7 +55,7 @@ body { background: var(--color-bg) !important; }
 .ql-header::before{
   content:""; position:absolute; border-radius:50%; pointer-events:none;
   width:190px; height:190px; top:-70px; right:-40px;
-  border:1px solid rgba(214,166,55,0.30);
+  border:1px solid rgba(115,137,218,0.30);
 }
 .ql-header::after{
   content:""; position:absolute; inset:0;
@@ -74,7 +74,7 @@ body { background: var(--color-bg) !important; }
   transition: background .15s;
 }
 .ql-back:hover { background: rgba(255,255,255,.22); }
-.ql-header-title { font-family:'Playfair Display', serif !important; font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 5px; }
+.ql-header-title { font-family:'Inter', sans-serif !important; font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 5px; }
 .ql-header-sub { font-size: 12px; color: rgba(255,255,255,.72); font-weight: 500; }
 .ql-header-bar { width: 40px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, var(--color-gold), transparent); margin-top: 12px; }
 
@@ -82,7 +82,7 @@ body { background: var(--color-bg) !important; }
 .ql-rate-badge {
   display: inline-flex; align-items: center; gap: 7px;
   margin-top: 14px; padding: 6px 14px; border-radius: 999px;
-  background: rgba(214,166,55,0.16); border: 1px solid var(--color-gold);
+  background: rgba(115,137,218,0.16); border: 1px solid var(--color-gold);
 }
 .ql-rate-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--color-gold); animation: ratePulse 1.8s ease-in-out infinite; }
 .ql-rate-text { font-size: 11px; color: var(--color-gold-light); font-weight: 700; }
@@ -116,18 +116,18 @@ body { background: var(--color-bg) !important; }
 .ql-amount-wrap {
   display: flex; align-items: center; gap: 10px;
   border: 1.5px solid var(--border-gold); border-radius: 14px;
-  background: #FFFDF6; padding: 6px;
+  background: #FFFFFF; padding: 6px;
   transition: border-color .2s, box-shadow .2s;
 }
 .ql-amount-wrap:focus-within {
   border-color: var(--color-gold-dark);
-  box-shadow: 0 0 0 3px rgba(214,166,55,.16);
+  box-shadow: 0 0 0 3px rgba(115,137,218,.16);
   background: #fff;
 }
 .ql-peso-badge {
   width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
   font-size: 16px; font-weight: 800; color: #fff;
-  background: radial-gradient(circle at 35% 30%, #5B2A8A 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
+  background: radial-gradient(circle at 35% 30%, #8A9DE3 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
   border: 2px solid var(--color-gold);
   box-shadow: inset 0 2px 4px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.15);
   display: flex; align-items: center; justify-content: center;
@@ -135,10 +135,10 @@ body { background: var(--color-bg) !important; }
 input[type="number"] {
   flex: 1; border: none; outline: none; background: transparent;
   padding: 8px 6px; font-size: 18px; font-weight: 800;
-  color: var(--color-text); font-family: 'Poppins', sans-serif !important;
+  color: var(--color-text); font-family: 'Inter', sans-serif !important;
   width: 100%;
 }
-input[type="number"]::placeholder { color: #b6aebf; font-weight: 400; font-size: 14px; }
+input[type="number"]::placeholder { color: #A9AEC0; font-weight: 400; font-size: 14px; }
 input[readonly] { opacity: .85; cursor: default; }
 
 /* ── Term grid ── */
@@ -151,17 +151,17 @@ input[readonly] { opacity: .85; cursor: default; }
 
 .term-btn {
   padding: 11px 8px; border-radius: 12px;
-  border: 1.5px solid var(--border-gold); background: #FFFDF6;
+  border: 1.5px solid var(--border-gold); background: #FFFFFF;
   color: var(--color-text); font-weight: 700; font-size: 14px;
   cursor: pointer; text-align: center;
-  transition: all .18s ease; font-family: 'Poppins', sans-serif !important;
+  transition: all .18s ease; font-family: 'Inter', sans-serif !important;
 }
 .term-btn:hover { border-color: var(--color-gold-dark); color: var(--color-purple); }
 .term-btn:active { transform: scale(.97); }
 .term-btn.active {
   background: linear-gradient(135deg, var(--color-purple-dark), var(--color-purple));
   border-color: var(--color-gold); color: #fff;
-  box-shadow: 0 3px 12px rgba(59,22,95,.30);
+  box-shadow: 0 3px 12px rgba(40,56,120,.30);
 }
 .term-btn:disabled { opacity: .5; cursor: not-allowed; transform: none !important; }
 
@@ -175,7 +175,7 @@ input[readonly] { opacity: .85; cursor: default; }
   margin-top: 16px;
 }
 .stat-box{
-  background: #FFFDF6; border: 1.5px solid var(--border-gold);
+  background: #FFFFFF; border: 1.5px solid var(--border-gold);
   border-radius: var(--radius-md); padding: 12px 14px;
 }
 .stat-box.highlight{
@@ -185,7 +185,7 @@ input[readonly] { opacity: .85; cursor: default; }
 }
 .stat-lbl{ font-size: 10px; font-weight: 700; color: var(--color-muted); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 5px; }
 .stat-box.highlight .stat-lbl{ color: rgba(255,255,255,0.65); }
-.stat-val{ font-family:'Poppins', sans-serif !important; font-size: 17px; font-weight: 800; color: var(--color-purple); font-variant-numeric: tabular-nums; }
+.stat-val{ font-family:'Inter', sans-serif !important; font-size: 17px; font-weight: 800; color: var(--color-purple); font-variant-numeric: tabular-nums; }
 .stat-box.highlight .stat-val{ color: var(--color-gold-light); font-size: 21px; }
 
 /* ── CTA ── */
@@ -198,8 +198,8 @@ input[readonly] { opacity: .85; cursor: default; }
     linear-gradient(120deg, var(--color-gold-dark), var(--color-gold-light) 45%, var(--color-gold-dark) 100%) border-box;
   color: var(--color-gold-light); border: 3px solid transparent; border-radius: 999px;
   font-weight: 800; font-size: 15px; letter-spacing: .03em;
-  box-shadow: 0 10px 24px rgba(59,22,95,0.30);
-  cursor: pointer; font-family: 'Poppins', sans-serif !important;
+  box-shadow: 0 10px 24px rgba(40,56,120,0.30);
+  cursor: pointer; font-family: 'Inter', sans-serif !important;
   transition: transform .2s, box-shadow .2s;
 }
 #goApply::before{
@@ -210,7 +210,7 @@ input[readonly] { opacity: .85; cursor: default; }
   animation: btnShine 5s ease-in-out infinite;
   pointer-events: none;
 }
-#goApply:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(59,22,95,0.36); }
+#goApply:hover { transform: translateY(-2px); box-shadow: 0 14px 30px rgba(40,56,120,0.36); }
 #goApply:active { transform: scale(.98); }
 #goApply:disabled { opacity: .55; cursor: not-allowed; transform: none; box-shadow: none; }
 #goApply:disabled::before{ display: none; }
@@ -222,14 +222,14 @@ input[readonly] { opacity: .85; cursor: default; }
   background: linear-gradient(180deg, var(--color-gold), var(--color-gold-dark));
 }
 .status-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
-.status-title { font-family:'Playfair Display', serif !important; font-size: 18px; font-weight: 800; color: var(--color-purple); }
+.status-title { font-family:'Inter', sans-serif !important; font-size: 18px; font-weight: 800; color: var(--color-purple); }
 .status-sub { margin-top: 5px; color: var(--color-muted); line-height: 1.5; font-size: 13px; }
 
 .mini-pill {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 6px 13px; border-radius: 999px;
   font-weight: 800; font-size: 11px; white-space: nowrap;
-  background: rgba(214,166,55,0.16); color: var(--color-gold-dark);
+  background: rgba(115,137,218,0.16); color: var(--color-gold-dark);
   border: 1px solid var(--color-gold);
 }
 .mini-pill.is-rejected { background: #ffebee; color: #c62828; border-color: rgba(198,40,40,.3); }
@@ -238,11 +238,11 @@ input[readonly] { opacity: .85; cursor: default; }
   display: inline-flex; align-items: center; gap: 8px;
   padding: 10px 18px; border-radius: 999px; text-decoration: none;
   border: 1.5px solid var(--border-gold);
-  background: #FFFDF6; color: var(--color-purple);
+  background: #FFFFFF; color: var(--color-purple);
   font-weight: 700; font-size: 13px; cursor: pointer;
   transition: background .2s, transform .2s;
 }
-.status-btn:hover { background: #FBF3DF; transform: translateY(-1px); }
+.status-btn:hover { background: #EEF1FB; transform: translateY(-1px); }
 
 /* ── Vertical status timeline — genuinely different structure from a
    horizontal dot row: each step is its own icon+label row with the
@@ -254,14 +254,14 @@ input[readonly] { opacity: .85; cursor: default; }
   width: 34px; height: 34px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   font-weight: 800; font-size: 13px;
-  background: #F1ECE0; color: var(--color-muted);
+  background: #ECEEF4; color: var(--color-muted);
   border: 2px solid var(--border-gold);
   flex-shrink: 0;
 }
 .dot.active {
   background: linear-gradient(135deg, var(--color-purple-dark), var(--color-purple));
   color: #fff; border-color: var(--color-gold);
-  box-shadow: 0 0 10px rgba(59,22,95,.40);
+  box-shadow: 0 0 10px rgba(40,56,120,.40);
 }
 /* Current step gets a status color: red while under review, yellow while
    checking, green once approved — instead of the generic purple for every
@@ -295,6 +295,111 @@ input[readonly] { opacity: .85; cursor: default; }
 .reject-alert .ra-title { font-weight: 800; }
 .reject-alert .ra-text { margin-top: 6px; opacity: .88; font-size: 13px; }
 
+/* ══ 365 THEME — periwinkle / coral ══ */
+body { background: linear-gradient(180deg, #E4E8F8 0px, #ECEEF6 260px, #F7F4EE 460px) no-repeat, #F7F4EE !important; }
+.ql-header { margin: 0 16px; padding: 22px 52px 10px; background: transparent; border: 0; box-shadow: none; overflow: visible; text-align: center; }
+.ql-header::before, .ql-header::after, .ql-header-bar { display: none; }
+.ql-back {
+  position: absolute; left: 0; top: -2px; width: 50px; height: 50px; padding: 0; border: 0; border-radius: 50%;
+  background: #fff; color: #14214D; font-size: 0; justify-content: center; margin: 0;
+  box-shadow: 0 8px 20px rgba(40,56,120,0.14);
+}
+.ql-back::before { content: "←"; font-size: 24px; font-weight: 500; line-height: 1; }
+.ql-back:hover { background: #fff; }
+.ql-header-title { color: #14214D; font-size: 25px; font-weight: 900; padding-top: 10px; }
+.ql-header-sub { color: #6B7084; font-size: 13px; }
+.ql-rate-badge { background: #FCE1DA; border: 0; padding: 8px 16px; }
+.ql-rate-dot { background: #E0665A; }
+.ql-rate-text { color: #C0503F; font-size: 13px; font-weight: 600; }
+.cardx { border: 0 !important; border-radius: 26px !important; box-shadow: 0 14px 34px rgba(40,56,120,0.10) !important; padding: 22px; }
+.cardx label, .field > label { color: #6B7084; text-transform: none; letter-spacing: 0; font-size: 14px; font-weight: 500; }
+.ql-amount-wrap { border: 1.5px solid #DDE1EC; border-radius: 18px; padding: 8px; }
+.ql-amount-wrap:focus-within { border-color: #7389DA; box-shadow: 0 0 0 4px rgba(115,137,218,.18); }
+.ql-peso-badge { background: #E3E8F8; border: 0; box-shadow: none; color: #14214D; width: 44px; height: 44px; }
+input[type="number"] { font-size: 28px; font-weight: 900; color: #14214D; }
+.term-grid { background: #DDE3F7; border-radius: 999px; padding: 5px; gap: 2px; }
+@media (max-width: 400px) { .term-grid { grid-template-columns: repeat(4, 1fr); } }
+.term-btn { border: 0; background: transparent; border-radius: 999px; font-weight: 500; padding: 11px 4px; }
+.term-btn:hover { color: #14214D; background: rgba(255,255,255,0.5); }
+.term-btn.active { background: #fff; color: #14214D; font-weight: 700; box-shadow: 0 4px 12px rgba(40,56,120,.15); }
+.stat-grid { background: #E6EAF9; border-radius: 20px; padding: 6px 18px; gap: 0; grid-template-columns: 1fr; }
+.stat-box { background: transparent; border: 0; border-radius: 0; padding: 10px 0; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgba(115,137,218,0.22); }
+.stat-box.highlight { background: transparent; border: 0; order: -1; padding: 14px 0; }
+.stat-lbl { text-transform: none; letter-spacing: 0; font-size: 14px; font-weight: 500; color: #6B7084; margin: 0; }
+.stat-box.highlight .stat-lbl { color: #14214D; font-size: 16px; }
+.stat-val { color: #6B7084; font-size: 15px; font-weight: 600; }
+.stat-box.highlight .stat-val { color: #7389DA; font-size: 28px; font-weight: 900; }
+#goApply {
+  border: 0; background: #6175CF; color: #fff; padding: 18px; font-size: 17px;
+  box-shadow: 0 12px 26px rgba(97,117,207,0.35);
+}
+#goApply::before { display: none; }
+#goApply:hover { box-shadow: 0 14px 30px rgba(97,117,207,0.45); }
+#goApply:disabled { background: #B6C0DA; opacity: 1; }
+#statusCard::before { display: none; }
+.status-title { color: #14214D; }
+.mini-pill { background: #E3E8F8; color: #4A5DB5; border: 0; }
+.status-btn { border: 0; box-shadow: 0 6px 16px rgba(40,56,120,0.12); color: #14214D; }
+.dot { border-color: #DDE1EC; }
+.dot.active { background: #7389DA; border-color: #7389DA; box-shadow: 0 6px 14px rgba(115,137,218,.35); }
+.line { background: #DDE1EC; }
+.line.active { background: #7389DA; }
+
+
+/* ══ Loan details — matches the Loan Application references ══ */
+body { background: #F6F5F1 !important; }
+.ql-head { display: grid; grid-template-columns: 52px 1fr 52px; align-items: center; gap: 8px; margin: 22px 16px 18px; }
+.ql-head-back {
+  width: 52px; height: 52px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 20px rgba(40,56,120,0.14);
+}
+.ql-head-back svg { width: 24px; height: 24px; stroke: #14214D; }
+.ql-head-text { text-align: center; }
+.ql-head-text h1 { font-size: 24px; font-weight: 800; color: #14214D; letter-spacing: -0.01em; }
+.ql-head-text p { margin-top: 2px; font-size: 13.5px; color: #8A90A2; }
+.ql-body { padding-top: 0; }
+.cardx.ql-card { padding: 22px 20px 22px; border-radius: 24px !important; box-shadow: 0 10px 28px rgba(40,56,120,0.08) !important; }
+.ql-sec-head { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; }
+.ql-sec-ico { width: 46px; height: 46px; border-radius: 50%; background: #E3E8F8; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.ql-sec-ico svg { width: 24px; height: 24px; stroke: #5C70CF; }
+.ql-sec-head h2 { font-size: 21px; font-weight: 800; color: #14214D; line-height: 1.2; }
+.ql-sec-head p { font-size: 14.5px; color: #4A5068; margin-top: 2px; }
+.ql-card .field { margin-top: 10px; }
+.ql-card .field label { font-size: 15px; color: #4A5068; margin-bottom: 4px; }
+
+/* typed amount: the big figure is an input — tap it to type, or drag the slider */
+.amt-edit { display: flex; align-items: center; gap: 2px; padding: 2px 4px 4px 0; border-bottom: 2px dashed transparent; cursor: text; transition: border-color .2s; }
+.amt-edit:hover, .amt-edit:focus-within { border-bottom-color: #B9C3EC; }
+.amt-edit .amt-cur { font-size: inherit; font-weight: 900; color: #14214D; line-height: 1.15; }
+.amt-edit input {
+  flex: 1; min-width: 0; width: 100%; padding: 0 !important; margin: 0; border: 0 !important; background: transparent !important;
+  box-shadow: none !important; outline: none; font: inherit; font-weight: 900 !important; color: #14214D !important;
+  letter-spacing: -0.01em; line-height: 1.15; caret-color: #7389DA; height: auto !important;
+}
+.amt-edit .amt-pen { width: 20px; height: 20px; flex-shrink: 0; fill: none; stroke: #9AA3C8; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.amt-edit:focus-within .amt-pen { stroke: #7389DA; }
+.amt-edit.locked { cursor: default; }
+.amt-edit.locked .amt-pen { display: none; }
+.amt-error { margin-top: 6px; font-size: 12.5px; font-weight: 600; color: #D9604F; }
+.ql-amount-show { font-size: 40px; font-weight: 900; color: #14214D; letter-spacing: -0.01em; line-height: 1.15; }
+.ql-card .field label.amt-edit { display: flex; font-size: 40px; font-weight: 900; color: #14214D; margin: 0; }
+.ql-range {
+  -webkit-appearance: none; appearance: none; display: block; width: 100%; height: 12px; margin: 16px 0 8px; padding: 0; border: 0;
+  border-radius: 999px; outline: none; cursor: pointer;
+  background: linear-gradient(90deg, #7389DA 0 var(--pct, 0%), #DDE3F7 var(--pct, 0%) 100%);
+}
+.ql-range::-webkit-slider-thumb { -webkit-appearance: none; width: 30px; height: 30px; border-radius: 50%; background: #fff; border: 2px solid #C9D0EC; box-shadow: 0 4px 12px rgba(40,56,120,0.25); }
+.ql-range::-moz-range-thumb { width: 26px; height: 26px; border-radius: 50%; background: #fff; border: 2px solid #C9D0EC; box-shadow: 0 4px 12px rgba(40,56,120,0.25); }
+.ql-range:disabled { cursor: default; opacity: .7; }
+.ql-range-ends { display: flex; justify-content: space-between; font-size: 14px; color: #2F3550; }
+.ql-card .term-grid { margin-top: 6px; }
+.ql-summary { margin-top: 18px; padding: 16px 20px; border-radius: 18px; background: #E6EAF9; }
+.ql-sum-row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 4px 0; font-size: 15.5px; color: #6B7084; }
+.ql-sum-row span:last-child { color: #14214D; font-weight: 500; text-align: right; }
+.ql-sum-total { margin-top: 8px; padding-top: 12px; border-top: 1.5px dashed #A9B4DE; color: #14214D; font-weight: 800; }
+.ql-sum-total span:last-child { font-size: 28px; font-weight: 900; color: #7389DA; }
+#goApply { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 20px; border-radius: 16px; height: 60px; padding: 0 20px; }
+#goApply svg { width: 22px; height: 22px; stroke: #fff; }
 /* ── Top actions (unused on this page, kept hidden for markup parity) ── */
 .top-actions { display: none; }
 .top-actions-line { display: none; }
@@ -308,62 +413,61 @@ input[readonly] { opacity: .85; cursor: default; }
 <div class="page">
 
   <!-- ── Header ── -->
-  <div class="ql-header reveal">
-    <div class="ql-header-inner">
-      <a class="ql-back" href="{% url 'dashboard' %}">← Back</a>
-      <div class="ql-header-title">Apply for a Loan</div>
-      <div class="ql-header-sub">Fast approval · No hidden fees · Flexible terms</div>
-      <div class="ql-header-bar"></div>
-      <div class="ql-rate-badge">
-        <div class="ql-rate-dot"></div>
-        <span class="ql-rate-text">Interest rate: 0.3% per month</span>
-      </div>
+  <div class="ql-head reveal">
+    <a class="ql-head-back" href="{% url 'dashboard' %}" aria-label="Back">
+      <svg class="ico-line" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+    </a>
+    <div class="ql-head-text">
+      <h1>Apply for a Loan</h1>
+      <p>365 Ampersand Connect Corporation</p>
     </div>
   </div>
 
   <div class="ql-body">
 
-  <!-- ===== Card 1: Amount/Term ===== -->
-  <div class="cardx reveal">
-    <div class="top-actions"><a class="back-btn" href="{% url 'dashboard' %}">Back</a></div>
-    <div class="top-actions-line"></div>
-
-    <div class="field">
-      <label>Loan Amount (Min 100,000 · Max 5,000,000)</label>
-      <div class="ql-amount-wrap">
-        <span class="ql-peso-badge">₱</span>
-        <input
-          type="number"
-          id="qAmount"
-          min="100000"
-          max="5000000"
-          placeholder="Enter amount"
-          {% if loan %}readonly{% endif %}
-        >
+  <!-- ===== Card 1: Loan details (amount slider + term) ===== -->
+  <div class="cardx ql-card reveal">
+    <div class="ql-sec-head">
+      <span class="ql-sec-ico" aria-hidden="true">
+        <svg class="ico-line" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="9" cy="7" rx="5.5" ry="2.5"/><path d="M3.5 7v4c0 1.4 2.5 2.5 5.5 2.5s5.5-1.1 5.5-2.5V7"/><path d="M3.5 11v4c0 1.4 2.5 2.5 5.5 2.5"/><circle cx="16" cy="15.5" r="5"/><path d="M14.6 13.4h2a1.2 1.2 0 0 1 0 2.4h-2v2.6M14 14.9h4.4"/></svg>
+      </span>
+      <div>
+        <h2>Loan details</h2>
+        <p>Choose your amount and term</p>
       </div>
     </div>
 
-    <div class="field" style="margin-top:16px;">
-      <label>Loan Term</label>
-      <input type="hidden" id="qTerm">
+    <div class="field">
+      <label for="qRange">Loan amount</label>
+      <label class="ql-amount-show amt-edit{% if loan %} locked{% endif %}"><span class="amt-cur">₱</span><input id="qAmountShow" type="text" inputmode="numeric" autocomplete="off" value="100,000" aria-label="Loan amount in pesos" {% if loan %}readonly{% endif %}><svg class="amt-pen" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></label>
+      <div class="amt-error" id="qAmtError" hidden></div>
+      <input type="range" class="ql-range" id="qRange" min="100000" max="5000000" step="10000" value="100000" aria-label="Loan amount" {% if loan %}disabled{% endif %}>
+      <div class="ql-range-ends"><span>₱100K</span><span>₱5M</span></div>
+      <input type="hidden" id="qAmount" value="100000">
+    </div>
+
+    <div class="field">
+      <label>Loan term</label>
+      <input type="hidden" id="qTerm" value="12">
       <div class="term-grid">
         <button type="button" class="term-btn" data-term="6" {% if loan %}disabled{% endif %}>6 mo</button>
-        <button type="button" class="term-btn" data-term="12" {% if loan %}disabled{% endif %}>12 mo</button>
+        <button type="button" class="term-btn active" data-term="12" {% if loan %}disabled{% endif %}>12 mo</button>
         <button type="button" class="term-btn" data-term="24" {% if loan %}disabled{% endif %}>24 mo</button>
         <button type="button" class="term-btn" data-term="36" {% if loan %}disabled{% endif %}>36 mo</button>
       </div>
-      <div class="muted hint" id="qHint">Choose months</div>
+      <div class="muted hint" id="qHint" hidden></div>
     </div>
 
-    <div class="stat-grid" aria-live="polite">
-      <div class="stat-box"><div class="stat-lbl">Loan Amount</div><div class="stat-val" id="qSumAmount">—</div></div>
-      <div class="stat-box"><div class="stat-lbl">Interest Rate</div><div class="stat-val">0.3%</div></div>
-      <div class="stat-box"><div class="stat-lbl">Loan Period</div><div class="stat-val" id="qSumTerm">—</div></div>
-      <div class="stat-box highlight"><div class="stat-lbl">Monthly Repayment</div><div class="stat-val" id="qSumMonthly">—</div></div>
+    <div class="ql-summary" aria-live="polite">
+      <div class="ql-sum-row"><span>Loan Amount</span><span id="qSumAmount">—</span></div>
+      <div class="ql-sum-row"><span>Interest rate</span><span>0.3% / month</span></div>
+      <div class="ql-sum-row"><span>Loan term</span><span id="qSumTerm">—</span></div>
+      <div class="ql-sum-row ql-sum-total"><span>Monthly repayment</span><span id="qSumMonthly">—</span></div>
     </div>
 
-    <button class="btn btn-primary cta" type="button" id="goApply" style="opacity:.55" disabled>
-      Continue to Application
+    <button class="btn btn-primary cta" type="button" id="goApply" disabled>
+      <span id="goApplyText">Continue to Application</span>
+      <svg class="ico-line" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
     </button>
   </div>
 
@@ -429,21 +533,62 @@ input[readonly] { opacity: .85; cursor: default; }
   const goBtn = document.getElementById("goApply");
 
   function fmt(n){
-    try { return Number(n).toLocaleString(); } catch (e) { return String(n); }
+    try { return Number(n).toLocaleString('en-PH'); } catch (e) { return String(n); }
+  }
+
+  /* slider <-> typed amount <-> hidden amount; filled track */
+  function digitsOnly(s){ return String(s || '').replace(/[^0-9]/g, '').replace(/^0+(?=\d)/, ''); }
+  function setTypedValue(el, digits){
+    var before = el.value, pos = el.selectionStart == null ? before.length : el.selectionStart;
+    var rightDigits = digitsOnly(before.slice(pos)).length;
+    var out = digits ? Number(digits).toLocaleString('en-PH') : '';
+    el.value = out;
+    var p = out.length, seen = 0;
+    while (p > 0 && seen < rightDigits) { p--; if (/\d/.test(out[p])) seen++; }
+    try { el.setSelectionRange(p, p); } catch (e) {}
+  }
+
+  const rangeEl = document.getElementById("qRange");
+  const showEl = document.getElementById("qAmountShow");
+  const errEl = document.getElementById("qAmtError");
+  const MIN = 100000, MAX = 5000000;
+  function paintTrack(v){
+    if (!rangeEl) return;
+    const c = Math.min(MAX, Math.max(MIN, v));
+    rangeEl.style.setProperty("--pct", ((c - MIN) / (MAX - MIN) * 100) + "%");
+  }
+  function syncRange(){
+    if (!rangeEl) return;
+    const v = Number(rangeEl.value);
+    if (amountEl) amountEl.value = v;
+    if (showEl) showEl.value = fmt(v);
+    paintTrack(v);
+  }
+  function syncTyped(){
+    const d = digitsOnly(showEl.value);
+    setTypedValue(showEl, d);
+    const v = d ? Number(d) : 0;
+    if (amountEl) amountEl.value = v || "";
+    if (v && rangeEl) { rangeEl.value = Math.min(MAX, Math.max(MIN, v)); paintTrack(v); }
   }
 
   function update(){
     const amount = Number(amountEl?.value || 0);
     const term = Number(termEl?.value || 0);
 
-    if (outAmount) outAmount.textContent = amount > 0 ? ("PHP " + fmt(amount)) : "—";
+    if (outAmount) outAmount.textContent = amount > 0 ? ("₱" + fmt(amount)) : "—";
     if (outTerm) outTerm.textContent = term > 0 ? (term + " months") : "—";
 
     const rate = 0.003; // 0.3%
-    if(amount > 0 && term > 0){
+    const inRange = amount >= MIN && amount <= MAX;
+    if (errEl) {
+      errEl.hidden = !(amount > 0) || inRange;
+      errEl.textContent = amount < MIN ? "Minimum loan amount is ₱100,000." : "Maximum loan amount is ₱5,000,000.";
+    }
+    if(inRange && term > 0){
       const total = amount + (amount * rate * term);
       const monthly = total / term;
-      if (outMonthly) outMonthly.textContent = "PHP " + fmt(Math.round(monthly));
+      if (outMonthly) outMonthly.textContent = "₱" + fmt(Math.round(monthly));
 
       // Remember the last valid amount/term so the loan application page can
       // auto-fill even when reached from somewhere other than "Apply Now" below.
@@ -454,13 +599,11 @@ input[readonly] { opacity: .85; cursor: default; }
 
       {% if not loan %}
         goBtn.disabled = false;
-        goBtn.style.opacity = "1";
       {% endif %}
     } else {
       if (outMonthly) outMonthly.textContent = "—";
       {% if not loan %}
         goBtn.disabled = true;
-        goBtn.style.opacity = ".65";
       {% endif %}
     }
   }
@@ -476,16 +619,27 @@ input[readonly] { opacity: .85; cursor: default; }
     });
   });
 
-  if (amountEl){
-    amountEl.addEventListener("input", ()=>{
+  if (rangeEl){
+    rangeEl.addEventListener("input", ()=>{
       {% if loan %} return; {% endif %}
+      syncRange();
       update();
     });
+  }
+  if (showEl){
+    showEl.addEventListener("input", ()=>{
+      {% if loan %} return; {% endif %}
+      syncTyped();
+      update();
+    });
+    showEl.addEventListener("keydown", (e)=>{ if (e.key === "Enter") showEl.blur(); });
   }
 
   {% if loan %}
     // ✅ LOCKED: fill from DB
-    if (amountEl) amountEl.value = "{{ loan.amount }}";
+    if (amountEl) amountEl.value = "{{ loan.amount|floatformat:'0' }}";
+    if (showEl) showEl.value = fmt(Number(amountEl.value));
+    if (rangeEl) { rangeEl.value = amountEl.value; paintTrack(Number(amountEl.value)); }
     if (termEl) termEl.value = "{{ loan.term_months }}";
 
     btns.forEach((b)=>{
@@ -497,9 +651,8 @@ input[readonly] { opacity: .85; cursor: default; }
       }
     });
 
-    goBtn.textContent = "Submitted";
+    document.getElementById("goApplyText").textContent = "Submitted";
     goBtn.disabled = true;
-    goBtn.style.opacity = ".65";
   {% else %}
     goBtn.addEventListener("click", ()=>{
       const amount = amountEl?.value || "";
@@ -509,6 +662,7 @@ input[readonly] { opacity: .85; cursor: default; }
     });
   {% endif %}
 
+  {% if not loan %}syncRange();{% endif %}
   update();
 
   // ===== Status Tracker (poll API) =====

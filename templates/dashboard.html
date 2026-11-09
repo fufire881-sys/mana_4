@@ -3,38 +3,38 @@
 {% block title %}Dashboard{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Serif+Display&family=Montserrat:wght@800&display=swap" rel="stylesheet">
 <style>
-/* ===== Filipino Fund, Inc. Brand Design System — Dashboard ===== */
+/* ===== 365 Ampersand Brand Design System — Dashboard ===== */
 
 :root{
   --topbar-pad: 10px;
   --topbar-card-h: 58px;
   --topbar-gap: 14px;
 
-  --color-bg: #FAF6EC;
-  --color-gold: #D6A637;
-  --color-gold-dark: #9B6A16;
-  --color-gold-light: #F7D77A;
-  --color-purple: #3B165F;
-  --color-purple-dark: #26103F;
-  --color-text: #221B2D;
-  --color-muted: #6D6474;
-  --border-gold: rgba(190, 140, 45, 0.45);
-  --shadow-soft: 0 10px 30px rgba(59, 22, 95, 0.08);
-  --shadow-gold: 0 10px 26px rgba(214, 166, 55, 0.30);
+  --color-bg: #F7F4EE;
+  --color-gold: #7389DA;
+  --color-gold-dark: #D9604F;
+  --color-gold-light: #C9D3F5;
+  --color-purple: #14214D;
+  --color-purple-dark: #0E1838;
+  --color-text: #14214D;
+  --color-muted: #6B7084;
+  --border-gold: rgba(200,206,228, 0.45);
+  --shadow-soft: 0 10px 30px rgba(40,56,120, 0.08);
+  --shadow-gold: 0 10px 26px rgba(115,137,218, 0.30);
   --radius-lg: 24px;
   --radius-md: 16px;
   --radius-sm: 10px;
 }
-.serif { font-family: 'Playfair Display', serif !important; }
+.serif { font-family: 'Inter', sans-serif !important; }
 
 html, body{ width: 100%; overflow-x: hidden; }
 
 body{
   margin: 0;
   min-height: 100vh;
-  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
   background: var(--color-bg) !important;
 }
 
@@ -63,7 +63,7 @@ body{
   padding: var(--topbar-pad) 0 !important;
   background: var(--color-bg) !important;
   border-bottom: 1.5px solid var(--border-gold) !important;
-  box-shadow: 0 2px 12px rgba(59,22,95,.06) !important;
+  box-shadow: 0 2px 12px rgba(40,56,120,.06) !important;
   transition: transform .22s ease, box-shadow .22s ease;
 }
 .topbar.hide-bar{ transform: translateY(-110%); }
@@ -121,7 +121,7 @@ body{
   transition: background 0.2s;
   white-space: nowrap;
 }
-.btn-aboutus:hover{ background: #FFFDF6; color: var(--color-purple); }
+.btn-aboutus:hover{ background: #FFFFFF; color: var(--color-purple); }
 .btn-aboutus svg{ width: 13px; height: 13px; fill: var(--color-gold-dark); }
 
 /* ===== Notification Bell ===== */
@@ -188,10 +188,10 @@ body{
   border: 1.5px solid var(--color-gold);
   text-transform: uppercase;
 }
-.status-active{ background: #1A1420 !important; color: var(--color-gold-light) !important; border-color: var(--color-gold) !important; }
+.status-active{ background: #0F1734 !important; color: var(--color-gold-light) !important; border-color: var(--color-gold) !important; }
 .status-danger{ background: #dc2626 !important; color: #fff !important; }
 .status-warn{ background: #eab308 !important; color: #111 !important; }
-#accStatusBadge.status-active { background: #1A1420 !important; color: var(--color-gold-light) !important; border-color: var(--color-gold) !important; }
+#accStatusBadge.status-active { background: #0F1734 !important; color: var(--color-gold-light) !important; border-color: var(--color-gold) !important; }
 #accStatusBadge.status-warn   { background: #eab308 !important; color: #111 !important; }
 #accStatusBadge.status-danger { background: #dc2626 !important; color: #fff !important; }
 
@@ -214,12 +214,12 @@ body{
    every property here needs !important to actually take effect. */
 .cardx.card-diamond{
   background:
-    linear-gradient(100deg, rgba(38,16,63,0.90) 0%, rgba(59,22,95,0.72) 45%, rgba(59,22,95,0.35) 100%),
+    linear-gradient(100deg, rgba(14,24,56,0.90) 0%, rgba(40,56,120,0.72) 45%, rgba(40,56,120,0.35) 100%),
     url("{% static 'img/profile-bg.webp' %}") right center / cover no-repeat,
     var(--color-purple-dark) !important;
   color: #fff !important;
   border: 2px solid var(--color-gold) !important;
-  box-shadow: 0 14px 34px rgba(38,16,63,0.30) !important;
+  box-shadow: 0 14px 34px rgba(14,24,56,0.30) !important;
 }
 .cardx.card-diamond *{ color: #fff !important; }
 .cardx.card-diamond > *{ position: relative; z-index: 2; }
@@ -265,7 +265,7 @@ body{
 .pill-member{
   display: inline-flex; align-items: center; gap: 5px;
   padding: 6px 12px; border-radius: 999px;
-  background: rgba(214,166,55,0.20);
+  background: rgba(115,137,218,0.20);
   border: 1px solid var(--color-gold);
   color: var(--color-gold-light); font-weight: 800; font-size: 11px;
 }
@@ -281,7 +281,7 @@ body{
 .cd-balance-lbl{ font-size: 10px; color: rgba(255,255,255,.60); font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 4px; }
 .cd-balance-amount{ display: flex; align-items: baseline; gap: 5px; }
 .cd-balance-sign{ font-size: 18px; font-weight: 700; color: var(--color-gold-light); }
-.cd-balance-num{ font-family: 'Playfair Display', serif !important; font-size: 32px; font-weight: 800; color: #fff; letter-spacing: .01em; line-height: 1; }
+.cd-balance-num{ font-family: 'Inter', sans-serif !important; font-size: 32px; font-weight: 800; color: #fff; letter-spacing: .01em; line-height: 1; }
 
 .cd-status-row{ margin-top: 14px; display: flex; align-items: center; justify-content: flex-end; }
 
@@ -331,7 +331,7 @@ body{
 .quick-card{
   position: relative;
   display: block;
-  background: linear-gradient(160deg, #FFFDF6 0%, #FBF3DF 100%);
+  background: linear-gradient(160deg, #FFFFFF 0%, #EEF1FB 100%);
   border: 1.5px solid var(--border-gold);
   border-radius: var(--radius-md);
   padding: 16px 14px;
@@ -364,7 +364,7 @@ body{
   width: 46px; height: 46px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   margin-bottom: 10px;
-  background: radial-gradient(circle at 35% 30%, #5B2A8A 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
+  background: radial-gradient(circle at 35% 30%, #8A9DE3 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
   border: 2px solid var(--color-gold);
   box-shadow: inset 0 2px 4px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.35), 0 3px 8px rgba(0,0,0,0.15);
   transition: transform 0.25s ease;
@@ -384,7 +384,7 @@ body{
 .trust-cell{
   position: relative;
   display: flex; align-items: center; gap: 10px;
-  background: linear-gradient(160deg, #FFFDF6 0%, #FBF3DF 100%);
+  background: linear-gradient(160deg, #FFFFFF 0%, #EEF1FB 100%);
   border: 1.5px solid var(--border-gold);
   border-radius: var(--radius-md);
   padding: 12px 12px;
@@ -397,7 +397,7 @@ body{
 .trust-icon-badge{
   width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  background: radial-gradient(circle at 35% 30%, #5B2A8A 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
+  background: radial-gradient(circle at 35% 30%, #8A9DE3 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
   border: 2px solid var(--color-gold);
   box-shadow: inset 0 2px 4px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.15);
 }
@@ -416,7 +416,7 @@ body{
   display:flex; align-items:center; justify-content:center;
 }
 .calc-head-icon svg{ width:22px; height:22px; fill: var(--color-purple-dark); }
-.calc-head-title{ font-family: 'Playfair Display', serif !important; font-size:17px; font-weight:800; color:#fff; letter-spacing:.03em; }
+.calc-head-title{ font-family: 'Inter', sans-serif !important; font-size:17px; font-weight:800; color:#fff; letter-spacing:.03em; }
 .calc-head-sub{ font-size:11.5px; color:rgba(255,255,255,.70); margin-top:2px; }
 .calc-head-video{
   width: 84px; height: 88px; flex-shrink: 0;
@@ -428,28 +428,28 @@ body{
 .calc-head-video img{ width:100%; height:100%; object-fit:contain; display:block; }
 .calc-body{ padding:16px; }
 .calc-label{ font-size:11px; font-weight:700; color: var(--color-text); text-transform:uppercase; letter-spacing:.06em; margin-bottom:7px; display:block; }
-.calc-amount-wrap{ display:flex; align-items:center; border: 1.5px solid var(--border-gold); border-radius:14px; background:#FFFDF6; overflow:hidden; margin-bottom:14px; transition:border-color .2s; }
-.calc-amount-wrap:focus-within{ border-color: var(--color-gold-dark); box-shadow: 0 0 0 3px rgba(214,166,55,.16); background:#fff; }
+.calc-amount-wrap{ display:flex; align-items:center; border: 1.5px solid var(--border-gold); border-radius:14px; background:#FFFFFF; overflow:hidden; margin-bottom:14px; transition:border-color .2s; }
+.calc-amount-wrap:focus-within{ border-color: var(--color-gold-dark); box-shadow: 0 0 0 3px rgba(115,137,218,.16); background:#fff; }
 .calc-currency-badge{
   width: 40px; height: 40px; margin: 6px; border-radius: 50%; flex-shrink: 0;
   font-size:15px; font-weight:800; color: #fff;
-  background: radial-gradient(circle at 35% 30%, #5B2A8A 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
+  background: radial-gradient(circle at 35% 30%, #8A9DE3 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
   border: 2px solid var(--color-gold);
   box-shadow: inset 0 2px 4px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.15);
   display:flex; align-items:center; justify-content: center;
 }
-.calc-amount-input{ flex:1; border:none; outline:none; background:transparent; padding:13px 12px; font-size:16px; font-weight:700; color: var(--color-text); font-family:'Poppins',sans-serif; }
-.calc-amount-input::placeholder{ color:#b6aebf; font-weight:400; font-size:14px; }
+.calc-amount-input{ flex:1; border:none; outline:none; background:transparent; padding:13px 12px; font-size:16px; font-weight:700; color: var(--color-text); font-family:'Inter',sans-serif; }
+.calc-amount-input::placeholder{ color:#A9AEC0; font-weight:400; font-size:14px; }
 .calc-terms{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:14px; }
-.calc-term-btn{ border: 1.5px solid var(--border-gold); border-radius:10px; padding:9px 0; font-size:13px; font-weight:700; color: var(--color-text); background:#FFFDF6; cursor:pointer; text-align:center; transition:all .2s; font-family:'Poppins',sans-serif; }
+.calc-term-btn{ border: 1.5px solid var(--border-gold); border-radius:10px; padding:9px 0; font-size:13px; font-weight:700; color: var(--color-text); background:#FFFFFF; cursor:pointer; text-align:center; transition:all .2s; font-family:'Inter',sans-serif; }
 .calc-term-btn:hover{ border-color: var(--color-gold-dark); color: var(--color-gold-dark); }
-.calc-term-btn.active{ background: linear-gradient(135deg, var(--color-purple-dark), var(--color-purple)); border-color: var(--color-gold); color:#fff; box-shadow: 0 3px 10px rgba(59,22,95,.30); }
-.calc-result{ background: #FFFDF6; border: 1.5px solid var(--border-gold); border-radius:14px; padding:14px 16px; margin-bottom:14px; }
+.calc-term-btn.active{ background: linear-gradient(135deg, var(--color-purple-dark), var(--color-purple)); border-color: var(--color-gold); color:#fff; box-shadow: 0 3px 10px rgba(40,56,120,.30); }
+.calc-result{ background: #FFFFFF; border: 1.5px solid var(--border-gold); border-radius:14px; padding:14px 16px; margin-bottom:14px; }
 .calc-result-row{ display:flex; justify-content:space-between; align-items:center; padding:6px 0; }
-.calc-result-row+.calc-result-row{ border-top:1px solid rgba(190,140,45,.25); }
+.calc-result-row+.calc-result-row{ border-top:1px solid rgba(200,206,228,.25); }
 .calc-result-lbl{ font-size:12px; color: var(--color-muted); font-weight:500; }
 .calc-result-val{ font-size:13px; font-weight:800; color: var(--color-purple); }
-.calc-result-val.monthly{ font-size:20px; color: var(--color-gold-dark); font-family: 'Playfair Display', serif !important; }
+.calc-result-val.monthly{ font-size:20px; color: var(--color-gold-dark); font-family: 'Inter', sans-serif !important; }
 .calc-result-val.interest{ color: var(--color-purple); }
 .calc-rate-badge{ display:flex; align-items:center; gap:6px; margin-bottom:14px; }
 .calc-rate-dot{ width:8px; height:8px; border-radius:50%; background: var(--color-gold); flex-shrink:0; animation: ratePulse 1.8s ease-in-out infinite; }
@@ -462,9 +462,9 @@ body{
   background:
     linear-gradient(var(--color-purple), var(--color-purple)) padding-box,
     linear-gradient(120deg, var(--color-gold-dark), var(--color-gold-light) 45%, var(--color-gold-dark) 100%) border-box;
-  color: var(--color-gold-light); font-size:14px; font-weight:800; font-family:'Poppins',sans-serif;
+  color: var(--color-gold-light); font-size:14px; font-weight:800; font-family:'Inter',sans-serif;
   cursor:pointer; text-decoration:none;
-  box-shadow: 0 10px 24px rgba(59,22,95,0.30);
+  box-shadow: 0 10px 24px rgba(40,56,120,0.30);
   position: relative; overflow: hidden;
   transition:transform .15s, box-shadow .15s; letter-spacing:.03em;
 }
@@ -477,7 +477,7 @@ body{
 .calc-apply-btn svg{ width:18px; height:18px; }
 .calc-apply-btn .cab-icon-text svg{ fill: var(--color-gold-light); }
 .calc-apply-btn .cab-arrow{ fill:none; stroke: var(--color-gold-light); stroke-width:2; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; }
-.calc-apply-btn:hover{ transform:translateY(-2px); box-shadow: 0 14px 30px rgba(59,22,95,0.36); }
+.calc-apply-btn:hover{ transform:translateY(-2px); box-shadow: 0 14px 30px rgba(40,56,120,0.36); }
 .calc-apply-btn:active{ transform:scale(.98); }
 
 /* ===== CTA banner ===== */
@@ -527,7 +527,7 @@ body{
 
 /* ===== Dashboard status message boxes ===== */
 .dash-status-msg{ margin-top: 10px; padding: 10px 12px; border-radius: 14px; font-weight: 800; font-size: 12px; line-height: 1.35; border: 1px solid var(--border-gold); }
-.dash-status-green{ background: #FDF7E8; color: var(--color-gold-dark); border-color: var(--color-gold); }
+.dash-status-green{ background: #F2F4FC; color: var(--color-gold-dark); border-color: var(--color-gold); }
 .dash-status-red{ background: #ffebee; color: #c62828; border-color: #e53935; }
 
 .muted{ color: var(--color-muted); font-size: 13px; line-height: 1.45; }
@@ -545,7 +545,7 @@ body{
   height: 68px !important;
   background: #fff !important;
   border: 1.5px solid var(--border-gold) !important;
-  box-shadow: 0 8px 32px rgba(59,22,95,0.18), 0 2px 8px rgba(0,0,0,0.06) !important;
+  box-shadow: 0 8px 32px rgba(40,56,120,0.18), 0 2px 8px rgba(0,0,0,0.06) !important;
   border-radius: 999px !important;
   margin: 0 !important; padding: 0 !important;
   z-index: 999 !important;
@@ -588,17 +588,360 @@ body{
   width: 52px; height: 52px; border-radius: 999px;
   background: linear-gradient(135deg, var(--color-gold-light), var(--color-gold));
   border: 3px solid #fff;
-  box-shadow: 0 8px 20px rgba(155,106,22,0.45);
+  box-shadow: 0 8px 20px rgba(217,96,79,0.45);
   display: flex; align-items: center; justify-content: center;
   animation: fabPulse 2.4s ease-in-out infinite;
 }
 @keyframes fabPulse{
-  0%   { box-shadow: 0 8px 20px rgba(155,106,22,0.45), 0 0 0 0 rgba(214,166,55,.55); }
-  70%  { box-shadow: 0 8px 20px rgba(155,106,22,0.45), 0 0 0 10px rgba(214,166,55,0); }
-  100% { box-shadow: 0 8px 20px rgba(155,106,22,0.45), 0 0 0 0 rgba(214,166,55,0); }
+  0%   { box-shadow: 0 8px 20px rgba(217,96,79,0.45), 0 0 0 0 rgba(115,137,218,.55); }
+  70%  { box-shadow: 0 8px 20px rgba(217,96,79,0.45), 0 0 0 10px rgba(115,137,218,0); }
+  100% { box-shadow: 0 8px 20px rgba(217,96,79,0.45), 0 0 0 0 rgba(115,137,218,0); }
 }
 .nav-item.nav-fab .fab-circle svg{ width: 24px !important; height: 24px !important; fill: var(--color-purple-dark) !important; }
 .nav-item.nav-fab span{ margin-top: 30px; font-weight: 800 !important; color: var(--color-gold-dark) !important; }
+
+/* ══ 365 THEME — periwinkle / coral ══ */
+body{ background: linear-gradient(180deg, #E4E8F8 0px, #ECEEF6 340px, #F7F4EE 560px) no-repeat, #F7F4EE !important; }
+.topbar{ background: rgba(228,232,248,0.92) !important; border-bottom: 0 !important; box-shadow: none !important; backdrop-filter: blur(8px); }
+.topbar-brand-logo{ border: 0; box-shadow: 0 6px 16px rgba(40,56,120,0.12); background: #fff; }
+.topbar-brand-name .bn-gold{ color: #14214D; }
+.topbar-brand-name .bn-sub{ color: #6B7084; }
+.btn-aboutus{ border: 0; box-shadow: 0 6px 16px rgba(40,56,120,0.10); color: #14214D; }
+.btn-aboutus svg{ fill: #7389DA; }
+.notify-wrap{ width: 42px; height: 42px; border: 0; box-shadow: 0 6px 16px rgba(40,56,120,0.12); }
+.notify-badge{ background: #E0665A; }
+.bell-container{ fill: #14214D; }
+.bell-regular, .bell-solid{ width: 20px; height: 20px; }
+
+.cardx.card-diamond{
+  background: linear-gradient(120deg, #6F86DA 0%, #8C8FD0 45%, #C27C93 78%, #E36F5E 100%) !important;
+  border: 0 !important; border-radius: 24px !important;
+  box-shadow: 0 16px 36px rgba(115,137,218,0.35) !important;
+}
+.cardx.card-diamond::after{ display: none; }
+.avatar{ border: 2px solid rgba(255,255,255,0.85); background: rgba(255,255,255,0.22); }
+.avatar svg{ fill: #fff; }
+.cd-brand-name .cd-hi{ color: #fff; }
+.pill-member{ background: rgba(255,255,255,0.22); border: 1px solid rgba(255,255,255,0.55); }
+.pill-member svg{ fill: #fff; }
+.cd-divider{ background: rgba(255,255,255,0.25); }
+.cd-acct-lbl, .cd-balance-lbl{ color: rgba(255,255,255,0.85); text-transform: none; letter-spacing: 0; font-size: 13px; font-weight: 500; }
+.cd-balance-sign{ color: #fff; font-size: 30px; font-weight: 800; }
+.cd-balance-num{ font-size: 40px; font-weight: 900; }
+.status-badge{ border: 0; text-transform: none; letter-spacing: 0; font-size: 13px; font-weight: 700; padding: 7px 14px; }
+#accStatusBadge.status-active, .status-active{ background: #fff !important; color: #14214D !important !important; border: 0 !important; }
+.cardx.card-diamond #accStatusBadge.status-active{ color: #14214D !important; box-shadow: 0 4px 12px rgba(40,56,120,0.15) !important; }
+.cardx.card-diamond #accStatusBadge.status-active::before{ content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #34C46A; margin-right: 7px; vertical-align: 1px; }
+
+.dash-ticker{ background: #fff; border: 0; box-shadow: 0 8px 22px rgba(40,56,120,0.08); }
+.dash-ticker-item{ color: #14214D; font-weight: 600; border-right-color: #DDE1EC; }
+.dash-ticker-item svg{ fill: #7389DA; }
+
+.quick-grid{
+  grid-template-columns: repeat(4, 1fr); gap: 4px;
+  background: #fff; border-radius: 22px; padding: 16px 8px;
+  box-shadow: 0 8px 24px rgba(40,56,120,0.08);
+}
+.quick-card{ background: transparent; border: 0; box-shadow: none; padding: 4px 2px; text-align: center; }
+.quick-card::before, .quick-card .qc-watermark, .quick-card p, .quick-card .qc-arrow{ display: none; }
+.quick-card:hover{ transform: translateY(-2px); box-shadow: none; }
+.quick-card-icon{
+  width: 56px; height: 56px; margin: 0 auto 8px;
+  background: #E3E8F8; border: 0; box-shadow: none;
+}
+.quick-card-icon svg{ width: 24px; height: 24px; fill: #14214D; }
+.quick-card h3{ font-size: 12px; font-weight: 500; color: #14214D; margin: 0; }
+
+.trust-row{
+  grid-template-columns: repeat(4, 1fr); gap: 0;
+  background: #fff; border-radius: 999px; padding: 10px 6px;
+  box-shadow: 0 8px 22px rgba(40,56,120,0.08);
+}
+.trust-cell{
+  background: transparent; border: 0; box-shadow: none; border-radius: 0;
+  flex-direction: column; justify-content: center; text-align: center; gap: 4px;
+  padding: 2px 4px; font-size: 11px; font-weight: 600;
+}
+.trust-cell + .trust-cell{ border-left: 1px solid #DDE1EC; }
+.trust-cell:hover{ transform: none; box-shadow: none; }
+.trust-icon-badge{ width: 24px; height: 24px; background: transparent; border: 0; box-shadow: none; }
+.trust-icon-badge svg{ width: 20px; height: 20px; fill: #7389DA; }
+.trust-cell-sub{ display: none; }
+
+.calc-card{ border: 0; border-radius: 24px; box-shadow: 0 12px 30px rgba(40,56,120,0.10); }
+.calc-head{ background: #fff; padding: 22px 18px 6px; }
+.calc-head-icon{ width: 56px; height: 56px; background: #E3E8F8; border: 0; box-shadow: none; }
+.calc-head-icon svg{ fill: #D9604F; }
+.calc-head-title{ color: #14214D; font-size: 19px; letter-spacing: 0; }
+.calc-head-sub{ color: #6B7084; font-size: 12.5px; }
+.calc-head-video{ background: #EEF1FB; width: 64px; height: 64px; }
+.calc-body{ padding: 12px 18px 20px; }
+.calc-rate-badge{ display: inline-flex; background: #FCE1DA; border-radius: 999px; padding: 7px 14px; }
+.calc-rate-dot{ background: #E0665A; }
+.calc-rate-text{ color: #B94A3B; font-size: 12px; }
+.calc-rate-pct{ color: #D9604F; }
+.calc-label{ color: #6B7084; text-transform: none; letter-spacing: 0; font-size: 13px; font-weight: 500; }
+.calc-amount-wrap{ border: 1.5px solid #DDE1EC; border-radius: 16px; }
+.calc-amount-wrap:focus-within{ border-color: #7389DA; box-shadow: 0 0 0 4px rgba(115,137,218,.18); }
+.calc-currency-badge{ background: #E3E8F8; border: 0; box-shadow: none; color: #14214D; }
+.calc-amount-input{ font-size: 22px; font-weight: 800; }
+.calc-terms{ background: #DDE3F7; border-radius: 999px; padding: 5px; gap: 2px; }
+.calc-term-btn{ border: 0; border-radius: 999px; background: transparent; color: #14214D; font-weight: 500; font-size: 14px; padding: 10px 0; }
+.calc-term-btn:hover{ color: #14214D; background: rgba(255,255,255,0.5); }
+.calc-term-btn.active{ background: #fff; color: #14214D; font-weight: 700; box-shadow: 0 4px 12px rgba(40,56,120,0.15); }
+.calc-result{ background: #E6EAF9; border: 0; border-radius: 18px; padding: 14px 18px; }
+.calc-result-row+.calc-result-row{ border-top-color: rgba(115,137,218,0.25); }
+.calc-result-lbl{ color: #6B7084; font-size: 13px; }
+.calc-result-row:first-child .calc-result-lbl{ color: #14214D; font-size: 15px; font-weight: 500; }
+.calc-result-val{ color: #6B7084; font-weight: 600; }
+.calc-result-val.monthly{ color: #7389DA; font-size: 26px; font-weight: 900; }
+.calc-apply-btn{
+  border: 0; background: #6175CF; color: #fff; justify-content: center; padding: 17px 20px; font-size: 16px;
+  box-shadow: 0 12px 26px rgba(97,117,207,0.35);
+}
+.calc-apply-btn::before, .calc-apply-btn .cab-icon-text svg{ display: none; }
+.calc-apply-btn .cab-arrow{ stroke: #fff; }
+.calc-apply-btn:hover{ box-shadow: 0 14px 30px rgba(97,117,207,0.45); }
+
+.dash-cta{ border: 0; border-radius: 24px; box-shadow: 0 12px 28px rgba(40,56,120,0.12); }
+.dash-cta-dot.on{ background: #fff; }
+
+.bottom-nav{ border: 0 !important; box-shadow: 0 10px 30px rgba(40,56,120,0.14) !important; }
+.nav-item.active, .bottom-nav a.nav-item.active{ color: #7389DA !important; }
+.nav-item.active svg, .bottom-nav a.nav-item.active svg{ fill: #7389DA !important; }
+.bottom-nav a.nav-item{ color: #14214D !important; font-size: 10.5px !important; font-weight: 500 !important; }
+.bottom-nav a.nav-item svg{ fill: #14214D !important; }
+.nav-item.nav-fab .fab-circle{
+  width: 58px; height: 58px; top: -24px; background: #7389DA; border: 4px solid #fff;
+  box-shadow: 0 10px 22px rgba(115,137,218,0.45); animation: none;
+}
+.nav-item.nav-fab .fab-circle svg{ fill: #fff !important; width: 28px !important; height: 28px !important; }
+.nav-item.nav-fab span{ color: #7389DA !important; }
+
+/* ══ Dashboard header / balance / quick actions / trust / nav — reference layout ══ */
+body{ background: #F4F3EF !important; }
+.topbar{ background: transparent !important; backdrop-filter: none; }
+.topbar.hide-bar{ background: rgba(230,234,248,0.94) !important; }
+.topbar-inner{ height: 76px !important; }
+.dash-wrap{ position: relative; padding-top: 100px !important; }
+.dash-wrap > *:not(.dash-dome){ position: relative; z-index: 1; }
+
+/* greeting */
+.dash-user{ display: flex; align-items: center; gap: 12px; text-decoration: none; min-width: 0; }
+.dash-user-avatar{
+  width: 54px; height: 54px; border-radius: 50%; flex-shrink: 0; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  background: #FFF4EA; box-shadow: 0 6px 16px rgba(40,56,120,0.14);
+}
+.dash-user-avatar img{ width: 100%; height: 100%; object-fit: cover; }
+.dash-user-avatar svg{ width: 30px; height: 30px; fill: #8193DC; }
+.dash-user-text{ display: flex; flex-direction: column; min-width: 0; }
+.dash-greet{ font-size: 13px; color: #6B7084; font-weight: 400; line-height: 1.2; }
+.dash-name{ font-size: clamp(15px, 4.2vw, 17px); color: #14214D; font-weight: 800; line-height: 1.2; line-height: 1.2; }
+.notify-wrap{ width: 52px; height: 52px; box-shadow: 0 8px 20px rgba(40,56,120,0.14); }
+.topbar-actions{ gap: 10px !important; }
+.contact-wrap{
+  width: 52px; height: 52px; border-radius: 50%; flex: 0 0 auto; background: #fff; color: #14214D;
+  display: flex; align-items: center; justify-content: center; text-decoration: none;
+  box-shadow: 0 8px 20px rgba(40,56,120,0.14); transition: transform .15s ease;
+}
+.contact-wrap svg{ width: 23px; height: 23px; }
+.contact-wrap:active{ transform: scale(.94); }
+@media (max-width: 400px){ .contact-wrap, .notify-wrap{ width: 46px !important; height: 46px !important; } }
+.bell-regular, .bell-solid{ width: 22px; height: 22px; }
+.notify-wrap.dot-only .notify-badge{ width: 11px; height: 11px; min-width: 11px; top: 2px; right: 2px; background: #E0665A; border: 2px solid #fff; }
+
+/* lavender dome behind header + card, rimmed periwinkle (left) to coral (right) */
+.dash-dome, .dash-dome::after{ position: absolute; left: 50%; transform: translateX(-50%); width: 100vw; pointer-events: none; }
+.dash-dome{
+  top: 0; height: 330px; z-index: 0;
+  background: linear-gradient(90deg, #7F92DD 0%, #B6A9D6 50%, #EC8A78 100%);
+  border-radius: 0 0 50% 50% / 0 0 120px 120px;
+}
+.dash-dome::after{
+  content: ''; top: 0; height: 318px;
+  background: linear-gradient(180deg, #E3E7F8 0%, #E8EBF8 100%);
+  border-radius: 0 0 50% 50% / 0 0 150px 150px;
+}
+
+/* balance card */
+.cardx.card-diamond{
+  padding: 22px !important;
+  background: linear-gradient(115deg, #6F86DA 0%, #8C8FD0 42%, #C27C93 78%, #E36F5E 100%) !important;
+}
+/* faint white logo watermark on the right of the card */
+.cardx.card-diamond::before{
+  content: ''; position: absolute; top: 50%; right: -46px; width: 200px; height: 200px; z-index: 1;
+  transform: translateY(-50%); pointer-events: none; opacity: .17;
+  background: no-repeat center/contain url("{% static 'img/365-logo.png' %}?v=2");
+  filter: grayscale(1) brightness(2.6);
+}
+/* status pill wraps onto its own line (never over the label) when its text is long */
+.cd-top{ margin-bottom: 6px; align-items: flex-start; flex-wrap: wrap; gap: 8px; }
+.cd-top .cd-balance-lbl{ white-space: nowrap; padding-top: 5px; }
+.cd-status-row{ margin-left: auto !important; max-width: 100%; min-width: 0; }
+.cardx.card-diamond #accStatusBadge{ display: inline-block; max-width: 100%; white-space: normal; overflow-wrap: anywhere; text-align: left; line-height: 1.3; border-radius: 14px; }
+.cd-balance-lbl{ font-size: 17px !important; font-weight: 400 !important; color: rgba(255,255,255,0.92) !important; margin: 0 !important; }
+.cd-status-row{ margin: 0; }
+.cd-balance-amount{ align-items: center; gap: 2px; }
+.cd-balance-sign{ font-size: 44px !important; font-weight: 800 !important; line-height: 1; }
+.cd-balance-num{ font-size: 48px !important; font-weight: 800 !important; letter-spacing: -0.01em; }
+.cd-eye{ margin-left: 12px; width: 30px; height: 30px; border: 0; background: none; padding: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.cd-eye svg{ width: 26px; height: 26px; stroke: #fff; }
+.cd-eye .eye-slash{ display: none; }
+.balance-hidden .cd-eye .eye-slash{ display: inline; }
+.balance-hidden .cd-balance-num{ letter-spacing: .12em; }
+.cd-acct{ margin: 10px 0 4px; font-size: 18px; color: rgba(255,255,255,0.95) !important; }
+.cd-dots{ letter-spacing: .12em; margin: 0 4px; }
+.cardx.card-diamond #accStatusBadge.status-active{ background: rgba(255,255,255,0.88) !important; font-weight: 500; font-size: 14px; padding: 6px 14px; }
+
+/* quick actions — outline icons in lavender circles */
+.quick-grid{ margin-top: 16px; padding: 18px 6px; border-radius: 22px; }
+.quick-card-icon{ width: 60px; height: 60px; background: #E3E8F8; }
+.quick-card-icon svg.ico-line{ width: 28px; height: 28px; fill: none; stroke: #14214D; }
+.quick-card h3{ font-size: clamp(10.5px, 2.95vw, 13px); font-weight: 500; line-height: 1.2; letter-spacing: -0.01em; }
+.quick-card{ padding-left: 0; padding-right: 0; }
+@media (max-width: 400px){ .quick-card-icon{ width: 52px; height: 52px; } .quick-card-icon svg.ico-line{ width: 25px; height: 25px; } }
+
+/* trust row — one white pill, inline icon + label, thin dividers */
+.trust-row{
+  display: flex; align-items: center; justify-content: space-between; gap: 0;
+  margin-top: 16px; padding: 12px 10px; border-radius: 999px; background: #fff;
+  box-shadow: 0 8px 22px rgba(40,56,120,0.08);
+}
+.trust-row .trust-cell{
+  display: flex; flex-direction: row; align-items: center; flex: 1 1 auto; justify-content: center; gap: 5px; padding: 0 5px;
+  font-size: clamp(10px, 2.9vw, 12.5px); font-weight: 500; color: #14214D; white-space: nowrap; min-width: 0;
+}
+@media (max-width: 400px){
+  .trust-row{ padding: 11px 4px; }
+  .trust-row .trust-cell{ gap: 3px; padding: 0 3px; }
+  .trust-row .trust-cell svg.ico-line{ width: 14px; height: 14px; }
+}
+.trust-row .trust-cell + .trust-cell{ border-left: 1px solid #DDE1EC; }
+.trust-row .trust-cell svg.ico-line{ width: 18px; height: 18px; flex-shrink: 0; fill: none; stroke: #7389DA; }
+
+/* bottom nav — full-width white bar with a raised FAB in a notch */
+.bottom-nav{
+  left: 0 !important; right: 0 !important; bottom: 0 !important; transform: none !important;
+  width: 100% !important; height: calc(74px + env(safe-area-inset-bottom, 0px)) !important;
+  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+  border-radius: 0 !important; box-shadow: 0 -6px 24px rgba(40,56,120,0.08) !important;
+}
+.bottom-nav.kb-hidden{ transform: translateY(140%) !important; }
+.nav-grid{ max-width: 520px; margin: 0 auto; }
+.bottom-nav a.nav-item{ font-size: 12.5px !important; font-weight: 500 !important; color: #14214D !important; }
+.bottom-nav a.nav-item svg.ico-line{ width: 26px !important; height: 26px !important; fill: none !important; stroke: #14214D; }
+.bottom-nav a.nav-item.active{ color: #7389DA !important; }
+.bottom-nav a.nav-item.active svg.ico-line{ stroke: #7389DA; fill: rgba(115,137,218,0.25) !important; }
+.nav-item.nav-fab::before{
+  content: ''; position: absolute; top: -24px; left: 50%; transform: translateX(-50%);
+  width: 84px; height: 84px; border-radius: 50%; background: #fff;
+  box-shadow: 0 -6px 14px rgba(40,56,120,0.06); z-index: -1;
+}
+.nav-item.nav-fab .fab-circle{ top: -16px; width: 64px; height: 64px; border: 0; background: #7389DA; box-shadow: 0 10px 22px rgba(115,137,218,0.40); }
+.nav-item.nav-fab .fab-circle svg{ width: 30px !important; height: 30px !important; }
+.nav-item.nav-fab span:not(.fab-circle){ display: none; }
+
+/* ══ Loan calculator (slider) + promo carousel — reference layout ══ */
+.calc-card{ margin-top: 16px; border-radius: 26px; }
+.calc-head{ padding: 22px 20px 6px; align-items: flex-start; }
+.calc-head-icon{ width: 58px; height: 58px; background: #E3E8F8; }
+.calc-head-icon svg.ico-line{ width: 28px; height: 28px; fill: none; stroke: #D9604F; }
+.calc-head-title{ font-size: 20px; }
+.calc-rate-pill{
+  flex-shrink: 0; margin-top: 6px; padding: 7px 13px; border-radius: 999px;
+  background: #FCDCD3; color: #D9604F; font-size: 13.5px; font-weight: 600; white-space: nowrap;
+}
+.calc-body{ padding: 14px 20px 22px; }
+.calc-label{ font-size: 15px; margin-bottom: 4px; }
+
+/* typed amount: the big figure is an input — tap it to type, or drag the slider */
+.amt-edit { display: flex; align-items: center; gap: 2px; padding: 2px 4px 4px 0; border-bottom: 2px dashed transparent; cursor: text; transition: border-color .2s; }
+.amt-edit:hover, .amt-edit:focus-within { border-bottom-color: #B9C3EC; }
+.amt-edit .amt-cur { font-size: inherit; font-weight: 900; color: #14214D; line-height: 1.15; }
+.amt-edit input {
+  flex: 1; min-width: 0; width: 100%; padding: 0 !important; margin: 0; border: 0 !important; background: transparent !important;
+  box-shadow: none !important; outline: none; font: inherit; font-weight: 900 !important; color: #14214D !important;
+  letter-spacing: -0.01em; line-height: 1.15; caret-color: #7389DA; height: auto !important;
+}
+.amt-edit .amt-pen { width: 20px; height: 20px; flex-shrink: 0; fill: none; stroke: #9AA3C8; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.amt-edit:focus-within .amt-pen { stroke: #7389DA; }
+.amt-edit.locked { cursor: default; }
+.amt-edit.locked .amt-pen { display: none; }
+.amt-error { margin-top: 6px; font-size: 12.5px; font-weight: 600; color: #D9604F; }
+.calc-amount-show{ font-size: 36px; font-weight: 900; color: #14214D; letter-spacing: -0.01em; line-height: 1.15; }
+.calc-range{
+  -webkit-appearance: none; appearance: none; display: block;
+  width: 100%; height: 12px; margin: 16px 0 8px; padding: 0 !important; border: 0 !important; border-radius: 999px;
+  background: linear-gradient(90deg, #7389DA 0 var(--pct, 0%), #DDE3F7 var(--pct, 0%) 100%) !important;
+  outline: none; cursor: pointer;
+}
+.calc-range::-webkit-slider-thumb{
+  -webkit-appearance: none; width: 30px; height: 30px; border-radius: 50%;
+  background: #fff; border: 2px solid #C9D0EC; box-shadow: 0 4px 12px rgba(40,56,120,0.25);
+}
+.calc-range::-moz-range-thumb{
+  width: 26px; height: 26px; border-radius: 50%;
+  background: #fff; border: 2px solid #C9D0EC; box-shadow: 0 4px 12px rgba(40,56,120,0.25);
+}
+.calc-range:focus-visible::-webkit-slider-thumb{ box-shadow: 0 0 0 5px rgba(115,137,218,0.25); }
+.calc-range-ends{ display: flex; justify-content: space-between; font-size: 14px; color: #2F3550; margin-bottom: 16px; }
+.calc-terms{ grid-template-columns: repeat(4, 1fr); }
+.calc-term-btn{ font-size: clamp(12px, 3.3vw, 14px); padding: 10px 0; }
+.calc-result{ padding: 16px 20px; }
+.calc-result-row:first-child{ padding-bottom: 12px; }
+.calc-result-val.monthly{ font-size: clamp(22px, 6.4vw, 28px); }
+.calc-apply-btn{ justify-content: center; gap: 8px; height: 58px; padding: 0 20px; font-size: 18px; }
+.calc-apply-btn svg.ico-line{ width: 22px; height: 22px; fill: none; stroke: #fff; }
+
+.dash-cta{ margin-top: 18px; border: 0; border-radius: 22px; overflow: hidden; box-shadow: 0 10px 24px rgba(40,56,120,0.10); aspect-ratio: auto !important; height: 152px; }
+.dash-cta::after{ display: none; }
+.dash-slide{
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: space-between; gap: 6px;
+  padding: 18px 12px 18px 20px; opacity: 0; transition: opacity .6s ease; pointer-events: none;
+}
+.dash-slide.on{ opacity: 1; }
+.dash-slide.s1{ background: linear-gradient(110deg, #FDEBA8 0%, #FBC9A4 55%, #F7A09A 100%); }
+.dash-slide.s2{ background: linear-gradient(110deg, #DDE4FB 0%, #E7D3EE 55%, #F6BFC4 100%); }
+.dash-slide.s3{ background: linear-gradient(110deg, #FCE6C6 0%, #F2D2E2 55%, #D9D6F7 100%); }
+.ds-text{ min-width: 0; }
+.ds-text h4{ margin: 0 0 4px; font-size: 21px; font-weight: 900; color: #0F1734; line-height: 1.15; }
+.ds-text p{ margin: 0 0 12px; font-size: 13.5px; color: #1F2846; line-height: 1.35; }
+.ds-btn{
+  display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 999px;
+  background: #fff; color: #0F1734; font-size: 14px; font-weight: 700; box-shadow: 0 4px 12px rgba(120,60,40,0.15);
+}
+.ds-btn svg.ico-line{ width: 18px; height: 18px; fill: none; stroke: #0F1734; }
+.ds-art{ width: 116px; height: auto; flex-shrink: 0; filter: drop-shadow(0 8px 10px rgba(120,70,20,0.25)); }
+/* the greeting header scrolls away with the page (only the bottom nav stays pinned) */
+.topbar{ position: absolute !important; }
+.dash-cta-dots{ position: static !important; left: auto; bottom: auto; transform: none; display: flex; justify-content: center; gap: 7px; margin: 12px 0 4px; }
+.dash-cta-dot{ width: 8px; height: 8px; border-radius: 50%; background: #CCD0DC; }
+.dash-cta-dot.on{ width: 8px; background: #8A90A2; }
+
+/* bottom nav — the bar's own top edge rises in a smooth hump around the
+   centre button (one continuous white shape, not a separate circle) */
+.bottom-nav{ height: calc(70px + env(safe-area-inset-bottom, 0px)) !important; box-shadow: 0 -2px 14px rgba(40,56,120,0.07) !important; }
+.bottom-nav::before{
+  content: ''; position: absolute; left: 50%; top: -26px; transform: translateX(-50%);
+  width: 150px; height: 27px; pointer-events: none;
+  background: no-repeat center / 100% 100% url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 150 27' preserveAspectRatio='none'%3E%3Cpath d='M0 27 C34 27 40 1 75 1 S116 27 150 27 Z' fill='%23ffffff'/%3E%3C/svg%3E");
+  filter: drop-shadow(0 -3px 4px rgba(40,56,120,0.06));
+}
+.nav-grid{ position: relative; z-index: 1; }
+.nav-item.nav-fab::before{ display: none; }
+.nav-item.nav-fab .fab-circle{ top: -22px; width: 60px; height: 60px; box-shadow: 0 8px 18px rgba(115,137,218,0.40); }
+.nav-item.nav-fab .fab-circle svg{ width: 28px !important; height: 28px !important; }
+.bottom-nav a.nav-item{ gap: 5px !important; padding-top: 10px !important; font-size: 14px !important; }
+.bottom-nav a.nav-item svg.ico-line{ width: 27px !important; height: 27px !important; }
+.bottom-nav a.nav-item.active svg.ico-line{ fill: #7389DA !important; stroke: #7389DA; }
+@media (max-width: 400px){ .bottom-nav a.nav-item{ font-size: 12.5px !important; } }
+
+/* no dead space above the nav: just clear its height plus a small gap */
+body{ padding-bottom: calc(104px + env(safe-area-inset-bottom, 0px)) !important; }
+.dash-wrap{ padding-bottom: 0 !important; }
+.dash-cta-dots{ margin-bottom: 0; }
 
 @media (max-width:768px){
   .cardx{ backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
@@ -624,19 +967,26 @@ body{
   <div class="topbar-inner">
   <div class="topbar-strip">
 
-    <!-- Brand -->
-    <a class="topbar-brand" href="#top">
-      <img src="{% static 'img/company-logo.webp' %}" alt="Filipino Fund, Inc." class="topbar-brand-logo">
-      <span class="topbar-brand-name"><span class="bn-gold">FILIPINO</span><span class="bn-sub">FUND, INC.</span></span>
+    <!-- Greeting -->
+    <a class="dash-user" href="/profile/">
+      <span class="dash-user-avatar" aria-hidden="true">
+        {% if selfie_url %}
+          <img src="{{ selfie_url }}" alt="">
+        {% else %}
+          <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.42 0-8 2-8 4.5V21h16v-2.5C20 16 16.42 14 12 14z"/></svg>
+        {% endif %}
+      </span>
+      <span class="dash-user-text">
+        <span class="dash-greet" id="dashGreet">Welcome back,</span>
+        <span class="dash-name">365 Ampersand Member</span>
+      </span>
     </a>
 
     <!-- Actions -->
     <div class="topbar-actions">
-      <a href="/about/" class="btn-aboutus">
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-        About Us
+      <a class="contact-wrap" href="{% url 'contact' %}" aria-label="Contact support">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 13a7.5 7.5 0 0 1 15 0"/><rect x="3" y="12.5" width="4" height="6" rx="1.6"/><rect x="17" y="12.5" width="4" height="6" rx="1.6"/><path d="M19 18.5c0 1.6-1.6 2.5-4 2.5h-2"/></svg>
       </a>
-
       <a class="notify-wrap dot-only {% if notif_count|default:0|add:0 > 0 %}has-unread{% endif %}"
         href="{% url 'notifications' %}"
         aria-label="Notifications">
@@ -663,42 +1013,14 @@ body{
 </div><!-- topbar -->
 
 <div class="dash-wrap">
-  <!-- Profile card -->
+  <!-- lavender dome with a periwinkle→coral rim -->
+  <div class="dash-dome" aria-hidden="true"></div>
+
+  <!-- Balance card -->
   <div class="cardx profile-card reveal from-left card-diamond">
-
     <div class="cd-top">
-      <div class="cd-brand">
-        <div class="avatar" aria-hidden="true">
-          {% if selfie_url %}
-            <img src="{{ selfie_url }}" alt="Selfie">
-          {% else %}
-            <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.42 0-8 2-8 4.5V21h16v-2.5C20 16 16.42 14 12 14z"/></svg>
-          {% endif %}
-        </div>
-        <div class="cd-brand-name">Welcome back,<br><span class="cd-hi">Filipino Fund Member</span></div>
-      </div>
-      <div class="pill-member">
-        <svg viewBox="0 0 24 24"><path d="M5 16L3 6l5.5 4L12 4l3.5 6L21 6l-2 10H5zm0 2h14v2H5v-2z"/></svg>
-        Member
-      </div>
-    </div>
-
-    <div class="cd-divider"></div>
-
-    <div class="cd-acct-row">
-      <span class="cd-acct-lbl">Account No.</span>
-      <span class="cd-acct-num">{{ request.user.phone }}</span>
-    </div>
-
-    <div class="cd-balance-wrap">
-      <div class="cd-balance-lbl">Available Balance</div>
-      <div class="cd-balance-amount">
-        <span class="cd-balance-sign">₱</span>
-        <span class="cd-balance-num" data-balance>{{ request.user.balance|default:"0.00" }}</span>
-      </div>
-    </div>
-
-    <div class="cd-status-row">
+      <span class="cd-balance-lbl">Available Balance</span>
+      <span class="cd-status-row">
       {% with color_key=request.user.account_status|default:"ACTIVE"|upper display_text=request.user.dashboard_status_label|default:request.user.account_status|default:"ACTIVE" %}
         <span id="accStatusBadge" class="status-badge
           {% if color_key == 'ACTIVE' or color_key == 'APPROVED' or color_key == 'LOAN_PAID' or color_key == 'WITHDRAWAL_SUCCESSFUL' or color_key == 'ACCOUNT_UPDATED' %}status-active
@@ -707,109 +1029,74 @@ body{
           {{ display_text }}
         </span>
       {% endwith %}
+      </span>
     </div>
-  </div>
 
-  <!-- Scrolling trust ticker -->
-  <div class="dash-ticker reveal from-bottom">
-    <div class="dash-ticker-track">
-      {% for i in "12" %}
-      <span class="dash-ticker-item"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>35+ Years Experience</span>
-      <span class="dash-ticker-item"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>50,000+ Happy Customers</span>
-      <span class="dash-ticker-item"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>Fast Approval in 24–48 Hours</span>
-      <span class="dash-ticker-item"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>Bank-level Security</span>
-      <span class="dash-ticker-item"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>SEC-Registered Lender</span>
-      <span class="dash-ticker-item"><svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>8AM–8PM Support</span>
-      {% endfor %}
+    <div class="cd-balance-amount" id="balAmt">
+      <span class="cd-balance-sign">₱</span><span class="cd-balance-num" data-balance>{{ request.user.balance|default:"0.00" }}</span>
+      <button type="button" class="cd-eye" id="balEye" aria-label="Hide balance" aria-pressed="false">
+        <svg class="ico-line" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/><path class="eye-slash" d="M4 4l16 16"/></svg>
+      </button>
     </div>
+
+    <div class="cd-acct">Acc. No. <span class="cd-dots">••••</span> {{ request.user.phone|slice:"-4:" }}</div>
   </div>
 
   <!-- Quick action grid -->
   <div class="quick-grid">
     <a href="{% url 'quick_loan' %}" class="quick-card reveal from-bottom">
-      <div class="quick-card-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg></div>
+      <div class="quick-card-icon"><svg class="ico-line" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M14 3v5h5"/><path d="M19 8v3"/><circle cx="17" cy="17" r="4"/><path d="M17 15.3v3.4M15.3 17h3.4"/><path d="M8.5 12h5M8.5 15.5h2.5"/></svg></div>
       <h3>Apply Now</h3>
-      <p>Get started in minutes</p>
-      <span class="qc-arrow">→</span>
-      <div class="qc-watermark"><svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg></div>
     </a>
     <a href="{% url 'transactions' %}" class="quick-card reveal from-bottom">
-      <div class="quick-card-icon"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></div>
-      <h3>My Transaction</h3>
-      <p>View your transaction history</p>
-      <span class="qc-arrow">→</span>
-      <div class="qc-watermark"><svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg></div>
+      <div class="quick-card-icon"><svg class="ico-line" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12a8.5 8.5 0 1 0 2.5-6"/><path d="M3 4.5V9h4.5"/><path d="M12 7.5V12l3 2"/></svg></div>
+      <h3>Transactions</h3>
     </a>
     <a href="{% url 'payment_schedule' %}" class="quick-card reveal from-bottom">
-      <div class="quick-card-icon"><svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg></div>
+      <div class="quick-card-icon"><svg class="ico-line" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><path d="M8 13h.01M12 13h.01M16 13h.01M8 16.5h.01M12 16.5h.01M16 16.5h.01"/></svg></div>
       <h3>Payment Date</h3>
-      <p>Check your repayment schedule</p>
-      <span class="qc-arrow">→</span>
-      <div class="qc-watermark"><svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg></div>
     </a>
     <a href="/loan-apply/" class="quick-card reveal from-bottom">
-      <div class="quick-card-icon"><svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>
-      <h3>Application</h3>
-      <p>Apply for a new loan</p>
-      <span class="qc-arrow">→</span>
-      <div class="qc-watermark"><svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg></div>
+      <div class="quick-card-icon"><svg class="ico-line" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M14 3v5h5"/><path d="M19 8v3"/><circle cx="17" cy="17" r="4"/><path d="M15.4 17.1l1.1 1.1 2.1-2.3"/><path d="M8.5 12h5M8.5 15.5h2.5"/></svg></div>
+      <h3>Applications</h3>
     </a>
   </div>
 
   <!-- Trust row -->
-  <div class="trust-row">
-    <div class="trust-cell reveal from-bottom">
-      <div class="trust-icon-badge"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1.4 14L7 11.4l1.4-1.4 2.2 2.2L15.6 7l1.4 1.4L10.6 15z"/></svg></div>
-      <span>Secure<span class="trust-cell-sub">Bank-level security</span></span>
-    </div>
-    <div class="trust-cell reveal from-bottom">
-      <div class="trust-icon-badge"><svg viewBox="0 0 24 24"><path d="M12 1c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h4c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"/></svg></div>
-      <span>8AM–8PM Support<span class="trust-cell-sub">We're here to help</span></span>
-    </div>
-    <div class="trust-cell reveal from-bottom">
-      <div class="trust-icon-badge"><svg viewBox="0 0 24 24"><path d="M23 12l-2.44-2.79.34-3.69-3.61-.82-1.89-3.2L12 2.96 8.6 1.5 6.71 4.7l-3.61.81.34 3.7L1 12l2.44 2.79-.34 3.7 3.61.81 1.89 3.2L12 21.04l3.4 1.46 1.89-3.2 3.61-.81-.34-3.69L23 12zM10 17l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></div>
-      <span>Trusted<span class="trust-cell-sub">Trusted by thousands</span></span>
-    </div>
-    <div class="trust-cell reveal from-bottom">
-      <div class="trust-icon-badge"><svg viewBox="0 0 24 24"><path d="M11 21h-1l1-7H7.5c-.58 0-.66-.32-.51-.66.15-.34.05-.08.07-.12C8.48 10.94 10.42 7.54 13 3h1l-1 7h3.5c.49 0 .56.33.47.51l-.07.15C13.96 17.55 11 21 11 21z"/></svg></div>
-      <span>Fast Approval<span class="trust-cell-sub">Get approved quickly</span></span>
-    </div>
+  <div class="trust-row reveal from-bottom">
+    <span class="trust-cell"><svg class="ico-line" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 2.8v5.4c0 4.6-3.2 8.6-7.5 9.8-4.3-1.2-7.5-5.2-7.5-9.8V5.8z"/><path d="M8.8 12.2l2.3 2.3 4.2-4.4"/></svg>Secure</span>
+    <span class="trust-cell"><svg class="ico-line" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12a7.5 7.5 0 0 1 15 0"/><rect x="3" y="12" width="3.5" height="6" rx="1.5"/><rect x="17.5" y="12" width="3.5" height="6" rx="1.5"/><path d="M19.3 18c0 1.7-1.6 3-4.3 3h-2"/></svg>8AM–8PM</span>
+    <span class="trust-cell"><svg class="ico-line" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.8l2.1 1.6 2.6-.3 1 2.4 2.4 1-.3 2.6 1.6 2.1-1.6 2.1.3 2.6-2.4 1-1 2.4-2.6-.3L12 21.2l-2.1-1.6-2.6.3-1-2.4-2.4-1 .3-2.6L2.6 12l1.6-2.1-.3-2.6 2.4-1 1-2.4 2.6.3z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.3"/></svg>Trusted</span>
+    <span class="trust-cell"><svg class="ico-line" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2.5L5 13.5h6l-1 8 8-11h-6z"/></svg>Fast Approval</span>
   </div>
 
   <!-- Loan Calculator -->
-  <div class="calc-card reveal from-left" id="calcCard" style="margin-top:14px;">
+  <div class="calc-card reveal from-left" id="calcCard">
     <div class="calc-head">
       <div class="calc-head-left">
         <div class="calc-head-icon">
-          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+          <svg class="ico-line" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="9" cy="7" rx="5.5" ry="2.5"/><path d="M3.5 7v4c0 1.4 2.5 2.5 5.5 2.5s5.5-1.1 5.5-2.5V7"/><path d="M3.5 11v4c0 1.4 2.5 2.5 5.5 2.5"/><circle cx="16" cy="15.5" r="5"/><path d="M14.6 13.4h2a1.2 1.2 0 0 1 0 2.4h-2v2.6M14 14.9h4.4"/></svg>
         </div>
         <div>
           <div class="calc-head-title">Loan Calculator</div>
           <div class="calc-head-sub">Estimate your monthly payment instantly</div>
         </div>
       </div>
-      <div class="calc-head-video">
-        <img src="{% static 'img/calculator-anim.svg' %}" alt="">
-      </div>
+      <span class="calc-rate-pill">0.3% / month</span>
     </div>
     <div class="calc-body">
 
-      <div class="calc-rate-badge">
-        <div class="calc-rate-dot"></div>
-        <span class="calc-rate-text">Interest rate: <span class="calc-rate-pct">0.3% per month</span></span>
+      <label class="calc-label" for="calcRange">Loan amount</label>
+      <label class="calc-amount-show amt-edit"><span class="amt-cur">₱</span><input id="calcAmtShow" type="text" inputmode="numeric" autocomplete="off" value="100,000" aria-label="Loan amount in pesos"><svg class="amt-pen" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg></label>
+      <input type="range" class="calc-range" id="calcRange" min="100000" max="5000000" step="10000" value="100000" aria-label="Loan amount">
+      <div class="calc-range-ends"><span>₱100K</span><span>₱5M</span></div>
+      <input id="calcAmt" type="hidden" value="100000">
+      <div id="calcWarn" style="display:none;align-items:center;gap:7px;background:#EEF1FB;border:1.5px solid #7389DA;border-radius:10px;padding:9px 12px;margin-bottom:10px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#D9604F" flex-shrink="0"><path d="M12 2L1 21h22L12 2zm0 3.5L20.5 19h-17L12 5.5zM11 10v4h2v-4zm0 6v2h2v-2z"/></svg>
+        <span id="calcWarnTxt" style="font-size:12px;font-weight:700;color:#D9604F;font-family:'Inter',sans-serif;"></span>
       </div>
 
-      <label class="calc-label">Loan Amount (PHP)</label>
-      <div class="calc-amount-wrap">
-        <span class="calc-currency-badge">₱</span>
-        <input class="calc-amount-input" id="calcAmt" type="number" placeholder="e.g. 100,000" min="100000" max="5000000">
-      </div>
-      <div id="calcWarn" style="display:none;align-items:center;gap:7px;background:#FFF7E0;border:1.5px solid #D6A637;border-radius:10px;padding:9px 12px;margin-bottom:10px;margin-top:-6px;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#9B6A16" flex-shrink="0"><path d="M12 2L1 21h22L12 2zm0 3.5L20.5 19h-17L12 5.5zM11 10v4h2v-4zm0 6v2h2v-2z"/></svg>
-        <span id="calcWarnTxt" style="font-size:12px;font-weight:700;color:#9B6A16;font-family:'Poppins',sans-serif;"></span>
-      </div>
-
-      <label class="calc-label">Loan Term</label>
+      <label class="calc-label">Loan term</label>
       <div class="calc-terms">
         <button class="calc-term-btn" data-m="6">6 mo</button>
         <button class="calc-term-btn active" data-m="12">12 mo</button>
@@ -819,41 +1106,101 @@ body{
 
       <div class="calc-result" id="calcResult">
         <div class="calc-result-row">
-          <span class="calc-result-lbl">Monthly Payment</span>
+          <span class="calc-result-lbl">Monthly payment</span>
           <span class="calc-result-val monthly" id="calcMonthly">₱ —</span>
         </div>
         <div class="calc-result-row">
-          <span class="calc-result-lbl">Total Payment</span>
+          <span class="calc-result-lbl">Total payment</span>
           <span class="calc-result-val" id="calcTotal">₱ —</span>
         </div>
         <div class="calc-result-row">
-          <span class="calc-result-lbl">Total Interest</span>
+          <span class="calc-result-lbl">Total interest</span>
           <span class="calc-result-val interest" id="calcInterest">₱ —</span>
         </div>
       </div>
 
       <a href="/loan-apply/" class="calc-apply-btn" id="calcApplyBtn">
-        <span class="cab-icon-text">
-          <svg viewBox="0 0 24 24"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
-          Apply for a Loan
-        </span>
-        <svg class="cab-arrow" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        Apply for a Loan
+        <svg class="ico-line" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
 
     </div>
   </div>
 
-  <!-- CTA banner (auto-advancing carousel, each slide already has its own text/button drawn in) -->
+  <!-- Promo carousel: light gradient slides with copy, a white pill button and gold clock/coins art -->
   <a href="{% url 'quick_loan' %}" class="dash-cta reveal from-right" id="dashCta">
-    <img class="on" src="{% static 'img/dash-cta-bg.webp' %}?v=2" alt="Get the best loan — Quick approval, low rates and full security. Apply Now." data-ratio="2069 / 458">
-    <img src="{% static 'img/dash-cta-bg-2.webp' %}" alt="Quick funds when it matters — Fast approval, flexible repayments and secure service. Get Started." data-ratio="2172 / 724">
-    <img src="{% static 'img/dash-cta-bg-3.webp' %}" alt="Smart loans, zero stress — Instant checks, simple terms and trusted protection. Apply Today." data-ratio="2172 / 724">
-    <div class="dash-cta-dots">
-      <span class="dash-cta-dot on"></span>
-      <span class="dash-cta-dot"></span>
-      <span class="dash-cta-dot"></span>
+    <div class="dash-slide s1 on">
+      <div class="ds-text">
+        <h4>Get the best loan</h4>
+        <p>Quick approval, low rates and full security</p>
+        <span class="ds-btn">Apply Now <svg class="ico-line" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+      <svg class="ds-art" viewBox="0 0 120 100" aria-hidden="true">
+          <defs><linearGradient id="dsGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE08A"/><stop offset="1" stop-color="#D99A22"/></linearGradient></defs>
+          <circle cx="52" cy="44" r="34" fill="url(#dsGold)"/>
+          <circle cx="52" cy="44" r="27" fill="#FFF6E2"/>
+          <path d="M52 20v4M52 64v4M28 44h4M72 44h4" stroke="#C99A3A" stroke-width="2" stroke-linecap="round"/>
+          <path d="M52 44V27M52 44l12-9" stroke="#5B4BB7" stroke-width="3.2" stroke-linecap="round"/>
+          <circle cx="52" cy="44" r="2.6" fill="#5B4BB7"/>
+          <g stroke="#C98A1E" stroke-width="1">
+            <rect x="12" y="86" width="32" height="7" rx="2" fill="url(#dsGold)"/><ellipse cx="28" cy="86" rx="16" ry="4.5" fill="#FFE7A0"/>
+            <rect x="74" y="84" width="36" height="9" rx="2" fill="url(#dsGold)"/><ellipse cx="92" cy="84" rx="18" ry="5" fill="#FFE7A0"/>
+            <rect x="74" y="75" width="36" height="9" rx="2" fill="url(#dsGold)"/><ellipse cx="92" cy="75" rx="18" ry="5" fill="#FFE7A0"/>
+            <rect x="74" y="66" width="36" height="9" rx="2" fill="url(#dsGold)"/><ellipse cx="92" cy="66" rx="18" ry="5" fill="#FFE7A0"/>
+            <rect x="74" y="57" width="36" height="9" rx="2" fill="url(#dsGold)"/><ellipse cx="92" cy="57" rx="18" ry="5" fill="#FFE7A0"/>
+          </g>
+        </svg>
+    </div>
+    <div class="dash-slide s2">
+      <div class="ds-text">
+        <h4>Quick funds when it matters</h4>
+        <p>Fast approval, flexible repayments and secure service</p>
+        <span class="ds-btn">Get Started <svg class="ico-line" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+      <svg class="ds-art" viewBox="0 0 120 100" aria-hidden="true">
+          <defs><linearGradient id="dsGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE08A"/><stop offset="1" stop-color="#D99A22"/></linearGradient></defs>
+          <circle cx="52" cy="44" r="34" fill="url(#dsGold)"/>
+          <circle cx="52" cy="44" r="27" fill="#FFF6E2"/>
+          <path d="M52 20v4M52 64v4M28 44h4M72 44h4" stroke="#C99A3A" stroke-width="2" stroke-linecap="round"/>
+          <path d="M52 44V27M52 44l12-9" stroke="#5B4BB7" stroke-width="3.2" stroke-linecap="round"/>
+          <circle cx="52" cy="44" r="2.6" fill="#5B4BB7"/>
+          <g stroke="#C98A1E" stroke-width="1">
+            <rect x="12" y="86" width="32" height="7" rx="2" fill="url(#dsGold)"/><ellipse cx="28" cy="86" rx="16" ry="4.5" fill="#FFE7A0"/>
+            <rect x="74" y="84" width="36" height="9" rx="2" fill="url(#dsGold)"/><ellipse cx="92" cy="84" rx="18" ry="5" fill="#FFE7A0"/>
+            <rect x="74" y="75" width="36" height="9" rx="2" fill="url(#dsGold)"/><ellipse cx="92" cy="75" rx="18" ry="5" fill="#FFE7A0"/>
+            <rect x="74" y="66" width="36" height="9" rx="2" fill="url(#dsGold)"/><ellipse cx="92" cy="66" rx="18" ry="5" fill="#FFE7A0"/>
+            <rect x="74" y="57" width="36" height="9" rx="2" fill="url(#dsGold)"/><ellipse cx="92" cy="57" rx="18" ry="5" fill="#FFE7A0"/>
+          </g>
+        </svg>
+    </div>
+    <div class="dash-slide s3">
+      <div class="ds-text">
+        <h4>Smart loans, zero stress</h4>
+        <p>Instant checks, simple terms and trusted protection</p>
+        <span class="ds-btn">Apply Today <svg class="ico-line" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </div>
+      <svg class="ds-art" viewBox="0 0 120 100" aria-hidden="true">
+          <defs><linearGradient id="dsGold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE08A"/><stop offset="1" stop-color="#D99A22"/></linearGradient></defs>
+          <circle cx="52" cy="44" r="34" fill="url(#dsGold)"/>
+          <circle cx="52" cy="44" r="27" fill="#FFF6E2"/>
+          <path d="M52 20v4M52 64v4M28 44h4M72 44h4" stroke="#C99A3A" stroke-width="2" stroke-linecap="round"/>
+          <path d="M52 44V27M52 44l12-9" stroke="#5B4BB7" stroke-width="3.2" stroke-linecap="round"/>
+          <circle cx="52" cy="44" r="2.6" fill="#5B4BB7"/>
+          <g stroke="#C98A1E" stroke-width="1">
+            <rect x="12" y="86" width="32" height="7" rx="2" fill="url(#dsGold)"/><ellipse cx="28" cy="86" rx="16" ry="4.5" fill="#FFE7A0"/>
+            <rect x="74" y="84" width="36" height="9" rx="2" fill="url(#dsGold)"/><ellipse cx="92" cy="84" rx="18" ry="5" fill="#FFE7A0"/>
+            <rect x="74" y="75" width="36" height="9" rx="2" fill="url(#dsGold)"/><ellipse cx="92" cy="75" rx="18" ry="5" fill="#FFE7A0"/>
+            <rect x="74" y="66" width="36" height="9" rx="2" fill="url(#dsGold)"/><ellipse cx="92" cy="66" rx="18" ry="5" fill="#FFE7A0"/>
+            <rect x="74" y="57" width="36" height="9" rx="2" fill="url(#dsGold)"/><ellipse cx="92" cy="57" rx="18" ry="5" fill="#FFE7A0"/>
+          </g>
+        </svg>
     </div>
   </a>
+  <div class="dash-cta-dots" aria-hidden="true">
+    <span class="dash-cta-dot on"></span>
+    <span class="dash-cta-dot"></span>
+    <span class="dash-cta-dot"></span>
+  </div>
 
 </div>
 
@@ -861,11 +1208,11 @@ body{
 <nav class="bottom-nav" role="navigation" aria-label="Bottom Navigation">
   <div class="nav-grid">
     <a class="nav-item" href="#top" data-nav="home" aria-label="Home">
-      <svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>
+      <svg class="ico-line" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 10.5L12 3.5l8.5 7V20a1 1 0 0 1-1 1h-5v-6h-5v6h-5a1 1 0 0 1-1-1z"/></svg>
       Home
     </a>
     <a class="nav-item" href="{% url 'payment_schedule' %}" data-nav="my-loans" aria-label="My Loans">
-      <svg viewBox="0 0 24 24"><path d="M20 6h-8l-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2z"/></svg>
+      <svg class="ico-line" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 12a8.5 8.5 0 1 0 2.5-6"/><path d="M3 4.5V9h4.5"/><path d="M12 7.5V12l3 2"/></svg>
       My Loans
     </a>
     <a class="nav-item nav-fab" href="{% url 'quick_loan' %}" data-nav="apply" aria-label="Apply">
@@ -875,11 +1222,11 @@ body{
       <span>Apply</span>
     </a>
     <a class="nav-item" href="{% url 'wallet' %}" data-nav="wallet" aria-label="My Wallet">
-      <svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+      <svg class="ico-line" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7V5.5A1.5 1.5 0 0 0 17.5 4H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2H5"/><path d="M16.5 14h.01"/></svg>
       My Wallet
     </a>
     <a class="nav-item" href="/profile/" data-nav="profile" aria-label="Profile">
-      <svg viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4.42 0-8 2-8 4.5V21h16v-2.5C20 16 16.42 14 12 14z"/></svg>
+      <svg class="ico-line" viewBox="0 0 24 24" fill="none" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg>
       Profile
     </a>
   </div>
@@ -986,7 +1333,7 @@ body{
   var MIN = 100000, MAX = 5000000;
 
   function fmt(n){
-    return '₱ ' + n.toLocaleString('en-PH', {minimumFractionDigits:2, maximumFractionDigits:2});
+    return '₱' + n.toLocaleString('en-PH', {minimumFractionDigits:2, maximumFractionDigits:2});
   }
 
   function setWarn(msg){
@@ -1044,6 +1391,46 @@ body{
   });
 
   amtEl.addEventListener('input', calculate);
+
+  /* slider <-> typed amount <-> hidden amount; filled track */
+  function digitsOnly(s){ return String(s || '').replace(/[^0-9]/g, '').replace(/^0+(?=\d)/, ''); }
+  function setTypedValue(el, digits){
+    var before = el.value, pos = el.selectionStart == null ? before.length : el.selectionStart;
+    var rightDigits = digitsOnly(before.slice(pos)).length;
+    var out = digits ? Number(digits).toLocaleString('en-PH') : '';
+    el.value = out;
+    var p = out.length, seen = 0;
+    while (p > 0 && seen < rightDigits) { p--; if (/\d/.test(out[p])) seen++; }
+    try { el.setSelectionRange(p, p); } catch (e) {}
+  }
+
+  var range = document.getElementById('calcRange');
+  var show  = document.getElementById('calcAmtShow');
+  function paintTrack(v){
+    var c = Math.min(MAX, Math.max(MIN, v));
+    range.style.setProperty('--pct', ((c - MIN) / (MAX - MIN) * 100) + '%');
+  }
+  function syncRange(){
+    var v = parseInt(range.value, 10);
+    amtEl.value = v;
+    show.value = v.toLocaleString('en-PH');
+    paintTrack(v);
+    calculate();
+  }
+  function syncTyped(){
+    var d = digitsOnly(show.value);
+    setTypedValue(show, d);
+    var v = d ? parseInt(d, 10) : 0;
+    amtEl.value = v || '';
+    if (v) { range.value = Math.min(MAX, Math.max(MIN, v)); paintTrack(v); }
+    calculate();
+  }
+  if (range && show) {
+    range.addEventListener('input', syncRange);
+    show.addEventListener('input', syncTyped);
+    show.addEventListener('keydown', function(e){ if (e.key === 'Enter') show.blur(); });
+    syncRange();
+  }
 })();
 </script>
 
@@ -1072,6 +1459,13 @@ body{
   (function(){
     const nav = document.querySelector('.bottom-nav');
     if(!nav) return;
+    /* #pageRoot is animated with a transform, and a transformed ancestor turns
+       position:fixed into "fixed to that box" — the nav then scrolls away with
+       the page until a refresh. Re-parenting both fixed bars onto <body> keeps
+       them pinned to the viewport. */
+    const topBar = document.querySelector('.topbar');
+    if (topBar && topBar.parentElement !== document.body) document.body.insertBefore(topBar, document.body.firstChild);
+    if (nav.parentElement !== document.body) document.body.appendChild(nav);
 
     let hideTimer = null;
     function hideNav(){
@@ -1084,21 +1478,35 @@ body{
       hideTimer = setTimeout(function(){ nav.classList.remove('kb-hidden'); }, 150);
     }
 
-    document.querySelectorAll('input, textarea, select').forEach(function(el){
-      el.addEventListener('focus', hideNav);
-      el.addEventListener('blur', showNavSoon);
-    });
+    // only fields that open a keyboard (not the amount slider) hide the nav
+    document.addEventListener('focusin', function(){ if (typingField()) hideNav(); });
+    document.addEventListener('focusout', showNavSoon);
 
+    /* The keyboard can only be open while a text field has focus. Checking that
+       (instead of "the viewport got shorter") keeps the nav from vanishing until
+       a refresh when the height changes for other reasons: browser toolbars
+       sliding, rotation, split-screen, or a DevTools panel. */
+    function typingField(){
+      const el = document.activeElement;
+      return !!el && el.matches && el.matches('input:not([type=range]):not([type=hidden]):not([type=checkbox]):not([type=radio]), textarea, select, [contenteditable="true"]');
+    }
     if (window.visualViewport) {
-      let maxHeight = window.visualViewport.height;
+      let baseHeight = window.visualViewport.height;
+      let baseWidth = window.innerWidth;
       window.visualViewport.addEventListener('resize', function(){
         const vh = window.visualViewport.height;
-        if (vh > maxHeight) maxHeight = vh;
-        const shrunkByKeyboard = (maxHeight - vh) > 120;
-        if (shrunkByKeyboard) hideNav();
+        // new baseline after rotation / window resize, or whenever nothing is focused
+        if (window.innerWidth !== baseWidth || !typingField()) {
+          baseWidth = window.innerWidth;
+          baseHeight = Math.max(vh, window.innerHeight);
+        }
+        if (typingField() && (baseHeight - vh) > 120) hideNav();
         else showNavSoon();
       });
     }
+    // safety net: whenever no field is focused, the nav must be visible
+    window.addEventListener('pageshow', function(){ nav.classList.remove('kb-hidden'); });
+    document.addEventListener('focusout', function(){ setTimeout(function(){ if (!typingField()) nav.classList.remove('kb-hidden'); }, 250); });
   })();
 </script>
 <script>
@@ -1129,33 +1537,50 @@ body{
   (function(){
     const cta = document.getElementById('dashCta');
     if(!cta) return;
-    const imgs = Array.from(cta.querySelectorAll('img'));
-    const dots = Array.from(cta.querySelectorAll('.dash-cta-dot'));
-    if(imgs.length < 2) return;
+    const slides = Array.from(cta.querySelectorAll('.dash-slide'));
+    const dots = Array.from(document.querySelectorAll('.dash-cta-dots .dash-cta-dot'));
+    if(slides.length < 2) return;
 
     const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     let i = 0;
-    function setRatio(img){
-      const r = img.dataset.ratio;
-      if(r) cta.style.aspectRatio = r;
-    }
-    setRatio(imgs[0]);
-
     function show(next){
-      imgs[i].classList.remove('on');
+      slides[i].classList.remove('on');
       if(dots[i]) dots[i].classList.remove('on');
       i = next;
-      setRatio(imgs[i]);
-      imgs[i].classList.add('on');
+      slides[i].classList.add('on');
       if(dots[i]) dots[i].classList.add('on');
     }
 
     if(!reduceMotion){
       setInterval(function(){
-        show((i + 1) % imgs.length);
+        show((i + 1) % slides.length);
       }, 5000);
     }
   })();
+</script>
+
+<script>
+/* Greeting by time of day, and the eye button that masks / shows the balance. */
+(function(){
+  var g = document.getElementById('dashGreet');
+  if (g) {
+    var h = new Date().getHours();
+    g.textContent = (h < 12 ? 'Good morning,' : h < 18 ? 'Good afternoon,' : 'Good evening,');
+  }
+  var btn = document.getElementById('balEye');
+  var box = document.getElementById('balAmt');
+  if (!btn || !box) return;
+  var num = box.querySelector('.cd-balance-num');
+  var real = null;
+  btn.addEventListener('click', function(){
+    var hide = !box.classList.contains('balance-hidden');
+    box.classList.toggle('balance-hidden', hide);
+    btn.setAttribute('aria-pressed', hide ? 'true' : 'false');
+    btn.setAttribute('aria-label', hide ? 'Show balance' : 'Hide balance');
+    if (hide) { real = num.textContent; num.textContent = '\u2022\u2022\u2022\u2022'; }
+    else if (real !== null) { num.textContent = real; }
+  });
+})();
 </script>
 {% endblock %}

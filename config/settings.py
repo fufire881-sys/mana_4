@@ -163,6 +163,14 @@ STORAGES = {
     "staticfiles": {"BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"},
 }
 
+# Local development without Cloudinary keys: keep uploads on disk (./media)
+# so the loan-application flow can be tested offline. Production (DEBUG off)
+# always uses Cloudinary.
+if DEBUG and not os.getenv("CLOUDINARY_API_KEY"):
+    MEDIA_URL = "/media/"
+    MEDIA_ROOT = BASE_DIR / "media"
+    STORAGES["default"] = {"BACKEND": "django.core.files.storage.FileSystemStorage"}
+
 # ✅ CSRF & UPLOAD
 CSRF_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_SAMESITE = 'Lax'

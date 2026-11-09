@@ -1,236 +1,156 @@
 {% extends "base.html" %}
-{% block title %}Notifications — Filipino Fund, Inc.{% endblock %}
+{% load static %}
+{% block title %}Notifications — 365 Ampersand Connect Corporation{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 <style>
-* { box-sizing:border-box; margin:0; padding:0; }
-body, body * { font-family: 'Poppins', sans-serif; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body, body * { font-family: 'Inter', sans-serif; }
 
-:root{
-  --color-bg: #FAF6EC;
-  --color-gold: #D6A637;
-  --color-gold-dark: #9B6A16;
-  --color-gold-light: #F7D77A;
-  --color-purple: #3B165F;
-  --color-purple-dark: #26103F;
-  --color-text: #221B2D;
-  --color-muted: #6D6474;
-  --border-gold: rgba(190, 140, 45, 0.45);
-  --shadow-soft: 0 10px 30px rgba(59, 22, 95, 0.08);
-  --shadow-gold: 0 10px 26px rgba(214, 166, 55, 0.30);
-  --ok: #2e9c53;
-  --danger: #dc2626;
-  --radius-lg: 22px;
-  --radius-md: 16px;
+#pageRoot.wrap { max-width: 100% !important; width: 100% !important; padding: 0 !important; }
+body { padding-bottom: 40px !important; overflow-x: hidden !important; background: #F6F5F1 !important; }
+
+.notif-page { width: 100%; max-width: 520px; margin: 0 auto; min-height: 100vh; padding: 22px 18px 40px; }
+
+/* ── Reveal on scroll ── */
+.reveal { opacity: 0; transform: translateY(14px); will-change: transform, opacity; }
+.reveal.on { opacity: 1; transform: translateY(0); transition: opacity .45s ease, transform .45s ease; }
+
+/* ── Header: back button · centred title · "Mark all read" ── */
+.notif-header {
+  display: grid; grid-template-columns: 52px 1fr auto; align-items: center; gap: 8px;
+  margin-bottom: 22px;
 }
-.serif{ font-family:'Playfair Display', serif !important; }
-
-#pageRoot.wrap { max-width:100% !important; width:100% !important; padding:0 !important; }
-body { padding-bottom:40px !important; overflow-x:hidden !important; background: var(--color-bg) !important; }
-
-.notif-page{ max-width: 520px; margin: 0 auto; min-height: 100vh; padding: 16px 16px 40px; }
-
-@keyframes diamondShine{ 0%,55%{ transform: translateX(-120%); } 100%{ transform: translateX(120%); } }
-
-/* ===== Reveal on scroll ===== */
-.reveal{ opacity:0; transform: translateY(16px); will-change: transform, opacity; }
-.reveal.on{ opacity:1; transform: translateY(0); transition: opacity .5s ease, transform .5s ease; }
-
-/* ===== Header banner — same purple + gold + shine language as every
-   other page (About Us, Dashboard profile card), so this page doesn't
-   read as a plain utility screen bolted onto the rest of the brand ===== */
-.notif-header{
-  position: relative;
-  overflow: hidden;
-  margin-bottom: 16px;
-  padding: 20px 20px 22px;
-  border-radius: var(--radius-lg);
-  border: 2px solid var(--color-gold);
-  color: #fff;
-  background: linear-gradient(120deg, var(--color-purple-dark), var(--color-purple));
-  box-shadow: var(--shadow-soft);
+.notif-back {
+  width: 52px; height: 52px; border-radius: 50%; background: #fff;
+  display: flex; align-items: center; justify-content: center; text-decoration: none;
+  box-shadow: 0 8px 20px rgba(40,56,120,0.14);
 }
-.notif-header::before{
-  content:""; position:absolute; border-radius:50%; pointer-events:none;
-  width:150px; height:150px; top:-60px; right:-30px;
-  border:1px solid rgba(214,166,55,0.30);
+.notif-back svg { width: 24px; height: 24px; fill: none; stroke: #14214D; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.notif-header h1 {
+  text-align: center; font-family: 'Poppins', 'Inter', sans-serif !important;
+  font-size: 24px; font-weight: 700; color: #14214D; letter-spacing: -0.01em;
 }
-.notif-header::after{
-  content:""; position:absolute; inset:0;
-  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,.16) 50%, transparent 100%);
-  transform: translateX(-120%);
-  animation: diamondShine 4.5s ease-in-out infinite;
-  pointer-events:none;
+.notif-markall {
+  border: 0; background: none; padding: 0; cursor: pointer; white-space: nowrap;
+  font-size: 15px; font-weight: 600; color: #E0665A; text-decoration: underline; text-underline-offset: 3px;
 }
-.notif-header > *{ position: relative; z-index: 2; }
-.notif-top{ display: flex; align-items: center; gap: 12px; }
-.notif-back{
-  width: 40px; height: 40px; border-radius: 999px; flex-shrink: 0;
+.notif-markall[disabled] { opacity: .45; cursor: default; }
+
+/* ── Filter tabs (segmented) ── */
+.notif-tabs {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+  padding: 5px; margin-bottom: 26px; border-radius: 999px; background: #E9EAF1;
+}
+.notif-tab {
+  border: 0; background: transparent; cursor: pointer; padding: 11px 4px; border-radius: 999px;
+  font-size: 15px; font-weight: 600; color: #7A7F92; transition: background .2s, color .2s, box-shadow .2s;
+}
+.notif-tab.active { background: #fff; color: #14214D; font-weight: 700; box-shadow: 0 6px 14px rgba(40,56,120,0.14); }
+
+/* ── Groups + cards ── */
+.notif-group-label { margin: 0 0 12px 2px; font-size: 13px; font-weight: 600; color: #7A7F92; letter-spacing: .08em; text-transform: uppercase; }
+.notif-group + .notif-group { margin-top: 22px; }
+.notif-feed { display: flex; flex-direction: column; gap: 14px; }
+
+.notif-card {
+  position: relative; display: flex; gap: 16px; align-items: flex-start;
+  padding: 18px 18px 18px 16px; background: #fff; border-radius: 20px;
+  box-shadow: 0 8px 22px rgba(40,56,120,0.07);
+}
+.notif-avatar {
+  width: 56px; height: 56px; border-radius: 50%; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  background: rgba(255,255,255,0.14); border: 1.5px solid var(--color-gold);
-  text-decoration: none;
-  transition: background .2s, transform .2s;
 }
-.notif-back:hover{ background: rgba(255,255,255,0.22); transform: translateY(-1px); }
-.notif-back svg{ width: 18px; height: 18px; fill: var(--color-gold-light); }
-.notif-heading h1{
-  font-family:'Playfair Display', serif !important;
-  font-size: 21px; font-weight: 800; color: var(--color-gold-light); line-height: 1.1;
-}
-.notif-heading p{ font-size: 12px; color: rgba(255,255,255,0.75); margin-top: 3px; }
-.notif-heading .cnt{ color: #fff; font-weight: 800; }
+.notif-avatar svg { width: 28px; height: 28px; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.notif-card.success .notif-avatar { background: #D3F1DD; }
+.notif-card.success .notif-avatar svg { stroke: #2E7D4B; }
+.notif-card.alert .notif-avatar { background: #F9B3A6; }
+.notif-card.alert .notif-avatar svg { stroke: #B33A2C; fill: rgba(179,58,44,0.25); }
 
-/* ===== Notification feed ===== */
-.notif-feed{ display: flex; flex-direction: column; gap: 12px; }
+.notif-content { flex: 1; min-width: 0; }
+.notif-row1 { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 5px; }
+.notif-card-title { font-size: 17px; font-weight: 700; color: #14214D; line-height: 1.3; }
+.notif-time { flex-shrink: 0; font-size: 13.5px; color: #7A7F92; white-space: nowrap; }
+.notif-msg { font-size: 15px; color: #14214D; line-height: 1.45; overflow-wrap: anywhere; }
+.notif-dot {
+  position: absolute; top: 14px; right: 14px; width: 10px; height: 10px; border-radius: 50%;
+  background: #E9705F; box-shadow: 0 0 0 3px rgba(233,112,95,0.15);
+}
+.notif-card.has-dot .notif-row1 { padding-right: 12px; }
 
-.notif-card{
-  position: relative;
-  display: flex; gap: 14px;
-  background: linear-gradient(160deg, #FFFDF6 0%, #FBF3DF 100%);
-  border: 1.5px solid var(--border-gold);
-  border-radius: var(--radius-lg);
-  padding: 16px 16px 16px 18px;
-  box-shadow: var(--shadow-soft);
-  overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-.notif-card:hover{ transform: translateY(-2px); box-shadow: var(--shadow-gold); }
-/* colored accent bar down the left edge — semantic (approved/action-needed),
-   kept as the one non-brand color since it carries real meaning */
-.notif-card::before{
-  content:""; position:absolute; top:0; left:0; bottom:0; width:5px;
-}
-.notif-card.success::before{ background: linear-gradient(180deg, #49c477, var(--ok)); }
-.notif-card.alert::before{ background: linear-gradient(180deg, #f87171, var(--danger)); }
+/* ── Empty state ── */
+.notif-empty { text-align: center; padding: 40px 12px 20px; }
+.notif-empty img { width: min(250px, 66vw); height: auto; display: block; margin: 0 auto 30px; }
+.notif-empty h3 { font-family: 'Poppins', 'Inter', sans-serif !important; font-size: 25px; font-weight: 700; color: #14214D; margin-bottom: 10px; }
+.notif-empty p { font-size: 15.5px; color: #5B6178; line-height: 1.55; }
+.notif-empty.filtered { padding-top: 24px; }
+.notif-empty.filtered img { width: min(170px, 46vw); margin-bottom: 20px; }
+.notif-empty.filtered h3 { font-size: 20px; }
 
-/* circular status avatar, gold-ringed like every other avatar on the site */
-.notif-avatar{
-  width: 46px; height: 46px; border-radius: 999px; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  border: 2px solid var(--color-gold);
-  box-shadow: inset 0 2px 4px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.35), 0 3px 8px rgba(0,0,0,0.15);
+@media (max-width: 380px) {
+  .notif-header h1 { font-size: 21px; }
+  .notif-markall { font-size: 13.5px; }
+  .notif-tab { font-size: 13.5px; }
 }
-.notif-card.success .notif-avatar{ background: linear-gradient(135deg, #49c477, var(--ok)); }
-.notif-card.alert .notif-avatar{ background: linear-gradient(135deg, #f87171, var(--danger)); }
-.notif-avatar svg{ width: 24px; height: 24px; fill: #fff; }
-
-.notif-content{ flex: 1; min-width: 0; }
-.notif-row1{ display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 5px; }
-.notif-card-title{ font-family:'Playfair Display', serif !important; font-size: 15px; font-weight: 800; color: var(--color-purple); }
-.notif-pill{
-  font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px;
-  padding: 3px 9px; border-radius: 999px; flex-shrink: 0; white-space: nowrap;
-  border: 1px solid;
-}
-.notif-card.success .notif-pill{ background: rgba(46,156,83,0.12); color: var(--ok); border-color: rgba(46,156,83,0.35); }
-.notif-card.alert .notif-pill{ background: rgba(220,38,38,0.10); color: var(--danger); border-color: rgba(220,38,38,0.30); }
-.notif-msg{ font-size: 13px; color: var(--color-text); line-height: 1.55; word-break: break-word; }
-.notif-meta{
-  margin-top: 9px; padding-top: 9px; border-top: 1px dashed var(--border-gold);
-  display: flex; align-items: center; gap: 5px;
-  font-size: 11px; color: var(--color-muted); font-weight: 600;
-}
-.notif-meta svg{ width: 12px; height: 12px; fill: var(--color-gold-dark); }
-
-/* ===== Empty state ===== */
-.notif-empty{
-  text-align: center; padding: 48px 24px;
-  background: #fff;
-  border: 2px solid var(--color-gold);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-soft);
-}
-.notif-empty-icon{
-  width: 76px; height: 76px; border-radius: 999px; margin: 0 auto 16px;
-  display: flex; align-items: center; justify-content: center;
-  background: radial-gradient(circle at 35% 30%, #5B2A8A 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
-  border: 2px solid var(--color-gold);
-  box-shadow: inset 0 2px 4px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.35);
-}
-.notif-empty-icon svg{ width: 34px; height: 34px; fill: var(--color-gold-light); }
-.notif-empty h3{ font-family:'Playfair Display', serif !important; font-size: 18px; font-weight: 800; color: var(--color-purple); margin-bottom: 6px; }
-.notif-empty p{ font-size: 12.5px; color: var(--color-muted); line-height: 1.6; }
-.notif-empty .ne-divider{ width: 40px; height: 2px; margin: 14px auto; background: linear-gradient(90deg, transparent, var(--color-gold), transparent); }
-
-@media (prefers-reduced-motion: reduce){
-  .reveal{ opacity:1 !important; transform:none !important; }
-  .notif-header::after{ animation: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1 !important; transform: none !important; }
 }
 </style>
 
+{% now "Y-m-d" as today_str %}
 <div class="notif-page">
 
-  <!-- Header banner -->
+  <!-- Header -->
   <div class="notif-header reveal">
-    <div class="notif-top">
-      <a class="notif-back" href="{% url 'dashboard' %}" aria-label="Back">
-        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"/></svg>
-      </a>
-      <div class="notif-heading">
-        <h1>Notifications</h1>
-        {% if items %}
-          <p><span class="cnt">{{ items|length }}</span> message{{ items|length|pluralize }} for you</p>
-        {% else %}
-          <p>You're all caught up</p>
-        {% endif %}
-      </div>
-    </div>
+    <a class="notif-back" href="{% url 'dashboard' %}" aria-label="Back">
+      <svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>
+    </a>
+    <h1>Notifications</h1>
+    <button type="button" class="notif-markall" id="markAllRead" {% if not items %}disabled{% endif %}>Mark all read</button>
+  </div>
+
+  <!-- Filter tabs -->
+  <div class="notif-tabs reveal" role="tablist" aria-label="Filter notifications">
+    <button type="button" class="notif-tab active" data-filter="all" role="tab" aria-selected="true">All</button>
+    <button type="button" class="notif-tab" data-filter="loans" role="tab" aria-selected="false">Loans</button>
+    <button type="button" class="notif-tab" data-filter="payments" role="tab" aria-selected="false">Payments</button>
+    <button type="button" class="notif-tab" data-filter="updates" role="tab" aria-selected="false">Updates</button>
   </div>
 
   {% if items %}
-  <div class="notif-feed">
-    {% for n in items %}
-      {% if n.kind == "success" %}
-      <div class="notif-card success reveal">
-        <div class="notif-avatar">
-          <svg viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/></svg>
-        </div>
-        <div class="notif-content">
-          <div class="notif-row1">
-            <span class="notif-card-title">{{ n.title }}</span>
-            <span class="notif-pill">Approved</span>
-          </div>
-          <div class="notif-msg">{{ n.msg }}</div>
-          {% if n.at %}
-          <div class="notif-meta">
-            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 11h-4v-2h2V7h2v6z"/></svg>
-            {{ n.at }}
-          </div>
-          {% endif %}
+    <div class="notif-groups">
+      <div class="notif-group" data-group="today">
+        <div class="notif-group-label">Today</div>
+        <div class="notif-feed">
+        {% for n in items %}{% if n.at and n.at|date:"Y-m-d" == today_str %}
+          {% include "partials/notif_card.html" with n=n today=True %}
+        {% endif %}{% endfor %}
         </div>
       </div>
-      {% else %}
-      <div class="notif-card alert reveal">
-        <div class="notif-avatar">
-          <svg viewBox="0 0 24 24"><path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V9h2v4z"/></svg>
-        </div>
-        <div class="notif-content">
-          <div class="notif-row1">
-            <span class="notif-card-title">{{ n.title }}</span>
-            <span class="notif-pill">Action Needed</span>
-          </div>
-          <div class="notif-msg">{{ n.msg }}</div>
-          {% if n.at %}
-          <div class="notif-meta">
-            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 11h-4v-2h2V7h2v6z"/></svg>
-            {{ n.at }}
-          </div>
-          {% endif %}
+      <div class="notif-group" data-group="earlier">
+        <div class="notif-group-label">Earlier</div>
+        <div class="notif-feed">
+        {% for n in items %}{% if not n.at or n.at|date:"Y-m-d" != today_str %}
+          {% include "partials/notif_card.html" with n=n today=False %}
+        {% endif %}{% endfor %}
         </div>
       </div>
-      {% endif %}
-    {% endfor %}
-  </div>
-  {% else %}
-  <div class="notif-empty reveal">
-    <div class="notif-empty-icon">
-      <svg viewBox="0 0 24 24"><path d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2zm6-6V11a6 6 0 1 0-12 0v5L4 18v1h16v-1l-2-2z"/></svg>
     </div>
-    <h3 class="serif">No notifications</h3>
-    <div class="ne-divider"></div>
-    <p>You don't have any new messages right now.<br>We'll let you know when something arrives.</p>
-  </div>
+
+    <!-- shown when a filter tab has nothing in it -->
+    <div class="notif-empty filtered" id="filterEmpty" hidden>
+      <img src="{% static 'img/notif-bell.png' %}" alt="">
+      <h3>Nothing here yet</h3>
+      <p>There are no notifications in this category.</p>
+    </div>
+  {% else %}
+    <div class="notif-empty reveal">
+      <img src="{% static 'img/notif-bell.png' %}" alt="">
+      <h3>You’re all caught up</h3>
+      <p>No new notifications right now.<br>We’ll let you know when something arrives.</p>
+    </div>
   {% endif %}
 
 </div>
@@ -251,13 +171,47 @@ body { padding-bottom:40px !important; overflow-x:hidden !important; background:
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
       const el = entry.target;
-      setTimeout(() => el.classList.add('on'), (firstBatch ? 250 : 0) + i * 90);
+      setTimeout(() => el.classList.add('on'), (firstBatch ? 150 : 0) + i * 80);
       io.unobserve(el);
       i++;
     });
     firstBatch = false;
   }, { threshold: 0.12 });
   nodes.forEach(el => io.observe(el));
+})();
+
+/* Filter tabs, empty groups, and "Mark all read" (opening this page already
+   marks everything read on the server, so this only clears the dots). */
+(function(){
+  const tabs = Array.from(document.querySelectorAll('.notif-tab'));
+  const cards = Array.from(document.querySelectorAll('.notif-card'));
+  const groups = Array.from(document.querySelectorAll('.notif-group'));
+  const empty = document.getElementById('filterEmpty');
+
+  function apply(filter){
+    cards.forEach(c => { c.hidden = !(filter === 'all' || c.dataset.cat === filter); });
+    let any = false;
+    groups.forEach(g => {
+      const visible = g.querySelectorAll('.notif-card:not([hidden])').length > 0;
+      g.hidden = !visible;
+      if (visible) any = true;
+    });
+    if (empty) empty.hidden = any;
+  }
+  tabs.forEach(t => t.addEventListener('click', function(){
+    tabs.forEach(x => { x.classList.remove('active'); x.setAttribute('aria-selected', 'false'); });
+    t.classList.add('active'); t.setAttribute('aria-selected', 'true');
+    apply(t.dataset.filter);
+  }));
+  apply('all');
+
+  const mark = document.getElementById('markAllRead');
+  if (mark) mark.addEventListener('click', function(){
+    document.querySelectorAll('.notif-dot').forEach(d => d.remove());
+    document.querySelectorAll('.notif-card.has-dot').forEach(c => c.classList.remove('has-dot'));
+    mark.disabled = true;
+  });
+  if (mark && !document.querySelector('.notif-dot')) mark.disabled = true;
 })();
 </script>
 {% endblock %}

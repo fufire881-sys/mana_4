@@ -1,29 +1,29 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Loan Contract — Filipino Fund, Inc.{% endblock %}
+{% block title %}Loan Contract — 365 Ampersand Connect Corporation{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=DM+Serif+Display&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; }
-.ct-wrap, .ct-wrap * { font-family: 'Poppins', sans-serif !important; }
+.ct-wrap, .ct-wrap * { font-family: 'Inter', sans-serif !important; }
 
 :root{
-  --color-bg: #FAF6EC;
-  --color-gold: #D6A637;
-  --color-gold-dark: #9B6A16;
-  --color-gold-light: #F7D77A;
-  --color-purple: #3B165F;
-  --color-purple-dark: #26103F;
-  --color-text: #221B2D;
-  --color-muted: #6D6474;
-  --border-gold: rgba(190, 140, 45, 0.45);
-  --shadow-soft: 0 10px 30px rgba(59, 22, 95, 0.08);
-  --shadow-gold: 0 10px 26px rgba(214, 166, 55, 0.30);
+  --color-bg: #F7F4EE;
+  --color-gold: #7389DA;
+  --color-gold-dark: #D9604F;
+  --color-gold-light: #C9D3F5;
+  --color-purple: #14214D;
+  --color-purple-dark: #0E1838;
+  --color-text: #14214D;
+  --color-muted: #6B7084;
+  --border-gold: rgba(200,206,228, 0.45);
+  --shadow-soft: 0 10px 30px rgba(40,56,120, 0.08);
+  --shadow-gold: 0 10px 26px rgba(115,137,218, 0.30);
   --radius-lg: 22px;
   --radius-md: 16px;
 }
-.ct-wrap .serif{ font-family:'Playfair Display', serif !important; }
+.ct-wrap .serif{ font-family:'Inter', sans-serif !important; }
 
 body { background: var(--color-bg) !important; }
 .wrap { align-items: flex-start !important; padding-top: 0 !important; }
@@ -51,7 +51,7 @@ body { background: var(--color-bg) !important; }
   box-shadow: var(--shadow-soft);
   transition: transform .15s, box-shadow .15s;
 }
-.ct-back:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(59,22,95,.14); }
+.ct-back:hover { transform: translateY(-1px); box-shadow: 0 6px 16px rgba(40,56,120,.14); }
 .ct-back svg { width: 15px; height: 15px; fill: var(--color-gold-dark); }
 
 /* ── Paper card ── */
@@ -72,7 +72,7 @@ body { background: var(--color-bg) !important; }
 .ct-head::before {
   content:""; position:absolute; border-radius:50%; pointer-events:none;
   width:170px; height:170px; top:-70px; right:-40px;
-  border:1px solid rgba(214,166,55,0.30);
+  border:1px solid rgba(115,137,218,0.30);
 }
 .ct-head::after{
   content:""; position:absolute; inset:0;
@@ -88,7 +88,7 @@ body { background: var(--color-bg) !important; }
 .ct-logo-box {
   width: 56px; height: 56px; flex-shrink: 0;
   border-radius: 16px;
-  background: radial-gradient(circle at 35% 30%, #5B2A8A 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
+  background: radial-gradient(circle at 35% 30%, #8A9DE3 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
   border: 2px solid var(--color-gold);
   box-shadow: inset 0 2px 4px rgba(255,255,255,0.28), inset 0 -3px 6px rgba(0,0,0,0.35);
   display: flex; align-items: center; justify-content: center;
@@ -97,7 +97,7 @@ body { background: var(--color-bg) !important; }
 .ct-logo-box img { width: 76%; height: 76%; object-fit: contain; }
 .ct-head-info { flex: 1; padding-left: 12px; }
 .ct-head-title {
-  font-family: 'Playfair Display', serif !important;
+  font-family: 'Inter', sans-serif !important;
   font-size: 19px; font-weight: 800; color: #fff;
   letter-spacing: .02em; line-height: 1.1;
 }
@@ -107,9 +107,9 @@ body { background: var(--color-bg) !important; }
 
 /* ── Ref band ── */
 .ct-ref-band {
-  background: #FFFDF6;
-  border-top: 1px solid rgba(190,140,45,0.25);
-  border-bottom: 1px solid rgba(190,140,45,0.25);
+  background: #FFFFFF;
+  border-top: 1px solid rgba(200,206,228,0.25);
+  border-bottom: 1px solid rgba(200,206,228,0.25);
   padding: 9px 20px;
   display: flex; align-items: center; justify-content: space-between;
 }
@@ -121,7 +121,7 @@ body { background: var(--color-bg) !important; }
 
 /* ── Borrower details card ── */
 .ct-to-card {
-  background: linear-gradient(160deg, #FFFDF6 0%, #FBF3DF 100%);
+  background: linear-gradient(160deg, #FFFFFF 0%, #EEF1FB 100%);
   border: 1.5px solid var(--border-gold);
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -139,10 +139,10 @@ body { background: var(--color-bg) !important; }
   display: grid; grid-template-columns: 1fr auto;
   align-items: center; gap: 8px 16px;
   padding: 11px 16px;
-  border-bottom: 1px solid rgba(190,140,45,0.16);
+  border-bottom: 1px solid rgba(200,206,228,0.16);
 }
 .ct-row:last-child { border-bottom: none; }
-.ct-row.highlight { background: rgba(214,166,55,0.10); }
+.ct-row.highlight { background: rgba(115,137,218,0.10); }
 .ct-k { font-size: 12px; color: var(--color-purple); font-weight: 700; }
 .ct-v {
   font-size: 13px; color: var(--color-text); font-weight: 800;
@@ -159,7 +159,7 @@ body { background: var(--color-bg) !important; }
 
 /* ── Subject ── */
 .ct-subject {
-  font-family: 'Playfair Display', serif !important;
+  font-family: 'Inter', sans-serif !important;
   font-size: 15px; font-weight: 800; letter-spacing: .01em;
   color: var(--color-purple); margin-bottom: 12px;
   display: flex; align-items: center; gap: 9px;
@@ -172,7 +172,7 @@ body { background: var(--color-bg) !important; }
 /* ── Paragraphs ── */
 .ct-greeting { font-size: 13.5px; color: var(--color-text); margin-bottom: 12px; }
 .ct-greeting b { color: var(--color-purple); }
-.ct-para { font-size: 12.5px; line-height: 1.75; color: #3d3748; margin-bottom: 10px; }
+.ct-para { font-size: 12.5px; line-height: 1.75; color: #2F3550; margin-bottom: 10px; }
 .ct-para.muted { color: var(--color-muted); }
 
 /* ── Numbered clause list ── */
@@ -181,7 +181,7 @@ body { background: var(--color-bg) !important; }
   display: flex; gap: 12px;
   border: 1.5px solid var(--border-gold);
   border-radius: 12px;
-  background: #FFFDF6;
+  background: #FFFFFF;
   padding: 12px 14px;
 }
 .ct-clause-num {
@@ -190,13 +190,13 @@ body { background: var(--color-bg) !important; }
   font-size: 10.5px; font-weight: 800;
   display: flex; align-items: center; justify-content: center;
 }
-.ct-clause-body { font-size: 12.5px; line-height: 1.7; color: #3d3748; }
+.ct-clause-body { font-size: 12.5px; line-height: 1.7; color: #2F3550; }
 .ct-clause-body b { color: var(--color-purple); }
 
 /* ── Signature ── */
 .ct-sig { margin-top: 22px; }
 .ct-sig-label {
-  font-family: 'Playfair Display', serif !important;
+  font-family: 'Inter', sans-serif !important;
   font-size: 14px; font-weight: 800; color: var(--color-purple); margin-bottom: 18px;
 }
 .ct-sig-line {
@@ -207,7 +207,7 @@ body { background: var(--color-bg) !important; }
 
 /* ── Footer ── */
 .ct-foot {
-  background: #FFFDF6;
+  background: #FFFFFF;
   border-top: 1.5px solid var(--border-gold);
   padding: 13px 20px;
   display: flex; align-items: center; justify-content: space-between;
@@ -233,6 +233,62 @@ body { background: var(--color-bg) !important; }
   .reveal{ opacity:1 !important; transform:none !important; }
   .ct-head::after{ animation: none !important; }
 }
+
+/* ══ 365 THEME — periwinkle / coral ══ */
+.ct-header {
+  margin: 0 16px; padding: 30px 54px 14px; text-align: center;
+  background: transparent; border: 0; box-shadow: none; overflow: visible;
+}
+.ct-header::before, .ct-header::after, .ct-header-icon { display: none; }
+.ct-header h1 { color: #14214D; font-size: 25px; font-weight: 900; }
+.ct-header p { color: #6B7084; font-size: 13.5px; }
+.ct-back {
+  top: 20px; left: 0; width: 50px; height: 50px; border-radius: 50%; background: #fff;
+  justify-content: center; font-size: 0; box-shadow: 0 8px 20px rgba(40,56,120,0.14);
+}
+.ct-back svg { width: 24px; height: 24px; fill: #14214D; }
+.ct-btn { border: 0; }
+.ct-btn-primary { background: #7389DA; color: #fff; box-shadow: 0 12px 26px rgba(115,137,218,0.35); }
+.ct-btn-primary:hover { box-shadow: 0 14px 30px rgba(115,137,218,0.45); }
+.ct-btn-ghost { background: transparent; color: #D9604F; box-shadow: none; }
+.ct-btn-ghost:hover { background: rgba(224,102,90,0.08); }
+.ct-empty-icon {
+  width: 150px; height: 150px; background: #7F92DD; border: 0;
+  box-shadow: 0 0 0 18px rgba(127,146,221,0.14);
+}
+.ct-empty-icon svg { width: 64px; height: 64px; fill: #FFF1EA; }
+.ct-empty-title { color: #14214D; font-size: 22px; font-weight: 900; margin-top: 30px; }
+.ct-empty-sub { color: #4A5068; font-size: 14.5px; }
+.ct-back { position: static; width: auto; height: auto; padding: 10px 20px; font-size: 14px; border: 0; color: #14214D; border-radius: 999px; }
+.ct-back svg { width: 16px; height: 16px; }
+.ct-paper { border: 0; border-radius: 26px; box-shadow: 0 12px 30px rgba(40,56,120,0.10); }
+.ct-head { background: linear-gradient(115deg, #7289DA 0%, #9D8EC2 50%, #D67A7A 80%, #EE7562 100%); }
+.ct-head::before { border-color: rgba(255,255,255,0.22); }
+.ct-head::after { display: none; }
+.ct-logo-box { background: #fff; border: 0; box-shadow: 0 6px 16px rgba(40,56,120,0.18); }
+.ct-head-sub, .ct-head-support b { color: #fff; }
+.ct-head-support { color: rgba(255,255,255,0.85); }
+.ct-ref-band { border-color: #ECEEF4; }
+.ct-ref-val { color: #14214D; }
+.ct-to-card { background: #fff; border: 0; border-radius: 20px; box-shadow: 0 8px 22px rgba(40,56,120,0.08); }
+.ct-to-head { background: #E6EAF9; }
+.ct-to-head svg { fill: #7389DA; }
+.ct-to-label { color: #14214D; }
+.ct-row { border-bottom-color: #ECEEF4; }
+.ct-row.highlight { background: #F2F4FC; }
+.ct-k { color: #6B7084; font-weight: 500; }
+.ct-v { color: #14214D; }
+.ct-row.monthly .ct-v { color: #7389DA; font-size: 20px; font-weight: 900; }
+.ct-sep { background: #E0897C; opacity: 1; height: 3px; }
+.ct-subject { color: #14214D; font-size: 18px; }
+.ct-subject::before { background: #E0665A; }
+.ct-greeting b, .ct-clause-body b { color: #14214D; }
+.ct-clause { border: 0; background: #F2F4FB; border-radius: 16px; }
+.ct-clause-num { background: #7389DA; width: 26px; height: 26px; font-size: 12px; }
+.ct-sig-label { color: #14214D; }
+.ct-sig-line { background: #14214D; }
+.ct-foot { border-top: 1px solid #ECEEF4; }
+.ct-foot-badge { background: #7389DA; border: 0; color: #fff; }
 </style>
 
 <div class="ct-wrap">
@@ -249,11 +305,11 @@ body { background: var(--color-bg) !important; }
     <div class="ct-head">
       <div class="ct-head-row">
         <div class="ct-logo-box">
-          <img src="{% static 'img/company-logo.webp' %}" alt="Filipino Fund Logo">
+          <img src="{% static 'img/365-logo.png' %}" alt="365 Ampersand Connect Corporation logo">
         </div>
         <div class="ct-head-info">
           <div class="ct-head-title">Loan Contract</div>
-          <div class="ct-head-sub">FILIPINO FUND, INC.</div>
+          <div class="ct-head-sub">365 AMPERSAND CONNECT CORP.</div>
         </div>
         <div class="ct-head-support">
           <b>Support</b><br>Company Department

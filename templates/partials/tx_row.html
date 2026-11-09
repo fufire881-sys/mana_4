@@ -1,0 +1,14 @@
+{% load humanize %}{# One withdrawal row: "paid" shows as Sent, anything else listed here is Rejected. #}
+{% with st=w.status|default:"" %}
+<div class="tx-row {% if st == 'paid' %}sent{% else %}rejected{% endif %} reveal" data-status="{% if st == 'paid' %}sent{% else %}rejected{% endif %}">
+  <span class="tx-dot" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg></span>
+  <div class="tx-mid">
+    <div class="tx-title">Withdrawal</div>
+    <div class="tx-date">{{ w.created_at|date:"M j, Y · g:i A" }}</div>
+  </div>
+  <div class="tx-right">
+    <span class="tx-amt">-₱{{ w.amount|floatformat:0|intcomma }}</span>
+    <span class="tx-pill">{% if st == 'paid' %}Sent{% else %}Rejected{% endif %}</span>
+  </div>
+</div>
+{% endwith %}

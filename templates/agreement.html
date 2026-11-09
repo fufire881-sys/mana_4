@@ -1,29 +1,29 @@
 {% extends "base.html" %}
 {% load static %}
-{% block title %}Agreement — Filipino Fund, Inc.{% endblock %}
+{% block title %}Agreement — 365 Ampersand Connect Corporation{% endblock %}
 
 {% block content %}
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
 * { box-sizing: border-box; }
-.agree-page, .agree-page * { font-family: 'Poppins', sans-serif !important; }
+.agree-page, .agree-page * { font-family: 'Roboto', system-ui, sans-serif !important; }
 
 :root{
-  --color-bg: #FAF6EC;
-  --color-gold: #D6A637;
-  --color-gold-dark: #9B6A16;
-  --color-gold-light: #F7D77A;
-  --color-purple: #3B165F;
-  --color-purple-dark: #26103F;
-  --color-text: #221B2D;
-  --color-muted: #6D6474;
-  --border-gold: rgba(190, 140, 45, 0.45);
-  --shadow-soft: 0 10px 30px rgba(59, 22, 95, 0.08);
-  --shadow-gold: 0 10px 26px rgba(214, 166, 55, 0.30);
+  --color-bg: #F7F4EE;
+  --color-gold: #7389DA;
+  --color-gold-dark: #D9604F;
+  --color-gold-light: #C9D3F5;
+  --color-purple: #14214D;
+  --color-purple-dark: #0E1838;
+  --color-text: #14214D;
+  --color-muted: #6B7084;
+  --border-gold: rgba(200,206,228, 0.45);
+  --shadow-soft: 0 10px 30px rgba(40,56,120, 0.08);
+  --shadow-gold: 0 10px 26px rgba(115,137,218, 0.30);
   --radius-lg: 22px;
   --radius-md: 16px;
 }
-.agree-page .serif{ font-family:'Playfair Display', serif !important; }
+.agree-page .serif{ font-family: 'Roboto', system-ui, sans-serif !important; }
 
 body { background: var(--color-bg) !important; }
 .wrap { align-items: flex-start !important; padding-top: 0 !important; }
@@ -49,7 +49,7 @@ body { background: var(--color-bg) !important; }
   box-shadow: var(--shadow-soft);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
-.agree-back-btn:hover { box-shadow: 0 6px 16px rgba(59,22,95,.14); }
+.agree-back-btn:hover { box-shadow: 0 6px 16px rgba(40,56,120,.14); }
 .agree-back-btn:active { transform: scale(.97); }
 .agree-back-btn svg { width: 14px; height: 14px; fill: var(--color-gold-dark); }
 
@@ -67,7 +67,7 @@ body { background: var(--color-bg) !important; }
 .agree-header-banner::before{
   content:""; position:absolute; border-radius:50%; pointer-events:none;
   width:170px; height:170px; top:-70px; right:-40px;
-  border:1px solid rgba(214,166,55,0.30);
+  border:1px solid rgba(115,137,218,0.30);
 }
 .agree-header-banner::after{
   content:""; position:absolute; inset:0;
@@ -78,7 +78,7 @@ body { background: var(--color-bg) !important; }
 }
 .agree-header-banner > * { position: relative; z-index: 2; }
 .agree-header-banner h1 {
-  font-family: 'Playfair Display', serif !important;
+  font-family: 'Roboto', system-ui, sans-serif !important;
   color: #fff; margin: 0 0 6px; font-size: 22px; font-weight: 800;
 }
 .agree-header-banner p {
@@ -101,12 +101,12 @@ body { background: var(--color-bg) !important; }
   border-radius: 12px;
   transition: background 0.15s ease;
 }
-.toc-link:hover { background: #FFFDF6; }
-.toc-link + .toc-link { border-top: 1px solid rgba(190,140,45,0.16); }
+.toc-link:hover { background: #FFFFFF; }
+.toc-link + .toc-link { border-top: 1px solid rgba(200,206,228,0.16); }
 .toc-num {
   width: 30px; height: 30px; flex-shrink: 0;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #5B2A8A 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
+  background: radial-gradient(circle at 35% 30%, #8A9DE3 0%, var(--color-purple) 55%, var(--color-purple-dark) 100%);
   border: 1.5px solid var(--color-gold);
   color: var(--color-gold-light);
   font-size: 12px; font-weight: 800;
@@ -132,25 +132,25 @@ body { background: var(--color-bg) !important; }
 
 .ag-title-wrap { text-align: center; margin-bottom: 14px; }
 .ag-title {
-  font-family: 'Playfair Display', serif !important;
+  font-family: 'Roboto', system-ui, sans-serif !important;
   color: var(--color-purple);
   font-weight: 800; font-size: 19px;
   padding-bottom: 10px;
-  border-bottom: 2px solid rgba(190,140,45,0.25);
+  border-bottom: 2px solid rgba(200,206,228,0.25);
   margin: 0; display: block; letter-spacing: .02em;
 }
 
 .agree-title {
-  font-family: 'Playfair Display', serif !important;
+  font-family: 'Roboto', system-ui, sans-serif !important;
   color: var(--color-purple);
   font-weight: 800; font-size: 18px;
   margin: 0 0 4px;
 }
 .agree-sub { font-size: 12px; color: var(--color-muted); margin: 0 0 16px; }
 
-.agree-p { margin: 12px 0; line-height: 1.75; font-size: 14px; color: #3d3748; }
+.agree-p { margin: 12px 0; line-height: 1.75; font-size: 14px; color: #2F3550; }
 .agree-p:first-of-type::first-letter {
-  font-family: 'Playfair Display', serif !important;
+  font-family: 'Roboto', system-ui, sans-serif !important;
   font-size: 38px; font-weight: 800; color: var(--color-gold-dark);
   float: left; line-height: 0.8; padding: 4px 6px 0 0;
 }
@@ -160,7 +160,7 @@ body { background: var(--color-bg) !important; }
 .acc-item {
   border: 1.5px solid var(--border-gold);
   border-radius: 14px;
-  background: linear-gradient(160deg, #FFFDF6 0%, #FBF3DF 100%);
+  background: linear-gradient(160deg, #FFFFFF 0%, #EEF1FB 100%);
   overflow: hidden;
 }
 .acc-item summary {
@@ -185,26 +185,26 @@ body { background: var(--color-bg) !important; }
 .acc-item[open] .acc-chevron { transform: rotate(180deg); }
 .acc-body {
   padding: 0 16px 16px 46px;
-  font-size: 13px; line-height: 1.75; color: #3d3748;
+  font-size: 13px; line-height: 1.75; color: #2F3550;
   white-space: pre-line;
 }
-.acc-body p, .acc-body ul, .acc-body ol { margin: 8px 0; color: #3d3748; }
+.acc-body p, .acc-body ul, .acc-body ol { margin: 8px 0; color: #2F3550; }
 .acc-body ul, .acc-body ol { padding-left: 18px; }
 .acc-body li { margin-bottom: 6px; line-height: 1.7; font-size: 13px; }
 .acc-body strong { color: var(--color-text); font-weight: 800; }
 
 /* Loan agreement preamble */
-.loan-preamble { line-height: 1.8; color: #3d3748; }
+.loan-preamble { line-height: 1.8; color: #2F3550; }
 .loan-preamble h1 {
-  font-family: 'Playfair Display', serif !important;
+  font-family: 'Roboto', system-ui, sans-serif !important;
   text-align: center; margin: 0 0 10px;
   font-size: 17px; font-weight: 800; color: var(--color-purple);
   padding-bottom: 10px;
-  border-bottom: 2px solid rgba(190,140,45,0.25);
+  border-bottom: 2px solid rgba(200,206,228,0.25);
   letter-spacing: .02em;
 }
 .loan-preamble p { font-size: 13.5px; margin: 10px 0; }
-.loan-preamble hr { border: 0; height: 1px; background: rgba(190,140,45,0.25); margin: 16px 0; }
+.loan-preamble hr { border: 0; height: 1px; background: rgba(200,206,228,0.25); margin: 16px 0; }
 .loan-preamble strong { color: var(--color-text); font-weight: 800; }
 
 /* ── Back to top ── */
@@ -229,6 +229,140 @@ body { background: var(--color-bg) !important; }
   .reveal{ opacity:1 !important; transform:none !important; }
   .agree-header-banner::after{ animation: none !important; }
 }
+
+/* ══ 365 THEME — periwinkle / coral ══ */
+.agree-header {
+  margin: 0 16px; padding: 30px 54px 14px; text-align: center;
+  background: transparent; border: 0; box-shadow: none; overflow: visible;
+}
+.agree-header::before, .agree-header::after, .agree-header-icon { display: none; }
+.agree-header h1 { color: #14214D; font-size: 25px; font-weight: 900; }
+.agree-header p { color: #6B7084; font-size: 13.5px; }
+.agree-back {
+  top: 20px; left: 0; width: 50px; height: 50px; border-radius: 50%; background: #fff;
+  justify-content: center; font-size: 0; box-shadow: 0 8px 20px rgba(40,56,120,0.14);
+}
+.agree-back svg { width: 24px; height: 24px; fill: #14214D; }
+.agree-btn { border: 0; }
+.agree-btn-primary { background: #7389DA; color: #fff; box-shadow: 0 12px 26px rgba(115,137,218,0.35); }
+.agree-btn-primary:hover { box-shadow: 0 14px 30px rgba(115,137,218,0.45); }
+.agree-btn-ghost { background: transparent; color: #D9604F; box-shadow: none; }
+.agree-btn-ghost:hover { background: rgba(224,102,90,0.08); }
+.agree-empty-icon {
+  width: 150px; height: 150px; background: #7F92DD; border: 0;
+  box-shadow: 0 0 0 18px rgba(127,146,221,0.14);
+}
+.agree-empty-icon svg { width: 64px; height: 64px; fill: #FFF1EA; }
+.agree-empty-title { color: #14214D; font-size: 22px; font-weight: 900; margin-top: 30px; }
+.agree-empty-sub { color: #4A5068; font-size: 14.5px; }
+.agree-back-wrap { position: relative; height: 0; margin: 0; z-index: 3; }
+.agree-back-btn {
+  position: absolute; top: 14px; left: 0; width: 50px; height: 50px; padding: 0; border: 0; border-radius: 50%;
+  justify-content: center; font-size: 0; color: #14214D; box-shadow: 0 8px 20px rgba(40,56,120,0.14);
+}
+.agree-back-btn svg { width: 22px; height: 22px; fill: #14214D; }
+.agree-header-banner { background: transparent; border: 0; box-shadow: none; padding: 22px 54px 14px; overflow: visible; }
+.agree-header-banner::before, .agree-header-banner::after { display: none; }
+.agree-header-banner h1 { color: #14214D; font-size: 25px; font-weight: 900; }
+.agree-header-banner p { color: #6B7084; font-size: 14px; }
+.toc-card { border: 0; border-radius: 22px; box-shadow: 0 10px 26px rgba(40,56,120,0.08); }
+.toc-link:hover { background: #F4F6FC; }
+.toc-link + .toc-link { border-top-color: #ECEEF4; }
+.toc-num { background: #E3E8F8; border: 0; color: #4A5DB5; width: 34px; height: 34px; font-size: 14px; }
+.toc-title { color: #14214D; font-size: 15px; }
+.toc-sub { font-size: 12.5px; }
+.toc-link svg.arrow { fill: #14214D; }
+.agree-card { border: 0 !important; border-radius: 24px !important; box-shadow: 0 10px 26px rgba(40,56,120,0.08) !important; padding: 24px 20px; }
+.ag-title-wrap { text-align: left; }
+.ag-title, .loan-preamble h1 { color: #14214D; font-size: 25px; font-weight: 900; border-bottom: 3px solid #E0897C; padding-bottom: 14px; text-align: left; }
+.agree-title { color: #14214D; font-size: 22px; font-weight: 900; }
+.agree-p, .acc-body, .acc-body p, .loan-preamble { color: #14214D; }
+.agree-p:first-of-type::first-letter { color: #14214D; font-size: inherit; font-weight: inherit; float: none; padding: 0; line-height: inherit; }
+.acc-item { border: 0; background: #F2F4FB; border-radius: 16px; }
+.acc-item summary { color: #14214D; text-transform: none; letter-spacing: 0; font-size: 14px; }
+.acc-num { background: #7389DA; width: 26px; height: 26px; font-size: 12px; }
+.acc-chevron { fill: #14214D; }
+.loan-preamble hr { background: #ECEEF4; }
+.back-top-btn { background: #fff; border: 0; width: 56px; height: 56px; box-shadow: 0 8px 22px rgba(40,56,120,0.18); }
+.back-top-btn svg { fill: #7389DA; width: 24px; height: 24px; }
+
+/* ══ Tabbed layout + card list (Agreement references) — wording unchanged ══ */
+.agree-page { padding: 22px 18px 60px; }
+.agree-wrap { max-width: 520px; }
+.agree-back-btn { top: 2px; width: 52px; height: 52px; }
+.agree-back-btn svg { fill: none !important; stroke: #14214D; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.agree-header-banner { padding: 10px 50px 18px; margin-bottom: 0; }
+.agree-header-banner h1 { font-size: 26px; }
+.agree-header-banner p { font-size: 14px; line-height: 1.45; }
+
+.ag-tabs { display: grid; grid-template-columns: 1fr 1fr 1.25fr; gap: 3px; padding: 5px; margin-bottom: 18px; border-radius: 999px; background: #E8EAF2; }
+.ag-tab {
+  border: 0; background: transparent; cursor: pointer; padding: 9px 6px; border-radius: 999px; line-height: 1.2;
+  font-size: 13.5px; font-weight: 600; color: #4A5068; transition: background .2s, color .2s, box-shadow .2s;
+}
+.ag-tab.active { background: #fff; color: #5C70CF; box-shadow: 0 6px 14px rgba(40,56,120,0.14); }
+.agree-card.ag-hidden { display: none; }
+
+/* About Us */
+#about .ag-title { font-size: 28px; }
+#about .agree-p:nth-of-type(3) {
+  position: relative; padding: 14px 14px 14px 44px; border-radius: 16px; background: #E8EBF8;
+}
+#about .agree-p:nth-of-type(3)::before {
+  content: 'i'; position: absolute; left: 14px; top: 15px; width: 20px; height: 20px; border-radius: 50%;
+  background: #8193DC; color: #fff; font-size: 13px; font-weight: 800; font-style: normal; line-height: 20px; text-align: center;
+}
+
+/* Articles + sections — each item is its own card */
+#articles, #loan-agreement { background: transparent !important; box-shadow: none !important; padding: 0 !important; overflow: visible; }
+#articles .agree-title { display: none; }
+.agree-sub { margin: 0 4px 12px; font-size: 14px; color: #6B7084; text-align: left !important; }
+.acc-list { gap: 12px; }
+.acc-item { background: #fff; border-radius: 18px; box-shadow: 0 8px 20px rgba(40,56,120,0.07); }
+.acc-item summary { padding: 14px 16px; gap: 14px; font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: .01em; color: #14214D; }
+.acc-num { width: 38px; height: 38px; border-radius: 10px; background: #E3E8F8; color: #5C70CF; font-size: 17px; font-weight: 700; }
+.acc-item[open] summary { color: #5C70CF; border-bottom: 1px solid #ECEEF4; }
+.acc-chevron { width: 20px; height: 20px; fill: #8A90A2; }
+.acc-body { padding: 14px 18px 18px; font-size: 14.5px; line-height: 1.6; }
+#loan-agreement .acc-num { width: 36px; height: 36px; border-radius: 50%; background: #7389DA; color: #fff; font-size: 13px; }
+
+/* full agreement intro card */
+.loan-preamble {
+  display: grid; grid-template-columns: 72px 1fr; column-gap: 14px; align-items: center;
+  padding: 20px; margin-bottom: 14px; border-radius: 22px; background: #DFE4F7;
+}
+.lp-ico { grid-row: 1 / span 2; width: 72px; height: 72px; border-radius: 50%; background: #fff; display: flex; align-items: center; justify-content: center; }
+.lp-ico svg { width: 34px; height: 34px; fill: #8193DC; stroke: #fff; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.loan-preamble h1 { text-align: left !important; font-size: 17px !important; line-height: 1.3; border: 0 !important; padding: 0 !important; margin: 0 0 4px !important; }
+.loan-preamble > p:first-of-type { margin: 0; font-size: 13px; }
+.loan-preamble > p:not(:first-of-type) { grid-column: 1 / -1; margin-top: 12px; font-size: 13.5px; line-height: 1.55; }
+.loan-preamble hr { display: none; }
+.ag-search {
+  display: flex; align-items: center; gap: 10px; margin: 0 0 14px; padding: 0 16px; height: 50px;
+  border-radius: 999px; background: #fff; border: 1.5px solid #DDE1EC;
+}
+.ag-search svg { width: 20px; height: 20px; flex-shrink: 0; fill: none; stroke: #6B7084; stroke-width: 2; stroke-linecap: round; }
+.ag-search input { flex: 1; border: 0; outline: none; background: transparent; font-size: 15px; color: #14214D; }
+.ag-search:focus-within { border-color: #7389DA; box-shadow: 0 0 0 4px rgba(115,137,218,0.16); }
+.acc-item.ag-nomatch { display: none; }
+
+.back-top-btn { right: 18px; bottom: 24px; }
+@media (max-width: 380px) { .ag-tab { font-size: 12px; padding: 8px 4px; } }
+
+/* ══ Roboto typography (Agreement references) ══ */
+.agree-page { -webkit-font-smoothing: antialiased; }
+.agree-header-banner h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.01em; }
+.agree-header-banner p { font-size: 15px; font-weight: 400; color: #6B7084; }
+.ag-tab { font-size: 15px; font-weight: 500; }
+.ag-tab.active { font-weight: 500; }
+#about .ag-title { font-size: 30px; font-weight: 700; letter-spacing: -0.01em; }
+.agree-p, .acc-body, .acc-body p, .acc-body li, .loan-preamble p { font-size: 16px !important; font-weight: 400; line-height: 1.5 !important; color: #14214D; }
+.acc-item summary { font-size: 16px; font-weight: 700; letter-spacing: 0; }
+.acc-num { font-weight: 500; }
+.agree-sub { font-size: 15px; }
+.loan-preamble h1 { font-size: 19px !important; font-weight: 700 !important; }
+.ag-search input { font-size: 16px; }
+@media (max-width: 380px) { .ag-tab { font-size: 13px; } }
 </style>
 
 <div class="agree-page">
@@ -236,44 +370,22 @@ body { background: var(--color-bg) !important; }
 
     <!-- Back button -->
     <div class="agree-back-wrap">
-      <a class="agree-back-btn" href="javascript:history.back()">
-        <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20z"/></svg>
-        Back
+      <a class="agree-back-btn" href="javascript:history.back()" aria-label="Back">
+        <svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
       </a>
     </div>
 
     <!-- Header -->
     <div class="agree-header-banner reveal">
       <h1>Agreement</h1>
-      <p>Terms, disclosures, and legal notices governing your loan with Filipino Fund, Inc.</p>
+      <p>Terms, disclosures, and legal notices governing your loan with 365 Ampersand Connect Corporation</p>
     </div>
 
-    <!-- Table of contents -->
-    <div class="toc-card reveal">
-      <a class="toc-link" href="#about">
-        <span class="toc-num">1</span>
-        <span class="toc-label">
-          <div class="toc-title">About Us</div>
-          <div class="toc-sub">Company background &amp; regulatory standing</div>
-        </span>
-        <svg class="arrow" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
-      </a>
-      <a class="toc-link" href="#articles">
-        <span class="toc-num">2</span>
-        <span class="toc-label">
-          <div class="toc-title">Article 1–12</div>
-          <div class="toc-sub">Core terms and conditions</div>
-        </span>
-        <svg class="arrow" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
-      </a>
-      <a class="toc-link" href="#loan-agreement">
-        <span class="toc-num">3</span>
-        <span class="toc-label">
-          <div class="toc-title">Extended Loan Agreement</div>
-          <div class="toc-sub">Sections 1–20, full legal text</div>
-        </span>
-        <svg class="arrow" viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
-      </a>
+    <!-- Section tabs -->
+    <div class="ag-tabs reveal" role="tablist" aria-label="Agreement sections">
+      <button type="button" class="ag-tab active" data-target="about" role="tab" aria-selected="true">About Us</button>
+      <button type="button" class="ag-tab" data-target="articles" role="tab" aria-selected="false">Article 1–12</button>
+      <button type="button" class="ag-tab" data-target="loan-agreement" role="tab" aria-selected="false">Extended Loan Agreement</button>
     </div>
 
     <!-- =========================
@@ -290,8 +402,8 @@ body { background: var(--color-bg) !important; }
       </p>
 
       <p class="agree-p">
-        The Company was officially incorporated on [May 9, 1991] and operates under business registration,
-        financial service license, or regulatory approval number [SEC / LICENSE / 0000190385], as issued
+        The Company was officially incorporated on [November 11, 2021] and operates under business registration,
+        financial service license, or regulatory approval number [SEC / LICENSE / 2021110032200-04], as issued
         by the relevant governmental or regulatory authority.
       </p>
 
@@ -477,6 +589,7 @@ The remaining provisions shall continue to be valid and enforceable to the fulle
          ========================= -->
     <div class="agree-card reveal" id="loan-agreement">
       <div class="loan-preamble">
+        <span class="lp-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span>
         <h1>
           Extended Loan User Agreement, Terms, Conditions, Disclosures, Acknowledgments, Waivers, and Legal Notices
         </h1>
@@ -486,7 +599,7 @@ The remaining provisions shall continue to be valid and enforceable to the fulle
         <p>
           This <strong>Extended Loan User Agreement, Terms, Conditions, Disclosures, Acknowledgments, Waivers, and Legal Notices</strong>
           (the "<strong>Agreement</strong>") is a legally binding and enforceable contract entered into by and between
-          <strong>Filipino Fund, Inc.</strong> (the "Company," "We," "Us," or "Our") and any individual or legal entity who accesses,
+          <strong>365 Ampersand Connect Corporation</strong> (the "Company," "We," "Us," or "Our") and any individual or legal entity who accesses,
           applies for, receives, guarantees, repays, or otherwise interacts with any loan, financial product, service,
           website, mobile application, communication channel, or platform operated or provided by the Company
           (the "User," "Borrower," "Applicant," "Guarantor," "You," or "Your").
@@ -495,7 +608,11 @@ The remaining provisions shall continue to be valid and enforceable to the fulle
         <hr />
       </div>
 
-      <div class="agree-sub" style="text-align:center; margin-bottom:4px;">Sections 1–20 — tap any item to read</div>
+      <label class="ag-search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        <input type="search" id="agSearch" placeholder="Search" aria-label="Search sections" autocomplete="off">
+      </label>
+      <div class="agree-sub" style="margin-bottom:4px;">Sections 1–20 — tap any item to read</div>
 
       <div class="acc-list">
 
@@ -742,4 +859,26 @@ The remaining provisions shall continue to be valid and enforceable to the fulle
 })();
 </script>
 
+
+<script>
+/* Tabs show one part of the agreement at a time; search filters the full-agreement sections. */
+(function(){
+  const tabs = Array.from(document.querySelectorAll('.ag-tab'));
+  const cards = tabs.map(t => document.getElementById(t.dataset.target)).filter(Boolean);
+  function show(id){
+    tabs.forEach(t => { const on = t.dataset.target === id; t.classList.toggle('active', on); t.setAttribute('aria-selected', on ? 'true' : 'false'); });
+    cards.forEach(c => { c.classList.toggle('ag-hidden', c.id !== id); if (c.id === id) c.classList.add('on'); });
+  }
+  tabs.forEach(t => t.addEventListener('click', () => { show(t.dataset.target); }));
+  show((location.hash || '').slice(1) && document.getElementById(location.hash.slice(1)) ? location.hash.slice(1) : 'about');
+
+  const q = document.getElementById('agSearch');
+  if (q) q.addEventListener('input', function(){
+    const term = q.value.trim().toLowerCase();
+    document.querySelectorAll('#loan-agreement .acc-item').forEach(function(item){
+      item.classList.toggle('ag-nomatch', !!term && !item.textContent.toLowerCase().includes(term));
+    });
+  });
+})();
+</script>
 {% endblock %}
