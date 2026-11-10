@@ -4,8 +4,13 @@
 name: mana-4
 region: nyc
 domains:
-  - domain: filipinofund.vip
+  - domain: 365ampersand.com
     type: PRIMARY
+  - domain: www.365ampersand.com
+    type: ALIAS
+  # old domain — remove once 365ampersand.com is live
+  - domain: filipinofund.vip
+    type: ALIAS
 services:
   - name: web
     github:
